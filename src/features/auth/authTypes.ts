@@ -9,7 +9,7 @@ export interface UtenteAutenticato {
     nome: string;
     cognome: string;
     email: string;
-    ruolo: Ruolp;
+    ruolo: Ruolo;
 }
 
 export interface AuthState {
