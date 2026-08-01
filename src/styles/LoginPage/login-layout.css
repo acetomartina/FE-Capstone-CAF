@@ -1,0 +1,72 @@
+/* Riempie lo spazio lasciato da navbar e footer del PublicLayout,
+   senza altezze fisse da tenere allineate a mano. */
+.login-page {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+  color: #071b4f;
+}
+
+.login-main {
+  flex: 1;
+  display: flex;
+}
+
+.login-main > .container-fluid {
+  flex: 1;
+  display: flex;
+}
+
+.login-main .row {
+  flex: 1;
+}
+
+.login-access {
+  padding: 4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle at 82% 35%,
+      rgba(30, 124, 222, 0.06),
+      transparent 28%
+    ),
+    #ffffff;
+}
+
+.login-access__content {
+  width: 100%;
+  max-width: 500px;
+}
+
+.login-access__heading h1,
+.login-access__heading p {
+  margin: 0;
+}
+
+.login-access__heading h1 {
+  color: #071b4f;
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.login-access__heading p {
+  margin-top: 0.35rem;
+
+  color: #687aa6;
+  font-size: 1.12rem;
+}
+
+.login-access__intro {
+  margin: 2.55rem 0 1.65rem;
+
+  color: #071b4f;
+  font-weight: 700;
+}

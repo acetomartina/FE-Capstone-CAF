@@ -1,0 +1,76 @@
+.login-contact-box {
+  margin-top: 2rem;
+  padding: 1.15rem;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+
+  border: 1px solid #cad6e8;
+  border-radius: 14px;
+
+  background: #fbfcff;
+}
+
+.login-contact-box__icon {
+  width: 46px;
+  height: 46px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e6eef9;
+  color: #375985;
+
+  font-size: 1.2rem;
+}
+
+.login-contact-box__text strong {
+  color: #071b4f;
+  font-size: 0.94rem;
+}
+
+.login-contact-box__text p {
+  margin: 0.3rem 0 0;
+
+  color: #19458d;
+
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.login-contact-box__button {
+  min-height: 42px;
+  padding: 0 0.95rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  border: 1px solid #096fe5;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #0960cf;
+
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.login-contact-box__button:hover {
+  background: #096fe5;
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}

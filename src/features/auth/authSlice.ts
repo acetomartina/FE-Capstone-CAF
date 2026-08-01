@@ -11,7 +11,9 @@ const initialState: AuthState = {
 
 const authSlice = createSlice({
   name: "auth",
+
   initialState,
+
   reducers: {
     impostaAutenticazione: (
       state,
@@ -23,6 +25,7 @@ const authSlice = createSlice({
       state.utente = action.payload.utente;
       state.token = action.payload.token;
       state.autenticato = true;
+      state.caricamento = false;
       state.errore = null;
     },
 
@@ -31,6 +34,10 @@ const authSlice = createSlice({
       action: PayloadAction<boolean>
     ) => {
       state.caricamento = action.payload;
+
+      if (action.payload) {
+        state.errore = null;
+      }
     },
 
     impostaErrore: (
@@ -38,6 +45,7 @@ const authSlice = createSlice({
       action: PayloadAction<string | null>
     ) => {
       state.errore = action.payload;
+      state.caricamento = false;
     },
 
     logout: (state) => {

@@ -1,0 +1,139 @@
+.public-footer {
+  border-top: 1px solid #dce5f2;
+  background: #ffffff;
+  color: #071b4f;
+}
+
+.public-footer__content {
+  width: min(100% - 3rem, 1320px);
+  min-height: 92px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.public-footer__security {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.public-footer__icon {
+  width: 44px;
+  height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #eaf2fb;
+  color: #1266b2;
+
+  font-size: 1.2rem;
+}
+
+.public-footer__security strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.public-footer__security p {
+  margin: 0.18rem 0 0;
+  color: #687aa6;
+  font-size: 0.84rem;
+}
+
+.public-footer__contacts {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.public-footer__contacts a,
+.public-footer__contacts span,
+.public-footer__privacy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  color: #526689;
+  font-size: 0.86rem;
+  text-decoration: none;
+}
+
+.public-footer__contacts a:hover {
+  color: #087f45;
+}
+
+.public-footer__contacts svg,
+.public-footer__privacy svg {
+  color: #0b8d4a;
+}
+
+.public-footer__privacy {
+  white-space: nowrap;
+}
+
+.public-footer__bottom {
+  min-height: 42px;
+  padding: 0 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+
+  border-top: 1px solid #edf1f7;
+  background: #f8fafc;
+
+  color: #74819c;
+  font-size: 0.8rem;
+}
+
+.public-footer__bottom span + span::before {
+  content: "•";
+  margin-right: 0.7rem;
+}
+
+@media (max-width: 991.98px) {
+  .public-footer__content {
+    padding: 1.5rem 0;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .public-footer__contacts {
+    flex-wrap: wrap;
+  }
+
+  .public-footer__privacy {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 620px) {
+  .public-footer__content {
+    width: min(100% - 2rem, 1320px);
+  }
+
+  .public-footer__contacts {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .public-footer__bottom {
+    padding-block: 0.85rem;
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: center;
+  }
+
+  .public-footer__bottom span + span::before {
+    display: none;
+  }
+}

@@ -11,11 +11,9 @@ const App = () => {
     <Routes>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
-
-      <Route path="/login" element={<LoginPage />} />
-
-      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

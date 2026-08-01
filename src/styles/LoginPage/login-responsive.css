@@ -1,0 +1,143 @@
+@media (max-width: 1180px) {
+  .login-info {
+    padding-inline: 3rem;
+  }
+
+  .login-access {
+    padding-inline: 3rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .login-page {
+    display: block;
+  }
+
+  /* Sotto lg le colonne si impilano: basta togliere lo stretch verticale
+     e lasciar lavorare il wrap nativo della .row di Bootstrap. */
+  .login-main,
+  .login-main > .container-fluid {
+    display: block;
+  }
+
+  .login-info {
+    min-height: auto;
+    padding: 3.25rem 1.5rem;
+  }
+
+  .login-info__content {
+    max-width: 650px;
+  }
+
+  .login-info__eyebrow {
+    margin-bottom: 2rem;
+  }
+
+  .login-benefits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .login-access {
+    padding: 3.5rem 1.5rem;
+  }
+
+  .login-access__content {
+    max-width: 650px;
+  }
+
+  .login-security {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .login-info {
+    padding: 2.75rem 1.25rem;
+  }
+
+  .login-info__symbol {
+    width: 50px;
+    height: 50px;
+
+    font-size: 1.45rem;
+  }
+
+  .login-info__eyebrow strong {
+    font-size: 1.35rem;
+  }
+
+  .login-info__eyebrow div span {
+    font-size: 0.75rem;
+  }
+
+  .login-info__heading h1 {
+    font-size: 2.15rem;
+  }
+
+  .login-info__heading p {
+    font-size: 1rem;
+  }
+
+  .login-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .login-benefit {
+    align-items: flex-start;
+  }
+
+  .login-access {
+    padding: 3rem 1.25rem;
+  }
+
+  .login-access__heading h1 {
+    font-size: 2rem;
+  }
+
+  .login-access__intro {
+    margin-top: 2rem;
+  }
+
+  .login-form__field {
+    min-height: 58px;
+  }
+
+  .login-contact-box {
+    grid-template-columns: auto 1fr;
+  }
+
+  .login-contact-box__button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .login-security {
+    align-items: flex-start;
+    padding-inline: 1.25rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .login-info__heading h1 {
+    font-size: 1.9rem;
+  }
+
+  .login-form__label-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .login-contact-box {
+    grid-template-columns: 1fr;
+  }
+
+  .login-contact-box__icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .login-contact-box__button {
+    grid-column: auto;
+  }
+}
