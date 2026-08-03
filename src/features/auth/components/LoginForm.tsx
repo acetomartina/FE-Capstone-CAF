@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import {
   FiArrowRight,
   FiEye,
@@ -45,12 +46,9 @@ const LoginForm = () => {
         <div className="login-form__label-row">
           <Form.Label>Password</Form.Label>
 
-          <button
-            type="button"
-            className="login-form__forgot"
-          >
+          <Link to="/recupera-password" className="login-form__forgot">
             Password dimenticata?
-          </button>
+          </Link>
         </div>
 
         <div className="login-form__field">
