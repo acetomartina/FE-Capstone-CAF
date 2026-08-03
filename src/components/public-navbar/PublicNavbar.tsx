@@ -1,135 +1,113 @@
-import { useEffect, useState } from "react";
+import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { FiMenu, FiPhone, FiUser, FiX } from "react-icons/fi";
+import { FiPhone, FiUser } from "react-icons/fi";
 
 import logoCafFapi from "../../assets/logo.svg";
 import "./PublicNavbar.css";
 
 const PublicNavbar = () => {
-  const [menuAperto, setMenuAperto] = useState(false);
-
-  const chiudiMenu = () => {
-    setMenuAperto(false);
-  };
-
-  useEffect(() => {
-    if (!menuAperto) return;
-
-    const gestisciTasto = (evento: KeyboardEvent) => {
-      if (evento.key === "Escape") {
-        setMenuAperto(false);
-      }
-    };
-
-    document.addEventListener("keydown", gestisciTasto);
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", gestisciTasto);
-      document.body.style.overflow = "";
-    };
-  }, [menuAperto]);
-
   return (
-    <header className="public-navbar">
-      <div className="public-navbar__container">
-        <NavLink
+    <Navbar
+      expand="lg"
+      sticky="top"
+      className="public-navbar bg-white border-bottom py-0"
+    >
+      <Container fluid="xl" className="public-navbar__container">
+        <Navbar.Brand
+          as={NavLink}
           to="/"
-          className="public-navbar__brand"
-          onClick={chiudiMenu}
-          aria-label="CAF FAPI Pianopoli - Home"
+          className="d-flex align-items-center gap-3 m-0 py-0"
         >
           <img
             src={logoCafFapi}
-            alt=""
+            alt="CAF FAPI"
             className="public-navbar__logo"
-            aria-hidden="true"
           />
 
-          <div className="public-navbar__office">
+          <div className="public-navbar__office d-none d-xl-flex flex-column border-start ps-3">
             <span>SEDE DI</span>
             <strong>Pianopoli</strong>
           </div>
-        </NavLink>
+        </Navbar.Brand>
 
-        <button
-          type="button"
-          className="public-navbar__menu-button"
-          onClick={() => setMenuAperto((aperto) => !aperto)}
-          aria-label={menuAperto ? "Chiudi menu" : "Apri menu"}
-          aria-expanded={menuAperto}
-          aria-controls="public-navbar-content"
+        <Navbar.Toggle
+          aria-controls="public-navbar-menu"
+          className="shadow-none"
+        />
+
+        <Navbar.Offcanvas
+          id="public-navbar-menu"
+          placement="end"
+          aria-labelledby="public-navbar-title"
         >
-          {menuAperto ? <FiX /> : <FiMenu />}
-        </button>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title id="public-navbar-title">
+              CAF FAPI Pianopoli
+            </Offcanvas.Title>
+          </Offcanvas.Header>
 
-        <div
-          id="public-navbar-content"
-          className={`public-navbar__content ${
-            menuAperto ? "public-navbar__content--open" : ""
-          }`}
-        >
-          <nav
-            className="public-navbar__links"
-            aria-label="Navigazione principale"
-          >
-            <NavLink to="/" onClick={chiudiMenu}>
-              Home
-            </NavLink>
+          <Offcanvas.Body className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center">
+            <Nav className="mx-lg-auto gap-lg-4">
+              <NavLink to="/" className="nav-link">
+                Home
+              </NavLink>
 
-            <NavLink to="/servizi" onClick={chiudiMenu}>
-              Servizi
-            </NavLink>
+              <NavLink to="/servizi" className="nav-link">
+                Servizi
+              </NavLink>
 
-            <NavLink to="/chi-siamo" onClick={chiudiMenu}>
-              Chi siamo
-            </NavLink>
+              <NavLink to="/chi-siamo" className="nav-link">
+                Chi siamo
+              </NavLink>
 
-            <NavLink to="/contatti" onClick={chiudiMenu}>
-              Contatti
-            </NavLink>
-          </nav>
+              <NavLink to="/contatti" className="nav-link">
+                Contatti
+              </NavLink>
+            </Nav>
 
-          <div className="public-navbar__actions">
-            <a
-              href="tel:+393779609155"
-              className="public-navbar__phone"
-              onClick={chiudiMenu}
-              aria-label="Chiama il CAF FAPI Pianopoli"
-            >
-              <FiPhone />
-              <span>377 960 9155</span>
-            </a>
-
-            <div
-              className="public-navbar__languages"
-              aria-label="Selezione lingua"
-            >
-              <button
-                type="button"
-                className="is-active"
-                onClick={chiudiMenu}
+            <div className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-3 mt-4 mt-lg-0">
+              <a
+                href="tel:+393779609155"
+                className="public-navbar__phone d-flex align-items-center justify-content-center gap-2 text-decoration-none"
               >
-                IT
-              </button>
+                <FiPhone />
+                <span className="d-lg-none d-xl-inline">
+                  377 960 9155
+                </span>
+              </a>
 
-              <button type="button" onClick={chiudiMenu}>
-                EN
-              </button>
+              <div
+                className="btn-group public-navbar__languages"
+                role="group"
+                aria-label="Selezione lingua"
+              >
+                <button
+                  type="button"
+                  className="btn public-navbar__language is-active"
+                >
+                  IT
+                </button>
+
+                <button
+                  type="button"
+                  className="btn public-navbar__language"
+                >
+                  EN
+                </button>
+              </div>
+
+              <NavLink
+                to="/login"
+                className="public-navbar__reserved d-flex align-items-center justify-content-center gap-2"
+              >
+                <FiUser />
+                <span>Area riservata</span>
+              </NavLink>
             </div>
-
-            <NavLink
-              to="/login"
-              className="public-navbar__reserved"
-              onClick={chiudiMenu}
-            >
-              <FiUser />
-              <span>Area riservata</span>
-            </NavLink>
-          </div>
-        </div>
-      </div>
-    </header>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
+      </Container>
+    </Navbar>
   );
 };
 
