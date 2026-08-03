@@ -56,43 +56,6 @@
   max-width: 590px;
 }
 
-.login-info__symbol {
-  width: 54px;
-  height: 54px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 12px;
-
-  background: linear-gradient(145deg, #087f40, #056c36);
-  color: #ffffff;
-
-  font-size: 1.7rem;
-  font-weight: 800;
-
-  box-shadow: 0 7px 16px rgba(7, 136, 66, 0.18);
-}
-
-.login-info__brand {
-  color: #001e4d;
-
-  font-size: 1.45rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.login-info__location {
-  margin-top: 0.45rem;
-
-  color: #078842;
-
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
 .login-info__title {
   color: #001e4d;
 

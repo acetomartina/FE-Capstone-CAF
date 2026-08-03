@@ -33,17 +33,8 @@ const LoginHero = () => {
   return (
     <section className="login-info h-100">
       <div className="login-info__content mx-auto">
-        <div className="d-flex align-items-center gap-3 mb-5">
-          <span className="login-info__symbol">F</span>
-
-          <div className="d-flex flex-column">
-            <strong className="login-info__brand">FAPI</strong>
-            <span className="login-info__location">
-              SEDE DI PIANOPOLI
-            </span>
-          </div>
-        </div>
-
+        {/* Il marchio sta gia' nella navbar, a pochi pixel da qui:
+            ripeterlo rubava spazio senza aggiungere informazione. */}
         <div className="mb-4">
           <h1 className="login-info__title mb-3">
             La tua area personale,
