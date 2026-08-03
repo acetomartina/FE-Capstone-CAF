@@ -20,6 +20,13 @@
     display: block;
   }
 
+  /* Chi apre questa pagina da telefono cerca il form, non la vetrina:
+     l'accesso viene prima, l'hero resta sotto come approfondimento.
+     Su desktop lo split-screen non cambia. */
+  .login-access {
+    order: -1;
+  }
+
   .login-info {
     min-height: auto;
     padding: 3.25rem 1.5rem;
