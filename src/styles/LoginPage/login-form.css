@@ -133,14 +133,15 @@
   border: 0;
   border-radius: 13px;
 
-  background: linear-gradient(100deg, #12a957, #0d7bdc);
+  /* Verde CAF pieno: il verde segnala l'azione, il blu la struttura. */
+  background: #078842;
 
   color: #ffffff;
 
   font-size: 1rem;
   font-weight: 800;
 
-  box-shadow: 0 13px 24px rgba(18, 153, 150, 0.2);
+  box-shadow: 0 13px 24px rgba(7, 136, 66, 0.22);
 
   transition:
     transform 0.2s ease,
@@ -153,18 +154,27 @@
 .login-form__submit.btn:first-child:active {
   border: 0;
 
-  background: linear-gradient(100deg, #12a957, #0d7bdc);
+  background: #066f36;
 
   color: #ffffff;
 
   transform: translateY(-1px);
 
-  box-shadow: 0 16px 30px rgba(18, 153, 150, 0.26);
+  box-shadow: 0 16px 30px rgba(7, 136, 66, 0.28);
 }
 
 .login-form__submit.btn:focus-visible {
-  outline: 3px solid rgba(13, 123, 220, 0.25);
+  outline: 3px solid rgba(7, 136, 66, 0.3);
   outline-offset: 3px;
+}
+
+/* Verde spento ma ancora leggibile: il bianco sopra resta sopra 4.5:1. */
+.login-form__submit.btn:disabled {
+  background: #4e7a62;
+
+  transform: none;
+  box-shadow: none;
+  opacity: 1;
 }
 
 .login-form__submit svg {
