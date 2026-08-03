@@ -8,9 +8,17 @@ import NotFoundPage from "./pages/NotFoundPage";
 import RecuperoPasswordPage from "./pages/RecuperoPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 
+import RottaProtetta from "./features/auth/components/RottaProtetta";
+import {
+  RUOLI_AMMINISTRAZIONE,
+  RUOLI_CLIENTE,
+  RUOLI_DIPENDENTE,
+} from "./features/auth/percorsiRuolo";
+
 import AreaAmministrazionePage from "./pages/area-riservata/AreaAmministrazionePage";
 import AreaClientePage from "./pages/area-riservata/AreaClientePage";
 import AreaDipendentePage from "./pages/area-riservata/AreaDipendentePage";
+import AreaRiservataPage from "./pages/area-riservata/AreaRiservataPage";
 
 const App = () => {
   return (
@@ -30,14 +38,32 @@ const App = () => {
             "richiedine uno nuovo" che un 404 senza indicazioni. */}
         <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-        {/* Ancora senza guardia: la protezione per ruolo arriva subito
-            dopo, insieme al login collegato. */}
-        <Route path="/cliente" element={<AreaClientePage />} />
-        <Route path="/dipendente" element={<AreaDipendentePage />} />
+        {/* Ingresso unico: basta essere autenticati, al resto pensa lo
+            smistamento per ruolo. */}
+        <Route element={<RottaProtetta />}>
+          <Route
+            path="/area-riservata"
+            element={<AreaRiservataPage />}
+          />
+        </Route>
+
+        {/* Un'area per ruolo: chi sbaglia porta viene portato alla sua. */}
+        <Route element={<RottaProtetta ruoliAmmessi={RUOLI_CLIENTE} />}>
+          <Route path="/cliente" element={<AreaClientePage />} />
+        </Route>
+
+        <Route element={<RottaProtetta ruoliAmmessi={RUOLI_DIPENDENTE} />}>
+          <Route path="/dipendente" element={<AreaDipendentePage />} />
+        </Route>
+
         <Route
-          path="/amministrazione"
-          element={<AreaAmministrazionePage />}
-        />
+          element={<RottaProtetta ruoliAmmessi={RUOLI_AMMINISTRAZIONE} />}
+        >
+          <Route
+            path="/amministrazione"
+            element={<AreaAmministrazionePage />}
+          />
+        </Route>
 
         <Route path="*" element={<NotFoundPage />} />
       </Route>
