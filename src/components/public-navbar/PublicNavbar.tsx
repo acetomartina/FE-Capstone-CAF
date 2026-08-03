@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { FiPhone, FiUser } from "react-icons/fi";
+import { FiMail, FiMapPin, FiPhone, FiUser } from "react-icons/fi";
 
 import logoCafFapi from "../../assets/logo.svg";
 import "./PublicNavbar.css";
@@ -86,6 +86,29 @@ const PublicNavbar = () => {
                 Contatti
               </NavLink>
             </Nav>
+
+            {/* Il menu a scomparsa esiste solo sotto lg: tanto vale usarlo
+                per i recapiti della sede, invece di lasciarlo mezzo vuoto. */}
+            <div className="public-navbar__contatti d-lg-none">
+              <span className="public-navbar__contatti-titolo">
+                Contatti
+              </span>
+
+              <a href="tel:+393779609155">
+                <FiPhone />
+                377 960 9155
+              </a>
+
+              <a href="mailto:info@caf-fapi-pianopoli.it">
+                <FiMail />
+                info@caf-fapi-pianopoli.it
+              </a>
+
+              <span className="public-navbar__contatti-luogo">
+                <FiMapPin />
+                Pianopoli
+              </span>
+            </div>
 
             <div className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-3 mt-4 mt-lg-0">
               {/* Sotto lg vivono fuori dal menu: qui servono solo da lg
