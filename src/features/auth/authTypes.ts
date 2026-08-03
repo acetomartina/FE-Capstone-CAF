@@ -1,3 +1,5 @@
+/* USER e' il dipendente del CAF: "utente" nel senso di membro dello staff,
+   non di persona che usa il sito. I clienti hanno il ruolo CLIENTE. */
 export type Ruolo =
   | "SUPER_ADMIN"
   | "ADMIN"
@@ -10,6 +12,28 @@ export interface UtenteAutenticato {
   cognome: string;
   email: string;
   ruolo: Ruolo;
+  attivo: boolean;
+  urlImmagineProfilo: string | null;
+}
+
+export interface RichiestaLogin {
+  email: string;
+  password: string;
+}
+
+/* Ricalca LoginResponse del backend. `expiresAt` arriva come stringa ISO,
+   non come Date: la conversione, se servira', si fa dove si usa. */
+export interface RispostaLogin {
+  accessToken: string;
+  tokenType: string;
+  expiresAt: string;
+  id: number;
+  nome: string;
+  cognome: string;
+  email: string;
+  ruolo: Ruolo;
+  attivo: boolean;
+  urlImmagineProfilo: string | null;
 }
 
 export interface AuthState {
