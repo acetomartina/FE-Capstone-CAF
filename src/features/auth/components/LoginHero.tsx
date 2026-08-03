@@ -1,4 +1,6 @@
 import { Card, Stack } from "react-bootstrap";
+
+import MarchioFapi from "../../../components/marchio/MarchioFapi";
 import {
   FiBell,
   FiCalendar,
@@ -33,9 +35,9 @@ const LoginHero = () => {
   return (
     <section className="login-info h-100">
       <div className="login-info__content mx-auto">
-        {/* Il marchio sta gia' nella navbar, a pochi pixel da qui:
-            ripeterlo rubava spazio senza aggiungere informazione. */}
-        <div className="mb-4">
+        <MarchioFapi variante="hero" />
+
+        <div className="mb-4 mt-5">
           <h1 className="login-info__title mb-3">
             La tua area personale,
             <br />

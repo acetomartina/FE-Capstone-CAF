@@ -1,0 +1,90 @@
+.marchio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.marchio__simbolo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  border-radius: 12px;
+
+  background: linear-gradient(145deg, #087f40, #056c36);
+  color: #ffffff;
+
+  font-weight: 800;
+  line-height: 1;
+
+  box-shadow: 0 7px 16px rgba(7, 136, 66, 0.18);
+}
+
+.marchio__testo {
+  display: flex;
+  flex-direction: column;
+}
+
+/* La sigla e' l'elemento dominante: e' il marchio che deve restare in mente. */
+.marchio__nome {
+  color: #001e4d;
+
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.marchio__sede {
+  color: #078842;
+
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+/* Misure della barra: il simbolo sta dentro i 74px di altezza navbar. */
+.marchio--navbar .marchio__simbolo {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 10px;
+
+  font-size: 1.35rem;
+}
+
+.marchio--navbar .marchio__nome {
+  font-size: 1.15rem;
+}
+
+.marchio--navbar .marchio__sede {
+  margin-top: 0.25rem;
+
+  font-size: 0.66rem;
+}
+
+/* Misure dell'hero: identiche a quelle del blocco precedente. */
+.marchio--hero .marchio__simbolo {
+  width: 54px;
+  height: 54px;
+
+  font-size: 1.7rem;
+}
+
+.marchio--hero .marchio__nome {
+  font-size: 1.45rem;
+}
+
+.marchio--hero .marchio__sede {
+  margin-top: 0.45rem;
+
+  font-size: 0.78rem;
+}
+
+@media (max-width: 620px) {
+  .marchio--hero .marchio__simbolo {
+    width: 50px;
+    height: 50px;
+
+    font-size: 1.45rem;
+  }
+}
