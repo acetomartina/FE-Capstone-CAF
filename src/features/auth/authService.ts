@@ -1,13 +1,29 @@
 import api from "../../services/api";
 
 import type {
+  RichiestaLogin,
   RichiestaRecuperoPassword,
   RichiestaResetPassword,
+  RispostaLogin,
   RispostaRecuperoPassword,
   RispostaResetPassword,
 } from "./authTypes";
 
 export const authService = {
+  async login(
+    email: string,
+    password: string,
+  ): Promise<RispostaLogin> {
+    const corpo: RichiestaLogin = { email, password };
+
+    const risposta = await api.post<RispostaLogin>(
+      "/api/auth/login",
+      corpo,
+    );
+
+    return risposta.data;
+  },
+
   async richiediRecuperoPassword(
     email: string,
   ): Promise<RispostaRecuperoPassword> {
