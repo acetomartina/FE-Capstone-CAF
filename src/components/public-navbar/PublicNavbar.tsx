@@ -30,10 +30,32 @@ const PublicNavbar = () => {
           </div>
         </Navbar.Brand>
 
-        <Navbar.Toggle
-          aria-controls="public-navbar-menu"
-          className="shadow-none"
-        />
+        {/* Sotto lg queste due azioni restano fuori dal menu: chiamare la
+            sede e accedere sono le cose che si cercano davvero da telefono,
+            e dietro l'hamburger costerebbero due tap. */}
+        <div className="public-navbar__actions d-flex d-lg-none align-items-center">
+          <a
+            href="tel:+393779609155"
+            className="public-navbar__phone public-navbar__phone--compatto d-flex align-items-center justify-content-center gap-2 text-decoration-none"
+            aria-label="Chiama la sede: 377 960 9155"
+          >
+            <FiPhone />
+          </a>
+
+          <NavLink
+            to="/login"
+            className="public-navbar__reserved public-navbar__reserved--compatto d-flex align-items-center justify-content-center gap-2"
+            aria-label="Area riservata"
+          >
+            <FiUser />
+            <span className="d-none d-sm-inline">Area riservata</span>
+          </NavLink>
+
+          <Navbar.Toggle
+            aria-controls="public-navbar-menu"
+            className="shadow-none"
+          />
+        </div>
 
         <Navbar.Offcanvas
           id="public-navbar-menu"
@@ -66,14 +88,14 @@ const PublicNavbar = () => {
             </Nav>
 
             <div className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-3 mt-4 mt-lg-0">
+              {/* Sotto lg vivono fuori dal menu: qui servono solo da lg
+                  in su, dove l'offcanvas e' una barra orizzontale. */}
               <a
                 href="tel:+393779609155"
-                className="public-navbar__phone d-flex align-items-center justify-content-center gap-2 text-decoration-none"
+                className="public-navbar__phone d-none d-lg-flex align-items-center justify-content-center gap-2 text-decoration-none"
               >
                 <FiPhone />
-                <span className="d-lg-none d-xl-inline">
-                  377 960 9155
-                </span>
+                <span>377 960 9155</span>
               </a>
 
               <div
@@ -98,7 +120,7 @@ const PublicNavbar = () => {
 
               <NavLink
                 to="/login"
-                className="public-navbar__reserved d-flex align-items-center justify-content-center gap-2"
+                className="public-navbar__reserved d-none d-lg-flex align-items-center justify-content-center gap-2"
               >
                 <FiUser />
                 <span>Area riservata</span>

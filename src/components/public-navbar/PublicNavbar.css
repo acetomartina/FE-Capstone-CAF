@@ -151,16 +151,40 @@
     border-bottom: 1px solid #e7edf2;
   }
 
-  .public-navbar__phone,
-  .public-navbar__reserved {
+  /* Solo dentro il menu a scomparsa: in barra le azioni restano compatte. */
+  .offcanvas .public-navbar__phone,
+  .offcanvas .public-navbar__reserved {
     width: 100%;
     min-height: 46px;
   }
 
-  .public-navbar__phone {
+  .offcanvas .public-navbar__phone {
     border: 1px solid #d6e1e8;
     border-radius: 8px;
     background: #f7faf9;
+  }
+
+  .public-navbar__actions {
+    gap: 0.5rem;
+  }
+
+  .public-navbar__phone--compatto,
+  .public-navbar__reserved--compatto {
+    width: auto;
+    min-width: 44px;
+    min-height: 44px;
+    padding-inline: 0.7rem;
+  }
+
+  .public-navbar__phone--compatto {
+    border: 1px solid #cfe0d6;
+    border-radius: 8px;
+    background: #f4f8f6;
+    font-size: 1.05rem;
+  }
+
+  .public-navbar__reserved--compatto {
+    font-size: 0.86rem;
   }
 
   .public-navbar__languages {
