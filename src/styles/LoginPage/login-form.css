@@ -3,6 +3,41 @@
   gap: 1.4rem;
 }
 
+/* Errore vero, corallo: credenziali sbagliate, guasto tecnico, token
+   bruciato. Il nome della classe resta quello con cui e' nata nelle pagine
+   password, ma la usano tutti e tre i form. */
+.password-alert {
+  padding: 1.05rem 1.15rem;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.85rem;
+
+  border: 1px solid #f2cdc6;
+  border-radius: 13px;
+
+  background: #fdf4f2;
+}
+
+.password-alert__icon {
+  display: inline-flex;
+
+  color: #d9584b;
+
+  font-size: 1.3rem;
+}
+
+.password-alert__text {
+  margin: 0;
+
+  color: #c0392f;
+
+  font-size: 0.93rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
 .login-form__group {
   display: grid;
   gap: 0.55rem;
