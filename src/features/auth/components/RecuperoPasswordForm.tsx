@@ -96,7 +96,7 @@ const RecuperoPasswordForm = () => {
 
       <Button
         type="submit"
-        className="login-form__submit password-form__submit"
+        className="login-form__submit"
         disabled={stato === "invio"}
       >
         <span>
