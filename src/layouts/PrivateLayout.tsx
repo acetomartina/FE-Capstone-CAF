@@ -10,7 +10,7 @@ import {
 } from "react-icons/fi";
 import { NavLink, Outlet } from "react-router-dom";
 
-import logo from "../assets/caf-fapi-logo-vettoriale.png";
+import logo from "../assets/logo.svg";
 import "./PrivateLayout.css";
 
 const PrivateLayout = () => {
