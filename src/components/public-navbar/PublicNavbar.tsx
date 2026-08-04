@@ -99,14 +99,14 @@ const PublicNavbar = () => {
                 377 960 9155
               </a>
 
-              <a href="mailto:info@caf-fapi-pianopoli.it">
+              <a href="mailto:pianopolicaf@gmail.com">
                 <FiMail />
-                info@caf-fapi-pianopoli.it
+                pianopolicaf@gmail.com
               </a>
 
               <span className="public-navbar__contatti-luogo">
                 <FiMapPin />
-                Pianopoli
+                Via Roma 69, 88040 Pianopoli (CZ)
               </span>
             </div>
 

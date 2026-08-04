@@ -1,7 +1,9 @@
 import { useState, type FormEvent } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
+  FiAlertCircle,
   FiArrowRight,
   FiEye,
   FiEyeOff,
@@ -9,22 +11,102 @@ import {
   FiMail,
 } from "react-icons/fi";
 
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { tokenService } from "../../../services/tokenService";
+import { authService } from "../authService";
+import {
+  impostaAutenticazione,
+  impostaCaricamento,
+  impostaErrore,
+} from "../authSlice";
+import { PERCORSO_AREA_RISERVATA } from "../percorsiRuolo";
+
+const MESSAGGIO_CREDENZIALI =
+  "Email o password non corrette. Controlla i dati e riprova.";
+
+const MESSAGGIO_TECNICO =
+  "Non è stato possibile completare l'accesso per un problema tecnico. Riprova tra qualche minuto.";
+
+/* Qui il 401 puo' essere esplicito: chi prova ad accedere dichiara di
+   conoscere quelle credenziali, quindi dirgli che sono sbagliate non
+   rivela niente che non sappia gia'. Diverso dal recupero password. */
+const messaggioPerErrore = (errore: unknown): string => {
+  if (!axios.isAxiosError(errore)) {
+    return MESSAGGIO_TECNICO;
+  }
+
+  const stato = errore.response?.status;
+
+  if (stato === 401) {
+    return MESSAGGIO_CREDENZIALI;
+  }
+
+  return MESSAGGIO_TECNICO;
+};
+
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mostraPassword, setMostraPassword] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const caricamento = useAppSelector((stato) => stato.auth.caricamento);
+  const errore = useAppSelector((stato) => stato.auth.errore);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const posizione = useLocation();
+
+  /* La guardia ha salvato qui la pagina che l'utente voleva aprire. */
+  const destinazione =
+    (posizione.state as { da?: string } | null)?.da ??
+    PERCORSO_AREA_RISERVATA;
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log({
-      email,
-      password,
-    });
+    dispatch(impostaCaricamento(true));
+
+    try {
+      const risposta = await authService.login(email, password);
+
+      /* Prima il token: e' cio' che autorizza le chiamate successive.
+         Se qualcosa si rompe dopo, meglio avere le credenziali salvate
+         e lo store incompleto che il contrario. */
+      tokenService.salvaToken(risposta.accessToken);
+
+      dispatch(
+        impostaAutenticazione({
+          token: risposta.accessToken,
+          utente: {
+            id: risposta.id,
+            nome: risposta.nome,
+            cognome: risposta.cognome,
+            email: risposta.email,
+            ruolo: risposta.ruolo,
+            attivo: risposta.attivo,
+            urlImmagineProfilo: risposta.urlImmagineProfilo,
+          },
+        }),
+      );
+
+      navigate(destinazione, { replace: true });
+    } catch (erroreChiamata) {
+      dispatch(impostaErrore(messaggioPerErrore(erroreChiamata)));
+    }
   };
 
   return (
     <Form onSubmit={handleSubmit} className="login-form">
+      {errore && (
+        <div className="password-alert" role="alert">
+          <span className="password-alert__icon">
+            <FiAlertCircle />
+          </span>
+
+          <p className="password-alert__text">{errore}</p>
+        </div>
+      )}
+
       <Form.Group className="login-form__group" controlId="email">
         <Form.Label>Email</Form.Label>
 
@@ -37,6 +119,7 @@ const LoginForm = () => {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             autoComplete="email"
+            disabled={caricamento}
             required
           />
         </div>
@@ -60,6 +143,7 @@ const LoginForm = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             autoComplete="current-password"
+            disabled={caricamento}
             required
           />
 
@@ -78,8 +162,12 @@ const LoginForm = () => {
         </div>
       </Form.Group>
 
-      <Button type="submit" className="login-form__submit">
-        <span>Accedi</span>
+      <Button
+        type="submit"
+        className="login-form__submit"
+        disabled={caricamento}
+      >
+        <span>{caricamento ? "Accesso in corso…" : "Accedi"}</span>
         <FiArrowRight />
       </Button>
     </Form>
