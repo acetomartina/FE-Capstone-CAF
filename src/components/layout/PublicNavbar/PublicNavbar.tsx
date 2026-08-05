@@ -1,158 +1,379 @@
-import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { FiMail, FiMapPin, FiPhone, FiUser } from "react-icons/fi";
+import {
+  FiMail,
+  FiMapPin,
+  FiMenu,
+  FiPhone,
+  FiUser,
+  FiX,
+} from "react-icons/fi";
 
 import logoCafFapi from "../../../assets/logo.svg";
 import "./PublicNavbar.css";
 
+const LINK_NAVIGAZIONE = [
+  { etichetta: "Home", destinazione: "/" },
+  { etichetta: "Servizi", destinazione: "/servizi" },
+  { etichetta: "Chi siamo", destinazione: "/chi-siamo" },
+  { etichetta: "Contatti", destinazione: "/contatti" },
+];
+
+type Lingua = "IT" | "EN";
+
 const PublicNavbar = () => {
+  const [menuAperto, setMenuAperto] = useState(false);
+  const [lingua, setLingua] = useState<Lingua>("IT");
+
+  const chiudiMenu = () => {
+    setMenuAperto(false);
+  };
+
+  useEffect(() => {
+    document.body.classList.toggle(
+      "public-navbar-menu-open",
+      menuAperto,
+    );
+
+    return () => {
+      document.body.classList.remove(
+        "public-navbar-menu-open",
+      );
+    };
+  }, [menuAperto]);
+
+  useEffect(() => {
+    const gestisciEscape = (evento: KeyboardEvent) => {
+      if (evento.key === "Escape") {
+        chiudiMenu();
+      }
+    };
+
+    window.addEventListener("keydown", gestisciEscape);
+
+    return () => {
+      window.removeEventListener(
+        "keydown",
+        gestisciEscape,
+      );
+    };
+  }, []);
+
   return (
-    <Navbar
-      expand="lg"
-      sticky="top"
-      className="public-navbar bg-white border-bottom py-0"
-    >
-      <Container fluid="xl" className="public-navbar__container">
-        <Navbar.Brand
-          as={NavLink}
-          to="/"
-          className="d-flex align-items-center gap-3 m-0 py-0"
+    <>
+      <Navbar
+        sticky="top"
+        className="public-navbar bg-white py-0"
+      >
+        <Container
+          fluid="xl"
+          className="public-navbar__container"
         >
-          <img
-            src={logoCafFapi}
-            alt="CAF FAPI"
-            className="public-navbar__logo"
-          />
-
-          <div className="public-navbar__office d-none d-xl-flex flex-column border-start ps-3">
-            <span>SEDE DI</span>
-            <strong>Pianopoli</strong>
-          </div>
-        </Navbar.Brand>
-
-        {/* Sotto lg queste due azioni restano fuori dal menu: chiamare la
-            sede e accedere sono le cose che si cercano davvero da telefono,
-            e dietro l'hamburger costerebbero due tap. */}
-        <div className="public-navbar__actions d-flex d-lg-none align-items-center">
-          <a
-            href="tel:+393779609155"
-            className="public-navbar__phone public-navbar__phone--compatto d-flex align-items-center justify-content-center gap-2 text-decoration-none"
-            aria-label="Chiama la sede: 377 960 9155"
+          <Navbar.Brand
+            as={NavLink}
+            to="/"
+            className="public-navbar__brand d-flex align-items-center m-0 p-0"
           >
-            <FiPhone />
-          </a>
+            <img
+              src={logoCafFapi}
+              alt="CAF FAPI Pianopoli"
+              className="public-navbar__logo"
+            />
 
-          <NavLink
-            to="/login"
-            className="public-navbar__reserved public-navbar__reserved--compatto d-flex align-items-center justify-content-center gap-2"
-            aria-label="Area riservata"
+            <div className="public-navbar__office d-none d-xl-flex flex-column border-start">
+              <span>SEDE DI</span>
+              <strong>Pianopoli</strong>
+            </div>
+          </Navbar.Brand>
+
+          <Nav
+            className="public-navbar__nav d-none d-lg-flex mx-auto"
+            aria-label="Navigazione principale"
           >
-            <FiUser />
-            <span className="d-none d-sm-inline">Area riservata</span>
-          </NavLink>
-
-          <Navbar.Toggle
-            aria-controls="public-navbar-menu"
-            className="shadow-none"
-          />
-        </div>
-
-        <Navbar.Offcanvas
-          id="public-navbar-menu"
-          placement="end"
-          aria-labelledby="public-navbar-title"
-        >
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title id="public-navbar-title">
-              CAF FAPI Pianopoli
-            </Offcanvas.Title>
-          </Offcanvas.Header>
-
-          <Offcanvas.Body className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center">
-            <Nav className="mx-lg-auto gap-lg-4">
-              <NavLink to="/" className="nav-link">
-                Home
+            {LINK_NAVIGAZIONE.map((link) => (
+              <NavLink
+                key={link.destinazione}
+                to={link.destinazione}
+                className="nav-link"
+              >
+                {link.etichetta}
               </NavLink>
+            ))}
+          </Nav>
 
-              <NavLink to="/servizi" className="nav-link">
-                Servizi
-              </NavLink>
-
-              <NavLink to="/chi-siamo" className="nav-link">
-                Chi siamo
-              </NavLink>
-
-              <NavLink to="/contatti" className="nav-link">
-                Contatti
-              </NavLink>
-            </Nav>
-
-            {/* Il menu a scomparsa esiste solo sotto lg: tanto vale usarlo
-                per i recapiti della sede, invece di lasciarlo mezzo vuoto. */}
-            <div className="public-navbar__contatti d-lg-none">
-              <span className="public-navbar__contatti-titolo">
-                Contatti
+          <div className="public-navbar__desktop-actions d-none d-lg-flex align-items-center">
+            <a
+              href="tel:+393779609155"
+              className="public-navbar__phone"
+            >
+              <span className="public-navbar__phone-icon">
+                <FiPhone aria-hidden="true" />
               </span>
 
-              <a href="tel:+393779609155">
-                <FiPhone />
-                377 960 9155
-              </a>
+              <span>377 960 9155</span>
+            </a>
 
-              <a href="mailto:pianopolicaf@gmail.com">
-                <FiMail />
-                pianopolicaf@gmail.com
-              </a>
+            <span
+              className="public-navbar__separator"
+              aria-hidden="true"
+            />
 
-              <span className="public-navbar__contatti-luogo">
-                <FiMapPin />
-                Via Roma 69, 88040 Pianopoli (CZ)
-              </span>
+            <div
+              className="public-navbar__languages"
+              role="group"
+              aria-label="Selezione lingua"
+            >
+              {(["IT", "EN"] as const).map(
+                (opzione, indice) => (
+                  <span
+                    key={opzione}
+                    className="public-navbar__language-item"
+                  >
+                    {indice > 0 && (
+                      <span
+                        className="public-navbar__language-separator"
+                        aria-hidden="true"
+                      >
+                        /
+                      </span>
+                    )}
+
+                    <button
+                      type="button"
+                      className={`public-navbar__language ${
+                        lingua === opzione
+                          ? "is-active"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        setLingua(opzione)
+                      }
+                      aria-pressed={
+                        lingua === opzione
+                      }
+                    >
+                      {opzione}
+                    </button>
+                  </span>
+                ),
+              )}
             </div>
 
-            <div className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-3 mt-4 mt-lg-0">
-              {/* Sotto lg vivono fuori dal menu: qui servono solo da lg
-                  in su, dove l'offcanvas e' una barra orizzontale. */}
+            <NavLink
+              to="/login"
+              className="public-navbar__reserved"
+            >
+              <FiUser aria-hidden="true" />
+              <span>Area riservata</span>
+            </NavLink>
+          </div>
+
+          <div className="public-navbar__mobile-actions d-flex d-lg-none align-items-center">
+            <a
+              href="tel:+393779609155"
+              className="public-navbar__mobile-phone"
+              aria-label="Chiama CAF FAPI Pianopoli"
+            >
+              <FiPhone aria-hidden="true" />
+            </a>
+
+            <button
+              type="button"
+              className="public-navbar__menu-button"
+              onClick={() => setMenuAperto(true)}
+              aria-label="Apri il menu"
+              aria-expanded={menuAperto}
+              aria-controls="public-mobile-menu"
+            >
+              <FiMenu aria-hidden="true" />
+            </button>
+          </div>
+        </Container>
+      </Navbar>
+
+      <div
+        id="public-mobile-menu"
+        className={`public-mobile-menu ${
+          menuAperto
+            ? "public-mobile-menu--open"
+            : ""
+        }`}
+        aria-hidden={!menuAperto}
+      >
+        <button
+          type="button"
+          className="public-mobile-menu__backdrop"
+          onClick={chiudiMenu}
+          aria-label="Chiudi il menu"
+          tabIndex={menuAperto ? 0 : -1}
+        />
+
+        <aside
+          className="public-mobile-menu__panel"
+          aria-label="Menu principale"
+        >
+          <header className="public-mobile-menu__header">
+            <NavLink
+              to="/"
+              onClick={chiudiMenu}
+              className="public-mobile-menu__brand"
+            >
+              <img
+                src={logoCafFapi}
+                alt="CAF FAPI Pianopoli"
+              />
+
+              <div className="public-mobile-menu__office">
+                <span>SEDE DI</span>
+                <strong>Pianopoli</strong>
+              </div>
+            </NavLink>
+
+            <button
+              type="button"
+              className="public-mobile-menu__close"
+              onClick={chiudiMenu}
+              aria-label="Chiudi il menu"
+            >
+              <FiX aria-hidden="true" />
+            </button>
+          </header>
+
+          <div className="public-mobile-menu__content">
+            <nav
+              className="public-mobile-menu__nav"
+              aria-label="Navigazione mobile"
+            >
+              {LINK_NAVIGAZIONE.map((link) => (
+                <NavLink
+  key={link.destinazione}
+  to={link.destinazione}
+  onClick={chiudiMenu}
+  className={({ isActive }) =>
+    `public-mobile-menu__link ${
+      isActive ? "active" : ""
+    }`
+  }
+>
+  <span className="public-mobile-menu__link-text">
+    {link.etichetta}
+  </span>
+</NavLink>
+              ))}
+            </nav>
+
+            <div className="public-mobile-menu__contacts">
+              <p className="public-mobile-menu__section-title">
+                Hai bisogno di aiuto?
+              </p>
+
               <a
                 href="tel:+393779609155"
-                className="public-navbar__phone d-none d-lg-flex align-items-center justify-content-center gap-2 text-decoration-none"
+                className="public-mobile-menu__contact"
+                tabIndex={menuAperto ? 0 : -1}
               >
-                <FiPhone />
-                <span>377 960 9155</span>
+                <span className="public-mobile-menu__contact-icon public-mobile-menu__contact-icon--green">
+                  <FiPhone aria-hidden="true" />
+                </span>
+
+                <span>
+                  <small>Telefono</small>
+                  <strong>377 960 9155</strong>
+                </span>
               </a>
 
+              <a
+                href="mailto:pianopolicaf@gmail.com"
+                className="public-mobile-menu__contact"
+                tabIndex={menuAperto ? 0 : -1}
+              >
+                <span className="public-mobile-menu__contact-icon public-mobile-menu__contact-icon--fuchsia">
+                  <FiMail aria-hidden="true" />
+                </span>
+
+                <span>
+                  <small>Email</small>
+                  <strong>
+                    pianopolicaf@gmail.com
+                  </strong>
+                </span>
+              </a>
+
+              <div className="public-mobile-menu__contact">
+                <span className="public-mobile-menu__contact-icon public-mobile-menu__contact-icon--blue">
+                  <FiMapPin aria-hidden="true" />
+                </span>
+
+                <span>
+                  <small>Sede</small>
+                  <strong>
+                    Via Roma 69, Pianopoli
+                  </strong>
+                </span>
+              </div>
+            </div>
+
+            <div className="public-mobile-menu__bottom">
+              <NavLink
+                to="/login"
+                onClick={chiudiMenu}
+                className="public-mobile-menu__reserved"
+                tabIndex={menuAperto ? 0 : -1}
+              >
+                <FiUser aria-hidden="true" />
+                <span>Area riservata</span>
+              </NavLink>
+
               <div
-                className="btn-group public-navbar__languages"
+                className="public-mobile-menu__languages"
                 role="group"
                 aria-label="Selezione lingua"
               >
-                <button
-                  type="button"
-                  className="btn public-navbar__language is-active"
-                >
-                  IT
-                </button>
+                <span className="public-mobile-menu__languages-label">
+                  Lingua
+                </span>
 
-                <button
-                  type="button"
-                  className="btn public-navbar__language"
-                >
-                  EN
-                </button>
+                {(["IT", "EN"] as const).map(
+                  (opzione, indice) => (
+                    <span key={opzione}>
+                      {indice > 0 && (
+                        <span
+                          className="public-mobile-menu__language-separator"
+                          aria-hidden="true"
+                        >
+                          /
+                        </span>
+                      )}
+
+                      <button
+                        type="button"
+                        className={`public-mobile-menu__language ${
+                          lingua === opzione
+                            ? "is-active"
+                            : ""
+                        }`}
+                        onClick={() =>
+                          setLingua(opzione)
+                        }
+                        aria-pressed={
+                          lingua === opzione
+                        }
+                        tabIndex={
+                          menuAperto ? 0 : -1
+                        }
+                      >
+                        {opzione}
+                      </button>
+                    </span>
+                  ),
+                )}
               </div>
-
-              <NavLink
-                to="/login"
-                className="public-navbar__reserved d-none d-lg-flex align-items-center justify-content-center gap-2"
-              >
-                <FiUser />
-                <span>Area riservata</span>
-              </NavLink>
             </div>
-          </Offcanvas.Body>
-        </Navbar.Offcanvas>
-      </Container>
-    </Navbar>
+          </div>
+        </aside>
+      </div>
+    </>
   );
 };
 
