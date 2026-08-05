@@ -1,5 +1,54 @@
 @import "tailwindcss";
 
+@theme {
+  --color-caf-green-50: #f1f8f3;
+  --color-caf-green-100: #dcefe1;
+  --color-caf-green-200: #b8dfc1;
+  --color-caf-green-300: #8ac99a;
+  --color-caf-green-400: #55ad6a;
+  --color-caf-green-500: #2f9448;
+  --color-caf-green-600: #247a3a;
+  --color-caf-green-700: #1f6031;
+  --color-caf-green-800: #1b4d2a;
+  --color-caf-green-900: #173f24;
+
+  --color-caf-blue-50: #f2f6fc;
+  --color-caf-blue-100: #e2eaf7;
+  --color-caf-blue-200: #c9d8ef;
+  --color-caf-blue-300: #a3bee3;
+  --color-caf-blue-400: #749bd2;
+  --color-caf-blue-500: #527cc0;
+  --color-caf-blue-600: #3f62a5;
+  --color-caf-blue-700: #344f86;
+  --color-caf-blue-800: #2d436d;
+  --color-caf-blue-900: #102c65;
+
+  --color-caf-fuchsia-50: #fff1f7;
+  --color-caf-fuchsia-100: #ffe3ef;
+  --color-caf-fuchsia-200: #ffc6df;
+  --color-caf-fuchsia-300: #ff98c4;
+  --color-caf-fuchsia-400: #f85f9f;
+  --color-caf-fuchsia-500: #e62380;
+  --color-caf-fuchsia-600: #c71468;
+  --color-caf-fuchsia-700: #a50f55;
+  --color-caf-fuchsia-800: #891048;
+  --color-caf-fuchsia-900: #72113f;
+
+  --color-caf-ink: #17352d;
+  --color-caf-muted: #66756f;
+  --color-caf-surface: #ffffff;
+  --color-caf-background: #f7faf8;
+
+  --radius-caf-sm: 0.75rem;
+  --radius-caf-md: 1.25rem;
+  --radius-caf-lg: 1.75rem;
+  --radius-caf-xl: 2.25rem;
+
+  --shadow-caf-sm: 0 10px 30px rgba(16, 44, 101, 0.08);
+  --shadow-caf-md: 0 18px 45px rgba(16, 44, 101, 0.12);
+  --shadow-caf-lg: 0 30px 70px rgba(16, 44, 101, 0.16);
+}
+
 * {
   margin: 0;
   padding: 0;
