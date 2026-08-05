@@ -19,9 +19,11 @@ import volantinoPuntoSemplice from "../assets/home/volantini/punto-semplice.jpeg
 import volantinoDipendenti from "../assets/home/volantini/credipass-dipendenti.jpeg";
 import volantinoPrestito from "../assets/home/volantini/credipass-prestito.jpeg";
 import volantinoServizi from "../assets/home/volantini/credipass-servizi.jpeg";
+
 import PartnerSection from "../components/home/PartnerSection/PartnerSection";
 import ServicesSection from "../components/home/ServicesSection/ServicesSection";
 import HowItWorksSection from "../components/home/HowItWorksSection/HowItWorksSection";
+import CtaSection from "../components/home/CtaSection/CtaSection";
 
 
 import "./HomePage.css";
@@ -374,6 +376,7 @@ const HomePage = () => {
       <PartnerSection />
       <ServicesSection />
       <HowItWorksSection />
+      <CtaSection />
 
     </main>
   );

@@ -97,32 +97,6 @@ const HowItWorksSection = () => {
             );
           })}
         </div>
-
-        <div className="how-it-works__cta">
-          <div>
-            <span className="how-it-works__cta-label">
-              Hai bisogno di aiuto?
-            </span>
-
-            <h3>
-              Raccontaci cosa ti serve.
-              <span> Al resto pensiamo noi.</span>
-            </h3>
-
-            <p>
-              Puoi contattarci telefonicamente, venire in sede
-              oppure inviare una richiesta online.
-            </p>
-          </div>
-
-          <a
-            href="#richiesta"
-            className="how-it-works__cta-button"
-          >
-            Invia una richiesta
-            <FiArrowRight aria-hidden="true" />
-          </a>
-        </div>
       </div>
     </section>
   );
