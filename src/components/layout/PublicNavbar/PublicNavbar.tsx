@@ -2,7 +2,7 @@ import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { FiMail, FiMapPin, FiPhone, FiUser } from "react-icons/fi";
 
-import logoCafFapi from "../../assets/logo.svg";
+import logoCafFapi from "../../../assets/logo.svg";
 import "./PublicNavbar.css";
 
 const PublicNavbar = () => {

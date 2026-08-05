@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
-import PublicFooter from "../components/public-footer/PublicFooter";
-import PublicNavbar from "../components/public-navbar/PublicNavbar";
+import PublicFooter from "../components/layout/PublicFooter/PublicFooter";
+import PublicNavbar from "../components/layout/PublicNavbar/PublicNavbar";
 
 import "./PublicLayout.css";
 
