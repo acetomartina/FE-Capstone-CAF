@@ -1,12 +1,163 @@
-import { FiArrowRight, FiCheck, FiSend, FiShield, FiUsers } from "react-icons/fi";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type TouchEvent,
+} from "react";
+import {
+  FiArrowLeft,
+  FiArrowRight,
+  FiCheck,
+  FiChevronLeft,
+  FiChevronRight,
+  FiSend,
+  FiShield,
+  FiUsers,
+} from "react-icons/fi";
 
 import volantinoPuntoSemplice from "../assets/home/volantini/punto-semplice.jpeg";
 import volantinoDipendenti from "../assets/home/volantini/credipass-dipendenti.jpeg";
+import volantinoPrestito from "../assets/home/volantini/credipass-prestito.jpeg";
 import volantinoServizi from "../assets/home/volantini/credipass-servizi.jpeg";
 
 import "./HomePage.css";
 
+type PosizioneVolantino =
+  | "left"
+  | "main"
+  | "right"
+  | "hidden";
+
+interface Volantino {
+  id: number;
+  src: string;
+  alt: string;
+  titolo: string;
+}
+
+const VOLANTINI: Volantino[] = [
+  {
+    id: 0,
+    src: volantinoPuntoSemplice,
+    alt: "Servizi SPID, PEC e Firma Digitale Punto Semplice",
+    titolo: "Servizi digitali",
+  },
+  {
+    id: 1,
+    src: volantinoDipendenti,
+    alt: "Cessione del quinto per dipendenti Credipass",
+    titolo: "Cessione del quinto",
+  },
+  {
+    id: 2,
+    src: volantinoPrestito,
+    alt: "Prestito personale Credipass",
+    titolo: "Prestiti personali",
+  },
+  {
+    id: 3,
+    src: volantinoServizi,
+    alt: "Mutui, prestiti e soluzioni finanziarie Credipass",
+    titolo: "Soluzioni finanziarie",
+  },
+];
+
 const HomePage = () => {
+  const [indiceAttivo, setIndiceAttivo] = useState(1);
+  const [caroselloInPausa, setCaroselloInPausa] =
+    useState(false);
+
+  const touchStartX = useRef<number | null>(null);
+
+  const mostraSuccessivo = () => {
+    setIndiceAttivo(
+      (indiceCorrente) =>
+        (indiceCorrente + 1) % VOLANTINI.length,
+    );
+  };
+
+  const mostraPrecedente = () => {
+    setIndiceAttivo(
+      (indiceCorrente) =>
+        (indiceCorrente - 1 + VOLANTINI.length) %
+        VOLANTINI.length,
+    );
+  };
+
+  const ottieniPosizione = (
+    indice: number,
+  ): PosizioneVolantino => {
+    const precedente =
+      (indiceAttivo - 1 + VOLANTINI.length) %
+      VOLANTINI.length;
+
+    const successivo =
+      (indiceAttivo + 1) % VOLANTINI.length;
+
+    if (indice === indiceAttivo) {
+      return "main";
+    }
+
+    if (indice === precedente) {
+      return "left";
+    }
+
+    if (indice === successivo) {
+      return "right";
+    }
+
+    return "hidden";
+  };
+
+  const gestisciTouchStart = (
+    evento: TouchEvent<HTMLDivElement>,
+  ) => {
+    touchStartX.current =
+      evento.touches[0]?.clientX ?? null;
+  };
+
+  const gestisciTouchEnd = (
+    evento: TouchEvent<HTMLDivElement>,
+  ) => {
+    if (touchStartX.current === null) {
+      return;
+    }
+
+    const touchEndX =
+      evento.changedTouches[0]?.clientX;
+
+    if (touchEndX === undefined) {
+      return;
+    }
+
+    const distanza = touchEndX - touchStartX.current;
+
+    if (Math.abs(distanza) >= 50) {
+      if (distanza < 0) {
+        mostraSuccessivo();
+      } else {
+        mostraPrecedente();
+      }
+    }
+
+    touchStartX.current = null;
+  };
+
+  useEffect(() => {
+    if (caroselloInPausa) {
+      return;
+    }
+
+    const intervallo = window.setInterval(
+      mostraSuccessivo,
+      5000,
+    );
+
+    return () => {
+      window.clearInterval(intervallo);
+    };
+  }, [caroselloInPausa]);
+
   return (
     <main className="home-page">
       <section className="home-hero">
@@ -20,19 +171,26 @@ const HomePage = () => {
             <span className="home-hero__title-highlight">
               che ti servono,
             </span>
-            in un <span className="home-hero__title-accent">unico punto.</span>
+            in un{" "}
+            <span className="home-hero__title-accent">
+              unico punto.
+            </span>
           </h1>
 
           <p className="home-hero__description">
-            Assistenza fiscale e sociale, servizi digitali, pagamenti,
-            mobilità e soluzioni finanziarie. A Pianopoli, con un supporto
+            Assistenza fiscale e sociale, servizi
+            digitali, pagamenti, mobilità e soluzioni
+            finanziarie. A Pianopoli, con un supporto
             semplice, chiaro e vicino alle persone.
           </p>
 
           <div className="home-hero__actions">
-            <a href="#servizi" className="home-hero__button home-hero__button--primary">
+            <a
+              href="#servizi"
+              className="home-hero__button home-hero__button--primary"
+            >
               Scopri i servizi
-              <FiArrowRight />
+              <FiArrowRight aria-hidden="true" />
             </a>
 
             <a
@@ -40,72 +198,171 @@ const HomePage = () => {
               className="home-hero__button home-hero__button--secondary"
             >
               Invia una richiesta
-              <FiSend />
+              <FiSend aria-hidden="true" />
             </a>
           </div>
 
           <div className="home-hero__benefits">
             <div className="home-hero__benefit">
-              <span className="home-hero__benefit-icon">
-                <FiUsers />
+              <span className="home-hero__benefit-icon home-hero__benefit-icon--green">
+                <FiUsers aria-hidden="true" />
               </span>
-              Persone vere, supporto costante
+
+              <span>
+                Persone vere, supporto costante
+              </span>
             </div>
 
             <div className="home-hero__benefit">
-              <span className="home-hero__benefit-icon">
-                <FiShield />
+              <span className="home-hero__benefit-icon home-hero__benefit-icon--blue">
+                <FiShield aria-hidden="true" />
               </span>
-              Pratiche rapide e sicure
+
+              <span>Pratiche rapide e sicure</span>
             </div>
 
             <div className="home-hero__benefit">
-              <span className="home-hero__benefit-icon">
-                <FiCheck />
+              <span className="home-hero__benefit-icon home-hero__benefit-icon--fuchsia">
+                <FiCheck aria-hidden="true" />
               </span>
-              Assistenza anche da remoto
+
+              <span>Assistenza anche da remoto</span>
             </div>
           </div>
         </div>
 
-        <div className="home-flyers" aria-label="Servizi in evidenza">
-          <article className="home-flyers__card home-flyers__card--left">
-            <img
-              src={volantinoPuntoSemplice}
-              alt="Servizi SPID, PEC e Firma Digitale Punto Semplice"
-            />
-          </article>
+        <div
+          className="home-flyers"
+          aria-label="Servizi in evidenza"
+          onMouseEnter={() =>
+            setCaroselloInPausa(true)
+          }
+          onMouseLeave={() =>
+            setCaroselloInPausa(false)
+          }
+          onTouchStart={gestisciTouchStart}
+          onTouchEnd={gestisciTouchEnd}
+        >
+          <div
+            className="home-flyers__glow"
+            aria-hidden="true"
+          />
 
-          <article className="home-flyers__card home-flyers__card--main">
-            <img
-              src={volantinoDipendenti}
-              alt="Cessione del quinto Credipass"
-            />
-          </article>
+          <div className="home-flyers__stage">
+            {VOLANTINI.map((volantino, indice) => {
+              const posizione =
+                ottieniPosizione(indice);
 
-          <article className="home-flyers__card home-flyers__card--right">
-            <img
-              src={volantinoServizi}
-              alt="Mutui, prestiti personali e servizi finanziari Credipass"
-            />
-          </article>
+              return (
+                <button
+                  key={volantino.id}
+                  type="button"
+                  className={`home-flyers__card home-flyers__card--${posizione}`}
+                  onClick={() => {
+                    if (posizione === "left") {
+                      mostraPrecedente();
+                    }
 
-          <div className="home-flyers__controls" aria-label="Selezione volantino">
+                    if (posizione === "right") {
+                      mostraSuccessivo();
+                    }
+                  }}
+                  aria-label={
+                    posizione === "main"
+                      ? `${volantino.titolo}, volantino attivo`
+                      : `Mostra ${volantino.titolo}`
+                  }
+                  aria-hidden={
+                    posizione === "hidden"
+                  }
+                  tabIndex={
+                    posizione === "hidden" ? -1 : 0
+                  }
+                >
+                  <img
+                    src={volantino.src}
+                    alt={volantino.alt}
+                    draggable="false"
+                  />
+
+                  <span className="home-flyers__card-overlay">
+                    <span>
+                      {volantino.titolo}
+                    </span>
+
+                    <FiArrowRight
+                      aria-hidden="true"
+                    />
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            type="button"
+            className="home-flyers__arrow home-flyers__arrow--left"
+            onClick={mostraPrecedente}
+            aria-label="Mostra il volantino precedente"
+          >
+            <FiChevronLeft aria-hidden="true" />
+          </button>
+
+          <button
+            type="button"
+            className="home-flyers__arrow home-flyers__arrow--right"
+            onClick={mostraSuccessivo}
+            aria-label="Mostra il volantino successivo"
+          >
+            <FiChevronRight aria-hidden="true" />
+          </button>
+
+          <div
+            className="home-flyers__footer"
+            aria-label="Selezione volantino"
+          >
             <button
-              className="home-flyers__dot"
               type="button"
-              aria-label="Mostra primo volantino"
-            />
+              className="home-flyers__footer-arrow"
+              onClick={mostraPrecedente}
+              aria-label="Precedente"
+            >
+              <FiArrowLeft aria-hidden="true" />
+            </button>
+
+            <div className="home-flyers__controls">
+              {VOLANTINI.map(
+                (volantino, indice) => (
+                  <button
+                    key={volantino.id}
+                    className={`home-flyers__dot ${
+                      indice === indiceAttivo
+                        ? "home-flyers__dot--active"
+                        : ""
+                    }`}
+                    type="button"
+                    onClick={() =>
+                      setIndiceAttivo(indice)
+                    }
+                    aria-label={`Mostra ${volantino.titolo}`}
+                    aria-current={
+                      indice === indiceAttivo
+                        ? "true"
+                        : undefined
+                    }
+                  />
+                ),
+              )}
+            </div>
+
             <button
-              className="home-flyers__dot home-flyers__dot--active"
               type="button"
-              aria-label="Mostra secondo volantino"
-            />
-            <button
-              className="home-flyers__dot"
-              type="button"
-              aria-label="Mostra terzo volantino"
-            />
+              className="home-flyers__footer-arrow"
+              onClick={mostraSuccessivo}
+              aria-label="Successivo"
+            >
+              <FiArrowRight aria-hidden="true" />
+            </button>
           </div>
         </div>
       </section>
