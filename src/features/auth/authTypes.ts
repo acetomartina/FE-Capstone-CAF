@@ -42,6 +42,26 @@ export interface AuthState {
   autenticato: boolean;
   caricamento: boolean;
   errore: string | null;
+
+  /*
+   * All'avvio non sappiamo ancora se il token salvato sia valido: finche'
+   * resta false, "non autenticato" significa "non lo so ancora" e nessuno
+   * deve prendere decisioni. Senza questo terzo stato la guardia
+   * rimanderebbe al login anche chi ha una sessione buona.
+   */
+  sessioneVerificata: boolean;
+}
+
+/* Risposta di GET /api/auth/me. L'endpoint restituisce l'utente completo:
+   qui dichiariamo solo i campi che il frontend usa davvero. */
+export interface RispostaUtenteCorrente {
+  id: number;
+  nome: string;
+  cognome: string;
+  email: string;
+  ruolo: Ruolo;
+  attivo: boolean;
+  urlImmagineProfilo: string | null;
 }
 
 export type StatoOperazione =

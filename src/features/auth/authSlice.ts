@@ -7,6 +7,7 @@ const initialState: AuthState = {
   autenticato: false,
   caricamento: false,
   errore: null,
+  sessioneVerificata: false,
 };
 
 const authSlice = createSlice({
@@ -27,6 +28,17 @@ const authSlice = createSlice({
       state.autenticato = true;
       state.caricamento = false;
       state.errore = null;
+      state.sessioneVerificata = true;
+    },
+
+    /* Il controllo iniziale e' finito e non c'era nessuna sessione buona:
+       da qui in poi "non autenticato" e' una risposta, non un'attesa. */
+    sessioneAssente: (state) => {
+      state.utente = null;
+      state.token = null;
+      state.autenticato = false;
+      state.caricamento = false;
+      state.sessioneVerificata = true;
     },
 
     impostaCaricamento: (
@@ -54,6 +66,10 @@ const authSlice = createSlice({
       state.autenticato = false;
       state.caricamento = false;
       state.errore = null;
+
+      /* Dopo un'uscita volontaria sappiamo benissimo come stanno le cose:
+         resta verificata, altrimenti la guardia tornerebbe ad aspettare. */
+      state.sessioneVerificata = true;
     },
   },
 });
@@ -62,6 +78,7 @@ export const {
   impostaAutenticazione,
   impostaCaricamento,
   impostaErrore,
+  sessioneAssente,
   logout,
 } = authSlice.actions;
 

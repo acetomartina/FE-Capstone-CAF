@@ -11,6 +11,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 import DashboardPage from "./pages/DashboardPage";
 
 import RottaProtetta from "./features/auth/components/RottaProtetta";
+import { useRipristinoSessione } from "./features/auth/useRipristinoSessione";
 import {
   RUOLI_AMMINISTRAZIONE,
   RUOLI_CLIENTE,
@@ -23,6 +24,9 @@ import AreaDipendentePage from "./pages/area-riservata/AreaDipendentePage";
 import AreaRiservataPage from "./pages/area-riservata/AreaRiservataPage";
 
 const App = () => {
+  /* Prima di ogni rotta: ricostruisce la sessione dal token salvato. */
+  useRipristinoSessione();
+
   return (
     <Routes>
       <Route element={<PublicLayout />}>

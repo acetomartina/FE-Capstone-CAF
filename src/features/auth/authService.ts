@@ -6,6 +6,7 @@ import type {
   RichiestaResetPassword,
   RispostaLogin,
   RispostaRecuperoPassword,
+  RispostaUtenteCorrente,
   RispostaResetPassword,
 } from "./authTypes";
 
@@ -20,6 +21,14 @@ export const authService = {
       "/api/auth/login",
       corpo,
     );
+
+    return risposta.data;
+  },
+
+  /* Il token viaggia da solo: lo aggiunge l'interceptor in api.ts. */
+  async me(): Promise<RispostaUtenteCorrente> {
+    const risposta =
+      await api.get<RispostaUtenteCorrente>("/api/auth/me");
 
     return risposta.data;
   },
