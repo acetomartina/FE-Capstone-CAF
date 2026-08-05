@@ -3,7 +3,6 @@ import type { IconType } from "react-icons";
 
 import {
   FiArrowRight,
-  FiBriefcase,
   FiCreditCard,
   FiFileText,
   FiMonitor,
