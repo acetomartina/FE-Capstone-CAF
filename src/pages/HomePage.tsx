@@ -24,6 +24,7 @@ import PartnerSection from "../components/home/PartnerSection/PartnerSection";
 import ServicesSection from "../components/home/ServicesSection/ServicesSection";
 import HowItWorksSection from "../components/home/HowItWorksSection/HowItWorksSection";
 import CtaSection from "../components/home/CtaSection/CtaSection";
+import ContactSection from "../components/home/ContactSection/ContactSection";
 
 
 import "./HomePage.css";
@@ -377,6 +378,7 @@ const HomePage = () => {
       <ServicesSection />
       <HowItWorksSection />
       <CtaSection />
+      <ContactSection />
 
     </main>
   );
