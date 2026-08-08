@@ -3,13 +3,18 @@ import { Route, Routes } from "react-router-dom";
 import PublicLayout from "./layouts/PublicLayout";
 import PrivateLayout from "./layouts/PrivateLayout";
 
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import DashboardPage from "./pages/DashboardPage";
-import ClientiPage from "./pages/ClientiPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import RecuperoPasswordPage from "./pages/RecuperoPasswordPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
+import HomePage from "./pages/public/HomePage";
+import LoginPage from "./pages/public/LoginPage";
+import NotFoundPage from "./pages/public/NotFoundPage";
+import RecuperoPasswordPage from "./pages/public/RecuperoPasswordPage";
+import ResetPasswordPage from "./pages/public/ResetPasswordPage";
+
+import DashboardPage from "./pages/private/DashboardPage";
+import ClientiPage from "./pages/private/ClientiPage";
+import AreaAmministrazionePage from "./pages/private/AreaAmministrazionePage";
+import AreaClientePage from "./pages/private/AreaClientePage";
+import AreaDipendentePage from "./pages/private/AreaDipendentePage";
+import AreaRiservataPage from "./pages/private/AreaRiservataPage";
 
 import RottaProtetta from "./features/auth/components/RottaProtetta";
 import { useRipristinoSessione } from "./features/auth/useRipristinoSessione";
@@ -19,10 +24,6 @@ import {
   RUOLI_DIPENDENTE,
 } from "./features/auth/percorsiRuolo";
 
-import AreaAmministrazionePage from "./pages/area-riservata/AreaAmministrazionePage";
-import AreaClientePage from "./pages/area-riservata/AreaClientePage";
-import AreaDipendentePage from "./pages/area-riservata/AreaDipendentePage";
-import AreaRiservataPage from "./pages/area-riservata/AreaRiservataPage";
 
 const App = () => {
   useRipristinoSessione();

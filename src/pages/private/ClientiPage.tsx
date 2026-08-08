@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Alert, Button, Card, Spinner, Table } from "react-bootstrap";
 import { FiPlus, FiSearch } from "react-icons/fi";
 
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { caricaClienti } from "../features/clienti";
-import NuovoClienteModal from "../features/clienti/components/NuovoClienteModal";
-import ClienteDettaglioModal from "../features/clienti/components/ClienteDettaglioModal";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { caricaClienti } from "../../features/clienti";
+import NuovoClienteModal from "../../features/clienti/components/NuovoClienteModal";
+import ClienteDettaglioModal from "../../features/clienti/components/ClienteDettaglioModal";
 
 const ClientiPage = () => {
   const dispatch = useAppDispatch();

@@ -8,12 +8,35 @@ import {
   FiSettings,
   FiUsers,
 } from "react-icons/fi";
-import { NavLink, Outlet } from "react-router-dom";
+import {
+  NavLink,
+  Outlet,
+  useNavigate,
+} from "react-router-dom";
+
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { logout } from "../features/auth/authSlice";
+import type { Ruolo } from "../features/auth/authTypes";
+import { tokenService } from "../services/tokenService";
 
 import logo from "../assets/logo.svg";
 import "./PrivateLayout.css";
 
+const ETICHETTE_RUOLO: Record<Ruolo, string> = {
+  SUPER_ADMIN: "Super amministratore",
+  ADMIN: "Amministratore",
+  USER: "Dipendente",
+  CLIENTE: "Cliente",
+};
+
 const PrivateLayout = () => {
+  const utente = useAppSelector(
+    (state) => state.auth.utente
+  );
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const menuPrincipale = [
     {
       label: "Dashboard",
@@ -28,12 +51,12 @@ const PrivateLayout = () => {
     {
       label: "Pratiche",
       path: "/pratiche",
-      icon: <FiFolder />,
+      icon: <FiFileText />,
     },
     {
       label: "Documenti",
       path: "/documenti",
-      icon: <FiFileText />,
+      icon: <FiFolder />,
     },
     {
       label: "Scadenze",
@@ -42,16 +65,28 @@ const PrivateLayout = () => {
     },
   ];
 
+  const esci = () => {
+    tokenService.rimuoviToken();
+    dispatch(logout());
+    navigate("/login");
+  };
+
+  const iniziali = utente
+    ? `${utente.nome.charAt(0)}${utente.cognome.charAt(0)}`.toUpperCase()
+    : "—";
+
   return (
     <div className="private-layout">
       <aside className="private-sidebar">
-        <div className="private-sidebar__top">
+        <div>
           <NavLink
             to="/dashboard"
             className="private-sidebar__brand"
-            aria-label="Vai alla dashboard"
           >
-            <img src={logo} alt="CAF FAPI Pianopoli" />
+            <img
+              src={logo}
+              alt="CAF FAPI Pianopoli"
+            />
           </NavLink>
 
           <nav className="private-sidebar__navigation">
@@ -65,7 +100,9 @@ const PrivateLayout = () => {
                 to={item.path}
                 className={({ isActive }) =>
                   `private-sidebar__link ${
-                    isActive ? "private-sidebar__link--active" : ""
+                    isActive
+                      ? "private-sidebar__link--active"
+                      : ""
                   }`
                 }
               >
@@ -94,6 +131,7 @@ const PrivateLayout = () => {
           <button
             type="button"
             className="private-sidebar__logout"
+            onClick={esci}
           >
             <FiLogOut />
             <span>Esci</span>
@@ -104,8 +142,14 @@ const PrivateLayout = () => {
       <div className="private-layout__content">
         <header className="private-header">
           <div className="private-header__welcome">
-            <strong>Buongiorno, Martina</strong>
-            <span>Ecco cosa succede oggi nel tuo CAF.</span>
+            <strong>
+              Buongiorno
+              {utente ? `, ${utente.nome}` : ""}
+            </strong>
+
+            <span>
+              Ecco cosa succede oggi nel tuo CAF.
+            </span>
           </div>
 
           <div className="private-header__actions">
@@ -125,12 +169,21 @@ const PrivateLayout = () => {
               className="private-header__profile"
             >
               <span className="private-header__avatar">
-                MA
+                {iniziali}
               </span>
 
               <span className="private-header__profile-info">
-                <strong>Martina Aceto</strong>
-                <small>Super Admin</small>
+                <strong>
+                  {utente
+                    ? `${utente.nome} ${utente.cognome}`
+                    : "Utente"}
+                </strong>
+
+                <small>
+                  {utente
+                    ? ETICHETTE_RUOLO[utente.ruolo]
+                    : ""}
+                </small>
               </span>
             </button>
           </div>

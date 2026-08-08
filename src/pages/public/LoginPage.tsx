@@ -1,14 +1,14 @@
 import { Col, Container, Row } from "react-bootstrap";
 
-import LoginContactCard from "../features/auth/components/LoginContactCard";
-import LoginForm from "../features/auth/components/LoginForm";
-import LoginHero from "../features/auth/components/LoginHero";
+import LoginContactCard from "../../features/auth/components/LoginContactCard";
+import LoginForm from "../../features/auth/components/LoginForm";
+import LoginHero from "../../features/auth/components/LoginHero";
 
-import "../styles/LoginPage/login-layout.css";
-import "../styles/LoginPage/login-hero.css";
-import "../styles/LoginPage/login-form.css";
-import "../styles/LoginPage/login-contact.css";
-import "../styles/LoginPage/login-responsive.css";
+import "../../styles/LoginPage/login-layout.css";
+import "../../styles/LoginPage/login-hero.css";
+import "../../styles/LoginPage/login-form.css";
+import "../../styles/LoginPage/login-contact.css";
+import "../../styles/LoginPage/login-responsive.css";
 
 const LoginPage = () => {
   return (
