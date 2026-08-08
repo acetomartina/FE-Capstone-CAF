@@ -20,6 +20,34 @@ export interface Cliente {
   aggiornatoIl: string;
 }
 
+export interface CreaClienteRequest {
+  nome: string;
+  cognome: string;
+  codiceFiscale: string;
+  dataNascita: string | null;
+  luogoNascita: string | null;
+  email: string;
+  telefono: string | null;
+  indirizzo: string | null;
+  comune: string | null;
+  provincia: string | null;
+  cap: string | null;
+  password: string;
+}
+
+export interface AggiornaClienteRequest {
+  nome: string;
+  cognome: string;
+  dataNascita: string | null;
+  luogoNascita: string | null;
+  email: string;
+  telefono: string | null;
+  indirizzo: string | null;
+  comune: string | null;
+  provincia: string | null;
+  cap: string | null;
+}
+
 export interface RispostaPaginata<T> {
   content: T[];
   totalElements: number;

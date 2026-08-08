@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button, Card, Spinner, Table } from "react-bootstrap";
 import { FiPlus, FiSearch } from "react-icons/fi";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { caricaClienti } from "../features/clienti";
+import NuovoClienteModal from "../features/clienti/components/NuovoClienteModal";
+import ClienteDettaglioModal from "../features/clienti/components/ClienteDettaglioModal";
 
 const ClientiPage = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +27,14 @@ const ClientiPage = () => {
     );
   }, [dispatch]);
 
+  const [mostraNuovoCliente, setMostraNuovoCliente] =
+  useState(false);
+
+  const [
+  clienteSelezionatoId,
+  setClienteSelezionatoId,
+] = useState<number | null>(null);
+
   return (
     <div>
       <div className="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
@@ -35,10 +45,47 @@ const ClientiPage = () => {
           </p>
         </div>
 
-        <Button variant="success" className="d-flex align-items-center gap-2">
+        <Button 
+        variant="success" 
+        className="d-flex align-items-center gap-2"
+        onClick={() => setMostraNuovoCliente(true)}
+        >
           <FiPlus />
           Nuovo cliente
         </Button>
+
+        <NuovoClienteModal
+  show={mostraNuovoCliente}
+  onHide={() =>
+    setMostraNuovoCliente(false)
+  }
+  onClienteCreato={() => {
+    void dispatch(
+      caricaClienti({
+        page: 0,
+        size: 10,
+        sort: "cognome,asc",
+      })
+    );
+  }}
+/>
+
+<ClienteDettaglioModal
+  show={clienteSelezionatoId !== null}
+  clienteId={clienteSelezionatoId}
+  onHide={() =>
+    setClienteSelezionatoId(null)
+  }
+  onClienteAggiornato={() => {
+    void dispatch(
+      caricaClienti({
+        page: 0,
+        size: 10,
+        sort: "cognome,asc",
+      })
+    );
+  }}
+/>
       </div>
 
       <Card>
@@ -92,7 +139,14 @@ const ClientiPage = () => {
                     </tr>
                   ) : (
                     elenco.map((cliente) => (
-                      <tr key={cliente.id}>
+                      <tr
+  key={cliente.id}
+  role="button"
+  style={{ cursor: "pointer" }}
+  onClick={() =>
+    setClienteSelezionatoId(cliente.id)
+  }
+>
                         <td>
                           <div className="fw-semibold">
                             {cliente.nome} {cliente.cognome}
