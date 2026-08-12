@@ -1,7 +1,11 @@
 import { useState, type FormEvent } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
-import { FiAlertCircle, FiMail, FiSend } from "react-icons/fi";
+import {
+  FiAlertCircle,
+  FiMail,
+  FiSend,
+} from "react-icons/fi";
 
 import { authService } from "../authService";
 import type { StatoOperazione } from "../authTypes";
@@ -12,9 +16,14 @@ const MESSAGGIO_NEUTRO =
 const MESSAGGIO_ERRORE =
   "Non è stato possibile inviare la richiesta per un problema tecnico. Riprova tra qualche minuto.";
 
-/* Solo un guasto vero merita il corallo: 5xx o rete assente. Qualsiasi altra
-   risposta ricade sul messaggio neutro, altrimenti il codice di stato
-   diventerebbe un modo per capire se l'account esiste. */
+/*
+ * Solo un guasto vero merita il messaggio di errore:
+ * errore di rete oppure risposta 5xx.
+ *
+ * Qualsiasi altra risposta viene trattata in modo neutro,
+ * così il recupero password non può essere utilizzato
+ * per verificare l'esistenza di un account.
+ */
 const erroreTecnico = (errore: unknown): boolean => {
   if (!axios.isAxiosError(errore)) {
     return true;
@@ -27,37 +36,55 @@ const erroreTecnico = (errore: unknown): boolean => {
 
 const RecuperoPasswordForm = () => {
   const [email, setEmail] = useState("");
-  const [stato, setStato] = useState<StatoOperazione>("inattivo");
+  const [stato, setStato] =
+    useState<StatoOperazione>("inattivo");
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
 
     setStato("invio");
 
     try {
-      await authService.richiediRecuperoPassword(email);
+      await authService.richiediRecuperoPassword(
+        email.trim(),
+      );
 
       setStato("completato");
     } catch (errore) {
-      setStato(erroreTecnico(errore) ? "errore" : "completato");
+      setStato(
+        erroreTecnico(errore)
+          ? "errore"
+          : "completato",
+      );
     }
   };
 
   if (stato === "completato") {
     return (
-      <div className="password-note" role="status">
+      <div
+        className="password-note"
+        role="status"
+      >
         <span className="password-note__icon">
-          <FiMail />
+          <FiMail aria-hidden="true" />
         </span>
 
         <div className="password-note__text">
-          <strong>Controlla la tua casella di posta</strong>
+          <strong>
+            Controlla la tua casella di posta
+          </strong>
 
           <p>{MESSAGGIO_NEUTRO}</p>
 
           <div className="password-note__aiuto">
-            Non ricevi nulla? Controlla lo spam oppure contatta la sede —{" "}
-            <a href="tel:+393779609155">377 960 9155</a>.
+            Non ricevi nulla? Controlla lo spam
+            oppure contatta la sede —{" "}
+            <a href="tel:+393779609155">
+              377 960 9155
+            </a>
+            .
           </div>
         </div>
       </div>
@@ -65,28 +92,41 @@ const RecuperoPasswordForm = () => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} className="login-form">
+    <Form
+      onSubmit={handleSubmit}
+      className="login-form"
+    >
       {stato === "errore" && (
-        <div className="password-alert" role="alert">
+        <div
+          className="password-alert"
+          role="alert"
+        >
           <span className="password-alert__icon">
-            <FiAlertCircle />
+            <FiAlertCircle aria-hidden="true" />
           </span>
 
-          <p className="password-alert__text">{MESSAGGIO_ERRORE}</p>
+          <p className="password-alert__text">
+            {MESSAGGIO_ERRORE}
+          </p>
         </div>
       )}
 
-      <Form.Group className="login-form__group" controlId="email">
+      <Form.Group
+        className="login-form__group"
+        controlId="email"
+      >
         <Form.Label>Email</Form.Label>
 
         <div className="login-form__field">
-          <FiMail />
+          <FiMail aria-hidden="true" />
 
           <Form.Control
             type="email"
             placeholder="nome@email.it"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) =>
+              setEmail(event.target.value)
+            }
             autoComplete="email"
             disabled={stato === "invio"}
             required
@@ -100,10 +140,12 @@ const RecuperoPasswordForm = () => {
         disabled={stato === "invio"}
       >
         <span>
-          {stato === "invio" ? "Invio in corso…" : "Invia link di recupero"}
+          {stato === "invio"
+            ? "Invio in corso…"
+            : "Invia link di recupero"}
         </span>
 
-        <FiSend />
+        <FiSend aria-hidden="true" />
       </Button>
     </Form>
   );
