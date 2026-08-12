@@ -5,7 +5,6 @@ import {
   type TouchEvent,
 } from "react";
 import {
-  FiArrowLeft,
   FiArrowRight,
   FiCheck,
   FiChevronLeft,
@@ -324,54 +323,6 @@ const HomePage = () => {
           >
             <FiChevronRight aria-hidden="true" />
           </button>
-
-          <div
-            className="home-flyers__footer"
-            aria-label="Selezione volantino"
-          >
-            <button
-              type="button"
-              className="home-flyers__footer-arrow"
-              onClick={mostraPrecedente}
-              aria-label="Precedente"
-            >
-              <FiArrowLeft aria-hidden="true" />
-            </button>
-
-            <div className="home-flyers__controls">
-              {VOLANTINI.map(
-                (volantino, indice) => (
-                  <button
-                    key={volantino.id}
-                    className={`home-flyers__dot ${
-                      indice === indiceAttivo
-                        ? "home-flyers__dot--active"
-                        : ""
-                    }`}
-                    type="button"
-                    onClick={() =>
-                      setIndiceAttivo(indice)
-                    }
-                    aria-label={`Mostra ${volantino.titolo}`}
-                    aria-current={
-                      indice === indiceAttivo
-                        ? "true"
-                        : undefined
-                    }
-                  />
-                ),
-              )}
-            </div>
-
-            <button
-              type="button"
-              className="home-flyers__footer-arrow"
-              onClick={mostraSuccessivo}
-              aria-label="Successivo"
-            >
-              <FiArrowRight aria-hidden="true" />
-            </button>
-          </div>
         </div>
       </section>
 
