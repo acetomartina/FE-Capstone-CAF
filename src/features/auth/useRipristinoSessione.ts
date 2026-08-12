@@ -1,19 +1,24 @@
+import axios from "axios";
 import { useEffect } from "react";
 
 import { useAppDispatch } from "../../app/hooks";
 import { tokenService } from "../../services/tokenService";
 import { authService } from "./authService";
-import { impostaAutenticazione, sessioneAssente } from "./authSlice";
+import {
+  impostaAutenticazione,
+  sessioneAssente,
+} from "./authSlice";
 
 /**
  * Ricostruisce la sessione a ogni avvio dell'applicazione.
- * <p>
- * Il token sopravvive nel browser, lo stato Redux no: senza questo, un
- * semplice ricaricamento butterebbe fuori chi ha credenziali valide.
- * <p>
- * I dati dell'utente arrivano dal server e non dal browser: se nel
- * frattempo qualcuno e' stato disattivato o gli e' cambiato il ruolo, il
- * primo ricaricamento se ne accorge.
+ *
+ * Il token sopravvive nel browser, lo stato Redux no:
+ * senza questo controllo un semplice ricaricamento
+ * farebbe perdere la sessione all'utente.
+ *
+ * I dati dell'utente vengono sempre recuperati dal server,
+ * così eventuali modifiche al ruolo o allo stato dell'account
+ * vengono recepite al primo caricamento.
  */
 export const useRipristinoSessione = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +28,6 @@ export const useRipristinoSessione = () => {
 
     if (!token) {
       dispatch(sessioneAssente());
-
       return;
     }
 
@@ -37,16 +41,31 @@ export const useRipristinoSessione = () => {
           return;
         }
 
-        dispatch(impostaAutenticazione({ token, utente }));
-      } catch {
+        dispatch(
+          impostaAutenticazione({
+            token,
+            utente,
+          }),
+        );
+      } catch (errore) {
         if (annullato) {
           return;
         }
 
-        /* Token scaduto, revocato o server irraggiungibile: in tutti i
-           casi non possiamo dire chi sia, quindi lo buttiamo via invece
-           di tenerci una credenziale che non funziona. */
-        tokenService.rimuoviToken();
+        /*
+         * Il token viene eliminato soltanto quando il server
+         * ci conferma che la sessione non è più autorizzata.
+         *
+         * Un errore di rete o un 500 non devono cancellare
+         * una credenziale che potrebbe essere ancora valida.
+         */
+        if (
+          axios.isAxiosError(errore) &&
+          (errore.response?.status === 401 ||
+            errore.response?.status === 403)
+        ) {
+          tokenService.rimuoviToken();
+        }
 
         dispatch(sessioneAssente());
       }

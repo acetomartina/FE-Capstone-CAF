@@ -1,5 +1,9 @@
 import { Spinner } from "react-bootstrap";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import {
+  Navigate,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
 
 import { useAppSelector } from "../../../app/hooks";
 import type { Ruolo } from "../authTypes";
@@ -12,15 +16,23 @@ interface RottaProtettaProps {
 
 /**
  * Guardia sulle rotte dell'area riservata.
- * <p>
- * Non e' una misura di sicurezza: nasconde, non nega. Chi apre gli strumenti
- * per sviluppatori la aggira in un minuto. A negare davvero i dati sono le
- * @PreAuthorize del backend; questa evita solo di trovarsi davanti pagine
- * che non riguardano il proprio ruolo.
+ *
+ * Non è una misura di sicurezza:
+ * il frontend decide soltanto cosa mostrare.
+ *
+ * L'autorizzazione reale alle risorse viene gestita
+ * dal backend tramite i controlli sui ruoli.
  */
-const RottaProtetta = ({ ruoliAmmessi }: RottaProtettaProps) => {
-  const utente = useAppSelector((stato) => stato.auth.utente);
-  const autenticato = useAppSelector((stato) => stato.auth.autenticato);
+const RottaProtetta = ({
+  ruoliAmmessi,
+}: RottaProtettaProps) => {
+  const utente = useAppSelector(
+    (stato) => stato.auth.utente,
+  );
+
+  const autenticato = useAppSelector(
+    (stato) => stato.auth.autenticato,
+  );
 
   const sessioneVerificata = useAppSelector(
     (stato) => stato.auth.sessioneVerificata,
@@ -28,33 +40,74 @@ const RottaProtetta = ({ ruoliAmmessi }: RottaProtettaProps) => {
 
   const posizione = useLocation();
 
-  /* All'avvio la verifica del token e' ancora in volo: decidere adesso
-     significherebbe cacciare al login chi ha una sessione valida. */
+  /*
+   * Conserviamo l'intera destinazione richiesta,
+   * comprese query string e hash.
+   *
+   * Dopo il login l'utente potrà quindi tornare
+   * esattamente alla pagina che aveva richiesto.
+   */
+  const destinazioneRichiesta =
+    posizione.pathname +
+    posizione.search +
+    posizione.hash;
+
+  /*
+   * All'avvio la verifica del token può essere ancora
+   * in corso. Non possiamo decidere se effettuare
+   * il redirect finché non conosciamo lo stato
+   * effettivo della sessione.
+   */
   if (!sessioneVerificata) {
     return (
       <div className="d-flex justify-content-center py-5">
-        <Spinner animation="border" variant="success" role="status">
-          <span className="visually-hidden">Verifica della sessione…</span>
+        <Spinner
+          animation="border"
+          variant="success"
+          role="status"
+        >
+          <span className="visually-hidden">
+            Verifica della sessione…
+          </span>
         </Spinner>
       </div>
     );
   }
 
+  /*
+   * Nessuna sessione valida:
+   * mandiamo l'utente al login ricordando
+   * dove stava cercando di andare.
+   */
   if (!autenticato || !utente) {
-    /* Ricorda dove voleva andare: dopo il login ce lo riportiamo. */
     return (
       <Navigate
         to="/login"
         replace
-        state={{ da: posizione.pathname }}
+        state={{
+          da: destinazioneRichiesta,
+        }}
       />
     );
   }
 
-  /* Ruolo sbagliato: alla propria area, non a una pagina di errore.
-     L'utente non ha sbagliato nulla, ha solo aperto la porta di un altro. */
-  if (ruoliAmmessi && !ruoliAmmessi.includes(utente.ruolo)) {
-    return <Navigate to={percorsoPerRuolo(utente.ruolo)} replace />;
+  /*
+   * L'utente è autenticato ma il suo ruolo
+   * non può accedere a questa sezione.
+   *
+   * Lo riportiamo nella propria area invece
+   * di mostrargli una pagina di errore.
+   */
+  if (
+    ruoliAmmessi &&
+    !ruoliAmmessi.includes(utente.ruolo)
+  ) {
+    return (
+      <Navigate
+        to={percorsoPerRuolo(utente.ruolo)}
+        replace
+      />
+    );
   }
 
   return <Outlet />;
