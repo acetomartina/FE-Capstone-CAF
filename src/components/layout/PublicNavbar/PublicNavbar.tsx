@@ -64,7 +64,7 @@ const PublicNavbar = () => {
     <>
       <Navbar
         sticky="top"
-        className="public-navbar bg-white py-0"
+        className="public-navbar py-0"
       >
         <Container
           fluid="xl"
@@ -81,7 +81,7 @@ const PublicNavbar = () => {
               className="public-navbar__logo"
             />
 
-            <div className="public-navbar__office d-none d-xl-flex flex-column border-start">
+            <div className="public-navbar__office d-none d-xl-flex flex-column">
               <span>SEDE DI</span>
               <strong>Pianopoli</strong>
             </div>
@@ -95,7 +95,14 @@ const PublicNavbar = () => {
               <NavLink
                 key={link.destinazione}
                 to={link.destinazione}
-                className="nav-link"
+                end={link.destinazione === "/"}
+                className={({ isActive }) =>
+                  `public-navbar__link ${
+                    isActive
+                      ? "public-navbar__link--active"
+                      : ""
+                  }`
+                }
               >
                 {link.etichetta}
               </NavLink>
@@ -247,19 +254,22 @@ const PublicNavbar = () => {
             >
               {LINK_NAVIGAZIONE.map((link) => (
                 <NavLink
-  key={link.destinazione}
-  to={link.destinazione}
-  onClick={chiudiMenu}
-  className={({ isActive }) =>
-    `public-mobile-menu__link ${
-      isActive ? "active" : ""
-    }`
-  }
->
-  <span className="public-mobile-menu__link-text">
-    {link.etichetta}
-  </span>
-</NavLink>
+                  key={link.destinazione}
+                  to={link.destinazione}
+                  end={link.destinazione === "/"}
+                  onClick={chiudiMenu}
+                  className={({ isActive }) =>
+                    `public-mobile-menu__link ${
+                      isActive
+                        ? "public-mobile-menu__link--active"
+                        : ""
+                    }`
+                  }
+                >
+                  <span className="public-mobile-menu__link-text">
+                    {link.etichetta}
+                  </span>
+                </NavLink>
               ))}
             </nav>
 
