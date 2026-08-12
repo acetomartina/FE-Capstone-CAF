@@ -1,8 +1,10 @@
 import { useState, type FormEvent } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import {
   FiAlertCircle,
+  FiArrowRight,
   FiCheckCircle,
   FiEye,
   FiEyeOff,
@@ -25,18 +27,31 @@ const MESSAGGIO_TECNICO =
 const MESSAGGIO_PASSWORD_RIFIUTATA =
   "La password non rispetta i requisiti richiesti. Scegline un'altra.";
 
-const REQUISITI = `Almeno ${LUNGHEZZA_MINIMA_PASSWORD} caratteri, con una maiuscola, una minuscola, un numero e un carattere speciale.`;
+const REQUISITI =
+  `Almeno ${LUNGHEZZA_MINIMA_PASSWORD} caratteri, ` +
+  "con una maiuscola, una minuscola, un numero e un carattere speciale.";
 
-/* Il backend valorizza validationErrors solo quando fallisce la Bean
-   Validation: è l'unico modo per distinguere "password rifiutata" da
-   "token bruciato", che altrimenti sarebbero entrambi un 400. */
-const haErroriDiValidazione = (dati: unknown): boolean =>
+/*
+ * Il backend valorizza validationErrors quando fallisce
+ * la validazione della nuova password.
+ *
+ * Questo permette di distinguere una password rifiutata
+ * da un token non valido, scaduto oppure già utilizzato.
+ */
+const haErroriDiValidazione = (
+  dati: unknown,
+): boolean =>
   typeof dati === "object" &&
   dati !== null &&
   "validationErrors" in dati &&
-  Boolean((dati as { validationErrors?: unknown }).validationErrors);
+  Boolean(
+    (dati as { validationErrors?: unknown })
+      .validationErrors,
+  );
 
-const messaggioPerErrore = (errore: unknown): string => {
+const messaggioPerErrore = (
+  errore: unknown,
+): string => {
   if (!axios.isAxiosError(errore)) {
     return MESSAGGIO_TECNICO;
   }
@@ -47,7 +62,11 @@ const messaggioPerErrore = (errore: unknown): string => {
     return MESSAGGIO_TECNICO;
   }
 
-  if (haErroriDiValidazione(errore.response?.data)) {
+  if (
+    haErroriDiValidazione(
+      errore.response?.data,
+    )
+  ) {
     return MESSAGGIO_PASSWORD_RIFIUTATA;
   }
 
@@ -58,26 +77,50 @@ interface ResetPasswordFormProps {
   token?: string;
 }
 
-const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
-  const [password, setPassword] = useState("");
-  const [conferma, setConferma] = useState("");
-  const [mostraPassword, setMostraPassword] = useState(false);
-  const [stato, setStato] = useState<StatoOperazione>("inattivo");
-  const [errore, setErrore] = useState<string | null>(null);
+const ResetPasswordForm = ({
+  token,
+}: ResetPasswordFormProps) => {
+  const [password, setPassword] =
+    useState("");
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const [conferma, setConferma] =
+    useState("");
+
+  const [
+    mostraPassword,
+    setMostraPassword,
+  ] = useState(false);
+
+  const [stato, setStato] =
+    useState<StatoOperazione>("inattivo");
+
+  const [errore, setErrore] =
+    useState<string | null>(null);
+
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
 
-    /* Senza token il form non viene nemmeno renderizzato: la guardia serve
-       a stringere il tipo senza ricorrere a un cast. */
+    /*
+     * Senza token il form non viene renderizzato.
+     * La guardia mantiene comunque il tipo
+     * correttamente ristretto.
+     */
     if (!token) {
       return;
     }
 
-    const esito = validaNuovaPassword(password, conferma);
+    const esito = validaNuovaPassword(
+      password,
+      conferma,
+    );
 
-    /* Validazione prima della rete: una password che sappiamo già
-       sbagliata non deve consumare il token. */
+    /*
+     * Validazione prima della chiamata di rete:
+     * una password già non valida lato client
+     * non deve consumare inutilmente il token.
+     */
     if (!esito.valida) {
       setStato("errore");
       setErrore(esito.errore);
@@ -89,73 +132,116 @@ const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
     setErrore(null);
 
     try {
-      await authService.resetPassword(token, password);
+      await authService.resetPassword(
+        token,
+        password,
+      );
 
       setStato("completato");
     } catch (erroreChiamata) {
       setStato("errore");
-      setErrore(messaggioPerErrore(erroreChiamata));
+
+      setErrore(
+        messaggioPerErrore(erroreChiamata),
+      );
     }
   };
 
   if (!token) {
     return (
-      <div className="password-alert" role="alert">
+      <div
+        className="password-alert"
+        role="alert"
+      >
         <span className="password-alert__icon">
-          <FiAlertCircle />
+          <FiAlertCircle aria-hidden="true" />
         </span>
 
-        <p className="password-alert__text">{MESSAGGIO_TOKEN}</p>
+        <p className="password-alert__text">
+          {MESSAGGIO_TOKEN}
+        </p>
       </div>
     );
   }
 
   if (stato === "completato") {
     return (
-      <div className="password-note" role="status">
+      <div
+        className="password-note"
+        role="status"
+      >
         <span className="password-note__icon">
-          <FiCheckCircle />
+          <FiCheckCircle aria-hidden="true" />
         </span>
 
         <div className="password-note__text">
           <strong>Password aggiornata</strong>
 
           <p>
-            Da adesso puoi accedere alla tua area personale con la nuova
-            password.
+            Da adesso puoi accedere alla tua area
+            personale con la nuova password.
           </p>
+
+          <Link
+            to="/login"
+            className="login-form__submit password-note__action"
+          >
+            <span>Vai all'accesso</span>
+
+            <FiArrowRight aria-hidden="true" />
+          </Link>
         </div>
       </div>
     );
   }
 
-  const etichettaToggle = mostraPassword
-    ? "Nascondi le password"
-    : "Mostra le password";
+  const etichettaToggle =
+    mostraPassword
+      ? "Nascondi le password"
+      : "Mostra le password";
 
   return (
-    <Form onSubmit={handleSubmit} className="login-form">
+    <Form
+      onSubmit={handleSubmit}
+      className="login-form"
+    >
       {stato === "errore" && errore && (
-        <div className="password-alert" role="alert">
+        <div
+          className="password-alert"
+          role="alert"
+        >
           <span className="password-alert__icon">
-            <FiAlertCircle />
+            <FiAlertCircle aria-hidden="true" />
           </span>
 
-          <p className="password-alert__text">{errore}</p>
+          <p className="password-alert__text">
+            {errore}
+          </p>
         </div>
       )}
 
-      <Form.Group className="login-form__group" controlId="nuovaPassword">
-        <Form.Label>Nuova password</Form.Label>
+      <Form.Group
+        className="login-form__group"
+        controlId="nuovaPassword"
+      >
+        <Form.Label>
+          Nuova password
+        </Form.Label>
 
         <div className="login-form__field">
-          <FiLock />
+          <FiLock aria-hidden="true" />
 
           <Form.Control
-            type={mostraPassword ? "text" : "password"}
+            type={
+              mostraPassword
+                ? "text"
+                : "password"
+            }
             placeholder="Inserisci la nuova password"
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            onChange={(event) =>
+              setPassword(event.target.value)
+            }
             autoComplete="new-password"
             disabled={stato === "invio"}
             required
@@ -164,27 +250,49 @@ const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
           <button
             type="button"
             className="login-form__password-toggle"
-            onClick={() => setMostraPassword((valore) => !valore)}
+            onClick={() =>
+              setMostraPassword(
+                (valore) => !valore,
+              )
+            }
             aria-label={etichettaToggle}
+            disabled={stato === "invio"}
           >
-            {mostraPassword ? <FiEyeOff /> : <FiEye />}
+            {mostraPassword ? (
+              <FiEyeOff aria-hidden="true" />
+            ) : (
+              <FiEye aria-hidden="true" />
+            )}
           </button>
         </div>
 
-        <p className="password-form__hint">{REQUISITI}</p>
+        <p className="password-form__hint">
+          {REQUISITI}
+        </p>
       </Form.Group>
 
-      <Form.Group className="login-form__group" controlId="confermaPassword">
-        <Form.Label>Conferma password</Form.Label>
+      <Form.Group
+        className="login-form__group"
+        controlId="confermaPassword"
+      >
+        <Form.Label>
+          Conferma password
+        </Form.Label>
 
         <div className="login-form__field">
-          <FiLock />
+          <FiLock aria-hidden="true" />
 
           <Form.Control
-            type={mostraPassword ? "text" : "password"}
+            type={
+              mostraPassword
+                ? "text"
+                : "password"
+            }
             placeholder="Ripeti la nuova password"
             value={conferma}
-            onChange={(event) => setConferma(event.target.value)}
+            onChange={(event) =>
+              setConferma(event.target.value)
+            }
             autoComplete="new-password"
             disabled={stato === "invio"}
             required
@@ -198,10 +306,12 @@ const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
         disabled={stato === "invio"}
       >
         <span>
-          {stato === "invio" ? "Salvataggio…" : "Reimposta la password"}
+          {stato === "invio"
+            ? "Salvataggio…"
+            : "Reimposta la password"}
         </span>
 
-        <FiCheckCircle />
+        <FiCheckCircle aria-hidden="true" />
       </Button>
     </Form>
   );
