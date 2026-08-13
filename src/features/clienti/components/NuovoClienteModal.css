@@ -16,6 +16,10 @@
    MODAL
    ========================================================= */
 
+.nuovo-cliente-modal .modal-dialog {
+  max-width: 760px;
+}
+
 .nuovo-cliente-modal .modal-content {
   overflow: hidden;
 
@@ -32,7 +36,7 @@
    ========================================================= */
 
 .nuovo-cliente-modal__header {
-  padding: 1.5rem 1.6rem 1.25rem;
+  padding: 1.35rem 1.5rem 1.1rem;
 
   align-items: flex-start;
 
@@ -41,7 +45,7 @@
   background:
     radial-gradient(
       circle at 96% 0,
-      rgba(31, 111, 114, 0.07),
+      rgba(31, 111, 114, 0.055),
       transparent 9rem
     ),
     #ffffff;
@@ -50,11 +54,11 @@
 .nuovo-cliente-modal__eyebrow {
   display: block;
 
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 
   color: var(--caf-petrol);
 
-  font-size: 0.65rem;
+  font-size: 0.63rem;
   font-weight: 800;
   letter-spacing: 0.08em;
 
@@ -66,24 +70,24 @@
 
   color: var(--caf-navy);
 
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   font-weight: 850;
   letter-spacing: -0.035em;
 }
 
 .nuovo-cliente-modal__header p {
-  max-width: 570px;
+  max-width: 600px;
 
-  margin: 0.35rem 0 0;
+  margin: 0.3rem 0 0;
 
   color: var(--caf-text-muted);
 
-  font-size: 0.78rem;
-  line-height: 1.5;
+  font-size: 0.73rem;
+  line-height: 1.45;
 }
 
 .nuovo-cliente-modal__header .btn-close {
-  margin-top: 0.1rem;
+  margin-top: 0.05rem;
 
   box-shadow: none;
 }
@@ -93,9 +97,9 @@
    ========================================================= */
 
 .nuovo-cliente-modal__body {
-  max-height: min(70vh, 720px);
+  max-height: min(68vh, 690px);
 
-  padding: 1.4rem 1.6rem;
+  padding: 1.1rem 1.5rem 1.2rem;
 
   overflow-y: auto;
 
@@ -107,7 +111,7 @@
    ========================================================= */
 
 .nuovo-cliente-modal__alert {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 
   border-color: #f2cdc6;
   border-radius: 12px;
@@ -116,7 +120,7 @@
 
   color: #c0392f;
 
-  font-size: 0.78rem;
+  font-size: 0.75rem;
 }
 
 /* =========================================================
@@ -124,28 +128,18 @@
    ========================================================= */
 
 .nuovo-cliente-section {
-  padding: 1.2rem;
+  padding: 1rem 1.05rem;
 
   border: 1px solid rgba(16, 44, 101, 0.075);
-  border-radius: 16px;
+  border-radius: 15px;
 
   background: #ffffff;
 
-  box-shadow: 0 6px 18px rgba(16, 44, 101, 0.025);
+  box-shadow: 0 5px 16px rgba(16, 44, 101, 0.025);
 }
 
 .nuovo-cliente-section + .nuovo-cliente-section {
-  margin-top: 1rem;
-}
-
-.nuovo-cliente-section--accesso {
-  background:
-    radial-gradient(
-      circle at 100% 0,
-      rgba(116, 82, 168, 0.06),
-      transparent 10rem
-    ),
-    #ffffff;
+  margin-top: 0.85rem;
 }
 
 /* =========================================================
@@ -153,26 +147,26 @@
    ========================================================= */
 
 .nuovo-cliente-section__header {
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 
   display: flex;
   align-items: center;
 
-  gap: 0.75rem;
+  gap: 0.7rem;
 }
 
 .nuovo-cliente-section__icon {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
 
-  flex: 0 0 38px;
+  flex: 0 0 36px;
 
   display: grid;
   place-items: center;
 
-  border-radius: 11px;
+  border-radius: 10px;
 
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .nuovo-cliente-section__icon--green {
@@ -204,17 +198,17 @@
 
   color: var(--caf-navy);
 
-  font-size: 0.83rem;
+  font-size: 0.8rem;
   font-weight: 800;
 }
 
 .nuovo-cliente-section__header p {
-  margin: 0.14rem 0 0;
+  margin: 0.12rem 0 0;
 
   color: var(--caf-text-muted);
 
-  font-size: 0.65rem;
-  line-height: 1.4;
+  font-size: 0.62rem;
+  line-height: 1.35;
 }
 
 /* =========================================================
@@ -222,11 +216,11 @@
    ========================================================= */
 
 .nuovo-cliente-modal .form-label {
-  margin-bottom: 0.38rem;
+  margin-bottom: 0.34rem;
 
   color: var(--caf-navy);
 
-  font-size: 0.72rem;
+  font-size: 0.69rem;
   font-weight: 700;
 }
 
@@ -241,9 +235,9 @@
    ========================================================= */
 
 .nuovo-cliente-modal .form-control {
-  min-height: 43px;
+  min-height: 41px;
 
-  padding: 0.65rem 0.78rem;
+  padding: 0.6rem 0.75rem;
 
   border: 1px solid #d8e0eb;
   border-radius: 10px;
@@ -252,7 +246,7 @@
 
   color: var(--caf-navy);
 
-  font-size: 0.76rem;
+  font-size: 0.73rem;
 
   box-shadow: none;
 
@@ -285,72 +279,56 @@
 }
 
 /* =========================================================
-   PASSWORD
+   ACCESSO AREA CLIENTE
    ========================================================= */
 
-.nuovo-cliente-password {
-  position: relative;
+.nuovo-cliente-section--accesso {
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      rgba(116, 82, 168, 0.035),
+      transparent 9rem
+    ),
+    #ffffff;
 }
 
-.nuovo-cliente-password .form-control {
-  padding-right: 3rem;
+.nuovo-cliente-accesso {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 0.75rem;
 }
 
-.nuovo-cliente-password__toggle {
-  position: absolute;
+.nuovo-cliente-accesso__content {
+  min-width: 0;
 
-  top: 50%;
-  right: 0.4rem;
-
-  width: 34px;
-  height: 34px;
-
-  padding: 0;
-
-  display: grid;
-  place-items: center;
-
-  border: 0;
-  border-radius: 8px;
-
-  background: transparent;
-
-  color: #667085;
-
-  cursor: pointer;
-
-  transform: translateY(-50%);
-
-  transition:
-    background-color 180ms ease,
-    color 180ms ease;
+  padding-top: 0.04rem;
 }
 
-.nuovo-cliente-password__toggle:hover {
-  background: var(--caf-blue-soft);
+.nuovo-cliente-accesso__content h3 {
+  margin: 0;
 
-  color: var(--caf-blue);
+  color: var(--caf-navy);
+
+  font-size: 0.8rem;
+  font-weight: 800;
 }
 
-.nuovo-cliente-password__toggle:disabled {
-  cursor: default;
+.nuovo-cliente-accesso__content p {
+  max-width: 610px;
 
-  opacity: 0.45;
-}
-
-/* =========================================================
-   HELPER TEXT
-   ========================================================= */
-
-.nuovo-cliente-modal .form-text {
-  display: block;
-
-  margin-top: 0.4rem;
+  margin: 0.2rem 0 0;
 
   color: var(--caf-text-muted);
 
-  font-size: 0.62rem;
-  line-height: 1.45;
+  font-size: 0.63rem;
+  line-height: 1.55;
+}
+
+.nuovo-cliente-accesso__content strong {
+  color: var(--cliente-purple);
+
+  font-weight: 800;
 }
 
 /* =========================================================
@@ -358,11 +336,11 @@
    ========================================================= */
 
 .nuovo-cliente-modal__required-note {
-  margin: 0.85rem 0 0;
+  margin: 0.7rem 0 0;
 
   color: var(--caf-text-muted);
 
-  font-size: 0.62rem;
+  font-size: 0.59rem;
 }
 
 .nuovo-cliente-modal__required-note span {
@@ -376,9 +354,9 @@
    ========================================================= */
 
 .nuovo-cliente-modal__footer {
-  padding: 1rem 1.6rem;
+  padding: 0.85rem 1.5rem;
 
-  gap: 0.5rem;
+  gap: 0.45rem;
 
   border-top: 1px solid #edf1f6;
 
@@ -386,16 +364,16 @@
 }
 
 .nuovo-cliente-modal__cancel.btn {
-  min-height: 42px;
+  min-height: 40px;
 
-  padding-inline: 1rem;
+  padding-inline: 0.95rem;
 
   border-color: #cdd6e2;
   border-radius: 10px;
 
   color: #667085;
 
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
@@ -408,15 +386,15 @@
 }
 
 .nuovo-cliente-modal__submit.btn {
-  min-height: 42px;
+  min-height: 40px;
 
-  padding-inline: 1.15rem;
+  padding-inline: 1.05rem;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  gap: 0.5rem;
+  gap: 0.45rem;
 
   border: 0;
   border-radius: 10px;
@@ -425,10 +403,10 @@
 
   color: #ffffff;
 
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   font-weight: 800;
 
-  box-shadow: 0 8px 18px rgba(7, 136, 66, 0.18);
+  box-shadow: 0 7px 16px rgba(7, 136, 66, 0.16);
 }
 
 .nuovo-cliente-modal__submit.btn:hover,
@@ -462,7 +440,7 @@
   }
 
   .nuovo-cliente-section {
-    padding: 1rem;
+    padding: 0.95rem;
   }
 
   .nuovo-cliente-modal__body {
@@ -476,20 +454,34 @@
   }
 
   .nuovo-cliente-modal__header .modal-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 
-  .nuovo-cliente-section__header {
+  .nuovo-cliente-section__header,
+  .nuovo-cliente-accesso {
     align-items: flex-start;
   }
 
   .nuovo-cliente-modal__footer {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
   }
 
   .nuovo-cliente-modal__cancel.btn,
   .nuovo-cliente-modal__submit.btn {
     width: 100%;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .nuovo-cliente-modal .form-control,
+  .nuovo-cliente-modal__cancel.btn,
+  .nuovo-cliente-modal__submit.btn {
+    transition: none;
   }
 }

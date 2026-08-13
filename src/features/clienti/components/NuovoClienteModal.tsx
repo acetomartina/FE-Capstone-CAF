@@ -7,8 +7,6 @@ import {
   Spinner,
 } from "react-bootstrap";
 import {
-  FiEye,
-  FiEyeOff,
   FiLock,
   FiMail,
   FiMapPin,
@@ -38,15 +36,13 @@ const statoIniziale: CreaClienteRequest = {
   comune: null,
   provincia: null,
   cap: null,
-  password: "",
 };
 
 type CampoObbligatorio =
   | "nome"
   | "cognome"
   | "codiceFiscale"
-  | "email"
-  | "password";
+  | "email";
 
 type CampoOpzionale =
   | "dataNascita"
@@ -70,9 +66,6 @@ const NuovoClienteModal = ({
 
   const [errore, setErrore] =
     useState<string | null>(null);
-
-  const [mostraPassword, setMostraPassword] =
-    useState(false);
 
   const aggiornaCampoObbligatorio = (
     campo: CampoObbligatorio,
@@ -104,7 +97,6 @@ const NuovoClienteModal = ({
 
     setForm(statoIniziale);
     setErrore(null);
-    setMostraPassword(false);
 
     onHide();
   };
@@ -168,7 +160,6 @@ const NuovoClienteModal = ({
       });
 
       setForm(statoIniziale);
-      setMostraPassword(false);
 
       onClienteCreato();
       onHide();
@@ -211,9 +202,10 @@ const NuovoClienteModal = ({
             </Modal.Title>
 
             <p>
-              Inserisci i dati del cliente e
-              configura le credenziali per
-              l'accesso all'Area Cliente.
+              Inserisci i dati del cliente.
+              Al termine verrà inviato
+              automaticamente l&apos;invito per
+              attivare l&apos;Area Cliente.
             </p>
           </div>
         </Modal.Header>
@@ -237,13 +229,10 @@ const NuovoClienteModal = ({
               </span>
 
               <div>
-                <h3>
-                  Dati anagrafici
-                </h3>
+                <h3>Dati anagrafici</h3>
 
                 <p>
-                  Informazioni principali del
-                  cliente.
+                  Informazioni principali del cliente.
                 </p>
               </div>
             </header>
@@ -264,10 +253,10 @@ const NuovoClienteModal = ({
                     placeholder="Es. Mario"
                     value={form.nome}
                     disabled={salvataggio}
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoObbligatorio(
                         "nome",
-                        e.target.value,
+                        event.target.value,
                       )
                     }
                   />
@@ -289,10 +278,10 @@ const NuovoClienteModal = ({
                     placeholder="Es. Rossi"
                     value={form.cognome}
                     disabled={salvataggio}
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoObbligatorio(
                         "cognome",
-                        e.target.value,
+                        event.target.value,
                       )
                     }
                   />
@@ -315,10 +304,10 @@ const NuovoClienteModal = ({
                     placeholder="RSSMRA80A01F205X"
                     value={form.codiceFiscale}
                     disabled={salvataggio}
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoObbligatorio(
                         "codiceFiscale",
-                        e.target.value
+                        event.target.value
                           .replace(
                             /[^a-zA-Z0-9]/g,
                             "",
@@ -342,10 +331,10 @@ const NuovoClienteModal = ({
                       form.dataNascita ?? ""
                     }
                     disabled={salvataggio}
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoOpzionale(
                         "dataNascita",
-                        e.target.value,
+                        event.target.value,
                       )
                     }
                   />
@@ -365,10 +354,10 @@ const NuovoClienteModal = ({
                       form.luogoNascita ?? ""
                     }
                     disabled={salvataggio}
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoOpzionale(
                         "luogoNascita",
-                        e.target.value,
+                        event.target.value,
                       )
                     }
                   />
@@ -412,10 +401,10 @@ const NuovoClienteModal = ({
                     value={form.email}
                     disabled={salvataggio}
                     autoComplete="email"
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoObbligatorio(
                         "email",
-                        e.target.value,
+                        event.target.value,
                       )
                     }
                   />
@@ -437,10 +426,10 @@ const NuovoClienteModal = ({
                     }
                     disabled={salvataggio}
                     autoComplete="tel"
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoOpzionale(
                         "telefono",
-                        e.target.value,
+                        event.target.value,
                       )
                     }
                   />
@@ -461,8 +450,7 @@ const NuovoClienteModal = ({
                 <h3>Residenza</h3>
 
                 <p>
-                  Dati dell'indirizzo del
-                  cliente.
+                  Dati dell&apos;indirizzo del cliente.
                 </p>
               </div>
             </header>
@@ -482,10 +470,10 @@ const NuovoClienteModal = ({
                     }
                     disabled={salvataggio}
                     autoComplete="street-address"
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoOpzionale(
                         "indirizzo",
-                        e.target.value,
+                        event.target.value,
                       )
                     }
                   />
@@ -505,10 +493,10 @@ const NuovoClienteModal = ({
                       form.comune ?? ""
                     }
                     disabled={salvataggio}
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoOpzionale(
                         "comune",
-                        e.target.value,
+                        event.target.value,
                       )
                     }
                   />
@@ -528,10 +516,10 @@ const NuovoClienteModal = ({
                       form.provincia ?? ""
                     }
                     disabled={salvataggio}
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoOpzionale(
                         "provincia",
-                        e.target.value
+                        event.target.value
                           .replace(
                             /[^a-zA-Z]/g,
                             "",
@@ -555,10 +543,10 @@ const NuovoClienteModal = ({
                     placeholder="88046"
                     value={form.cap ?? ""}
                     disabled={salvataggio}
-                    onChange={(e) =>
+                    onChange={(event) =>
                       aggiornaCampoOpzionale(
                         "cap",
-                        e.target.value.replace(
+                        event.target.value.replace(
                           /\D/g,
                           "",
                         ),
@@ -570,87 +558,35 @@ const NuovoClienteModal = ({
             </div>
           </section>
 
-          {/* ACCESSO */}
+          {/* ACCESSO AREA CLIENTE */}
 
           <section className="nuovo-cliente-section nuovo-cliente-section--accesso">
-            <header className="nuovo-cliente-section__header">
+            <div className="nuovo-cliente-accesso">
               <span className="nuovo-cliente-section__icon nuovo-cliente-section__icon--purple">
                 <FiLock />
               </span>
 
-              <div>
+              <div className="nuovo-cliente-accesso__content">
                 <h3>
                   Accesso Area Cliente
                 </h3>
 
                 <p>
-                  La password iniziale sarà
-                  utilizzata insieme all'email per
-                  il primo accesso.
+                  Il cliente configurerà
+                  autonomamente le proprie
+                  credenziali. Al termine della
+                  creazione verrà inviato un link di
+                  attivazione a{" "}
+                  <strong>
+                    {form.email.trim() ||
+                      "indirizzo email del cliente"}
+                  </strong>
+                  , dal quale potrà scegliere la
+                  password e attivare la propria
+                  Area Cliente.
                 </p>
               </div>
-            </header>
-
-            <Form.Group>
-              <Form.Label>
-                Password iniziale
-                <span className="nuovo-cliente-required">
-                  *
-                </span>
-              </Form.Label>
-
-              <div className="nuovo-cliente-password">
-                <Form.Control
-                  type={
-                    mostraPassword
-                      ? "text"
-                      : "password"
-                  }
-                  required
-                  minLength={8}
-                  maxLength={72}
-                  value={form.password}
-                  disabled={salvataggio}
-                  autoComplete="new-password"
-                  placeholder="Crea una password temporanea"
-                  onChange={(e) =>
-                    aggiornaCampoObbligatorio(
-                      "password",
-                      e.target.value,
-                    )
-                  }
-                />
-
-                <button
-                  type="button"
-                  className="nuovo-cliente-password__toggle"
-                  onClick={() =>
-                    setMostraPassword(
-                      (valore) => !valore,
-                    )
-                  }
-                  disabled={salvataggio}
-                  aria-label={
-                    mostraPassword
-                      ? "Nascondi password"
-                      : "Mostra password"
-                  }
-                >
-                  {mostraPassword ? (
-                    <FiEyeOff />
-                  ) : (
-                    <FiEye />
-                  )}
-                </button>
-              </div>
-
-              <Form.Text>
-                Minimo 8 caratteri, con almeno
-                una maiuscola, una minuscola,
-                un numero e un carattere
-                speciale.
-              </Form.Text>
-            </Form.Group>
+            </div>
           </section>
 
           <p className="nuovo-cliente-modal__required-note">

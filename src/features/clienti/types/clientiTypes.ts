@@ -32,7 +32,6 @@ export interface CreaClienteRequest {
   comune: string | null;
   provincia: string | null;
   cap: string | null;
-  password: string;
 }
 
 export interface AggiornaClienteRequest {
