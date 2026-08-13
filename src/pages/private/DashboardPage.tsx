@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
@@ -14,6 +15,12 @@ import {
 } from "react-icons/fi";
 
 import PrivatePageHeader from "../../components/private/PrivatePageHeader";
+import ClienteDettaglioModal from "../../features/clienti/components/ClienteDettaglioModal";
+import { ricercaService } from "../../features/ricerca/api/ricercaService";
+import type {
+  RicercaGlobaleResponse,
+  RisultatoClienteRicerca,
+} from "../../features/ricerca/types/ricercaTypes";
 
 import "./DashboardPage.css";
 
@@ -22,8 +29,7 @@ type VarianteCard =
   | "orange"
   | "blue"
   | "fuchsia"
-  | "purple"
-  | "petrol";
+  | "purple";
 
 type DashboardStat = {
   titolo: string;
@@ -131,9 +137,116 @@ const scadenze: Scadenza[] = [
   },
 ];
 
+const rispostaVuota: RicercaGlobaleResponse = {
+  clienti: [],
+  pratiche: [],
+  documenti: [],
+};
+
 const DashboardPage = () => {
   const [ricerca, setRicerca] =
     useState("");
+
+  const [risultati, setRisultati] =
+    useState<RicercaGlobaleResponse>(
+      rispostaVuota,
+    );
+
+  const [
+    ricercaInCorso,
+    setRicercaInCorso,
+  ] = useState(false);
+
+  const [
+    erroreRicerca,
+    setErroreRicerca,
+  ] = useState<string | null>(null);
+
+  const [
+    clienteSelezionatoId,
+    setClienteSelezionatoId,
+  ] = useState<number | null>(null);
+
+  const queryNormalizzata =
+    ricerca.trim();
+
+  useEffect(() => {
+    if (queryNormalizzata.length < 2) {
+      setRisultati(rispostaVuota);
+      setErroreRicerca(null);
+      setRicercaInCorso(false);
+
+      return;
+    }
+
+    let richiestaAttiva = true;
+
+    const timeout = window.setTimeout(
+      async () => {
+        try {
+          setRicercaInCorso(true);
+          setErroreRicerca(null);
+
+          const risposta =
+            await ricercaService.cerca(
+              queryNormalizzata,
+            );
+
+          if (!richiestaAttiva) {
+            return;
+          }
+
+          setRisultati(risposta);
+        } catch {
+          if (!richiestaAttiva) {
+            return;
+          }
+
+          setRisultati(rispostaVuota);
+
+          setErroreRicerca(
+            "Impossibile completare la ricerca. Riprova.",
+          );
+        } finally {
+          if (richiestaAttiva) {
+            setRicercaInCorso(false);
+          }
+        }
+      },
+      180,
+    );
+
+    return () => {
+      richiestaAttiva = false;
+
+      window.clearTimeout(timeout);
+    };
+  }, [queryNormalizzata]);
+
+  const pulisciRicerca = () => {
+    setRicerca("");
+    setRisultati(rispostaVuota);
+    setErroreRicerca(null);
+  };
+
+  const apriCliente = (
+    cliente: RisultatoClienteRicerca,
+  ) => {
+    setClienteSelezionatoId(
+      cliente.id,
+    );
+  };
+
+  const mostraRisultati =
+    queryNormalizzata.length >= 2;
+
+  const nessunRisultato =
+    mostraRisultati &&
+    !ricercaInCorso &&
+    !erroreRicerca &&
+    risultati.clienti.length === 0 &&
+    risultati.pratiche.length === 0 &&
+    risultati.documenti.length === 0;
 
   return (
     <section className="dashboard-page">
@@ -179,15 +292,14 @@ const DashboardPage = () => {
               }
               placeholder="Cerca cliente, codice fiscale, pratica o documento..."
               aria-label="Ricerca globale nel gestionale"
+              autoComplete="off"
             />
 
             {ricerca && (
               <button
                 type="button"
                 className="dashboard-global-search__clear"
-                onClick={() =>
-                  setRicerca("")
-                }
+                onClick={pulisciRicerca}
                 aria-label="Cancella ricerca"
               >
                 <FiX />
@@ -195,18 +307,120 @@ const DashboardPage = () => {
             )}
           </div>
 
-          {ricerca.trim().length > 0 && (
-            <div className="dashboard-global-search__hint">
-              La ricerca globale verrà
-              collegata al backend per
-              mostrare risultati da clienti,
-              pratiche e documenti.
+          {mostraRisultati && (
+            <div className="dashboard-search-results">
+              {ricercaInCorso && (
+                <div className="dashboard-search-results__state">
+                  Ricerca in corso...
+                </div>
+              )}
+
+              {erroreRicerca && (
+                <div className="dashboard-search-results__state dashboard-search-results__state--error">
+                  {erroreRicerca}
+                </div>
+              )}
+
+              {!ricercaInCorso &&
+                !erroreRicerca &&
+                risultati.clienti.length >
+                  0 && (
+                  <section className="dashboard-search-group">
+                    <header className="dashboard-search-group__header">
+                      <div>
+                        <span>
+                          Clienti
+                        </span>
+
+                        <strong>
+                          {
+                            risultati
+                              .clienti
+                              .length
+                          }
+                        </strong>
+                      </div>
+                    </header>
+
+                    <div className="dashboard-search-group__list">
+                      {risultati.clienti.map(
+                        (cliente) => (
+                          <button
+                            key={
+                              cliente.id
+                            }
+                            type="button"
+                            className="dashboard-search-client"
+                            onClick={() =>
+                              apriCliente(
+                                cliente,
+                              )
+                            }
+                          >
+                            <span className="dashboard-search-client__avatar">
+                              {cliente.nome
+                                .charAt(0)
+                                .toUpperCase()}
+
+                              {cliente.cognome
+                                .charAt(0)
+                                .toUpperCase()}
+                            </span>
+
+                            <span className="dashboard-search-client__content">
+                              <strong>
+                                {
+                                  cliente.nome
+                                }{" "}
+                                {
+                                  cliente.cognome
+                                }
+                              </strong>
+
+                              <small>
+                                {
+                                  cliente.codiceFiscale
+                                }{" "}
+                                ·{" "}
+                                {
+                                  cliente.email
+                                }
+                              </small>
+                            </span>
+
+                            <span
+                              className={`dashboard-search-client__status ${
+                                cliente.attivo
+                                  ? "dashboard-search-client__status--active"
+                                  : "dashboard-search-client__status--inactive"
+                              }`}
+                            >
+                              {cliente.attivo
+                                ? "Attivo"
+                                : "Non attivo"}
+                            </span>
+
+                            <FiArrowRight className="dashboard-search-client__arrow" />
+                          </button>
+                        ),
+                      )}
+                    </div>
+                  </section>
+                )}
+
+              {nessunRisultato && (
+                <div className="dashboard-search-results__state">
+                  Nessun risultato trovato
+                  per “
+                  {queryNormalizzata}”.
+                </div>
+              )}
             </div>
           )}
         </div>
       </section>
 
-      {/* RIEPILOGO STATISTICHE */}
+      {/* STATISTICHE */}
 
       <section
         className="dashboard-stats"
@@ -244,7 +458,7 @@ const DashboardPage = () => {
         )}
       </section>
 
-      {/* ATTIVITÀ OPERATIVE */}
+      {/* ATTIVITÀ */}
 
       <section
         className="dashboard-activity"
@@ -347,7 +561,7 @@ const DashboardPage = () => {
                   <div className="dashboard-deadline__date">
                     <strong>
                       {scadenza.giorno}
-                    </strong> 
+                    </strong>
 
                     <span>
                       {scadenza.mese}
@@ -373,6 +587,37 @@ const DashboardPage = () => {
           </div>
         </article>
       </section>
+
+      {/* DETTAGLIO CLIENTE */}
+
+      <ClienteDettaglioModal
+        show={
+          clienteSelezionatoId !==
+          null
+        }
+        clienteId={
+          clienteSelezionatoId
+        }
+        onHide={() =>
+          setClienteSelezionatoId(
+            null,
+          )
+        }
+        onClienteAggiornato={() => {
+          if (
+            queryNormalizzata.length >=
+            2
+          ) {
+            void ricercaService
+              .cerca(
+                queryNormalizzata,
+              )
+              .then(
+                setRisultati,
+              );
+          }
+        }}
+      />
     </section>
   );
 };
