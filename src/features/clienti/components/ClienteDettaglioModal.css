@@ -1,0 +1,620 @@
+.cliente-dettaglio-modal {
+  --cliente-green: #247a3a;
+  --cliente-green-soft: #e6f4e9;
+
+  --cliente-blue: #3f62a5;
+  --cliente-blue-soft: #e2eaf7;
+
+  --cliente-orange: #c76a08;
+  --cliente-orange-soft: #fff0d8;
+
+  --cliente-purple: #7452a8;
+  --cliente-purple-soft: #eee8f7;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.cliente-dettaglio-modal .modal-dialog {
+  max-width: 760px;
+}
+
+.cliente-dettaglio-modal .modal-content {
+  overflow: hidden;
+
+  border: 1px solid rgba(16, 44, 101, 0.09);
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow: 0 24px 70px rgba(16, 44, 101, 0.16);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.cliente-dettaglio-modal__header {
+  padding: 1.35rem 1.5rem 1.1rem;
+
+  align-items: flex-start;
+
+  border-bottom: 1px solid #edf1f6;
+
+  background:
+    radial-gradient(
+      circle at 96% 0,
+      rgba(31, 111, 114, 0.055),
+      transparent 9rem
+    ),
+    #ffffff;
+}
+
+.cliente-dettaglio-modal__eyebrow {
+  display: block;
+
+  margin-bottom: 0.2rem;
+
+  color: var(--caf-petrol);
+
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.cliente-dettaglio-modal__header .modal-title {
+  margin: 0;
+
+  color: var(--caf-navy);
+
+  font-size: 1.35rem;
+  font-weight: 850;
+  letter-spacing: -0.035em;
+}
+
+.cliente-dettaglio-modal__meta {
+  margin-top: 0.38rem;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 0.5rem;
+}
+
+.cliente-dettaglio-modal__meta > span:first-child {
+  color: var(--caf-text-muted);
+
+  font-size: 0.69rem;
+  font-weight: 650;
+  letter-spacing: 0.025em;
+}
+
+.cliente-dettaglio-modal__header .btn-close {
+  margin-top: 0.05rem;
+
+  box-shadow: none;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.cliente-dettaglio-status {
+  min-height: 23px;
+
+  padding: 0.22rem 0.55rem;
+
+  display: inline-flex;
+  align-items: center;
+
+  border-radius: 999px;
+
+  font-size: 0.58rem;
+  font-weight: 800;
+}
+
+.cliente-dettaglio-status--active {
+  background: var(--cliente-green-soft);
+
+  color: var(--cliente-green);
+}
+
+.cliente-dettaglio-status--inactive {
+  background: #eef1f5;
+
+  color: #687588;
+}
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.cliente-dettaglio-modal__body {
+  max-height: min(68vh, 690px);
+
+  padding: 1.1rem 1.5rem 1.2rem;
+
+  overflow-y: auto;
+
+  background: #fbfcfe;
+}
+
+/* =========================================================
+   ALERT
+   ========================================================= */
+
+.cliente-dettaglio-modal__alert {
+  margin-bottom: 1rem;
+
+  border-color: #f2cdc6;
+  border-radius: 12px;
+
+  background: #fdf4f2;
+
+  color: #c0392f;
+
+  font-size: 0.75rem;
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.cliente-dettaglio-loading {
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.7rem;
+}
+
+.cliente-dettaglio-loading .spinner-border {
+  color: var(--caf-petrol);
+}
+
+.cliente-dettaglio-loading p {
+  margin: 0;
+
+  color: var(--caf-text-muted);
+
+  font-size: 0.72rem;
+}
+
+/* =========================================================
+   SEZIONI
+   ========================================================= */
+
+.cliente-dettaglio-section {
+  padding: 1rem 1.05rem;
+
+  border: 1px solid rgba(16, 44, 101, 0.075);
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  box-shadow: 0 5px 16px rgba(16, 44, 101, 0.025);
+}
+
+.cliente-dettaglio-section + .cliente-dettaglio-section {
+  margin-top: 0.85rem;
+}
+
+/* =========================================================
+   HEADER SEZIONE
+   ========================================================= */
+
+.cliente-dettaglio-section__header {
+  margin-bottom: 0.85rem;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.7rem;
+}
+
+.cliente-dettaglio-section__icon {
+  width: 36px;
+  height: 36px;
+
+  flex: 0 0 36px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  font-size: 0.95rem;
+}
+
+.cliente-dettaglio-section__icon--green {
+  background: var(--cliente-green-soft);
+
+  color: var(--cliente-green);
+}
+
+.cliente-dettaglio-section__icon--blue {
+  background: var(--cliente-blue-soft);
+
+  color: var(--cliente-blue);
+}
+
+.cliente-dettaglio-section__icon--orange {
+  background: var(--cliente-orange-soft);
+
+  color: var(--cliente-orange);
+}
+
+.cliente-dettaglio-section__icon--purple {
+  background: var(--cliente-purple-soft);
+
+  color: var(--cliente-purple);
+}
+
+.cliente-dettaglio-section__header h3,
+.cliente-dettaglio-accesso__content h3 {
+  margin: 0;
+
+  color: var(--caf-navy);
+
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.cliente-dettaglio-section__header p,
+.cliente-dettaglio-accesso__content p {
+  margin: 0.12rem 0 0;
+
+  color: var(--caf-text-muted);
+
+  font-size: 0.62rem;
+  line-height: 1.45;
+}
+
+/* =========================================================
+   READ MODE
+   ========================================================= */
+
+.cliente-dettaglio-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 0.7rem 0.9rem;
+}
+
+.cliente-dettaglio-field {
+  min-width: 0;
+
+  padding: 0.7rem 0.8rem;
+
+  border: 1px solid #edf1f6;
+  border-radius: 10px;
+
+  background: #fbfcfe;
+}
+
+.cliente-dettaglio-field--full {
+  grid-column: 1 / -1;
+}
+
+.cliente-dettaglio-field span {
+  display: block;
+
+  margin-bottom: 0.16rem;
+
+  color: #7c8797;
+
+  font-size: 0.57rem;
+  font-weight: 750;
+  letter-spacing: 0.035em;
+
+  text-transform: uppercase;
+}
+
+.cliente-dettaglio-field strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: var(--caf-navy);
+
+  font-size: 0.72rem;
+  font-weight: 750;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   EDIT MODE
+   ========================================================= */
+
+.cliente-dettaglio-modal .form-label {
+  margin-bottom: 0.34rem;
+
+  color: var(--caf-navy);
+
+  font-size: 0.69rem;
+  font-weight: 700;
+}
+
+.cliente-dettaglio-modal .form-control {
+  min-height: 41px;
+
+  padding: 0.6rem 0.75rem;
+
+  border: 1px solid #d8e0eb;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: var(--caf-navy);
+
+  font-size: 0.73rem;
+
+  box-shadow: none;
+
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.cliente-dettaglio-modal .form-control:hover:not(:disabled) {
+  border-color: #c2cede;
+}
+
+.cliente-dettaglio-modal .form-control:focus {
+  border-color: var(--caf-blue);
+
+  background: #ffffff;
+
+  box-shadow: 0 0 0 3px rgba(63, 98, 165, 0.09);
+}
+
+.cliente-dettaglio-modal .form-control:disabled {
+  background: #f3f5f8;
+
+  color: #697589;
+
+  opacity: 1;
+}
+
+.cliente-dettaglio-modal .form-text {
+  margin-top: 0.25rem;
+
+  color: #8a94a7;
+
+  font-size: 0.56rem;
+}
+
+/* =========================================================
+   ACCESSO AREA CLIENTE
+   ========================================================= */
+
+.cliente-dettaglio-section--accesso {
+  background:
+    radial-gradient(
+      circle at 100% 0,
+      rgba(116, 82, 168, 0.035),
+      transparent 9rem
+    ),
+    #ffffff;
+}
+
+.cliente-dettaglio-accesso {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 0.75rem;
+}
+
+.cliente-dettaglio-accesso__content {
+  min-width: 0;
+
+  padding-top: 0.04rem;
+}
+
+.cliente-dettaglio-accesso__content strong {
+  color: var(--cliente-purple);
+
+  font-weight: 800;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.cliente-dettaglio-modal__footer {
+  padding: 0.85rem 1.5rem;
+
+  gap: 0.45rem;
+
+  border-top: 1px solid #edf1f6;
+
+  background: #ffffff;
+}
+
+.cliente-dettaglio-modal__close.btn,
+.cliente-dettaglio-modal__cancel.btn {
+  min-height: 40px;
+
+  padding-inline: 0.95rem;
+
+  border-color: #cdd6e2;
+  border-radius: 10px;
+
+  color: #667085;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.cliente-dettaglio-modal__close.btn:hover,
+.cliente-dettaglio-modal__cancel.btn:hover {
+  border-color: #aebaca;
+
+  background: #f6f8fb;
+
+  color: var(--caf-navy);
+}
+
+/* =========================================================
+   MODIFICA
+   ========================================================= */
+
+.cliente-dettaglio-modal__edit.btn {
+  min-height: 40px;
+
+  padding-inline: 1rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.4rem;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: var(--caf-blue);
+
+  color: #ffffff;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+
+  box-shadow: 0 7px 16px rgba(63, 98, 165, 0.16);
+}
+
+.cliente-dettaglio-modal__edit.btn:hover,
+.cliente-dettaglio-modal__edit.btn:focus,
+.cliente-dettaglio-modal__edit.btn:active {
+  background: #34558f;
+
+  color: #ffffff;
+}
+
+/* =========================================================
+   SALVA
+   ========================================================= */
+
+.cliente-dettaglio-modal__save.btn {
+  min-height: 40px;
+
+  padding-inline: 1.05rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.45rem;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #078842;
+
+  color: #ffffff;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+
+  box-shadow: 0 7px 16px rgba(7, 136, 66, 0.16);
+}
+
+.cliente-dettaglio-modal__save.btn:hover,
+.cliente-dettaglio-modal__save.btn:focus,
+.cliente-dettaglio-modal__save.btn:active {
+  background: #066f36;
+
+  color: #ffffff;
+}
+
+.cliente-dettaglio-modal__save.btn:disabled {
+  background: #5f826d;
+
+  color: #ffffff;
+
+  opacity: 1;
+
+  box-shadow: none;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+  .cliente-dettaglio-modal__header,
+  .cliente-dettaglio-modal__body,
+  .cliente-dettaglio-modal__footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .cliente-dettaglio-section {
+    padding: 0.95rem;
+  }
+
+  .cliente-dettaglio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cliente-dettaglio-field--full {
+    grid-column: auto;
+  }
+
+  .cliente-dettaglio-modal__body {
+    max-height: 72vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .cliente-dettaglio-modal .modal-content {
+    border-radius: 16px;
+  }
+
+  .cliente-dettaglio-modal__header .modal-title {
+    font-size: 1.2rem;
+  }
+
+  .cliente-dettaglio-section__header,
+  .cliente-dettaglio-accesso {
+    align-items: flex-start;
+  }
+
+  .cliente-dettaglio-modal__footer {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cliente-dettaglio-modal__close.btn,
+  .cliente-dettaglio-modal__cancel.btn,
+  .cliente-dettaglio-modal__edit.btn,
+  .cliente-dettaglio-modal__save.btn {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .cliente-dettaglio-modal .form-control,
+  .cliente-dettaglio-modal__close.btn,
+  .cliente-dettaglio-modal__cancel.btn,
+  .cliente-dettaglio-modal__edit.btn,
+  .cliente-dettaglio-modal__save.btn {
+    transition: none;
+  }
+}

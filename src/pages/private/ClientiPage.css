@@ -1,0 +1,434 @@
+.clienti-page {
+  width: 100%;
+}
+
+/* =========================================================
+   NUOVO CLIENTE
+   ========================================================= */
+
+.clienti-page__new-button.btn {
+  min-height: 44px;
+
+  padding: 0.7rem 1.05rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.45rem;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #078842;
+
+  color: #ffffff;
+
+  font-size: 0.78rem;
+  font-weight: 800;
+
+  box-shadow: 0 8px 18px rgba(7, 136, 66, 0.15);
+}
+
+.clienti-page__new-button.btn:hover,
+.clienti-page__new-button.btn:focus,
+.clienti-page__new-button.btn:active {
+  background: #066f36;
+
+  color: #ffffff;
+}
+
+/* =========================================================
+   PANEL
+   ========================================================= */
+
+.clienti-panel {
+  overflow: hidden;
+
+  border: 1px solid rgba(16, 44, 101, 0.08);
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow: 0 6px 20px rgba(16, 44, 101, 0.035);
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.clienti-panel__header {
+  padding: 1.1rem 1.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  border-bottom: 1px solid #edf1f6;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.clienti-search {
+  width: min(520px, 100%);
+
+  min-height: 48px;
+
+  padding: 0 0.9rem;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.7rem;
+
+  border: 1px solid #d8e0eb;
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.clienti-search:focus-within {
+  border-color: var(--caf-blue);
+
+  box-shadow: 0 0 0 3px rgba(63, 98, 165, 0.08);
+}
+
+.clienti-search svg {
+  flex: 0 0 auto;
+
+  color: #76839a;
+
+  font-size: 1.08rem;
+}
+
+.clienti-search input {
+  width: 100%;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: var(--caf-navy);
+
+  font-size: 0.88rem;
+}
+
+.clienti-search input::placeholder {
+  color: #9aa5b5;
+}
+
+/* =========================================================
+   COUNT
+   ========================================================= */
+
+.clienti-count {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.4rem;
+
+  color: var(--caf-text-muted);
+
+  white-space: nowrap;
+}
+
+.clienti-count svg {
+  color: var(--caf-blue);
+
+  font-size: 1.05rem;
+}
+
+.clienti-count span {
+  color: var(--caf-navy);
+
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.clienti-count small {
+  color: var(--caf-text-muted);
+
+  font-size: 0.82rem;
+}
+
+/* =========================================================
+   ALERT
+   ========================================================= */
+
+.clienti-panel__alert {
+  margin: 1rem;
+
+  border-color: #f2cdc6;
+  border-radius: 11px;
+
+  background: #fdf4f2;
+
+  color: #c0392f;
+
+  font-size: 0.76rem;
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.clienti-loading {
+  min-height: 190px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.75rem;
+}
+
+.clienti-loading .spinner-border {
+  color: var(--caf-petrol);
+}
+
+.clienti-loading p {
+  margin: 0;
+
+  color: var(--caf-text-muted);
+
+  font-size: 0.78rem;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.clienti-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.clienti-table {
+  margin: 0 !important;
+
+  --bs-table-bg: transparent;
+}
+
+.clienti-table thead th {
+  padding: 1rem 1.15rem;
+
+  border-bottom: 1px solid #e7ecf3;
+
+  background: #fafbfd;
+
+  color: #727f92;
+
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+.clienti-table tbody td {
+  padding: 1.05rem 1.16rem;
+
+  border-bottom: 1px solid #eef1f5;
+
+  color: var(--caf-navy);
+
+  font-size: 0.87rem;
+
+  vertical-align: middle;
+}
+
+.clienti-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* =========================================================
+   ROW
+   ========================================================= */
+
+.clienti-table__row {
+  cursor: pointer;
+
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.clienti-table__row:hover {
+  background: #f8fafc;
+
+  box-shadow: inset 3px 0 0 rgba(31, 111, 114, 0.35);
+}
+
+/* =========================================================
+   CLIENTE
+   ========================================================= */
+
+.clienti-table__cliente {
+  display: flex;
+  align-items: center;
+
+  gap: 0.8rem;
+
+  white-space: nowrap;
+}
+
+.clienti-table__avatar {
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 11px;
+
+  background: #e7f3f1;
+
+  color: var(--caf-petrol);
+
+  font-size: 0.74rem;
+  font-weight: 850;
+}
+
+.clienti-table__cliente strong {
+  color: var(--caf-navy);
+
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+/* =========================================================
+   SECONDARY
+   ========================================================= */
+
+.clienti-table__secondary {
+  color: #687588;
+
+  font-size: 0.85rem;
+
+  white-space: nowrap;
+}
+
+.clienti-table__email {
+  color: #44546a;
+
+  font-size: 0.85rem;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.clienti-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 29px;
+
+  padding: 0.33rem 0.72rem;
+
+  border-radius: 999px;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+.clienti-status--active {
+  background: #e6f4e9;
+
+  color: #237a3b;
+}
+
+.clienti-status--inactive {
+  background: #eef1f5;
+
+  color: #687588;
+}
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.clienti-table__empty {
+  padding: 3rem 1rem !important;
+
+  color: var(--caf-text-muted) !important;
+
+  font-size: 0.8rem !important;
+
+  text-align: center;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+  .clienti-page__new-button.btn {
+    min-height: 42px;
+
+    padding-inline: 0.9rem;
+  }
+
+  .clienti-panel__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .clienti-search {
+    width: 100%;
+  }
+
+  .clienti-count {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .clienti-page__new-button.btn span {
+    display: none;
+  }
+
+  .clienti-page__new-button.btn {
+    width: 42px;
+    height: 42px;
+    min-height: 42px;
+
+    padding: 0;
+
+    border-radius: 10px;
+  }
+
+  .clienti-table thead th,
+  .clienti-table tbody td {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clienti-search,
+  .clienti-table__row,
+  .clienti-page__new-button.btn {
+    transition: none;
+  }
+}
