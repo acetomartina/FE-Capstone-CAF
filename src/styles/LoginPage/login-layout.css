@@ -1,30 +1,51 @@
-/* Riempie lo spazio lasciato da navbar e footer del PublicLayout,
-   senza altezze fisse da tenere allineate a mano. */
+/* Occupa tutto lo spazio disponibile tra navbar e footer. */
 .login-page {
   flex: 1;
+  min-height: 0;
 
   display: flex;
   flex-direction: column;
 
   background: #ffffff;
-  color: #071b4f;
+  color: #102c65;
 }
 
 .login-main {
   flex: 1;
-  display: flex;
+  min-height: 0;
+
+  display: grid;
 }
 
 .login-main > .container-fluid {
-  flex: 1;
+  width: 100%;
+  min-height: 100%;
+
   display: flex;
 }
 
 .login-main .row {
+  width: 100%;
+  min-height: 100%;
   flex: 1;
+
+  margin-left: 0;
+  margin-right: 0;
+
+  align-items: stretch;
+}
+
+/*
+ * Entrambe le metà devono occupare l'intera altezza
+ * della riga, anche quando il loro contenuto è più corto.
+ */
+.login-main .row > [class*="col"] {
+  min-height: 100%;
 }
 
 .login-access {
+  position: relative;
+
   padding: 4rem;
 
   display: flex;
@@ -33,14 +54,41 @@
 
   background:
     radial-gradient(
-      circle at 82% 35%,
-      rgba(30, 124, 222, 0.06),
+      circle at 86% 18%,
+      rgba(36, 146, 57, 0.07),
       transparent 28%
+    ),
+    radial-gradient(
+      circle at 12% 90%,
+      rgba(230, 35, 128, 0.035),
+      transparent 24%
     ),
     #ffffff;
 }
 
+.login-access::before {
+  content: "";
+
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+
+  width: 56px;
+  height: 56px;
+
+  opacity: 0.2;
+
+  background-image: radial-gradient(circle, #249239 1.5px, transparent 1.5px);
+
+  background-size: 12px 12px;
+
+  pointer-events: none;
+}
+
 .login-access__content {
+  position: relative;
+  z-index: 1;
+
   width: 100%;
   max-width: 500px;
 }
@@ -51,22 +99,33 @@
 }
 
 .login-access__heading h1 {
-  color: #071b4f;
-  font-size: 2.25rem;
+  color: #102c65;
+
+  font-size: 2.3rem;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
 }
 
 .login-access__heading p {
-  margin-top: 0.35rem;
+  margin-top: 0.45rem;
 
-  color: #687aa6;
-  font-size: 1.12rem;
+  color: #56617a;
+
+  font-size: 1.08rem;
+  line-height: 1.55;
 }
 
 .login-access__intro {
-  margin: 2.55rem 0 1.65rem;
+  margin: 2.3rem 0 1.65rem;
 
-  color: #071b4f;
+  color: #44506a;
+
+  font-size: 0.96rem;
   font-weight: 700;
+  line-height: 1.55;
+}
+
+.public-layout:has(.login-page) .public-footer {
+  margin-top: 0;
 }

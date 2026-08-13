@@ -3,15 +3,16 @@
   min-height: 100%;
   overflow: hidden;
 
-  padding: 4.5rem 4.5rem;
+  padding: 4.5rem;
 
   background:
+    radial-gradient(circle at 8% 82%, rgba(36, 146, 57, 0.1), transparent 34%),
     radial-gradient(
-      circle at 10% 85%,
-      rgba(116, 169, 207, 0.18),
-      transparent 34%
+      circle at 92% 12%,
+      rgba(230, 35, 128, 0.06),
+      transparent 30%
     ),
-    linear-gradient(135deg, #f6fbfd 0%, #edf7fa 100%);
+    linear-gradient(135deg, #f8fbfd 0%, #f2f8fa 100%);
 }
 
 .login-info::before {
@@ -24,7 +25,7 @@
   width: 430px;
   height: 430px;
 
-  border: 1px solid rgba(7, 136, 66, 0.25);
+  border: 1px solid rgba(7, 136, 66, 0.22);
   border-radius: 50%;
 
   pointer-events: none;
@@ -40,9 +41,10 @@
   width: 70px;
   height: 70px;
 
-  opacity: 0.35;
+  opacity: 0.32;
 
-  background-image: radial-gradient(circle, #7faecb 2px, transparent 2px);
+  background-image: radial-gradient(circle, #e62380 1.8px, transparent 1.8px);
+
   background-size: 14px 14px;
 
   pointer-events: none;
@@ -57,45 +59,54 @@
 }
 
 .login-info__title {
-  color: #001e4d;
+  margin: 0;
+
+  color: #102c65;
 
   font-size: clamp(2.25rem, 3.2vw, 3.25rem);
   font-weight: 800;
-  line-height: 1.13;
-  letter-spacing: -0.045em;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
 }
 
 .login-info__title span {
-  color: #078842;
+  color: #249239;
 }
 
 .login-info__description {
   max-width: 520px;
 
-  color: #203b64;
+  color: #56617a;
 
-  font-size: 1.08rem;
-  line-height: 1.65;
+  font-size: 1.06rem;
+  line-height: 1.7;
 }
 
 .login-benefit {
-  border-color: #cfdee8 !important;
-  border-radius: 11px;
+  overflow: hidden;
 
-  background: rgba(255, 255, 255, 0.8);
+  border-color: #d7e2ec !important;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.88);
+
+  box-shadow: 0 8px 20px rgba(16, 44, 101, 0.035);
 
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
-    transform 180ms ease;
+    transform 180ms ease,
+    background 180ms ease;
 }
 
 .login-benefit:hover {
-  border-color: rgba(7, 136, 66, 0.35) !important;
+  border-color: rgba(7, 136, 66, 0.32) !important;
 
-  box-shadow: 0 8px 22px rgba(20, 57, 78, 0.07) !important;
+  background: #ffffff;
 
-  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(16, 44, 101, 0.07) !important;
+
+  transform: translateY(-2px);
 }
 
 .login-benefit__icon {
@@ -104,21 +115,69 @@
 
   border-radius: 50%;
 
-  background: #edf7f1;
-  color: #078842;
+  background: rgba(36, 146, 57, 0.1);
+  color: #249239;
 
-  font-size: 1.55rem;
+  font-size: 1.45rem;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.login-benefit:hover .login-benefit__icon {
+  background: rgba(36, 146, 57, 0.14);
+
+  transform: scale(1.04);
 }
 
 .login-benefit__title {
-  color: #001e4d;
+  margin: 0;
+
+  color: #102c65;
 
   font-size: 1rem;
   font-weight: 750;
 }
 
 .login-benefit__description {
-  color: #294469;
+  color: #56617a;
 
   font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.login-info {
+  display: flex;
+  align-items: center;
+}
+
+.login-info__heading {
+  margin-bottom: 2rem;
+}
+
+.login-info__eyebrow {
+  display: inline-flex;
+  align-items: center;
+
+  margin-bottom: 1.1rem;
+  padding: 0.45rem 0.75rem;
+
+  border-radius: 999px;
+
+  background: rgba(230, 35, 128, 0.08);
+  color: #d91c76;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.login-info__description {
+  margin: 1rem 0 0;
+}
+
+.login-info__benefits {
+  width: 100%;
 }

@@ -7,10 +7,14 @@
   align-items: center;
   gap: 1rem;
 
-  border: 1px solid #cad6e8;
+  border: 1px solid #d7e2ec;
   border-radius: 14px;
 
-  background: #fbfcff;
+  background:
+    radial-gradient(circle at 92% 15%, rgba(7, 136, 66, 0.06), transparent 32%),
+    #fbfdfc;
+
+  box-shadow: 0 10px 24px rgba(16, 44, 101, 0.04);
 }
 
 .login-contact-box__icon {
@@ -23,21 +27,23 @@
 
   border-radius: 50%;
 
-  background: #e6eef9;
-  color: #375985;
+  background: #edf7f1;
+  color: #078842;
 
   font-size: 1.2rem;
 }
 
 .login-contact-box__text strong {
   color: #071b4f;
+
   font-size: 0.94rem;
+  font-weight: 800;
 }
 
 .login-contact-box__text p {
   margin: 0.3rem 0 0;
 
-  color: #19458d;
+  color: #56617a;
 
   font-size: 0.86rem;
   line-height: 1.5;
@@ -45,32 +51,56 @@
 
 .login-contact-box__button {
   min-height: 42px;
-  padding: 0 0.95rem;
+  padding: 0 1rem;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
 
-  border: 1px solid #096fe5;
+  border: 1px solid rgba(7, 136, 66, 0.45);
   border-radius: 10px;
 
   background: #ffffff;
-  color: #0960cf;
+  color: #078842;
 
   font-size: 0.86rem;
-  font-weight: 700;
+  font-weight: 750;
   text-decoration: none;
+
+  box-shadow: 0 6px 14px rgba(7, 136, 66, 0.06);
 
   transition:
     background-color 0.2s ease,
+    border-color 0.2s ease,
     color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.login-contact-box__button:hover {
-  background: #096fe5;
-  color: #ffffff;
+.login-contact-box__button:hover,
+.login-contact-box__button:focus {
+  border-color: #078842;
+
+  background: #edf7f1;
+  color: #066f36;
 
   transform: translateY(-1px);
+
+  box-shadow: 0 9px 18px rgba(7, 136, 66, 0.1);
+}
+
+.login-contact-box__button:focus-visible {
+  outline: 3px solid rgba(7, 136, 66, 0.18);
+  outline-offset: 3px;
+}
+
+.login-contact-box__button svg {
+  font-size: 1rem;
+
+  transition: transform 0.2s ease;
+}
+
+.login-contact-box__button:hover svg {
+  transform: translateX(2px);
 }

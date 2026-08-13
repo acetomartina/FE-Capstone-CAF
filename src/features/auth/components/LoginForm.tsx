@@ -27,9 +27,13 @@ const MESSAGGIO_CREDENZIALI =
 const MESSAGGIO_TECNICO =
   "Non è stato possibile completare l'accesso per un problema tecnico. Riprova tra qualche minuto.";
 
-/* Qui il 401 puo' essere esplicito: chi prova ad accedere dichiara di
-   conoscere quelle credenziali, quindi dirgli che sono sbagliate non
-   rivela niente che non sappia gia'. Diverso dal recupero password. */
+/*
+ * Qui il 401 può essere esplicito:
+ * chi prova ad accedere dichiara di conoscere quelle credenziali,
+ * quindi dirgli che sono sbagliate non rivela niente che non sappia già.
+ *
+ * Diverso dal recupero password.
+ */
 const messaggioPerErrore = (errore: unknown): string => {
   if (!axios.isAxiosError(errore)) {
     return MESSAGGIO_TECNICO;
@@ -47,34 +51,64 @@ const messaggioPerErrore = (errore: unknown): string => {
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [mostraPassword, setMostraPassword] = useState(false);
 
-  const caricamento = useAppSelector((stato) => stato.auth.caricamento);
-  const errore = useAppSelector((stato) => stato.auth.errore);
+  const [mostraPassword, setMostraPassword] =
+    useState(false);
+
+  /*
+   * Per ora "Ricordami" gestisce soltanto lo stato della UI.
+   *
+   * Nel passaggio successivo lo collegheremo al tokenService:
+   * - ricordami = true  -> localStorage
+   * - ricordami = false -> sessionStorage
+   *
+   * Non salveremo mai la password.
+   */
+  const [ricordami, setRicordami] = useState(false);
+
+  const caricamento = useAppSelector(
+    (stato) => stato.auth.caricamento,
+  );
+
+  const errore = useAppSelector(
+    (stato) => stato.auth.errore,
+  );
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const posizione = useLocation();
 
-  /* La guardia ha salvato qui la pagina che l'utente voleva aprire. */
+  /*
+   * La guardia ha salvato qui la pagina
+   * che l'utente voleva aprire.
+   */
   const destinazione =
     (posizione.state as { da?: string } | null)?.da ??
     PERCORSO_AREA_RISERVATA;
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
 
     dispatch(impostaCaricamento(true));
 
     try {
-      const risposta = await authService.login(email, password);
+      const risposta = await authService.login(
+        email,
+        password,
+      );
 
       /*
-       * Salviamo solo il token JWT.
-       * Email e password vengono eventualmente gestite
-       * dal password manager del browser.
+       * Prima il token: è ciò che autorizza
+       * le chiamate successive.
+       *
+       * Per ora utilizziamo ancora il comportamento
+       * attuale del tokenService.
        */
-      tokenService.salvaToken(risposta.accessToken);
+      tokenService.salvaToken(
+        risposta.accessToken,
+      );
 
       dispatch(
         impostaAutenticazione({
@@ -86,14 +120,21 @@ const LoginForm = () => {
             email: risposta.email,
             ruolo: risposta.ruolo,
             attivo: risposta.attivo,
-            urlImmagineProfilo: risposta.urlImmagineProfilo,
+            urlImmagineProfilo:
+              risposta.urlImmagineProfilo,
           },
         }),
       );
 
-      navigate(destinazione, { replace: true });
+      navigate(destinazione, {
+        replace: true,
+      });
     } catch (erroreChiamata) {
-      dispatch(impostaErrore(messaggioPerErrore(erroreChiamata)));
+      dispatch(
+        impostaErrore(
+          messaggioPerErrore(erroreChiamata),
+        ),
+      );
     }
   };
 
@@ -101,30 +142,40 @@ const LoginForm = () => {
     <Form
       onSubmit={handleSubmit}
       className="login-form"
-      autoComplete="on"
     >
       {errore && (
-        <div className="password-alert" role="alert">
+        <div
+          className="password-alert"
+          role="alert"
+        >
           <span className="password-alert__icon">
-            <FiAlertCircle />
+            <FiAlertCircle aria-hidden="true" />
           </span>
 
-          <p className="password-alert__text">{errore}</p>
+          <p className="password-alert__text">
+            {errore}
+          </p>
         </div>
       )}
 
-      <Form.Group className="login-form__group" controlId="email">
+      {/* EMAIL */}
+      <Form.Group
+        className="login-form__group"
+        controlId="email"
+      >
         <Form.Label>Email</Form.Label>
 
         <div className="login-form__field">
-          <FiMail />
+          <FiMail aria-hidden="true" />
 
           <Form.Control
             type="email"
             name="email"
             placeholder="nome@email.it"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) =>
+              setEmail(event.target.value)
+            }
             autoComplete="username"
             disabled={caricamento}
             required
@@ -132,24 +183,28 @@ const LoginForm = () => {
         </div>
       </Form.Group>
 
-      <Form.Group className="login-form__group" controlId="password">
-        <div className="login-form__label-row">
-          <Form.Label>Password</Form.Label>
-
-          <Link to="/recupera-password" className="login-form__forgot">
-            Password dimenticata?
-          </Link>
-        </div>
+      {/* PASSWORD */}
+      <Form.Group
+        className="login-form__group"
+        controlId="password"
+      >
+        <Form.Label>Password</Form.Label>
 
         <div className="login-form__field">
-          <FiLock />
+          <FiLock aria-hidden="true" />
 
           <Form.Control
-            type={mostraPassword ? "text" : "password"}
+            type={
+              mostraPassword
+                ? "text"
+                : "password"
+            }
             name="password"
             placeholder="Inserisci la password"
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            onChange={(event) =>
+              setPassword(event.target.value)
+            }
             autoComplete="current-password"
             disabled={caricamento}
             required
@@ -158,25 +213,70 @@ const LoginForm = () => {
           <button
             type="button"
             className="login-form__password-toggle"
-            onClick={() => setMostraPassword((valore) => !valore)}
+            onClick={() =>
+              setMostraPassword(
+                (valore) => !valore,
+              )
+            }
             aria-label={
               mostraPassword
                 ? "Nascondi la password"
                 : "Mostra la password"
             }
+            disabled={caricamento}
           >
-            {mostraPassword ? <FiEyeOff /> : <FiEye />}
+            {mostraPassword ? (
+              <FiEyeOff aria-hidden="true" />
+            ) : (
+              <FiEye aria-hidden="true" />
+            )}
           </button>
         </div>
       </Form.Group>
 
+      {/* RICORDAMI + PASSWORD DIMENTICATA */}
+      <div className="login-form__options">
+        <label className="login-form__remember">
+          <input
+            type="checkbox"
+            checked={ricordami}
+            onChange={(event) =>
+              setRicordami(
+                event.target.checked,
+              )
+            }
+            disabled={caricamento}
+          />
+
+          <span
+            className="login-form__checkmark"
+            aria-hidden="true"
+          />
+
+          <span>Ricordami</span>
+        </label>
+
+        <Link
+          to="/recupera-password"
+          className="login-form__forgot"
+        >
+          Password dimenticata?
+        </Link>
+      </div>
+
+      {/* CTA PRIMARIA */}
       <Button
         type="submit"
         className="login-form__submit"
         disabled={caricamento}
       >
-        <span>{caricamento ? "Accesso in corso…" : "Accedi"}</span>
-        <FiArrowRight />
+        <span>
+          {caricamento
+            ? "Accesso in corso…"
+            : "Accedi"}
+        </span>
+
+        <FiArrowRight aria-hidden="true" />
       </Button>
     </Form>
   );

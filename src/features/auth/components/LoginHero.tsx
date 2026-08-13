@@ -1,6 +1,4 @@
 import { Card, Stack } from "react-bootstrap";
-
-import MarchioFapi from "../../../components/marchio/MarchioFapi";
 import {
   FiBell,
   FiCalendar,
@@ -11,46 +9,52 @@ import {
 const LoginHero = () => {
   const vantaggi = [
     {
-      icona: <FiFolder />,
+      icona: <FiFolder aria-hidden="true" />,
       titolo: "Consulta i documenti",
-      descrizione: "Tutti i tuoi documenti sempre disponibili.",
+      descrizione:
+        "Tutti i tuoi documenti sempre disponibili.",
     },
     {
-      icona: <FiMapPin />,
+      icona: <FiMapPin aria-hidden="true" />,
       titolo: "Segui lo stato delle pratiche",
-      descrizione: "Monitora l’avanzamento in tempo reale.",
+      descrizione:
+        "Monitora l’avanzamento in tempo reale.",
     },
     {
-      icona: <FiBell />,
+      icona: <FiBell aria-hidden="true" />,
       titolo: "Ricevi notifiche",
-      descrizione: "Promemoria automatici per non dimenticare nulla.",
+      descrizione:
+        "Promemoria automatici per non dimenticare nulla.",
     },
     {
-      icona: <FiCalendar />,
+      icona: <FiCalendar aria-hidden="true" />,
       titolo: "Prenota appuntamenti",
-      descrizione: "Scegli giorno e orario in pochi click.",
+      descrizione:
+        "Scegli giorno e orario in pochi click.",
     },
   ];
 
   return (
-    <section className="login-info h-100">
+    <section className="login-info">
       <div className="login-info__content mx-auto">
-        <MarchioFapi variante="hero" />
+        <div className="login-info__heading">
+          <span className="login-info__eyebrow">
+            Portale personale
+          </span>
 
-        <div className="mb-4 mt-5">
-          <h1 className="login-info__title mb-3">
+          <h1 className="login-info__title">
             La tua area personale,
             <br />
             sempre <span>a portata di mano.</span>
           </h1>
 
-          <p className="login-info__description mb-0">
-            Consulta i tuoi documenti, monitora lo stato delle pratiche
-            e non perdere mai una scadenza.
+          <p className="login-info__description">
+            Consulta i tuoi documenti, monitora lo stato
+            delle pratiche e non perdere mai una scadenza.
           </p>
         </div>
 
-        <Stack gap={3}>
+        <Stack gap={3} className="login-info__benefits">
           {vantaggi.map((vantaggio) => (
             <Card
               key={vantaggio.titolo}
