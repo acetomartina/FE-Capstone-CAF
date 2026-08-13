@@ -1,13 +1,19 @@
-import type { ReactNode } from "react";
+import {
+  useState,
+  type ReactNode,
+} from "react";
 import {
   FiAlertCircle,
   FiArrowRight,
   FiCalendar,
-  FiCheckCircle,
   FiClock,
   FiFileText,
+  FiSearch,
   FiUsers,
+  FiX,
 } from "react-icons/fi";
+
+import PrivatePageHeader from "../../components/private/PrivatePageHeader";
 
 import "./DashboardPage.css";
 
@@ -78,13 +84,6 @@ const statistiche: DashboardStat[] = [
     variante: "purple",
     icona: <FiUsers />,
   },
-  {
-    titolo: "Pratiche completate",
-    valore: 17,
-    descrizione: "Pratiche concluse correttamente",
-    variante: "petrol",
-    icona: <FiCheckCircle />,
-  },
 ];
 
 const ultimePratiche: PraticaRecente[] = [
@@ -133,20 +132,79 @@ const scadenze: Scadenza[] = [
 ];
 
 const DashboardPage = () => {
+  const [ricerca, setRicerca] =
+    useState("");
+
   return (
     <section className="dashboard-page">
-      <header className="dashboard-page__header">
-        <span className="dashboard-page__eyebrow">
-          Area amministrativa
-        </span>
+      <PrivatePageHeader
+        eyebrow="Area amministrativa"
+        title="Dashboard"
+        description="Tieni sotto controllo pratiche, documenti, clienti e scadenze del CAF."
+      />
 
-        <h1>Dashboard</h1>
+      {/* RICERCA GLOBALE */}
 
-        <p>
-          Tieni sotto controllo pratiche, documenti, clienti e scadenze
-          del CAF.
-        </p>
-      </header>
+      <section
+        className="dashboard-global-search"
+        aria-label="Ricerca globale"
+      >
+        <div className="dashboard-global-search__content">
+          <div className="dashboard-global-search__heading">
+            <span>
+              Ricerca globale
+            </span>
+
+            <h2>
+              Cosa stai cercando?
+            </h2>
+
+            <p>
+              Cerca rapidamente clienti,
+              codici fiscali, pratiche e
+              documenti.
+            </p>
+          </div>
+
+          <div className="dashboard-global-search__field">
+            <FiSearch />
+
+            <input
+              type="search"
+              value={ricerca}
+              onChange={(event) =>
+                setRicerca(
+                  event.target.value,
+                )
+              }
+              placeholder="Cerca cliente, codice fiscale, pratica o documento..."
+              aria-label="Ricerca globale nel gestionale"
+            />
+
+            {ricerca && (
+              <button
+                type="button"
+                className="dashboard-global-search__clear"
+                onClick={() =>
+                  setRicerca("")
+                }
+                aria-label="Cancella ricerca"
+              >
+                <FiX />
+              </button>
+            )}
+          </div>
+
+          {ricerca.trim().length > 0 && (
+            <div className="dashboard-global-search__hint">
+              La ricerca globale verrà
+              collegata al backend per
+              mostrare risultati da clienti,
+              pratiche e documenti.
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* RIEPILOGO STATISTICHE */}
 
@@ -154,28 +212,36 @@ const DashboardPage = () => {
         className="dashboard-stats"
         aria-label="Riepilogo attività"
       >
-        {statistiche.map((statistica) => (
-          <article
-            key={statistica.titolo}
-            className={`dashboard-stat-card dashboard-stat-card--${statistica.variante}`}
-          >
-            <div className="dashboard-stat-card__decoration" />
+        {statistiche.map(
+          (statistica) => (
+            <article
+              key={statistica.titolo}
+              className={`dashboard-stat-card dashboard-stat-card--${statistica.variante}`}
+            >
+              <div className="dashboard-stat-card__decoration" />
 
-            <span className="dashboard-stat-card__icon">
-              {statistica.icona}
-            </span>
+              <span className="dashboard-stat-card__icon">
+                {statistica.icona}
+              </span>
 
-            <div className="dashboard-stat-card__body">
-              <strong className="dashboard-stat-card__value">
-                {statistica.valore}
-              </strong>
+              <div className="dashboard-stat-card__body">
+                <strong className="dashboard-stat-card__value">
+                  {statistica.valore}
+                </strong>
 
-              <h2>{statistica.titolo}</h2>
+                <h2>
+                  {statistica.titolo}
+                </h2>
 
-              <p>{statistica.descrizione}</p>
-            </div>
-          </article>
-        ))}
+                <p>
+                  {
+                    statistica.descrizione
+                  }
+                </p>
+              </div>
+            </article>
+          ),
+        )}
       </section>
 
       {/* ATTIVITÀ OPERATIVE */}
@@ -191,7 +257,9 @@ const DashboardPage = () => {
                 Attività recenti
               </span>
 
-              <h2>Ultime pratiche</h2>
+              <h2>
+                Ultime pratiche
+              </h2>
             </div>
 
             <button
@@ -204,38 +272,47 @@ const DashboardPage = () => {
           </header>
 
           <div className="dashboard-practices">
-            {ultimePratiche.map((pratica) => (
-              <div
-                key={pratica.numero}
-                className="dashboard-practice"
-              >
-                <span className="dashboard-practice__icon">
-                  <FiFileText />
-                </span>
-
-                <div className="dashboard-practice__main">
-                  <strong>{pratica.servizio}</strong>
-
-                  <span>
-                    {pratica.numero} · {pratica.cliente}
+            {ultimePratiche.map(
+              (pratica) => (
+                <div
+                  key={
+                    pratica.numero
+                  }
+                  className="dashboard-practice"
+                >
+                  <span className="dashboard-practice__icon">
+                    <FiFileText />
                   </span>
+
+                  <div className="dashboard-practice__main">
+                    <strong>
+                      {
+                        pratica.servizio
+                      }
+                    </strong>
+
+                    <span>
+                      {pratica.numero} ·{" "}
+                      {pratica.cliente}
+                    </span>
+                  </div>
+
+                  <span
+                    className={`dashboard-practice__status dashboard-practice__status--${pratica.variante}`}
+                  >
+                    {pratica.stato}
+                  </span>
+
+                  <button
+                    type="button"
+                    className="dashboard-practice__open"
+                    aria-label={`Apri ${pratica.numero}`}
+                  >
+                    <FiArrowRight />
+                  </button>
                 </div>
-
-                <span
-                  className={`dashboard-practice__status dashboard-practice__status--${pratica.variante}`}
-                >
-                  {pratica.stato}
-                </span>
-
-                <button
-                  type="button"
-                  className="dashboard-practice__open"
-                  aria-label={`Apri ${pratica.numero}`}
-                >
-                  <FiArrowRight />
-                </button>
-              </div>
-            ))}
+              ),
+            )}
           </div>
         </article>
 
@@ -246,7 +323,9 @@ const DashboardPage = () => {
                 Agenda
               </span>
 
-              <h2>Scadenze imminenti</h2>
+              <h2>
+                Scadenze imminenti
+              </h2>
             </div>
 
             <button
@@ -259,22 +338,38 @@ const DashboardPage = () => {
           </header>
 
           <div className="dashboard-deadlines">
-            {scadenze.map((scadenza) => (
-              <div
-                key={`${scadenza.giorno}-${scadenza.titolo}`}
-                className="dashboard-deadline"
-              >
-                <div className="dashboard-deadline__date">
-                  <strong>{scadenza.giorno}</strong>
-                  <span>{scadenza.mese}</span>
-                </div>
+            {scadenze.map(
+              (scadenza) => (
+                <div
+                  key={`${scadenza.giorno}-${scadenza.titolo}`}
+                  className="dashboard-deadline"
+                >
+                  <div className="dashboard-deadline__date">
+                    <strong>
+                      {scadenza.giorno}
+                    </strong> 
 
-                <div className="dashboard-deadline__content">
-                  <strong>{scadenza.titolo}</strong>
-                  <span>{scadenza.dettaglio}</span>
+                    <span>
+                      {scadenza.mese}
+                    </span>
+                  </div>
+
+                  <div className="dashboard-deadline__content">
+                    <strong>
+                      {
+                        scadenza.titolo
+                      }
+                    </strong>
+
+                    <span>
+                      {
+                        scadenza.dettaglio
+                      }
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ),
+            )}
           </div>
         </article>
       </section>
