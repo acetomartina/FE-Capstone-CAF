@@ -11,6 +11,7 @@ import ResetPasswordPage from "./pages/public/ResetPasswordPage";
 
 import DashboardPage from "./pages/private/DashboardPage";
 import ClientiPage from "./pages/private/ClientiPage";
+import PratichePage from "./pages/private/PratichePage";
 import AreaAmministrazionePage from "./pages/private/AreaAmministrazionePage";
 import AreaClientePage from "./pages/private/AreaClientePage";
 import AreaDipendentePage from "./pages/private/AreaDipendentePage";
@@ -18,12 +19,12 @@ import AreaRiservataPage from "./pages/private/AreaRiservataPage";
 
 import RottaProtetta from "./features/auth/components/RottaProtetta";
 import { useRipristinoSessione } from "./features/auth/useRipristinoSessione";
+
 import {
   RUOLI_AMMINISTRAZIONE,
   RUOLI_CLIENTE,
   RUOLI_DIPENDENTE,
 } from "./features/auth/percorsiRuolo";
-
 
 const App = () => {
   useRipristinoSessione();
@@ -33,9 +34,17 @@ const App = () => {
       {/* --------------------- */}
       {/* Area pubblica */}
       {/* --------------------- */}
+
       <Route element={<PublicLayout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={<HomePage />}
+        />
+
+        <Route
+          path="/login"
+          element={<LoginPage />}
+        />
 
         <Route
           path="/recupera-password"
@@ -53,7 +62,10 @@ const App = () => {
         />
       </Route>
 
-      {/* Redirect automatico dopo il login */}
+      {/* --------------------- */}
+      {/* Redirect dopo login */}
+      {/* --------------------- */}
+
       <Route element={<RottaProtetta />}>
         <Route
           path="/area-riservata"
@@ -64,11 +76,26 @@ const App = () => {
       {/* --------------------- */}
       {/* Cliente */}
       {/* --------------------- */}
-      <Route element={<RottaProtetta ruoliAmmessi={RUOLI_CLIENTE} />}>
-        <Route element={<PrivateLayout />}>
+
+      <Route
+        element={
+          <RottaProtetta
+            ruoliAmmessi={
+              RUOLI_CLIENTE
+            }
+          />
+        }
+      >
+        <Route
+          element={
+            <PrivateLayout />
+          }
+        >
           <Route
             path="/cliente"
-            element={<AreaClientePage />}
+            element={
+              <AreaClientePage />
+            }
           />
         </Route>
       </Route>
@@ -76,18 +103,35 @@ const App = () => {
       {/* --------------------- */}
       {/* Dipendente */}
       {/* --------------------- */}
-      <Route element={<RottaProtetta ruoliAmmessi={RUOLI_DIPENDENTE} />}>
-        <Route element={<PrivateLayout />}>
+
+      <Route
+        element={
+          <RottaProtetta
+            ruoliAmmessi={
+              RUOLI_DIPENDENTE
+            }
+          />
+        }
+      >
+        <Route
+          element={
+            <PrivateLayout />
+          }
+        >
           <Route
             path="/dipendente"
-            element={<AreaDipendentePage />}
+            element={
+              <AreaDipendentePage />
+            }
           />
         </Route>
       </Route>
 
       {/* --------------------- */}
-      {/* Amministrazione */}
+      {/* Gestionale */}
+      {/* ADMIN + SUPER_ADMIN + USER */}
       {/* --------------------- */}
+
       <Route
         element={
           <RottaProtetta
@@ -98,16 +142,41 @@ const App = () => {
           />
         }
       >
-        <Route element={<PrivateLayout />}>
+        <Route
+          element={
+            <PrivateLayout />
+          }
+        >
           <Route
             path="/clienti"
             element={<ClientiPage />}
           />
+
+          <Route
+            path="/pratiche"
+            element={<PratichePage />}
+          />
         </Route>
       </Route>
 
-      <Route element={<RottaProtetta ruoliAmmessi={RUOLI_AMMINISTRAZIONE} />}>
-        <Route element={<PrivateLayout />}>
+      {/* --------------------- */}
+      {/* Solo amministrazione */}
+      {/* --------------------- */}
+
+      <Route
+        element={
+          <RottaProtetta
+            ruoliAmmessi={
+              RUOLI_AMMINISTRAZIONE
+            }
+          />
+        }
+      >
+        <Route
+          element={
+            <PrivateLayout />
+          }
+        >
           <Route
             path="/dashboard"
             element={<DashboardPage />}
@@ -115,12 +184,21 @@ const App = () => {
 
           <Route
             path="/amministrazione"
-            element={<AreaAmministrazionePage />}
+            element={
+              <AreaAmministrazionePage />
+            }
           />
         </Route>
       </Route>
 
-      <Route path="*" element={<NotFoundPage />} />
+      {/* --------------------- */}
+      {/* 404 */}
+      {/* --------------------- */}
+
+      <Route
+        path="*"
+        element={<NotFoundPage />}
+      />
     </Routes>
   );
 };

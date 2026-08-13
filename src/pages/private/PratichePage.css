@@ -1,0 +1,627 @@
+.pratiche-page {
+  width: 100%;
+}
+
+/* =========================================================
+   NUOVA PRATICA
+   ========================================================= */
+
+.pratiche-page__new-button.btn {
+  min-height: 44px;
+
+  padding: 0.7rem 1.05rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.45rem;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #078842;
+
+  color: #ffffff;
+
+  font-size: 0.78rem;
+  font-weight: 800;
+
+  box-shadow: 0 8px 18px rgba(7, 136, 66, 0.15);
+}
+
+.pratiche-page__new-button.btn:hover,
+.pratiche-page__new-button.btn:focus,
+.pratiche-page__new-button.btn:active {
+  background: #066f36;
+
+  color: #ffffff;
+}
+
+/* =========================================================
+   PANEL
+   ========================================================= */
+
+.pratiche-panel {
+  overflow: hidden;
+
+  border: 1px solid rgba(16, 44, 101, 0.08);
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow: 0 6px 20px rgba(16, 44, 101, 0.035);
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.pratiche-panel__header {
+  padding: 1.1rem 1.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  border-bottom: 1px solid #edf1f6;
+}
+
+.pratiche-toolbar {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.75rem;
+
+  flex: 1;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.pratiche-search {
+  width: min(430px, 100%);
+
+  min-height: 48px;
+
+  padding: 0 0.9rem;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.7rem;
+
+  border: 1px solid #d8e0eb;
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.pratiche-search:focus-within {
+  border-color: var(--caf-blue);
+
+  box-shadow: 0 0 0 3px rgba(63, 98, 165, 0.08);
+}
+
+.pratiche-search svg {
+  flex: 0 0 auto;
+
+  color: #76839a;
+
+  font-size: 1.08rem;
+}
+
+.pratiche-search input {
+  width: 100%;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: var(--caf-navy);
+
+  font-size: 0.88rem;
+}
+
+.pratiche-search input::placeholder {
+  color: #9aa5b5;
+}
+
+/* =========================================================
+   FILTER
+   ========================================================= */
+
+.pratiche-filter.form-select {
+  width: 205px;
+
+  min-height: 48px;
+
+  border: 1px solid #d8e0eb;
+  border-radius: 11px;
+
+  color: var(--caf-navy);
+
+  font-size: 0.82rem;
+
+  box-shadow: none;
+}
+
+.pratiche-filter.form-select:focus {
+  border-color: var(--caf-blue);
+
+  box-shadow: 0 0 0 3px rgba(63, 98, 165, 0.08);
+}
+
+/* =========================================================
+   COUNT
+   ========================================================= */
+
+.pratiche-count {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.4rem;
+
+  color: var(--caf-text-muted);
+
+  white-space: nowrap;
+}
+
+.pratiche-count svg {
+  color: var(--caf-blue);
+
+  font-size: 1.05rem;
+}
+
+.pratiche-count span {
+  color: var(--caf-navy);
+
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.pratiche-count small {
+  color: var(--caf-text-muted);
+
+  font-size: 0.82rem;
+}
+
+/* =========================================================
+   ALERT / LOADING
+   ========================================================= */
+
+.pratiche-panel__alert {
+  margin: 1rem;
+
+  border-color: #f2cdc6;
+  border-radius: 11px;
+
+  background: #fdf4f2;
+
+  color: #c0392f;
+
+  font-size: 0.76rem;
+}
+
+.pratiche-loading {
+  min-height: 190px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.75rem;
+}
+
+.pratiche-loading .spinner-border {
+  color: var(--caf-petrol);
+}
+
+.pratiche-loading p {
+  margin: 0;
+
+  color: var(--caf-text-muted);
+
+  font-size: 0.78rem;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.pratiche-table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.pratiche-table {
+  margin: 0 !important;
+
+  --bs-table-bg: transparent;
+}
+
+.pratiche-table thead th {
+  padding: 1rem 1.15rem;
+
+  border-bottom: 1px solid #e7ecf3;
+
+  background: #fafbfd;
+
+  color: #727f92;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+.pratiche-table tbody td {
+  padding: 1.05rem 1.15rem;
+
+  border-bottom: 1px solid #eef1f5;
+
+  color: var(--caf-navy);
+
+  font-size: 0.84rem;
+
+  vertical-align: middle;
+}
+
+.pratiche-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pratiche-table__row {
+  cursor: pointer;
+
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.pratiche-table__row:hover {
+  background: #f8fafc;
+
+  box-shadow: inset 3px 0 0 rgba(31, 111, 114, 0.35);
+}
+
+/* =========================================================
+   PRATICA
+   ========================================================= */
+
+.pratiche-table__practice {
+  min-width: 220px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.75rem;
+}
+
+.pratiche-table__practice-icon {
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 11px;
+
+  background: #e7f3f1;
+
+  color: var(--caf-petrol);
+
+  font-size: 1rem;
+}
+
+.pratiche-table__practice div {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.15rem;
+}
+
+.pratiche-table__practice strong {
+  max-width: 250px;
+
+  overflow: hidden;
+
+  color: var(--caf-navy);
+
+  font-size: 0.86rem;
+  font-weight: 800;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pratiche-table__practice div > span {
+  color: #7a8799;
+
+  font-size: 0.7rem;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   CLIENTE / RESPONSABILE
+   ========================================================= */
+
+.pratiche-table__person {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.4rem;
+
+  white-space: nowrap;
+}
+
+.pratiche-table__person svg {
+  color: #8490a2;
+
+  font-size: 0.9rem;
+}
+
+.pratiche-table__responsible {
+  display: flex;
+  align-items: center;
+
+  gap: 0.55rem;
+
+  white-space: nowrap;
+}
+
+.pratiche-table__avatar {
+  width: 31px;
+  height: 31px;
+
+  flex: 0 0 31px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  background: #edf2f8;
+
+  color: var(--caf-blue);
+
+  font-size: 0.62rem;
+  font-weight: 850;
+}
+
+.pratiche-table__muted {
+  color: #929cab;
+
+  font-size: 0.8rem;
+}
+
+/* =========================================================
+   SERVIZIO
+   ========================================================= */
+
+.pratiche-table__service {
+  min-width: 145px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.15rem;
+}
+
+.pratiche-table__service strong {
+  color: var(--caf-navy);
+
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.pratiche-table__service span {
+  color: #8994a4;
+
+  font-size: 0.68rem;
+}
+
+/* =========================================================
+   PRIORITÀ
+   ========================================================= */
+
+.pratiche-priority {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 27px;
+
+  padding: 0.3rem 0.65rem;
+
+  border-radius: 999px;
+
+  font-size: 0.67rem;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+.pratiche-priority--bassa {
+  background: #eef1f5;
+
+  color: #687588;
+}
+
+.pratiche-priority--normale {
+  background: #e8f0fb;
+
+  color: #3f62a5;
+}
+
+.pratiche-priority--alta {
+  background: #fff2dc;
+
+  color: #a56513;
+}
+
+.pratiche-priority--urgente {
+  background: #fce8e5;
+
+  color: #b84235;
+}
+
+/* =========================================================
+   STATI
+   ========================================================= */
+
+.pratiche-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 29px;
+
+  padding: 0.33rem 0.72rem;
+
+  border-radius: 999px;
+
+  font-size: 0.67rem;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+.pratiche-status--bozza {
+  background: #eef1f5;
+  color: #687588;
+}
+
+.pratiche-status--da-avviare {
+  background: #fff2dc;
+  color: #9b6419;
+}
+
+.pratiche-status--in-lavorazione {
+  background: #e8f0fb;
+  color: #3f62a5;
+}
+
+.pratiche-status--in-attesa-documenti {
+  background: #f8e9f3;
+  color: #a0447a;
+}
+
+.pratiche-status--in-attesa-cliente {
+  background: #f1eafb;
+  color: #7150a2;
+}
+
+.pratiche-status--in-attesa-ente {
+  background: #e7f3f1;
+  color: #1f6f72;
+}
+
+.pratiche-status--completata {
+  background: #e6f4e9;
+  color: #237a3b;
+}
+
+.pratiche-status--annullata {
+  background: #fce8e5;
+  color: #b84235;
+}
+
+/* =========================================================
+   SCADENZA
+   ========================================================= */
+
+.pratiche-table__deadline {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.4rem;
+
+  color: #58677a;
+
+  white-space: nowrap;
+}
+
+.pratiche-table__deadline svg {
+  color: #8a96a7;
+
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.pratiche-table__empty {
+  padding: 3rem 1rem !important;
+
+  color: var(--caf-text-muted) !important;
+
+  font-size: 0.8rem !important;
+
+  text-align: center;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .pratiche-panel__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pratiche-count {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .pratiche-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pratiche-search,
+  .pratiche-filter.form-select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pratiche-table thead th,
+  .pratiche-table tbody td {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pratiche-search,
+  .pratiche-table__row,
+  .pratiche-page__new-button.btn {
+    transition: none;
+  }
+}
