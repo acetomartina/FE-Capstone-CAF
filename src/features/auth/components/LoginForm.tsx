@@ -69,9 +69,11 @@ const LoginForm = () => {
     try {
       const risposta = await authService.login(email, password);
 
-      /* Prima il token: e' cio' che autorizza le chiamate successive.
-         Se qualcosa si rompe dopo, meglio avere le credenziali salvate
-         e lo store incompleto che il contrario. */
+      /*
+       * Salviamo solo il token JWT.
+       * Email e password vengono eventualmente gestite
+       * dal password manager del browser.
+       */
       tokenService.salvaToken(risposta.accessToken);
 
       dispatch(
@@ -96,7 +98,11 @@ const LoginForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="login-form">
+    <Form
+      onSubmit={handleSubmit}
+      className="login-form"
+      autoComplete="on"
+    >
       {errore && (
         <div className="password-alert" role="alert">
           <span className="password-alert__icon">
@@ -115,10 +121,11 @@ const LoginForm = () => {
 
           <Form.Control
             type="email"
+            name="email"
             placeholder="nome@email.it"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            autoComplete="email"
+            autoComplete="username"
             disabled={caricamento}
             required
           />
@@ -139,6 +146,7 @@ const LoginForm = () => {
 
           <Form.Control
             type={mostraPassword ? "text" : "password"}
+            name="password"
             placeholder="Inserisci la password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}

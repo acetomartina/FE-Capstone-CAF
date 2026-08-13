@@ -1,3 +1,5 @@
+import { MemoryRouter } from "react-router-dom";
+
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -17,30 +19,65 @@ const resetPassword = vi.mocked(authService.resetPassword);
 const TOKEN = "token-valido-123";
 const PASSWORD_BUONA = "Password1!";
 
-/* Riproduce solo ciò che il componente legge davvero di un errore axios:
-   il flag riconosciuto da isAxiosError, lo status e il corpo. */
+/*
+ * Renderizziamo sempre ResetPasswordForm dentro MemoryRouter,
+ * perché il componente contiene elementi <Link> di React Router.
+ */
+const renderForm = (token?: string) =>
+  render(
+    <MemoryRouter>
+      <ResetPasswordForm token={token} />
+    </MemoryRouter>,
+  );
+
+/*
+ * Riproduce solo ciò che il componente legge davvero
+ * di un errore Axios:
+ * - flag riconosciuto da isAxiosError
+ * - status HTTP
+ * - corpo della risposta
+ */
 const erroreAxios = (status?: number, data?: unknown) => {
   const errore = new Error("errore simulato") as Error & {
     isAxiosError: boolean;
-    response?: { status: number; data?: unknown };
+    response?: {
+      status: number;
+      data?: unknown;
+    };
   };
 
   errore.isAxiosError = true;
 
   if (status !== undefined) {
-    errore.response = { status, data };
+    errore.response = {
+      status,
+      data,
+    };
   }
 
   return errore;
 };
 
-const compila = async (password: string, conferma: string) => {
+const compila = async (
+  password: string,
+  conferma: string,
+) => {
   const utente = userEvent.setup();
 
-  await utente.type(screen.getByLabelText("Nuova password"), password);
-  await utente.type(screen.getByLabelText("Conferma password"), conferma);
+  await utente.type(
+    screen.getByLabelText("Nuova password"),
+    password,
+  );
+
+  await utente.type(
+    screen.getByLabelText("Conferma password"),
+    conferma,
+  );
+
   await utente.click(
-    screen.getByRole("button", { name: /reimposta la password/i }),
+    screen.getByRole("button", {
+      name: /reimposta la password/i,
+    }),
   );
 };
 
@@ -51,11 +88,14 @@ beforeEach(() => {
 describe("ResetPasswordForm", () => {
   describe("token mancante", () => {
     it("mostra l'errore e non renderizza il form", () => {
-      render(<ResetPasswordForm />);
+      renderForm();
 
-      expect(screen.getByRole("alert")).toHaveTextContent(
+      expect(
+        screen.getByRole("alert"),
+      ).toHaveTextContent(
         /non è valido, è scaduto oppure è già stato usato/i,
       );
+
       expect(
         screen.queryByLabelText("Nuova password"),
       ).not.toBeInTheDocument();
@@ -64,23 +104,39 @@ describe("ResetPasswordForm", () => {
 
   describe("validazione prima della rete", () => {
     it("blocca le password non coincidenti senza chiamare il server", async () => {
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      await compila(PASSWORD_BUONA, "Password2!");
+      await compila(
+        PASSWORD_BUONA,
+        "Password2!",
+      );
 
-      expect(screen.getByRole("alert")).toHaveTextContent(
+      expect(
+        screen.getByRole("alert"),
+      ).toHaveTextContent(
         "Le due password non coincidono.",
       );
-      expect(resetPassword).not.toHaveBeenCalled();
+
+      expect(
+        resetPassword,
+      ).not.toHaveBeenCalled();
     });
 
     it("blocca una password troppo debole senza chiamare il server", async () => {
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      await compila("password", "password");
+      await compila(
+        "password",
+        "password",
+      );
 
-      expect(screen.getByRole("alert")).toHaveTextContent(/maiuscola/i);
-      expect(resetPassword).not.toHaveBeenCalled();
+      expect(
+        screen.getByRole("alert"),
+      ).toHaveTextContent(/maiuscola/i);
+
+      expect(
+        resetPassword,
+      ).not.toHaveBeenCalled();
     });
   });
 
@@ -88,41 +144,71 @@ describe("ResetPasswordForm", () => {
     it("invia token e password, poi mostra la conferma", async () => {
       resetPassword.mockResolvedValue({});
 
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      await compila(PASSWORD_BUONA, PASSWORD_BUONA);
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+      );
 
-      expect(resetPassword).toHaveBeenCalledExactlyOnceWith(
+      expect(
+        resetPassword,
+      ).toHaveBeenCalledExactlyOnceWith(
         TOKEN,
         PASSWORD_BUONA,
       );
-      expect(await screen.findByText("Password aggiornata")).toBeVisible();
+
+      expect(
+        await screen.findByText(
+          "Password aggiornata",
+        ),
+      ).toBeVisible();
     });
 
     it("a conferma avvenuta non resta nessun campo password in pagina", async () => {
       resetPassword.mockResolvedValue({});
 
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      await compila(PASSWORD_BUONA, PASSWORD_BUONA);
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+      );
 
-      expect(await screen.findByRole("status")).toBeInTheDocument();
       expect(
-        screen.queryByLabelText("Nuova password"),
+        await screen.findByRole("status"),
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByLabelText(
+          "Nuova password",
+        ),
       ).not.toBeInTheDocument();
-      expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+
+      expect(
+        screen.queryByRole("alert"),
+      ).not.toBeInTheDocument();
     });
   });
 
   describe("errori del server", () => {
     it("tratta un 400 senza validationErrors come token bruciato", async () => {
-      resetPassword.mockRejectedValue(erroreAxios(400, { message: "ko" }));
+      resetPassword.mockRejectedValue(
+        erroreAxios(400, {
+          message: "ko",
+        }),
+      );
 
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      await compila(PASSWORD_BUONA, PASSWORD_BUONA);
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+      );
 
-      expect(await screen.findByRole("alert")).toHaveTextContent(
+      expect(
+        await screen.findByRole("alert"),
+      ).toHaveTextContent(
         /richiedine uno nuovo/i,
       );
     });
@@ -130,54 +216,88 @@ describe("ResetPasswordForm", () => {
     it("tratta un 400 con validationErrors come password rifiutata", async () => {
       resetPassword.mockRejectedValue(
         erroreAxios(400, {
-          validationErrors: { password: "troppo debole" },
+          validationErrors: {
+            password: "troppo debole",
+          },
         }),
       );
 
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      await compila(PASSWORD_BUONA, PASSWORD_BUONA);
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+      );
 
-      expect(await screen.findByRole("alert")).toHaveTextContent(
+      expect(
+        await screen.findByRole("alert"),
+      ).toHaveTextContent(
         /non rispetta i requisiti richiesti/i,
       );
     });
 
     it("tratta il 500 come guasto tecnico, non come token invalido", async () => {
-      resetPassword.mockRejectedValue(erroreAxios(500));
+      resetPassword.mockRejectedValue(
+        erroreAxios(500),
+      );
 
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      await compila(PASSWORD_BUONA, PASSWORD_BUONA);
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+      );
 
-      expect(await screen.findByRole("alert")).toHaveTextContent(
+      expect(
+        await screen.findByRole("alert"),
+      ).toHaveTextContent(
         /problema tecnico/i,
       );
     });
 
     it("tratta l'assenza di risposta come guasto tecnico", async () => {
-      resetPassword.mockRejectedValue(erroreAxios());
+      resetPassword.mockRejectedValue(
+        erroreAxios(),
+      );
 
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      await compila(PASSWORD_BUONA, PASSWORD_BUONA);
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+      );
 
-      expect(await screen.findByRole("alert")).toHaveTextContent(
+      expect(
+        await screen.findByRole("alert"),
+      ).toHaveTextContent(
         /problema tecnico/i,
       );
     });
 
     it("non mostra mai il messaggio grezzo del backend", async () => {
       resetPassword.mockRejectedValue(
-        erroreAxios(400, { message: "utente non trovato: mario.rossi" }),
+        erroreAxios(400, {
+          message:
+            "utente non trovato: mario.rossi",
+        }),
       );
 
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      await compila(PASSWORD_BUONA, PASSWORD_BUONA);
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+      );
 
-      expect(await screen.findByRole("alert")).toBeInTheDocument();
-      expect(document.body).not.toHaveTextContent(/mario\.rossi/);
+      expect(
+        await screen.findByRole("alert"),
+      ).toBeInTheDocument();
+
+      expect(
+        document.body,
+      ).not.toHaveTextContent(
+        /mario\.rossi/,
+      );
     });
   });
 
@@ -185,43 +305,92 @@ describe("ResetPasswordForm", () => {
     it("l'occhio scopre entrambi i campi insieme", async () => {
       const utente = userEvent.setup();
 
-      render(<ResetPasswordForm token={TOKEN} />);
+      renderForm(TOKEN);
 
-      const nuova = screen.getByLabelText("Nuova password");
-      const conferma = screen.getByLabelText("Conferma password");
+      const nuova =
+        screen.getByLabelText(
+          "Nuova password",
+        );
 
-      expect(nuova).toHaveAttribute("type", "password");
-      expect(conferma).toHaveAttribute("type", "password");
+      const conferma =
+        screen.getByLabelText(
+          "Conferma password",
+        );
 
-      await utente.click(
-        screen.getByRole("button", { name: "Mostra le password" }),
+      expect(
+        nuova,
+      ).toHaveAttribute(
+        "type",
+        "password",
       );
 
-      expect(nuova).toHaveAttribute("type", "text");
-      expect(conferma).toHaveAttribute("type", "text");
-    });
+      expect(
+        conferma,
+      ).toHaveAttribute(
+        "type",
+        "password",
+      );
 
-    it("disabilita il bottone durante l'invio, così non parte due volte", async () => {
-      let sblocca: (() => void) | undefined;
-
-      resetPassword.mockReturnValue(
-        new Promise((risolvi) => {
-          sblocca = () => risolvi({});
+      await utente.click(
+        screen.getByRole("button", {
+          name: "Mostra le password",
         }),
       );
 
-      render(<ResetPasswordForm token={TOKEN} />);
+      expect(
+        nuova,
+      ).toHaveAttribute(
+        "type",
+        "text",
+      );
 
-      await compila(PASSWORD_BUONA, PASSWORD_BUONA);
+      expect(
+        conferma,
+      ).toHaveAttribute(
+        "type",
+        "text",
+      );
+    });
 
-      const bottone = screen.getByRole("button", { name: /salvataggio/i });
+    it("disabilita il bottone durante l'invio, così non parte due volte", async () => {
+      let sblocca:
+        | (() => void)
+        | undefined;
 
-      expect(bottone).toBeDisabled();
-      expect(resetPassword).toHaveBeenCalledTimes(1);
+      resetPassword.mockReturnValue(
+        new Promise((risolvi) => {
+          sblocca = () =>
+            risolvi({});
+        }),
+      );
+
+      renderForm(TOKEN);
+
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+      );
+
+      const bottone =
+        screen.getByRole("button", {
+          name: /salvataggio/i,
+        });
+
+      expect(
+        bottone,
+      ).toBeDisabled();
+
+      expect(
+        resetPassword,
+      ).toHaveBeenCalledTimes(1);
 
       sblocca?.();
 
-      expect(await screen.findByText("Password aggiornata")).toBeVisible();
+      expect(
+        await screen.findByText(
+          "Password aggiornata",
+        ),
+      ).toBeVisible();
     });
   });
 });
