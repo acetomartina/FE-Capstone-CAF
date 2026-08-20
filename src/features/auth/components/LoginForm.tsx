@@ -1,7 +1,21 @@
-import { useState, type FormEvent } from "react";
-import { Button, Form } from "react-bootstrap";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  useState,
+  type FormEvent,
+} from "react";
+
+import {
+  Button,
+  Form,
+} from "react-bootstrap";
+
+import {
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+
 import axios from "axios";
+
 import {
   FiAlertCircle,
   FiArrowRight,
@@ -11,14 +25,21 @@ import {
   FiMail,
 } from "react-icons/fi";
 
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../app/hooks";
+
 import { tokenService } from "../../../services/tokenService";
+
 import { authService } from "../authService";
+
 import {
   impostaAutenticazione,
   impostaCaricamento,
   impostaErrore,
 } from "../authSlice";
+
 import { PERCORSO_AREA_RISERVATA } from "../percorsiRuolo";
 
 const MESSAGGIO_CREDENZIALI =
@@ -27,19 +48,15 @@ const MESSAGGIO_CREDENZIALI =
 const MESSAGGIO_TECNICO =
   "Non è stato possibile completare l'accesso per un problema tecnico. Riprova tra qualche minuto.";
 
-/*
- * Qui il 401 può essere esplicito:
- * chi prova ad accedere dichiara di conoscere quelle credenziali,
- * quindi dirgli che sono sbagliate non rivela niente che non sappia già.
- *
- * Diverso dal recupero password.
- */
-const messaggioPerErrore = (errore: unknown): string => {
+const messaggioPerErrore = (
+  errore: unknown,
+): string => {
   if (!axios.isAxiosError(errore)) {
     return MESSAGGIO_TECNICO;
   }
 
-  const stato = errore.response?.status;
+  const stato =
+    errore.response?.status;
 
   if (stato === 401) {
     return MESSAGGIO_CREDENZIALI;
@@ -49,41 +66,71 @@ const messaggioPerErrore = (errore: unknown): string => {
 };
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [mostraPassword, setMostraPassword] =
-    useState(false);
-
   /*
-   * Per ora "Ricordami" gestisce soltanto lo stato della UI.
+   * Se in precedenza era stato selezionato
+   * "Ricordami", riproponiamo solamente
+   * l'indirizzo email.
    *
-   * Nel passaggio successivo lo collegheremo al tokenService:
-   * - ricordami = true  -> localStorage
-   * - ricordami = false -> sessionStorage
-   *
-   * Non salveremo mai la password.
+   * La password non viene mai salvata
+   * dall'applicazione.
    */
-  const [ricordami, setRicordami] = useState(false);
+  const emailRicordata =
+    tokenService.recuperaEmailRicordata();
 
-  const caricamento = useAppSelector(
-    (stato) => stato.auth.caricamento,
+  const [email, setEmail] =
+    useState(
+      emailRicordata ?? "",
+    );
+
+  const [
+    password,
+    setPassword,
+  ] = useState("");
+
+  const [
+    mostraPassword,
+    setMostraPassword,
+  ] = useState(false);
+
+  const [
+    ricordami,
+    setRicordami,
+  ] = useState(
+    Boolean(emailRicordata),
   );
 
-  const errore = useAppSelector(
-    (stato) => stato.auth.errore,
-  );
+  const caricamento =
+    useAppSelector(
+      (stato) =>
+        stato.auth.caricamento,
+    );
 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const posizione = useLocation();
+  const errore =
+    useAppSelector(
+      (stato) =>
+        stato.auth.errore,
+    );
+
+  const dispatch =
+    useAppDispatch();
+
+  const navigate =
+    useNavigate();
+
+  const posizione =
+    useLocation();
 
   /*
-   * La guardia ha salvato qui la pagina
-   * che l'utente voleva aprire.
+   * La guardia salva nello state
+   * la pagina richiesta prima
+   * del redirect verso il login.
    */
   const destinazione =
-    (posizione.state as { da?: string } | null)?.da ??
+    (
+      posizione.state as {
+        da?: string;
+      } | null
+    )?.da ??
     PERCORSO_AREA_RISERVATA;
 
   const handleSubmit = async (
@@ -91,48 +138,84 @@ const LoginForm = () => {
   ) => {
     event.preventDefault();
 
-    dispatch(impostaCaricamento(true));
+    dispatch(
+      impostaCaricamento(true),
+    );
 
     try {
-      const risposta = await authService.login(
-        email,
-        password,
-      );
+      const risposta =
+        await authService.login(
+          email,
+          password,
+        );
 
       /*
-       * Prima il token: è ciò che autorizza
-       * le chiamate successive.
+       * Ricordami = true:
+       * token persistente in localStorage.
        *
-       * Per ora utilizziamo ancora il comportamento
-       * attuale del tokenService.
+       * Ricordami = false:
+       * token valido soltanto nella
+       * sessione corrente.
        */
       tokenService.salvaToken(
         risposta.accessToken,
+        ricordami,
       );
+
+      /*
+       * Ricordiamo esclusivamente l'email.
+       * Mai la password.
+       */
+      if (ricordami) {
+        tokenService.salvaEmailRicordata(
+          email.trim(),
+        );
+      } else {
+        tokenService.rimuoviEmailRicordata();
+      }
 
       dispatch(
         impostaAutenticazione({
-          token: risposta.accessToken,
+          token:
+            risposta.accessToken,
+
           utente: {
-            id: risposta.id,
-            nome: risposta.nome,
-            cognome: risposta.cognome,
-            email: risposta.email,
-            ruolo: risposta.ruolo,
-            attivo: risposta.attivo,
+            id:
+              risposta.id,
+
+            nome:
+              risposta.nome,
+
+            cognome:
+              risposta.cognome,
+
+            email:
+              risposta.email,
+
+            ruolo:
+              risposta.ruolo,
+
+            attivo:
+              risposta.attivo,
+
             urlImmagineProfilo:
               risposta.urlImmagineProfilo,
           },
         }),
       );
 
-      navigate(destinazione, {
-        replace: true,
-      });
+      navigate(
+        destinazione,
+        {
+          replace: true,
+        },
+      );
     } catch (erroreChiamata) {
       dispatch(
         impostaErrore(
-          messaggioPerErrore(erroreChiamata),
+          messaggioPerErrore(
+            erroreChiamata,
+          ),
         ),
       );
     }
@@ -148,11 +231,17 @@ const LoginForm = () => {
           className="password-alert"
           role="alert"
         >
-          <span className="password-alert__icon">
-            <FiAlertCircle aria-hidden="true" />
+          <span
+            className="password-alert__icon"
+          >
+            <FiAlertCircle
+              aria-hidden="true"
+            />
           </span>
 
-          <p className="password-alert__text">
+          <p
+            className="password-alert__text"
+          >
             {errore}
           </p>
         </div>
@@ -163,10 +252,16 @@ const LoginForm = () => {
         className="login-form__group"
         controlId="email"
       >
-        <Form.Label>Email</Form.Label>
+        <Form.Label>
+          Email
+        </Form.Label>
 
-        <div className="login-form__field">
-          <FiMail aria-hidden="true" />
+        <div
+          className="login-form__field"
+        >
+          <FiMail
+            aria-hidden="true"
+          />
 
           <Form.Control
             type="email"
@@ -174,10 +269,14 @@ const LoginForm = () => {
             placeholder="nome@email.it"
             value={email}
             onChange={(event) =>
-              setEmail(event.target.value)
+              setEmail(
+                event.target.value,
+              )
             }
             autoComplete="username"
-            disabled={caricamento}
+            disabled={
+              caricamento
+            }
             required
           />
         </div>
@@ -188,10 +287,16 @@ const LoginForm = () => {
         className="login-form__group"
         controlId="password"
       >
-        <Form.Label>Password</Form.Label>
+        <Form.Label>
+          Password
+        </Form.Label>
 
-        <div className="login-form__field">
-          <FiLock aria-hidden="true" />
+        <div
+          className="login-form__field"
+        >
+          <FiLock
+            aria-hidden="true"
+          />
 
           <Form.Control
             type={
@@ -203,10 +308,14 @@ const LoginForm = () => {
             placeholder="Inserisci la password"
             value={password}
             onChange={(event) =>
-              setPassword(event.target.value)
+              setPassword(
+                event.target.value,
+              )
             }
             autoComplete="current-password"
-            disabled={caricamento}
+            disabled={
+              caricamento
+            }
             required
           />
 
@@ -215,7 +324,8 @@ const LoginForm = () => {
             className="login-form__password-toggle"
             onClick={() =>
               setMostraPassword(
-                (valore) => !valore,
+                (valore) =>
+                  !valore,
               )
             }
             aria-label={
@@ -223,29 +333,43 @@ const LoginForm = () => {
                 ? "Nascondi la password"
                 : "Mostra la password"
             }
-            disabled={caricamento}
+            disabled={
+              caricamento
+            }
           >
             {mostraPassword ? (
-              <FiEyeOff aria-hidden="true" />
+              <FiEyeOff
+                aria-hidden="true"
+              />
             ) : (
-              <FiEye aria-hidden="true" />
+              <FiEye
+                aria-hidden="true"
+              />
             )}
           </button>
         </div>
       </Form.Group>
 
       {/* RICORDAMI + PASSWORD DIMENTICATA */}
-      <div className="login-form__options">
-        <label className="login-form__remember">
+      <div
+        className="login-form__options"
+      >
+        <label
+          className="login-form__remember"
+        >
           <input
             type="checkbox"
-            checked={ricordami}
+            checked={
+              ricordami
+            }
             onChange={(event) =>
               setRicordami(
                 event.target.checked,
               )
             }
-            disabled={caricamento}
+            disabled={
+              caricamento
+            }
           />
 
           <span
@@ -253,7 +377,9 @@ const LoginForm = () => {
             aria-hidden="true"
           />
 
-          <span>Ricordami</span>
+          <span>
+            Ricordami
+          </span>
         </label>
 
         <Link
@@ -268,7 +394,9 @@ const LoginForm = () => {
       <Button
         type="submit"
         className="login-form__submit"
-        disabled={caricamento}
+        disabled={
+          caricamento
+        }
       >
         <span>
           {caricamento
@@ -276,7 +404,9 @@ const LoginForm = () => {
             : "Accedi"}
         </span>
 
-        <FiArrowRight aria-hidden="true" />
+        <FiArrowRight
+          aria-hidden="true"
+        />
       </Button>
     </Form>
   );
