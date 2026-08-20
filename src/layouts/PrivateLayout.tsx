@@ -263,7 +263,7 @@ const PrivateLayout = () => {
           </NavLink>
 
           <NavLink
-            to="/impostazioni"
+            to="/amministrazione"
             title={
               sidebarCollassata
                 ? "Impostazioni"
@@ -277,7 +277,7 @@ const PrivateLayout = () => {
             </span>
 
             <span className="private-sidebar__link-label">
-              Impostazioni
+              Amministrazione
             </span>
           </NavLink>
 

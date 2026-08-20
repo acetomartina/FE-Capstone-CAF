@@ -1,28 +1,47 @@
 import type { Ruolo } from "./authTypes";
 
-/** Punto d'ingresso unico: smista verso l'area del ruolo. */
-export const PERCORSO_AREA_RISERVATA = "/area-riservata";
+/**
+ * Punto d'ingresso unico:
+ * smista verso l'area corretta
+ * in base al ruolo autenticato.
+ */
+export const PERCORSO_AREA_RISERVATA =
+  "/area-riservata";
 
 /*
- * ADMIN e SUPER_ADMIN condividono l'area: nel backend li separa un solo
- * permesso, il cambio ruolo. Le funzioni riservate al super admin si
- * mostrano dentro l'area, invece di duplicarla.
+ * ADMIN e SUPER_ADMIN entrano direttamente
+ * nella Dashboard operativa.
  *
- * Il tipo Record<Ruolo, string> e' voluto: aggiungere un ruolo all'enum
- * senza dargli un percorso non compila.
+ * La pagina /amministrazione resta disponibile
+ * come area secondaria per utenti,
+ * configurazioni e gestione della sede.
+ *
+ * USER mantiene la propria area dipendente.
+ * CLIENTE mantiene la propria area cliente.
  */
 const PERCORSI: Record<Ruolo, string> = {
-  SUPER_ADMIN: "/amministrazione",
-  ADMIN: "/amministrazione",
+  SUPER_ADMIN: "/dashboard",
+  ADMIN: "/dashboard",
   USER: "/dipendente",
   CLIENTE: "/cliente",
 };
 
-export const percorsoPerRuolo = (ruolo: Ruolo): string => PERCORSI[ruolo];
+export const percorsoPerRuolo = (
+  ruolo: Ruolo,
+): string => PERCORSI[ruolo];
 
-/** Ruoli ammessi in ciascuna area, per la guardia sulle rotte. */
-export const RUOLI_AMMINISTRAZIONE: Ruolo[] = ["ADMIN", "SUPER_ADMIN"];
+/**
+ * Ruoli ammessi nelle varie aree.
+ */
+export const RUOLI_AMMINISTRAZIONE: Ruolo[] = [
+  "ADMIN",
+  "SUPER_ADMIN",
+];
 
-export const RUOLI_DIPENDENTE: Ruolo[] = ["USER"];
+export const RUOLI_DIPENDENTE: Ruolo[] = [
+  "USER",
+];
 
-export const RUOLI_CLIENTE: Ruolo[] = ["CLIENTE"];
+export const RUOLI_CLIENTE: Ruolo[] = [
+  "CLIENTE",
+];
