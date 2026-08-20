@@ -12,6 +12,7 @@ import ResetPasswordPage from "./pages/public/ResetPasswordPage";
 import DashboardPage from "./pages/private/DashboardPage";
 import ClientiPage from "./pages/private/ClientiPage";
 import PratichePage from "./pages/private/PratichePage";
+import DettaglioPraticaPage from "./pages/private/DettaglioPraticaPage";
 import AreaAmministrazionePage from "./pages/private/AreaAmministrazionePage";
 import AreaClientePage from "./pages/private/AreaClientePage";
 import AreaDipendentePage from "./pages/private/AreaDipendentePage";
@@ -31,10 +32,6 @@ const App = () => {
 
   return (
     <Routes>
-      {/* --------------------- */}
-      {/* Area pubblica */}
-      {/* --------------------- */}
-
       <Route element={<PublicLayout />}>
         <Route
           path="/"
@@ -62,20 +59,12 @@ const App = () => {
         />
       </Route>
 
-      {/* --------------------- */}
-      {/* Redirect dopo login */}
-      {/* --------------------- */}
-
       <Route element={<RottaProtetta />}>
         <Route
           path="/area-riservata"
           element={<AreaRiservataPage />}
         />
       </Route>
-
-      {/* --------------------- */}
-      {/* Cliente */}
-      {/* --------------------- */}
 
       <Route
         element={
@@ -86,23 +75,13 @@ const App = () => {
           />
         }
       >
-        <Route
-          element={
-            <PrivateLayout />
-          }
-        >
+        <Route element={<PrivateLayout />}>
           <Route
             path="/cliente"
-            element={
-              <AreaClientePage />
-            }
+            element={<AreaClientePage />}
           />
         </Route>
       </Route>
-
-      {/* --------------------- */}
-      {/* Dipendente */}
-      {/* --------------------- */}
 
       <Route
         element={
@@ -113,24 +92,13 @@ const App = () => {
           />
         }
       >
-        <Route
-          element={
-            <PrivateLayout />
-          }
-        >
+        <Route element={<PrivateLayout />}>
           <Route
             path="/dipendente"
-            element={
-              <AreaDipendentePage />
-            }
+            element={<AreaDipendentePage />}
           />
         </Route>
       </Route>
-
-      {/* --------------------- */}
-      {/* Gestionale */}
-      {/* ADMIN + SUPER_ADMIN + USER */}
-      {/* --------------------- */}
 
       <Route
         element={
@@ -142,11 +110,7 @@ const App = () => {
           />
         }
       >
-        <Route
-          element={
-            <PrivateLayout />
-          }
-        >
+        <Route element={<PrivateLayout />}>
           <Route
             path="/clienti"
             element={<ClientiPage />}
@@ -156,12 +120,13 @@ const App = () => {
             path="/pratiche"
             element={<PratichePage />}
           />
+
+          <Route
+            path="/pratiche/:id"
+            element={<DettaglioPraticaPage />}
+          />
         </Route>
       </Route>
-
-      {/* --------------------- */}
-      {/* Solo amministrazione */}
-      {/* --------------------- */}
 
       <Route
         element={
@@ -172,11 +137,7 @@ const App = () => {
           />
         }
       >
-        <Route
-          element={
-            <PrivateLayout />
-          }
-        >
+        <Route element={<PrivateLayout />}>
           <Route
             path="/dashboard"
             element={<DashboardPage />}
@@ -190,10 +151,6 @@ const App = () => {
           />
         </Route>
       </Route>
-
-      {/* --------------------- */}
-      {/* 404 */}
-      {/* --------------------- */}
 
       <Route
         path="*"

@@ -1,0 +1,787 @@
+/* =========================================================
+   DETTAGLIO PRATICA
+   ========================================================= */
+
+.dettaglio-pratica-page {
+  width: 100%;
+  padding: 0 0 3rem;
+  color: #18233a;
+}
+
+.dettaglio-pratica-topbar {
+  margin-bottom: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dettaglio-pratica-back {
+  padding-left: 0;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  color: #6e788b;
+
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.dettaglio-pratica-back:hover {
+  color: #172239;
+}
+
+.dettaglio-pratica-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  border-radius: 10px;
+}
+
+.dettaglio-pratica-alert {
+  margin-bottom: 1rem;
+}
+
+.dettaglio-pratica-loading {
+  min-height: 420px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+
+  color: #7b8597;
+}
+
+/* HERO */
+
+.dettaglio-pratica-hero {
+  padding: 1.65rem;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 1.4rem;
+  align-items: stretch;
+
+  border: 1px solid #e9edf2;
+  border-radius: 20px;
+
+  background:
+    radial-gradient(
+      circle at 92% 10%,
+      rgba(24, 151, 111, 0.08),
+      transparent 30%
+    ),
+    #fff;
+
+  box-shadow: 0 12px 34px rgba(31, 46, 75, 0.055);
+}
+
+.dettaglio-pratica-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 0.45rem;
+
+  color: #159a73;
+
+  font-size: 0.74rem;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.dettaglio-pratica-hero h1 {
+  max-width: 800px;
+
+  margin: 0;
+
+  color: #142039;
+
+  font-size: clamp(1.55rem, 2.4vw, 2.25rem);
+  font-weight: 850;
+  line-height: 1.16;
+}
+
+.dettaglio-pratica-badges {
+  margin-top: 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.dettaglio-pratica-badge {
+  min-height: 27px;
+  padding: 0.32rem 0.65rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background: #eef2f6;
+  color: #627086;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.dettaglio-pratica-badge--da-avviare,
+.dettaglio-pratica-badge--in-attesa-cliente,
+.dettaglio-pratica-badge--in-attesa-ente {
+  background: #fff3df;
+  color: #c77917;
+}
+
+.dettaglio-pratica-badge--in-lavorazione {
+  background: #eaf1ff;
+  color: #3970d1;
+}
+
+.dettaglio-pratica-badge--in-attesa-documenti {
+  background: #fceafa;
+  color: #b044a2;
+}
+
+.dettaglio-pratica-badge--completata {
+  background: #e8f7f1;
+  color: #148966;
+}
+
+.dettaglio-pratica-badge--annullata {
+  background: #f1edf6;
+  color: #7e658e;
+}
+
+.dettaglio-pratica-badge--bassa {
+  background: #eef4f6;
+  color: #607985;
+}
+
+.dettaglio-pratica-badge--normale {
+  background: #edf3ff;
+  color: #4670ba;
+}
+
+.dettaglio-pratica-badge--alta {
+  background: #fff0df;
+  color: #bd6e11;
+}
+
+.dettaglio-pratica-badge--urgente {
+  background: #fde9e9;
+  color: #c74f4f;
+}
+
+.dettaglio-pratica-progress-card {
+  padding: 1rem 1.05rem;
+
+  border: 1px solid rgba(21, 154, 115, 0.12);
+  border-radius: 15px;
+
+  background: rgba(21, 154, 115, 0.045);
+}
+
+.dettaglio-pratica-progress-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dettaglio-pratica-progress-card__header div {
+  display: flex;
+  flex-direction: column;
+}
+
+.dettaglio-pratica-progress-card__header span {
+  color: #68768c;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.dettaglio-pratica-progress-card__header strong {
+  margin-top: 0.12rem;
+
+  color: #159a73;
+
+  font-size: 1.65rem;
+}
+
+.dettaglio-pratica-progress-card__header svg {
+  color: #159a73;
+
+  font-size: 1.2rem;
+}
+
+.dettaglio-pratica-progress {
+  height: 7px;
+
+  margin: 0.85rem 0 0.55rem;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(21, 154, 115, 0.12);
+}
+
+.dettaglio-pratica-progress span {
+  height: 100%;
+
+  display: block;
+
+  border-radius: inherit;
+
+  background: #159a73;
+}
+
+.dettaglio-pratica-progress-card small {
+  color: #7a8798;
+
+  font-size: 0.72rem;
+}
+
+/* INFO CARDS */
+
+.dettaglio-pratica-info-grid {
+  margin: 1rem 0;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.dettaglio-pratica-info-card {
+  min-width: 0;
+  padding: 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  border: 1px solid #e9edf2;
+  border-radius: 15px;
+
+  background: #fff;
+}
+
+.dettaglio-pratica-info-card__icon {
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 11px;
+}
+
+.dettaglio-pratica-info-card__icon--green {
+  background: #eaf8f3;
+  color: #159a73;
+}
+
+.dettaglio-pratica-info-card__icon--blue {
+  background: #edf3ff;
+  color: #3970d1;
+}
+
+.dettaglio-pratica-info-card__icon--purple {
+  background: #f3edfb;
+  color: #8655c7;
+}
+
+.dettaglio-pratica-info-card__icon--orange {
+  background: #fff2e5;
+  color: #c97818;
+}
+
+.dettaglio-pratica-info-card > div {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.dettaglio-pratica-info-card small {
+  color: #8a94a5;
+
+  font-size: 0.68rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dettaglio-pratica-info-card strong {
+  margin: 0.12rem 0;
+
+  overflow: hidden;
+
+  color: #253149;
+
+  font-size: 0.82rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dettaglio-pratica-info-card span {
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  color: #7f899a;
+
+  font-size: 0.72rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* MAIN LAYOUT */
+
+.dettaglio-pratica-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 1rem;
+  align-items: start;
+}
+
+.dettaglio-pratica-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dettaglio-pratica-panel,
+.dettaglio-pratica-side-card {
+  overflow: hidden;
+
+  border: 1px solid #e9edf2;
+  border-radius: 17px;
+
+  background: #fff;
+}
+
+.dettaglio-pratica-panel__header {
+  padding: 1rem 1.1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  border-bottom: 1px solid #eef1f4;
+}
+
+.dettaglio-pratica-panel__header > div {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.dettaglio-pratica-panel__icon {
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+}
+
+.dettaglio-pratica-panel__icon--green {
+  background: #eaf8f3;
+  color: #159a73;
+}
+
+.dettaglio-pratica-panel__icon--blue {
+  background: #edf3ff;
+  color: #3970d1;
+}
+
+.dettaglio-pratica-panel__header h2 {
+  margin: 0;
+
+  color: #202c44;
+
+  font-size: 0.95rem;
+  font-weight: 820;
+}
+
+.dettaglio-pratica-panel__header p {
+  margin: 0.12rem 0 0;
+
+  color: #8a94a4;
+
+  font-size: 0.72rem;
+}
+
+.dettaglio-pratica-panel__count {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 0.45rem;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 8px;
+
+  background: #f2f4f7;
+  color: #6f7b8d;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+/* DOCUMENTI */
+
+.dettaglio-pratica-doc-summary {
+  padding: 0.85rem 1.1rem;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+
+  border-bottom: 1px solid #eef1f4;
+
+  background: #fafbfc;
+}
+
+.dettaglio-pratica-doc-summary span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+
+  color: #8a94a5;
+
+  font-size: 0.66rem;
+}
+
+.dettaglio-pratica-doc-summary strong {
+  color: #2b374d;
+
+  font-size: 0.9rem;
+}
+
+.dettaglio-pratica-documenti {
+  padding: 0 1.1rem;
+}
+
+.dettaglio-pratica-documento {
+  padding: 0.9rem 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  border-bottom: 1px solid #eff2f5;
+}
+
+.dettaglio-pratica-documento:last-child {
+  border-bottom: 0;
+}
+
+.dettaglio-pratica-documento__main {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dettaglio-pratica-documento__status {
+  width: 37px;
+  height: 37px;
+
+  flex: 0 0 37px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  background: #f1f3f6;
+  color: #8390a2;
+}
+
+.dettaglio-pratica-documento__status--ricevuto,
+.dettaglio-pratica-documento__status--da-verificare {
+  background: #edf3ff;
+  color: #3970d1;
+}
+
+.dettaglio-pratica-documento__status--validato {
+  background: #eaf8f3;
+  color: #159a73;
+}
+
+.dettaglio-pratica-documento__status--rifiutato {
+  background: #fdecec;
+  color: #c75252;
+}
+
+.dettaglio-pratica-documento__main > div {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.dettaglio-pratica-documento__main strong {
+  color: #2a354b;
+
+  font-size: 0.82rem;
+}
+
+.dettaglio-pratica-documento__main span {
+  margin-top: 0.13rem;
+
+  overflow: hidden;
+
+  color: #7f899b;
+
+  font-size: 0.72rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dettaglio-pratica-documento__main small {
+  margin-top: 0.18rem;
+
+  color: #a0a7b3;
+
+  font-size: 0.65rem;
+}
+
+.dettaglio-pratica-documento__action {
+  min-width: 150px;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dettaglio-pratica-documento__action .form-select {
+  min-width: 150px;
+
+  border-color: #e0e5ec;
+  border-radius: 9px;
+
+  color: #59667b;
+
+  font-size: 0.73rem;
+
+  box-shadow: none;
+}
+
+/* SOTTOPRATICHE */
+
+.dettaglio-pratica-sottopratiche {
+  padding: 0 1.1rem;
+}
+
+.dettaglio-pratica-sottopratica {
+  padding: 0.9rem 0;
+
+  display: grid;
+  grid-template-columns:
+    minmax(160px, 1fr)
+    minmax(240px, 1.2fr)
+    auto;
+  gap: 1rem;
+  align-items: center;
+
+  border-bottom: 1px solid #eff2f5;
+}
+
+.dettaglio-pratica-sottopratica:last-child {
+  border-bottom: 0;
+}
+
+.dettaglio-pratica-sottopratica > div:first-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.dettaglio-pratica-sottopratica strong {
+  color: #29354b;
+
+  font-size: 0.8rem;
+}
+
+.dettaglio-pratica-sottopratica > div:first-child span {
+  color: #929aa8;
+
+  font-size: 0.67rem;
+}
+
+.dettaglio-pratica-sottopratica__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.dettaglio-pratica-sottopratica__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  color: #788396;
+
+  font-size: 0.7rem;
+}
+
+/* SIDEBAR */
+
+.dettaglio-pratica-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dettaglio-pratica-side-card {
+  padding: 1rem;
+}
+
+.dettaglio-pratica-side-card header {
+  margin-bottom: 0.8rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dettaglio-pratica-side-card header svg {
+  color: #778398;
+}
+
+.dettaglio-pratica-side-card h2 {
+  margin: 0;
+
+  color: #2a354b;
+
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.dettaglio-pratica-side-card dl,
+.dettaglio-pratica-side-card p {
+  margin: 0;
+}
+
+.dettaglio-pratica-side-card dl {
+  display: flex;
+  flex-direction: column;
+}
+
+.dettaglio-pratica-side-card dl > div {
+  padding: 0.65rem 0;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.dettaglio-pratica-side-card dl > div:last-child {
+  border-bottom: 0;
+}
+
+.dettaglio-pratica-side-card dt {
+  color: #8a94a4;
+
+  font-size: 0.69rem;
+  font-weight: 650;
+}
+
+.dettaglio-pratica-side-card dd {
+  margin: 0;
+
+  color: #48556b;
+
+  font-size: 0.7rem;
+  font-weight: 750;
+  text-align: right;
+}
+
+.dettaglio-pratica-side-card p {
+  color: #6f7a8d;
+
+  font-size: 0.75rem;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.dettaglio-pratica-empty {
+  padding: 1.35rem 0;
+
+  color: #929aaa;
+
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+@media (max-width: 1180px) {
+  .dettaglio-pratica-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dettaglio-pratica-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dettaglio-pratica-sidebar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 850px) {
+  .dettaglio-pratica-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .dettaglio-pratica-doc-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dettaglio-pratica-sottopratica {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  .dettaglio-pratica-sidebar {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .dettaglio-pratica-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dettaglio-pratica-documento {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dettaglio-pratica-documento__action,
+  .dettaglio-pratica-documento__action .form-select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .dettaglio-pratica-doc-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+}

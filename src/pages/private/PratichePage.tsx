@@ -4,6 +4,7 @@ import {
 } from "react";
 
 import {
+  useNavigate,
   useSearchParams,
 } from "react-router-dom";
 
@@ -58,6 +59,7 @@ const STATI_PRATICA: StatoPratica[] = [
 
 const PratichePage = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [searchParams] =
   useSearchParams();
@@ -339,6 +341,25 @@ useEffect(() => {
                           pratica.id
                         }
                         className="pratiche-table__row"
+                        role="button"
+                        tabIndex={0}
+                        onClick={() =>
+                          navigate(
+                            `/pratiche/${pratica.id}`,
+                          )
+                        }
+                        onKeyDown={(event) => {
+                          if (
+                            event.key === "Enter" ||
+                            event.key === " "
+                          ) {
+                            event.preventDefault();
+
+                            navigate(
+                              `/pratiche/${pratica.id}`,
+                            );
+                          }
+                        }}
                       >
                         <td>
                           <div className="pratiche-table__practice">
