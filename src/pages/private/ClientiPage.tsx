@@ -2,12 +2,19 @@ import {
   useEffect,
   useState,
 } from "react";
+
+import {
+  useSearchParams,
+} from "react-router-dom";
+
 import {
   Alert,
   Button,
+  Form,
   Spinner,
   Table,
 } from "react-bootstrap";
+
 import {
   FiPlus,
   FiSearch,
@@ -30,8 +37,31 @@ import ClienteDettaglioModal from "../../features/clienti/components/ClienteDett
 
 import "./ClientiPage.css";
 
+type FiltroAttivazione =
+  | ""
+  | "true"
+  | "false";
+
+const normalizzaFiltroAttivo = (
+  valore: string | null,
+): FiltroAttivazione => {
+  if (
+    valore === "true" ||
+    valore === "false"
+  ) {
+    return valore;
+  }
+
+  return "";
+};
+
 const ClientiPage = () => {
   const dispatch = useAppDispatch();
+
+  const [
+    searchParams,
+    setSearchParams,
+  ] = useSearchParams();
 
   const {
     elenco,
@@ -40,6 +70,17 @@ const ClientiPage = () => {
     totaleElementi,
   } = useAppSelector(
     (state) => state.clienti,
+  );
+
+  const [
+    filtroAttivo,
+    setFiltroAttivo,
+  ] = useState<FiltroAttivazione>(
+    normalizzaFiltroAttivo(
+      searchParams.get(
+        "attivo",
+      ),
+    ),
   );
 
   const [
@@ -55,14 +96,32 @@ const ClientiPage = () => {
   );
 
   useEffect(() => {
+    setFiltroAttivo(
+      normalizzaFiltroAttivo(
+        searchParams.get(
+          "attivo",
+        ),
+      ),
+    );
+  }, [searchParams]);
+
+  useEffect(() => {
     void dispatch(
       caricaClienti({
         page: 0,
         size: 10,
         sort: "cognome,asc",
+        attivo:
+          filtroAttivo === ""
+            ? undefined
+            : filtroAttivo ===
+              "true",
       }),
     );
-  }, [dispatch]);
+  }, [
+    dispatch,
+    filtroAttivo,
+  ]);
 
   const ricaricaClienti = () => {
     void dispatch(
@@ -70,7 +129,41 @@ const ClientiPage = () => {
         page: 0,
         size: 10,
         sort: "cognome,asc",
+        attivo:
+          filtroAttivo === ""
+            ? undefined
+            : filtroAttivo ===
+              "true",
       }),
+    );
+  };
+
+  const cambiaFiltroAttivo = (
+    valore: FiltroAttivazione,
+  ) => {
+    setFiltroAttivo(valore);
+
+    const nuoviParametri =
+      new URLSearchParams(
+        searchParams,
+      );
+
+    if (valore === "") {
+      nuoviParametri.delete(
+        "attivo",
+      );
+    } else {
+      nuoviParametri.set(
+        "attivo",
+        valore,
+      );
+    }
+
+    setSearchParams(
+      nuoviParametri,
+      {
+        replace: true,
+      },
     );
   };
 
@@ -111,6 +204,29 @@ const ClientiPage = () => {
             />
           </div>
 
+          <Form.Select
+            value={filtroAttivo}
+            onChange={(event) =>
+              cambiaFiltroAttivo(
+                event.target
+                  .value as FiltroAttivazione,
+              )
+            }
+            aria-label="Filtra clienti per stato"
+          >
+            <option value="">
+              Tutti i clienti
+            </option>
+
+            <option value="true">
+              Clienti attivi
+            </option>
+
+            <option value="false">
+              Clienti non attivi
+            </option>
+          </Form.Select>
+
           <div className="clienti-count">
             <FiUsers />
 
@@ -135,7 +251,8 @@ const ClientiPage = () => {
           </Alert>
         )}
 
-        {caricamento ? (
+        {caricamento &&
+        elenco.length === 0 ? (
           <div className="clienti-loading">
             <Spinner
               animation="border"

@@ -64,4 +64,5 @@ export interface ParametriRicercaClienti {
   sort?: string;
   cognome?: string;
   codiceFiscale?: string;
+  attivo?: boolean;
 }

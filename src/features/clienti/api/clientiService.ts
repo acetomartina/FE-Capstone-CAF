@@ -16,15 +16,31 @@ const costruisciParametri = (
   const query = new URLSearchParams();
 
   if (parametri.page !== undefined) {
-    query.set("page", String(parametri.page));
+    query.set(
+      "page",
+      String(parametri.page),
+    );
   }
 
   if (parametri.size !== undefined) {
-    query.set("size", String(parametri.size));
+    query.set(
+      "size",
+      String(parametri.size),
+    );
   }
 
   if (parametri.sort) {
-    query.set("sort", parametri.sort);
+    query.set(
+      "sort",
+      parametri.sort,
+    );
+  }
+
+  if (parametri.attivo !== undefined) {
+    query.set(
+      "attivo",
+      String(parametri.attivo),
+    );
   }
 
   return query;
@@ -34,10 +50,15 @@ export const clientiService = {
   async trovaTutti(
     parametri: ParametriRicercaClienti = {},
   ): Promise<RispostaPaginata<Cliente>> {
-    const query = costruisciParametri(parametri);
+    const query =
+      costruisciParametri(
+        parametri,
+      );
 
     const risposta =
-      await api.get<RispostaPaginata<Cliente>>(
+      await api.get<
+        RispostaPaginata<Cliente>
+      >(
         `${BASE_CLIENTI}?${query.toString()}`,
       );
 
@@ -47,9 +68,10 @@ export const clientiService = {
   async trovaPerId(
     id: number,
   ): Promise<Cliente> {
-    const risposta = await api.get<Cliente>(
-      `${BASE_CLIENTI}/${id}`,
-    );
+    const risposta =
+      await api.get<Cliente>(
+        `${BASE_CLIENTI}/${id}`,
+      );
 
     return risposta.data;
   },
@@ -58,12 +80,20 @@ export const clientiService = {
     cognome: string,
     parametri: ParametriRicercaClienti = {},
   ): Promise<RispostaPaginata<Cliente>> {
-    const query = costruisciParametri(parametri);
+    const query =
+      costruisciParametri(
+        parametri,
+      );
 
-    query.set("cognome", cognome);
+    query.set(
+      "cognome",
+      cognome,
+    );
 
     const risposta =
-      await api.get<RispostaPaginata<Cliente>>(
+      await api.get<
+        RispostaPaginata<Cliente>
+      >(
         `${BASE_CLIENTI}/ricerca/cognome?${query.toString()}`,
       );
 
@@ -74,7 +104,10 @@ export const clientiService = {
     codiceFiscale: string,
     parametri: ParametriRicercaClienti = {},
   ): Promise<RispostaPaginata<Cliente>> {
-    const query = costruisciParametri(parametri);
+    const query =
+      costruisciParametri(
+        parametri,
+      );
 
     query.set(
       "codiceFiscale",
@@ -82,7 +115,9 @@ export const clientiService = {
     );
 
     const risposta =
-      await api.get<RispostaPaginata<Cliente>>(
+      await api.get<
+        RispostaPaginata<Cliente>
+      >(
         `${BASE_CLIENTI}/ricerca/codice-fiscale?${query.toString()}`,
       );
 
