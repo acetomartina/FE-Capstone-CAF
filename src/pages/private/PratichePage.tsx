@@ -28,6 +28,7 @@ import {
 } from "../../app/hooks";
 
 import PrivatePageHeader from "../../components/private/PrivatePageHeader";
+import NuovaPraticaModal from "../../features/pratiche/components/NuovaPraticaModal";
 
 import {
   caricaPratiche,
@@ -489,13 +490,29 @@ useEffect(() => {
         )}
       </section>
 
-      {/*
-        Qui collegheremo NuovaPraticaModal
-        nel prossimo passaggio.
-      */}
-
-      {mostraNuovaPratica &&
-        null}
+      <NuovaPraticaModal
+        show={mostraNuovaPratica}
+        onHide={() =>
+          setMostraNuovaPratica(
+            false,
+          )
+        }
+        onPraticaCreata={() => {
+          void dispatch(
+            caricaPratiche({
+              q:
+                ricerca.trim() ||
+                undefined,
+              stato:
+                stato ||
+                undefined,
+              page: 0,
+              size: 10,
+              sort: "creatoIl,desc",
+            }),
+          );
+        }}
+      />
     </section>
   );
 };

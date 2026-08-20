@@ -1,0 +1,342 @@
+/* =========================================================
+   NUOVA PRATICA MODAL
+   ========================================================= */
+
+.nuova-pratica-modal {
+  --nuova-pratica-green: #159a73;
+  --nuova-pratica-blue: #3970d1;
+  --nuova-pratica-purple: #8655c7;
+}
+
+.nuova-pratica-modal .modal-content {
+  overflow: hidden;
+
+  border: 0;
+  border-radius: 22px;
+
+  box-shadow: 0 24px 70px rgba(18, 31, 56, 0.18);
+}
+
+.nuova-pratica-modal__header {
+  padding: 1.55rem 1.7rem 1.35rem;
+
+  align-items: flex-start;
+
+  border-bottom: 1px solid #eef1f5;
+
+  background:
+    radial-gradient(
+      circle at 92% 8%,
+      rgba(21, 154, 115, 0.08),
+      transparent 30%
+    ),
+    #fff;
+}
+
+.nuova-pratica-modal__header > div:first-child {
+  max-width: 620px;
+}
+
+.nuova-pratica-modal__eyebrow {
+  display: inline-block;
+
+  margin-bottom: 0.35rem;
+
+  color: var(--caf-green);
+
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nuova-pratica-modal__header .modal-title {
+  margin-bottom: 0.35rem;
+
+  color: #142039;
+
+  font-size: 1.55rem;
+  font-weight: 800;
+}
+
+.nuova-pratica-modal__header p {
+  margin: 0;
+
+  color: #758096;
+
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.nuova-pratica-modal__body {
+  padding: 1.45rem 1.7rem 1.2rem;
+
+  background: #f8f9fb;
+}
+
+.nuova-pratica-modal__alert {
+  margin-bottom: 1rem;
+}
+
+.nuova-pratica-modal__loading {
+  min-height: 220px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+
+  color: #778196;
+
+  font-size: 0.88rem;
+}
+
+.nuova-pratica-section {
+  padding: 1.2rem;
+
+  border: 1px solid #edf0f4;
+  border-radius: 16px;
+
+  background: #fff;
+}
+
+.nuova-pratica-section + .nuova-pratica-section {
+  margin-top: 0.9rem;
+}
+
+.nuova-pratica-section__header {
+  margin-bottom: 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.nuova-pratica-section__icon {
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  font-size: 1rem;
+}
+
+.nuova-pratica-section__icon--green {
+  background: rgba(21, 154, 115, 0.1);
+  color: var(--nuova-pratica-green);
+}
+
+.nuova-pratica-section__icon--blue {
+  background: rgba(57, 112, 209, 0.1);
+  color: var(--nuova-pratica-blue);
+}
+
+.nuova-pratica-section__icon--purple {
+  background: rgba(134, 85, 199, 0.1);
+  color: var(--nuova-pratica-purple);
+}
+
+.nuova-pratica-section__header h3 {
+  margin: 0 0 0.13rem;
+
+  color: #19243a;
+
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.nuova-pratica-section__header p {
+  margin: 0;
+
+  color: #8992a3;
+
+  font-size: 0.78rem;
+}
+
+.nuova-pratica-form .form-label {
+  margin-bottom: 0.4rem;
+
+  color: #445069;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.nuova-pratica-form .form-control,
+.nuova-pratica-form .form-select {
+  min-height: 44px;
+
+  border: 1px solid #dfe4eb;
+  border-radius: 11px;
+
+  color: #253149;
+
+  font-size: 0.86rem;
+
+  box-shadow: none;
+}
+
+.nuova-pratica-form textarea.form-control {
+  min-height: auto;
+
+  resize: vertical;
+}
+
+.nuova-pratica-form .form-control:focus,
+.nuova-pratica-form .form-select:focus {
+  border-color: rgba(21, 154, 115, 0.55);
+
+  box-shadow: 0 0 0 3px rgba(21, 154, 115, 0.08);
+}
+
+.nuova-pratica-required {
+  margin-left: 0.2rem;
+
+  color: #d95252;
+}
+
+.nuova-pratica-service-note {
+  margin-top: 0.8rem;
+  padding: 0.7rem 0.8rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+
+  border-radius: 10px;
+
+  background: rgba(57, 112, 209, 0.06);
+  color: #60708c;
+
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.nuova-pratica-service-note svg {
+  flex: 0 0 auto;
+
+  color: var(--nuova-pratica-blue);
+}
+
+.nuova-pratica-date {
+  position: relative;
+}
+
+.nuova-pratica-date > svg {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+
+  z-index: 2;
+
+  transform: translateY(-50%);
+
+  color: #8a95a8;
+}
+
+.nuova-pratica-date .form-control {
+  padding-left: 2.35rem;
+}
+
+.nuova-pratica-assignment {
+  margin-top: 0.9rem;
+  padding: 0.9rem 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+
+  border: 1px solid rgba(21, 154, 115, 0.14);
+  border-radius: 13px;
+
+  background: rgba(21, 154, 115, 0.055);
+}
+
+.nuova-pratica-assignment > svg {
+  color: var(--nuova-pratica-green);
+}
+
+.nuova-pratica-assignment div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.nuova-pratica-assignment strong {
+  color: #304057;
+
+  font-size: 0.79rem;
+}
+
+.nuova-pratica-assignment span {
+  color: #748096;
+
+  font-size: 0.75rem;
+}
+
+.nuova-pratica-modal__required-note {
+  margin: 0.9rem 0 0;
+
+  color: #9098a7;
+
+  font-size: 0.73rem;
+}
+
+.nuova-pratica-modal__required-note span {
+  color: #d95252;
+}
+
+.nuova-pratica-modal__footer {
+  padding: 1rem 1.7rem;
+
+  border-top: 1px solid #edf0f4;
+
+  background: #fff;
+}
+
+.nuova-pratica-modal__cancel,
+.nuova-pratica-modal__submit {
+  min-height: 42px;
+
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+
+  border-radius: 10px;
+
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.nuova-pratica-modal__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  border-color: var(--caf-green);
+  background: var(--caf-green);
+}
+
+.nuova-pratica-modal__submit:hover,
+.nuova-pratica-modal__submit:focus {
+  border-color: #0f8463;
+  background: #0f8463;
+}
+
+@media (max-width: 767px) {
+  .nuova-pratica-modal__header,
+  .nuova-pratica-modal__body,
+  .nuova-pratica-modal__footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .nuova-pratica-section {
+    padding: 1rem;
+  }
+}

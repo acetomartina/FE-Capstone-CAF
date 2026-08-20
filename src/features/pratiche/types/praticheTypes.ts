@@ -108,10 +108,6 @@ export type CreaPraticaRequest = {
 
   servizioId: number;
 
-  responsabileId?:
-    | number
-    | null;
-
   oggetto: string;
 
   descrizione?:
