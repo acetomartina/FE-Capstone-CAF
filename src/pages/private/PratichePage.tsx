@@ -2,6 +2,11 @@ import {
   useEffect,
   useState,
 } from "react";
+
+import {
+  useSearchParams,
+} from "react-router-dom";
+
 import {
   Alert,
   Button,
@@ -53,6 +58,14 @@ const STATI_PRATICA: StatoPratica[] = [
 const PratichePage = () => {
   const dispatch = useAppDispatch();
 
+  const [searchParams] =
+  useSearchParams();
+
+const statoDaUrl =
+  searchParams.get(
+    "stato",
+  ) as StatoPratica | null;
+
   const {
     elenco,
     caricamento,
@@ -68,11 +81,34 @@ const PratichePage = () => {
   ] = useState("");
 
   const [
-    stato,
-    setStato,
-  ] = useState<
-    StatoPratica | ""
-  >("");
+  stato,
+  setStato,
+] = useState<
+  StatoPratica | ""
+>(
+  statoDaUrl &&
+    STATI_PRATICA.includes(
+      statoDaUrl,
+    )
+    ? statoDaUrl
+    : "",
+);
+
+useEffect(() => {
+  const nuovoStato =
+    searchParams.get(
+      "stato",
+    ) as StatoPratica | null;
+
+  setStato(
+    nuovoStato &&
+      STATI_PRATICA.includes(
+        nuovoStato,
+      )
+      ? nuovoStato
+      : "",
+  );
+}, [searchParams]);
 
   const [
     mostraNuovaPratica,
@@ -233,7 +269,7 @@ const PratichePage = () => {
           </Alert>
         )}
 
-        {caricamento ? (
+        {caricamento && elenco.length === 0 ? (
           <div className="pratiche-loading">
             <Spinner
               animation="border"
