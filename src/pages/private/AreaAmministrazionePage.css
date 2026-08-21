@@ -1,0 +1,423 @@
+/* =========================================================
+   AREA AMMINISTRAZIONE
+   ========================================================= */
+
+.amministrazione-page {
+  width: 100%;
+  max-width: 1440px;
+
+  margin: 0 auto;
+
+  padding: 8px 0 48px;
+
+  color: #26344d;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.amministrazione-page__header {
+  margin-bottom: 28px;
+}
+
+.amministrazione-page__eyebrow {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #23877f;
+
+  font-size: 0.74rem;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.amministrazione-page__header h1 {
+  margin: 0;
+
+  color: #25334d;
+
+  font-size: clamp(2rem, 3vw, 2.7rem);
+
+  font-weight: 750;
+
+  line-height: 1.08;
+
+  letter-spacing: -0.035em;
+}
+
+.amministrazione-page__header p {
+  max-width: 680px;
+
+  margin: 10px 0 0;
+
+  color: #718096;
+
+  font-size: 0.96rem;
+
+  line-height: 1.6;
+}
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.amministrazione-page__intro {
+  margin-bottom: 24px;
+
+  padding: 18px 20px;
+
+  border: 1px solid #e5eaf1;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(100deg, rgba(35, 135, 127, 0.035), transparent 55%), #ffffff;
+
+  box-shadow: 0 8px 24px rgba(16, 44, 101, 0.025);
+}
+
+.amministrazione-page__intro > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.amministrazione-page__intro strong {
+  color: #293750;
+
+  font-size: 0.9rem;
+}
+
+.amministrazione-page__intro span {
+  color: #8a96a7;
+
+  font-size: 0.78rem;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.amministrazione-page__grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.amministrazione-card {
+  --card-accent: #23877f;
+  --card-soft: #eaf6f4;
+  --card-rgb: 35, 135, 127;
+
+  min-height: 245px;
+
+  padding: 20px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  gap: 22px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  border: 1px solid #e3e8ef;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(145deg, rgba(var(--card-rgb), 0.025), transparent 48%),
+    #ffffff;
+
+  color: inherit;
+
+  font: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 30px rgba(16, 44, 101, 0.035);
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.amministrazione-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 3px;
+
+  background: var(--card-accent);
+
+  opacity: 0.8;
+}
+
+.amministrazione-card:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  border-color: rgba(var(--card-rgb), 0.22);
+
+  box-shadow: 0 14px 36px rgba(16, 44, 101, 0.07);
+}
+
+/* =========================================================
+   VARIANTI
+   ========================================================= */
+
+.amministrazione-card--green {
+  --card-accent: #247a3a;
+  --card-soft: #e6f4e9;
+  --card-rgb: 36, 122, 58;
+}
+
+.amministrazione-card--blue {
+  --card-accent: #3f62a5;
+  --card-soft: #e2eaf7;
+  --card-rgb: 63, 98, 165;
+}
+
+.amministrazione-card--purple {
+  --card-accent: #7452a8;
+  --card-soft: #eee8f7;
+  --card-rgb: 116, 82, 168;
+}
+
+.amministrazione-card--orange {
+  --card-accent: #c76a08;
+  --card-soft: #fff0d8;
+  --card-rgb: 199, 106, 8;
+}
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+.amministrazione-card__top {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 14px;
+}
+
+.amministrazione-card__icon {
+  width: 48px;
+
+  height: 48px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 14px;
+
+  background: var(--card-soft);
+
+  color: var(--card-accent);
+
+  font-size: 1.2rem;
+}
+
+.amministrazione-card__soon {
+  padding: 5px 8px;
+
+  border-radius: 999px;
+
+  background: #f3f5f8;
+
+  color: #8a96a7;
+
+  font-size: 0.6rem;
+
+  font-weight: 750;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.amministrazione-card__content {
+  flex: 1;
+}
+
+.amministrazione-card__content h2 {
+  margin: 0;
+
+  color: #293750;
+
+  font-size: 1.05rem;
+
+  font-weight: 750;
+}
+
+.amministrazione-card__content p {
+  max-width: 520px;
+
+  margin: 8px 0 0;
+
+  color: #7a8798;
+
+  font-size: 0.8rem;
+
+  line-height: 1.6;
+}
+
+/* =========================================================
+   CARD FOOTER
+   ========================================================= */
+
+.amministrazione-card__footer {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  color: var(--card-accent);
+
+  font-size: 0.72rem;
+
+  font-weight: 700;
+}
+
+.amministrazione-card__arrow {
+  width: 36px;
+
+  height: 36px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 10px;
+
+  background: var(--card-soft);
+
+  color: var(--card-accent);
+
+  transition: transform 180ms ease;
+}
+
+.amministrazione-card:hover:not(:disabled) .amministrazione-card__arrow {
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   DISABLED
+   ========================================================= */
+
+.amministrazione-card--disabled {
+  opacity: 0.72;
+
+  cursor: default;
+}
+
+.amministrazione-card--disabled::before {
+  opacity: 0.3;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .amministrazione-page__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .amministrazione-card {
+    min-height: 210px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .amministrazione-page {
+    padding-bottom: 32px;
+  }
+
+  .amministrazione-page__header {
+    margin-bottom: 22px;
+  }
+
+  .amministrazione-page__header h1 {
+    font-size: 1.9rem;
+  }
+
+  .amministrazione-page__header p {
+    font-size: 0.87rem;
+  }
+
+  .amministrazione-page__intro {
+    padding: 15px;
+  }
+
+  .amministrazione-page__grid {
+    gap: 12px;
+  }
+
+  .amministrazione-card {
+    min-height: 0;
+
+    padding: 17px;
+
+    gap: 18px;
+  }
+
+  .amministrazione-card__icon {
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 12px;
+  }
+
+  .amministrazione-card__content h2 {
+    font-size: 1rem;
+  }
+
+  .amministrazione-card__content p {
+    font-size: 0.77rem;
+  }
+}
