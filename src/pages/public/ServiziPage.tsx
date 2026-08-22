@@ -122,7 +122,9 @@ const ServiziPage = () => {
             "Non è stato possibile caricare i servizi disponibili.",
           );
         } finally {
-          setCaricamento(false);
+          setCaricamento(
+            false,
+          );
         }
       };
 
@@ -166,7 +168,9 @@ const ServiziPage = () => {
       );
 
     return () =>
-      window.clearTimeout(timer);
+      window.clearTimeout(
+        timer,
+      );
   }, [
     caricamento,
     location.hash,
@@ -356,75 +360,76 @@ const ServiziPage = () => {
                           (
                             servizio,
                           ) => (
-                            <article
+                            <Link
                               key={
                                 servizio.id
                               }
-                              className="servizio-public-card"
+                              to={`/servizi/${servizio.slug}`}
+                              className="servizio-public-card__link"
+                              aria-label={`Scopri il servizio ${servizio.nome}`}
                             >
-                              <div className="servizio-public-card__top">
-                                <span>
-                                  <FiCheck />
-                                </span>
-
-                                {servizio.inEvidenza && (
-                                  <small>
-                                    In evidenza
-                                  </small>
-                                )}
-                              </div>
-
-                              <h3>
-                                {
-                                  servizio.nome
-                                }
-                              </h3>
-
-                              <p>
-                                {servizio.descrizioneBreve ??
-                                  "Contattaci per maggiori informazioni su questo servizio."}
-                              </p>
-
-                              <div className="servizio-public-card__tags">
-                                {servizio.prenotabile && (
+                              <article className="servizio-public-card">
+                                <div className="servizio-public-card__top">
                                   <span>
-                                    Prenotabile
+                                    <FiCheck />
                                   </span>
-                                )}
 
-                                {servizio.richiedibileOnline && (
-                                  <span>
-                                    Online
+                                  {servizio.inEvidenza && (
+                                    <small>
+                                      In evidenza
+                                    </small>
+                                  )}
+                                </div>
+
+                                <h3>
+                                  {
+                                    servizio.nome
+                                  }
+                                </h3>
+
+                                <p>
+                                  {servizio.descrizioneBreve ??
+                                    "Contattaci per maggiori informazioni su questo servizio."}
+                                </p>
+
+                                <div className="servizio-public-card__tags">
+                                  {servizio.prenotabile && (
+                                    <span>
+                                      Prenotabile
+                                    </span>
+                                  )}
+
+                                  {servizio.richiedibileOnline && (
+                                    <span>
+                                      Online
+                                    </span>
+                                  )}
+                                </div>
+
+                                <div className="servizio-public-card__footer">
+                                  {servizio.prezzoTesto ? (
+                                    <strong>
+                                      {
+                                        servizio.prezzoTesto
+                                      }
+                                    </strong>
+                                  ) : (
+                                    <span>
+                                      Informazioni
+                                      in sede
+                                    </span>
+                                  )}
+
+                                  <span className="servizio-public-card__cta">
+                                    Scopri di più
+
+                                    <FiArrowRight
+                                      aria-hidden="true"
+                                    />
                                   </span>
-                                )}
-                              </div>
-
-                              <div className="servizio-public-card__footer">
-                                {servizio.prezzoTesto ? (
-                                  <strong>
-                                    {
-                                      servizio.prezzoTesto
-                                    }
-                                  </strong>
-                                ) : (
-                                  <span>
-                                    Informazioni
-                                    in sede
-                                  </span>
-                                )}
-
-                                <Link
-                                  to="/contatti"
-                                  aria-label={`Richiedi informazioni su ${servizio.nome}`}
-                                >
-                                  Informazioni
-
-                                  <FiArrowRight
-                                    aria-hidden="true"
-                                  />
-                                </Link>
-                              </div>
-                            </article>
+                                </div>
+                              </article>
+                            </Link>
                           ),
                         )}
                       </div>

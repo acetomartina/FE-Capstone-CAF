@@ -36,4 +36,15 @@ export const serviziPublicService = {
 
     return risposta.data;
   },
+
+  async trovaServizioPerSlug(
+    slug: string,
+  ): Promise<ServizioCatalogo> {
+    const risposta =
+      await api.get<ServizioCatalogo>(
+        `${BASE_PUBLIC}/servizi/${slug}`,
+      );
+
+    return risposta.data;
+  },
 };

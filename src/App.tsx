@@ -23,6 +23,7 @@ import AreaClientePage from "./pages/private/AreaClientePage";
 import AreaDipendentePage from "./pages/private/AreaDipendentePage";
 import AreaRiservataPage from "./pages/private/AreaRiservataPage";
 import ConfigurazioneServiziPage from "./pages/private/ConfigurazioneServiziPage";
+import DettaglioServizioPublicPage from "./pages/public/DettaglioServizioPublicPage";
 
 import RottaProtetta from "./features/auth/components/RottaProtetta";
 
@@ -55,6 +56,11 @@ const App = () => {
           path="/servizi"
           element={<ServiziPage />}
         />
+
+        <Route
+  path="/servizi/:slug"
+  element={<DettaglioServizioPublicPage />}
+/>
 
         <Route
           path="/login"
