@@ -359,7 +359,6 @@ export default function DettaglioPraticaPage() {
   useEffect(() => {
     void caricaDettaglio();
 
-    // praticaId identifica l'intera pagina.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [praticaId]);
 
@@ -443,63 +442,49 @@ export default function DettaglioPraticaPage() {
         setSalvataggio(true);
         setErrore(null);
 
-        /*
-         * Primo step:
-         * aggiorniamo i dati generali.
-         *
-         * Il responsabile viene mantenuto
-         * invariato per questa prima versione
-         * della modalità modifica.
-         */
-        await praticheService.aggiornaPratica(
-  praticaId,
-  {
-    responsabileId:
-      pratica.responsabile?.id ?? null,
+        await praticheService
+          .aggiornaPratica(
+            praticaId,
+            {
+              responsabileId:
+                pratica.responsabile
+                  ?.id ?? null,
 
-    oggetto,
+              oggetto,
 
-    descrizione:
-      normalizzaTesto(
-        formModifica.descrizione,
-      ),
+              descrizione:
+                normalizzaTesto(
+                  formModifica.descrizione,
+                ),
 
-    priorita:
-      formModifica.priorita,
+              priorita:
+                formModifica.priorita,
 
-    dataScadenza:
-      formModifica.dataScadenza ||
-      null,
+              dataScadenza:
+                formModifica.dataScadenza ||
+                null,
 
-    note:
-      normalizzaTesto(
-        formModifica.note,
-      ),
-  },
-);
+              note:
+                normalizzaTesto(
+                  formModifica.note,
+                ),
+            },
+          );
 
-/*
- * Lo stato ha un endpoint dedicato
- * perché il backend gestisce anche
- * la data di chiusura della pratica.
- */
-if (
-  formModifica.stato !==
-  pratica.stato
-) {
-  await praticheService.cambiaStato(
-    praticaId,
-    {
-      stato: formModifica.stato,
-    },
-  );
-}
+        if (
+          formModifica.stato !==
+          pratica.stato
+        ) {
+          await praticheService
+            .cambiaStato(
+              praticaId,
+              {
+                stato:
+                  formModifica.stato,
+              },
+            );
+        }
 
-        /*
-         * Rileggiamo il dettaglio per avere
-         * una fotografia coerente anche
-         * di aggiornatoIl / chiusoIl.
-         */
         const dettaglioAggiornato =
           await praticheService
             .trovaPerId(
@@ -560,14 +545,32 @@ if (
             ),
         );
 
-        const nuovoRiepilogo =
-          await documentiPraticaService
+        /*
+         * Il cambio stato del documento
+         * può cambiare automaticamente
+         * anche lo stato della pratica.
+         */
+        const [
+          nuovoRiepilogo,
+          praticaAggiornata,
+        ] = await Promise.all([
+          documentiPraticaService
             .riepilogo(
               praticaId,
-            );
+            ),
+
+          praticheService
+            .trovaPerId(
+              praticaId,
+            ),
+        ]);
 
         setRiepilogo(
           nuovoRiepilogo,
+        );
+
+        setPratica(
+          praticaAggiornata,
         );
       } catch {
         setErrore(
@@ -587,6 +590,7 @@ if (
           elencoDocumenti,
           riepilogoDocumenti,
           elencoAllegati,
+          praticaAggiornata,
         ] = await Promise.all([
           documentiPraticaService
             .trovaPerPratica(
@@ -602,6 +606,11 @@ if (
             .trovaPerPratica(
               praticaId,
             ),
+
+          praticheService
+            .trovaPerId(
+              praticaId,
+            ),
         ]);
 
         setDocumenti(
@@ -614,6 +623,10 @@ if (
 
         setAllegati(
           elencoAllegati,
+        );
+
+        setPratica(
+          praticaAggiornata,
         );
       } catch {
         setErrore(
@@ -913,9 +926,8 @@ if (
           </div>
 
           <small>
-            {riepilogo.completati} di{" "}
-            {riepilogo.totale} documenti
-            completati
+            {riepilogo.completati} documenti
+            risolti · {riepilogo.totale} totali
           </small>
         </div>
       </header>
@@ -937,6 +949,7 @@ if (
 
             <span>
               <FiMail />
+
               {
                 pratica.cliente.email
               }
@@ -1180,55 +1193,101 @@ if (
                       <div className="dettaglio-pratica-documento__action">
                         {aggiornamentoDocumentoId ===
                         documento.id ? (
-                          <Spinner
-                            animation="border"
-                            size="sm"
-                          />
+                          <div className="dettaglio-pratica-documento__updating">
+                            <Spinner
+                              animation="border"
+                              size="sm"
+                            />
+
+                            <span>
+                              Aggiornamento...
+                            </span>
+                          </div>
                         ) : (
-                          <Form.Select
-                            value={
-                              documento.stato
-                            }
-                            aria-label={`Stato ${documento.etichetta}`}
-                            onChange={(
-                              event,
-                            ) =>
-                              void cambiaStatoDocumento(
-                                documento.id,
-                                event
-                                  .target
-                                  .value as StatoDocumentoPratica,
-                              )
-                            }
-                          >
-                            {STATI_DOCUMENTO.map(
-                              (
-                                stato,
-                              ) => (
-                                <option
-                                  key={
-                                    stato
-                                  }
-                                  value={
-                                    stato
+                          <>
+                            {(documento.stato ===
+                              "DA_VERIFICARE" ||
+                              documento.stato ===
+                                "RICEVUTO") && (
+                              <div className="dettaglio-pratica-documento__quick-actions">
+                                <Button
+                                  type="button"
+                                  className="dettaglio-pratica-documento__validate"
+                                  onClick={() =>
+                                    void cambiaStatoDocumento(
+                                      documento.id,
+                                      "VALIDATO",
+                                    )
                                   }
                                 >
-                                  {
-                                    ETICHETTE_DOCUMENTO[
-                                      stato
-                                    ]
+                                  <FiCheckCircle />
+
+                                  Valida
+                                </Button>
+
+                                <Button
+                                  type="button"
+                                  variant="outline-danger"
+                                  className="dettaglio-pratica-documento__reject"
+                                  onClick={() =>
+                                    void cambiaStatoDocumento(
+                                      documento.id,
+                                      "RIFIUTATO",
+                                    )
                                   }
-                                </option>
-                              ),
+                                >
+                                  <FiX />
+
+                                  Rifiuta
+                                </Button>
+                              </div>
                             )}
 
-                            {documento.tipoObbligatorieta ===
-                              "CONDIZIONALE" && (
-                              <option value="NON_APPLICABILE">
-                                Non applicabile
-                              </option>
-                            )}
-                          </Form.Select>
+                            <Form.Select
+                              value={
+                                documento.stato
+                              }
+                              aria-label={`Stato ${documento.etichetta}`}
+                              onChange={(
+                                event,
+                              ) =>
+                                void cambiaStatoDocumento(
+                                  documento.id,
+                                  event
+                                    .target
+                                    .value as StatoDocumentoPratica,
+                                )
+                              }
+                            >
+                              {STATI_DOCUMENTO.map(
+                                (
+                                  stato,
+                                ) => (
+                                  <option
+                                    key={
+                                      stato
+                                    }
+                                    value={
+                                      stato
+                                    }
+                                  >
+                                    {
+                                      ETICHETTE_DOCUMENTO[
+                                        stato
+                                      ]
+                                    }
+                                  </option>
+                                ),
+                              )}
+
+                              {documento.tipoObbligatorieta ===
+                                "CONDIZIONALE" && (
+                                <option value="NON_APPLICABILE">
+                                  Non applicabile
+                                </option>
+                              )}
+                            </Form.Select>
+                          </>
                         )}
                       </div>
                     </article>
