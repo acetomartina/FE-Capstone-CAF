@@ -17,11 +17,13 @@ import {
   FiCalendar,
   FiCheckCircle,
   FiClock,
+  FiEdit3,
   FiFileText,
   FiLayers,
   FiMail,
-  FiRefreshCw,
+  FiSave,
   FiUser,
+  FiX,
 } from "react-icons/fi";
 
 import {
@@ -59,7 +61,9 @@ import {
 } from "../../features/pratiche/constants/praticheConstants";
 
 import type {
+  PrioritaPratica,
   Pratica,
+  StatoPratica,
 } from "../../features/pratiche/types/praticheTypes";
 
 import {
@@ -92,6 +96,24 @@ const STATI_DOCUMENTO: StatoDocumentoPratica[] = [
   "RIFIUTATO",
 ];
 
+const STATI_PRATICA: StatoPratica[] = [
+  "BOZZA",
+  "DA_AVVIARE",
+  "IN_LAVORAZIONE",
+  "IN_ATTESA_DOCUMENTI",
+  "IN_ATTESA_CLIENTE",
+  "IN_ATTESA_ENTE",
+  "COMPLETATA",
+  "ANNULLATA",
+];
+
+const PRIORITA_PRATICA: PrioritaPratica[] = [
+  "BASSA",
+  "NORMALE",
+  "ALTA",
+  "URGENTE",
+];
+
 const riepilogoVuoto: RiepilogoDocumenti = {
   totale: 0,
   mancanti: 0,
@@ -102,6 +124,15 @@ const riepilogoVuoto: RiepilogoDocumenti = {
   nonApplicabili: 0,
   completati: 0,
   percentualeCompletamento: 0,
+};
+
+type ModificaPraticaForm = {
+  oggetto: string;
+  descrizione: string;
+  stato: StatoPratica;
+  priorita: PrioritaPratica;
+  dataScadenza: string;
+  note: string;
 };
 
 const formattaData = (
@@ -126,6 +157,29 @@ const formattaData = (
       year: "numeric",
     },
   ).format(data);
+};
+
+const creaFormDaPratica = (
+  pratica: Pratica,
+): ModificaPraticaForm => ({
+  oggetto: pratica.oggetto,
+  descrizione:
+    pratica.descrizione ?? "",
+  stato: pratica.stato,
+  priorita: pratica.priorita,
+  dataScadenza:
+    pratica.dataScadenza ?? "",
+  note: pratica.note ?? "",
+});
+
+const normalizzaTesto = (
+  valore: string,
+): string | null => {
+  const pulito = valore.trim();
+
+  return pulito.length > 0
+    ? pulito
+    : null;
 };
 
 export default function DettaglioPraticaPage() {
@@ -189,6 +243,23 @@ export default function DettaglioPraticaPage() {
     errore,
     setErrore,
   ] = useState<string | null>(
+    null,
+  );
+
+  const [
+    modalitaModifica,
+    setModalitaModifica,
+  ] = useState(false);
+
+  const [
+    salvataggio,
+    setSalvataggio,
+  ] = useState(false);
+
+  const [
+    formModifica,
+    setFormModifica,
+  ] = useState<ModificaPraticaForm | null>(
     null,
   );
 
@@ -291,6 +362,173 @@ export default function DettaglioPraticaPage() {
     // praticaId identifica l'intera pagina.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [praticaId]);
+
+  const entraInModifica =
+    () => {
+      if (!pratica) {
+        return;
+      }
+
+      setErrore(null);
+
+      setFormModifica(
+        creaFormDaPratica(
+          pratica,
+        ),
+      );
+
+      setModalitaModifica(
+        true,
+      );
+    };
+
+  const annullaModifica =
+    () => {
+      if (pratica) {
+        setFormModifica(
+          creaFormDaPratica(
+            pratica,
+          ),
+        );
+      }
+
+      setErrore(null);
+
+      setModalitaModifica(
+        false,
+      );
+    };
+
+  const aggiornaCampoForm = <
+    K extends keyof ModificaPraticaForm,
+  >(
+    campo: K,
+    valore: ModificaPraticaForm[K],
+  ) => {
+    setFormModifica(
+      (corrente) => {
+        if (!corrente) {
+          return corrente;
+        }
+
+        return {
+          ...corrente,
+          [campo]: valore,
+        };
+      },
+    );
+  };
+
+  const salvaModifiche =
+    async () => {
+      if (
+        !pratica ||
+        !formModifica
+      ) {
+        return;
+      }
+
+      const oggetto =
+        formModifica.oggetto.trim();
+
+      if (!oggetto) {
+        setErrore(
+          "L'oggetto della pratica è obbligatorio.",
+        );
+
+        return;
+      }
+
+      try {
+        setSalvataggio(true);
+        setErrore(null);
+
+        /*
+         * Primo step:
+         * aggiorniamo i dati generali.
+         *
+         * Il responsabile viene mantenuto
+         * invariato per questa prima versione
+         * della modalità modifica.
+         */
+        await praticheService.aggiornaPratica(
+  praticaId,
+  {
+    responsabileId:
+      pratica.responsabile?.id ?? null,
+
+    oggetto,
+
+    descrizione:
+      normalizzaTesto(
+        formModifica.descrizione,
+      ),
+
+    priorita:
+      formModifica.priorita,
+
+    dataScadenza:
+      formModifica.dataScadenza ||
+      null,
+
+    note:
+      normalizzaTesto(
+        formModifica.note,
+      ),
+  },
+);
+
+/*
+ * Lo stato ha un endpoint dedicato
+ * perché il backend gestisce anche
+ * la data di chiusura della pratica.
+ */
+if (
+  formModifica.stato !==
+  pratica.stato
+) {
+  await praticheService.cambiaStato(
+    praticaId,
+    {
+      stato: formModifica.stato,
+    },
+  );
+}
+
+        /*
+         * Rileggiamo il dettaglio per avere
+         * una fotografia coerente anche
+         * di aggiornatoIl / chiusoIl.
+         */
+        const dettaglioAggiornato =
+          await praticheService
+            .trovaPerId(
+              praticaId,
+            );
+
+        setPratica(
+          dettaglioAggiornato,
+        );
+
+        setFormModifica(
+          creaFormDaPratica(
+            dettaglioAggiornato,
+          ),
+        );
+
+        setModalitaModifica(
+          false,
+        );
+      } catch {
+        setErrore(
+          "Non è stato possibile salvare le modifiche della pratica.",
+        );
+      } finally {
+        setSalvataggio(
+          false,
+        );
+      }
+    };
 
   const cambiaStatoDocumento =
     async (
@@ -445,18 +683,62 @@ export default function DettaglioPraticaPage() {
           Pratiche
         </Button>
 
-        <Button
-          type="button"
-          variant="outline-secondary"
-          className="dettaglio-pratica-refresh"
-          onClick={() =>
-            void caricaDettaglio()
-          }
-        >
-          <FiRefreshCw />
+        <div className="dettaglio-pratica-topbar__azioni">
+          {!modalitaModifica ? (
+            <Button
+              type="button"
+              variant="outline-secondary"
+              className="dettaglio-pratica-edit"
+              onClick={
+                entraInModifica
+              }
+            >
+              <FiEdit3 />
 
-          Aggiorna
-        </Button>
+              Modifica
+            </Button>
+          ) : (
+            <>
+              <Button
+                type="button"
+                variant="outline-secondary"
+                className="dettaglio-pratica-cancel"
+                disabled={
+                  salvataggio
+                }
+                onClick={
+                  annullaModifica
+                }
+              >
+                <FiX />
+
+                Annulla
+              </Button>
+
+              <Button
+                type="button"
+                className="dettaglio-pratica-save"
+                disabled={
+                  salvataggio
+                }
+                onClick={() =>
+                  void salvaModifiche()
+                }
+              >
+                {salvataggio ? (
+                  <Spinner
+                    animation="border"
+                    size="sm"
+                  />
+                ) : (
+                  <FiSave />
+                )}
+
+                Salva modifiche
+              </Button>
+            </>
+          )}
+        </div>
       </div>
 
       {errore && (
@@ -476,35 +758,125 @@ export default function DettaglioPraticaPage() {
             }
           </span>
 
-          <h1>
-            {pratica.oggetto}
-          </h1>
+          {modalitaModifica &&
+          formModifica ? (
+            <Form.Control
+              type="text"
+              value={
+                formModifica.oggetto
+              }
+              maxLength={200}
+              className="dettaglio-pratica-edit-field dettaglio-pratica-edit-field--title"
+              aria-label="Oggetto pratica"
+              onChange={(event) =>
+                aggiornaCampoForm(
+                  "oggetto",
+                  event.target.value,
+                )
+              }
+            />
+          ) : (
+            <h1>
+              {pratica.oggetto}
+            </h1>
+          )}
 
           <div className="dettaglio-pratica-badges">
-            <span
-              className={`dettaglio-pratica-badge dettaglio-pratica-badge--stato dettaglio-pratica-badge--${pratica.stato
-                .toLowerCase()
-                .replaceAll(
-                  "_",
-                  "-",
-                )}`}
-            >
-              {
-                ETICHETTE_STATO_PRATICA[
-                  pratica.stato
-                ]
-              }
-            </span>
+            {modalitaModifica &&
+            formModifica ? (
+              <>
+                <Form.Select
+                  value={
+                    formModifica.stato
+                  }
+                  className="dettaglio-pratica-edit-select"
+                  aria-label="Stato pratica"
+                  onChange={(event) =>
+                    aggiornaCampoForm(
+                      "stato",
+                      event.target
+                        .value as StatoPratica,
+                    )
+                  }
+                >
+                  {STATI_PRATICA.map(
+                    (stato) => (
+                      <option
+                        key={stato}
+                        value={stato}
+                      >
+                        {
+                          ETICHETTE_STATO_PRATICA[
+                            stato
+                          ]
+                        }
+                      </option>
+                    ),
+                  )}
+                </Form.Select>
 
-            <span
-              className={`dettaglio-pratica-badge dettaglio-pratica-badge--priorita dettaglio-pratica-badge--${pratica.priorita.toLowerCase()}`}
-            >
-              {
-                ETICHETTE_PRIORITA_PRATICA[
-                  pratica.priorita
-                ]
-              }
-            </span>
+                <Form.Select
+                  value={
+                    formModifica.priorita
+                  }
+                  className="dettaglio-pratica-edit-select"
+                  aria-label="Priorità pratica"
+                  onChange={(event) =>
+                    aggiornaCampoForm(
+                      "priorita",
+                      event.target
+                        .value as PrioritaPratica,
+                    )
+                  }
+                >
+                  {PRIORITA_PRATICA.map(
+                    (priorita) => (
+                      <option
+                        key={
+                          priorita
+                        }
+                        value={
+                          priorita
+                        }
+                      >
+                        {
+                          ETICHETTE_PRIORITA_PRATICA[
+                            priorita
+                          ]
+                        }
+                      </option>
+                    ),
+                  )}
+                </Form.Select>
+              </>
+            ) : (
+              <>
+                <span
+                  className={`dettaglio-pratica-badge dettaglio-pratica-badge--stato dettaglio-pratica-badge--${pratica.stato
+                    .toLowerCase()
+                    .replaceAll(
+                      "_",
+                      "-",
+                    )}`}
+                >
+                  {
+                    ETICHETTE_STATO_PRATICA[
+                      pratica.stato
+                    ]
+                  }
+                </span>
+
+                <span
+                  className={`dettaglio-pratica-badge dettaglio-pratica-badge--priorita dettaglio-pratica-badge--${pratica.priorita.toLowerCase()}`}
+                >
+                  {
+                    ETICHETTE_PRIORITA_PRATICA[
+                      pratica.priorita
+                    ]
+                  }
+                </span>
+              </>
+            )}
           </div>
         </div>
 
@@ -630,18 +1002,37 @@ export default function DettaglioPraticaPage() {
               Scadenza
             </small>
 
-            <strong>
-              {formattaData(
-                pratica.dataScadenza,
-              )}
-            </strong>
+            {modalitaModifica &&
+            formModifica ? (
+              <Form.Control
+                type="date"
+                value={
+                  formModifica.dataScadenza
+                }
+                className="dettaglio-pratica-edit-field dettaglio-pratica-edit-field--date"
+                onChange={(event) =>
+                  aggiornaCampoForm(
+                    "dataScadenza",
+                    event.target.value,
+                  )
+                }
+              />
+            ) : (
+              <>
+                <strong>
+                  {formattaData(
+                    pratica.dataScadenza,
+                  )}
+                </strong>
 
-            <span>
-              Creata il{" "}
-              {formattaData(
-                pratica.creatoIl,
-              )}
-            </span>
+                <span>
+                  Creata il{" "}
+                  {formattaData(
+                    pratica.creatoIl,
+                  )}
+                </span>
+              </>
+            )}
           </div>
         </article>
       </section>
@@ -677,6 +1068,7 @@ export default function DettaglioPraticaPage() {
             <div className="dettaglio-pratica-doc-summary">
               <span>
                 Mancanti
+
                 <strong>
                   {
                     riepilogo.mancanti
@@ -686,6 +1078,7 @@ export default function DettaglioPraticaPage() {
 
               <span>
                 Ricevuti
+
                 <strong>
                   {
                     riepilogo.ricevuti
@@ -695,6 +1088,7 @@ export default function DettaglioPraticaPage() {
 
               <span>
                 Da verificare
+
                 <strong>
                   {
                     riepilogo.daVerificare
@@ -704,6 +1098,7 @@ export default function DettaglioPraticaPage() {
 
               <span>
                 Validati
+
                 <strong>
                   {
                     riepilogo.validati
@@ -752,13 +1147,15 @@ export default function DettaglioPraticaPage() {
                               "Nessuna indicazione aggiuntiva"}
                           </span>
 
-                         <small>
-    {documento.tipoObbligatorieta === "OBBLIGATORIO"
-    ? "Obbligatorio"
-    : documento.tipoObbligatorieta === "CONDIZIONALE"
-      ? "Condizionale"
-      : "Facoltativo"}
-</small>
+                          <small>
+                            {documento.tipoObbligatorieta ===
+                            "OBBLIGATORIO"
+                              ? "Obbligatorio"
+                              : documento.tipoObbligatorieta ===
+                                  "CONDIZIONALE"
+                                ? "Condizionale"
+                                : "Facoltativo"}
+                          </small>
 
                           <AllegatiDocumento
                             documentoId={
@@ -789,37 +1186,49 @@ export default function DettaglioPraticaPage() {
                           />
                         ) : (
                           <Form.Select
-  value={documento.stato}
-  aria-label={`Stato ${documento.etichetta}`}
-  onChange={(event) =>
-    void cambiaStatoDocumento(
-      documento.id,
-      event.target.value as StatoDocumentoPratica,
-    )
-  }
->
-  {STATI_DOCUMENTO.map(
-    (stato) => (
-      <option
-        key={stato}
-        value={stato}
-      >
-        {
-          ETICHETTE_DOCUMENTO[
-            stato
-          ]
-        }
-      </option>
-    ),
-  )}
+                            value={
+                              documento.stato
+                            }
+                            aria-label={`Stato ${documento.etichetta}`}
+                            onChange={(
+                              event,
+                            ) =>
+                              void cambiaStatoDocumento(
+                                documento.id,
+                                event
+                                  .target
+                                  .value as StatoDocumentoPratica,
+                              )
+                            }
+                          >
+                            {STATI_DOCUMENTO.map(
+                              (
+                                stato,
+                              ) => (
+                                <option
+                                  key={
+                                    stato
+                                  }
+                                  value={
+                                    stato
+                                  }
+                                >
+                                  {
+                                    ETICHETTE_DOCUMENTO[
+                                      stato
+                                    ]
+                                  }
+                                </option>
+                              ),
+                            )}
 
-  {documento.tipoObbligatorieta ===
-    "CONDIZIONALE" && (
-    <option value="NON_APPLICABILE">
-      Non applicabile
-    </option>
-  )}
-</Form.Select>
+                            {documento.tipoObbligatorieta ===
+                              "CONDIZIONALE" && (
+                              <option value="NON_APPLICABILE">
+                                Non applicabile
+                              </option>
+                            )}
+                          </Form.Select>
                         )}
                       </div>
                     </article>
@@ -890,6 +1299,7 @@ export default function DettaglioPraticaPage() {
                       <div className="dettaglio-pratica-sottopratica__meta">
                         <span>
                           <FiUser />
+
                           {sottopratica.operatoreAssegnato
                             ? `${sottopratica.operatoreAssegnato.nome} ${sottopratica.operatoreAssegnato.cognome}`
                             : "Non assegnata"}
@@ -897,6 +1307,7 @@ export default function DettaglioPraticaPage() {
 
                         <span>
                           <FiCalendar />
+
                           {formattaData(
                             sottopratica.dataScadenza,
                           )}
@@ -983,10 +1394,29 @@ export default function DettaglioPraticaPage() {
               </h2>
             </header>
 
-            <p>
-              {pratica.descrizione ??
-                "Nessuna descrizione inserita."}
-            </p>
+            {modalitaModifica &&
+            formModifica ? (
+              <Form.Control
+                as="textarea"
+                rows={5}
+                value={
+                  formModifica.descrizione
+                }
+                className="dettaglio-pratica-edit-textarea"
+                placeholder="Descrizione della pratica..."
+                onChange={(event) =>
+                  aggiornaCampoForm(
+                    "descrizione",
+                    event.target.value,
+                  )
+                }
+              />
+            ) : (
+              <p>
+                {pratica.descrizione ??
+                  "Nessuna descrizione inserita."}
+              </p>
+            )}
           </section>
 
           <section className="dettaglio-pratica-side-card">
@@ -998,10 +1428,30 @@ export default function DettaglioPraticaPage() {
               </h2>
             </header>
 
-            <p>
-              {pratica.note ??
-                "Nessuna nota interna."}
-            </p>
+            {modalitaModifica &&
+            formModifica ? (
+              <Form.Control
+                as="textarea"
+                rows={6}
+                maxLength={2000}
+                value={
+                  formModifica.note
+                }
+                className="dettaglio-pratica-edit-textarea"
+                placeholder="Note interne..."
+                onChange={(event) =>
+                  aggiornaCampoForm(
+                    "note",
+                    event.target.value,
+                  )
+                }
+              />
+            ) : (
+              <p>
+                {pratica.note ??
+                  "Nessuna nota interna."}
+              </p>
+            )}
           </section>
         </aside>
       </div>
