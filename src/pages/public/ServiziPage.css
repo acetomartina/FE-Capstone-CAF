@@ -1,0 +1,602 @@
+.servizi-page {
+  min-height: 100vh;
+
+  color: #102c65;
+
+  background:
+    radial-gradient(
+      circle at 92% 4%,
+      rgba(36, 146, 57, 0.08),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 8% 18%,
+      rgba(230, 35, 128, 0.055),
+      transparent 26rem
+    ),
+    #ffffff;
+}
+
+.servizi-page__container {
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.servizi-page__hero {
+  padding: 6.6rem 1rem 4.5rem;
+
+  display: flex;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.servizi-page__hero-content {
+  max-width: 900px;
+}
+
+.servizi-page__eyebrow {
+  display: inline-flex;
+  align-items: center;
+
+  margin-bottom: 1rem;
+
+  color: #d91c76;
+
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.servizi-page__hero h1 {
+  margin: 0;
+
+  color: #102c65;
+
+  font-size: clamp(2.7rem, 6vw, 5.3rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.servizi-page__hero h1 span {
+  color: #249239;
+}
+
+.servizi-page__hero p {
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+
+  color: #606c83;
+
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+/* =========================================================
+   NAV MACROAREE
+   ========================================================= */
+
+.servizi-page__navigation {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  border-top: 1px solid rgba(226, 232, 240, 0.9);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+
+  background: rgba(255, 255, 255, 0.92);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.servizi-page__navigation .servizi-page__container {
+  min-height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+}
+
+.servizi-page__navigation .servizi-page__container::-webkit-scrollbar {
+  display: none;
+}
+
+.servizi-page__navigation a {
+  min-height: 38px;
+  padding: 0.5rem 0.82rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+
+  border-radius: 999px;
+
+  color: #667085;
+
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.servizi-page__navigation a:hover {
+  color: #247a3a;
+  background: #eef8f0;
+
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   CATALOGO
+   ========================================================= */
+
+.servizi-page__catalogo {
+  padding-top: 1rem;
+  padding-bottom: 6rem;
+}
+
+.servizi-macroarea {
+  position: relative;
+
+  padding: 4.5rem 0 1.25rem;
+
+  scroll-margin-top: 84px;
+}
+
+.servizi-macroarea + .servizi-macroarea {
+  margin-top: 2.25rem;
+
+  border-top: 1px solid #edf0f4;
+}
+
+.servizi-macroarea::before {
+  content: "";
+
+  position: absolute;
+  top: 2.6rem;
+  left: -3rem;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  background: rgba(36, 146, 57, 0.045);
+
+  filter: blur(3px);
+
+  pointer-events: none;
+}
+
+.servizi-macroarea:nth-of-type(2n)::before {
+  left: auto;
+  right: -3rem;
+
+  background: rgba(230, 35, 128, 0.04);
+}
+
+/* =========================================================
+   HEADER MACROAREA
+   ========================================================= */
+
+.servizi-macroarea__header {
+  position: relative;
+  z-index: 1;
+
+  max-width: 850px;
+  margin-bottom: 2rem;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.servizi-macroarea__icon {
+  width: 58px;
+  height: 58px;
+
+  flex: 0 0 58px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 18px;
+
+  font-size: 1.45rem;
+
+  box-shadow: 0 10px 28px rgba(16, 44, 101, 0.07);
+}
+
+.servizi-macroarea__icon--1 {
+  color: #247a3a;
+  background: #e6f4e9;
+}
+
+.servizi-macroarea__icon--2 {
+  color: #c76a08;
+  background: #fff0d8;
+}
+
+.servizi-macroarea__icon--3 {
+  color: #3f62a5;
+  background: #e2eaf7;
+}
+
+.servizi-macroarea__icon--4 {
+  color: #c71468;
+  background: #ffe3ef;
+}
+
+.servizi-macroarea__icon--5 {
+  color: #7452a8;
+  background: #eee8f7;
+}
+
+.servizi-macroarea__icon--6 {
+  color: #1f6f72;
+  background: #e1f1f1;
+}
+
+.servizi-macroarea__header > div:last-child {
+  min-width: 0;
+}
+
+.servizi-macroarea__header span {
+  display: inline-block;
+
+  color: #9aa4b4;
+
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.servizi-macroarea__header h2 {
+  margin: 0.12rem 0 0;
+
+  color: #102c65;
+
+  font-size: clamp(1.8rem, 3vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.servizi-macroarea__header p {
+  max-width: 680px;
+  margin: 0.55rem 0 0;
+
+  color: #667085;
+
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.servizi-macroarea__grid {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+/* =========================================================
+   CARD SERVIZIO
+   ========================================================= */
+
+.servizio-public-card {
+  min-height: 215px;
+  padding: 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #e6eaf0;
+  border-radius: 18px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.99),
+    rgba(250, 251, 252, 0.95)
+  );
+
+  box-shadow: 0 8px 24px rgba(16, 44, 101, 0.045);
+
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease,
+    background 200ms ease;
+}
+
+.servizio-public-card:hover {
+  transform: translateY(-4px);
+
+  border-color: #d6e4da;
+
+  background: #ffffff;
+
+  box-shadow: 0 16px 34px rgba(16, 44, 101, 0.085);
+}
+
+.servizio-public-card__top {
+  min-height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.servizio-public-card__top > span {
+  width: 30px;
+  height: 30px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  color: #249239;
+  background: #edf8ef;
+
+  font-size: 0.78rem;
+}
+
+.servizio-public-card__top small {
+  padding: 0.26rem 0.5rem;
+
+  border-radius: 999px;
+
+  color: #c71468;
+  background: #fff0f6;
+
+  font-size: 0.6rem;
+  font-weight: 750;
+}
+
+.servizio-public-card h3 {
+  margin: 0.95rem 0 0;
+
+  color: #172f61;
+
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.servizio-public-card > p {
+  margin: 0.48rem 0 0;
+
+  color: #6c768a;
+
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.servizio-public-card__tags {
+  margin-top: 0.8rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.servizio-public-card__tags span {
+  padding: 0.24rem 0.45rem;
+
+  border-radius: 999px;
+
+  color: #68748a;
+  background: #f3f5f7;
+
+  font-size: 0.58rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   FOOTER CARD
+   ========================================================= */
+
+.servizio-public-card__footer {
+  margin-top: auto;
+  padding-top: 1rem;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.servizio-public-card__footer strong,
+.servizio-public-card__footer > span {
+  color: #7b8798;
+
+  font-size: 0.67rem;
+  font-weight: 700;
+}
+
+.servizio-public-card__footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  color: #247a3a;
+
+  font-size: 0.69rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.servizio-public-card__footer a svg {
+  transition: transform 180ms ease;
+}
+
+.servizio-public-card__footer a:hover svg {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.servizi-macroarea__empty {
+  padding: 1.25rem;
+
+  border: 1px dashed #dfe5eb;
+  border-radius: 16px;
+
+  color: #8a94a5;
+  background: #fafbfc;
+
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+/* =========================================================
+   STATI PAGINA
+   ========================================================= */
+
+.servizi-page__state {
+  min-height: 360px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #778298;
+
+  text-align: center;
+}
+
+.servizi-page__state > svg {
+  font-size: 1.9rem;
+}
+
+.servizi-page__state h2 {
+  margin: 0.9rem 0 0;
+
+  color: #102c65;
+}
+
+.servizi-page__state p {
+  margin: 0.45rem 0 0;
+}
+
+.servizi-page__loader {
+  width: 32px;
+  height: 32px;
+
+  border: 3px solid #e2e7ed;
+  border-top-color: #249239;
+  border-radius: 50%;
+
+  animation: serviziLoader 700ms linear infinite;
+}
+
+@keyframes serviziLoader {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 980px) {
+  .servizi-page__hero {
+    padding-top: 5.5rem;
+  }
+
+  .servizi-macroarea {
+    padding-top: 4rem;
+  }
+
+  .servizi-macroarea__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 680px) {
+  .servizi-page__hero {
+    padding: 4.25rem 1rem 3rem;
+  }
+
+  .servizi-page__hero p {
+    font-size: 0.95rem;
+  }
+
+  .servizi-page__navigation .servizi-page__container {
+    justify-content: flex-start;
+  }
+
+  .servizi-macroarea {
+    padding-top: 3.25rem;
+  }
+
+  .servizi-macroarea + .servizi-macroarea {
+    margin-top: 1.5rem;
+  }
+
+  .servizi-macroarea__header {
+    flex-direction: column;
+
+    margin-bottom: 1.5rem;
+  }
+
+  .servizi-macroarea__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .servizio-public-card {
+    min-height: auto;
+  }
+
+  .servizio-public-card__footer {
+    align-items: center;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITÀ
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .servizio-public-card,
+  .servizio-public-card__footer a svg,
+  .servizi-page__navigation a {
+    transition: none;
+  }
+
+  .servizi-page__loader {
+    animation-duration: 1.5s;
+  }
+}

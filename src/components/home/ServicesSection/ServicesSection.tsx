@@ -1,5 +1,10 @@
+import type {
+  CSSProperties,
+} from "react";
 
-import type { IconType } from "react-icons";
+import type {
+  IconType,
+} from "react-icons";
 
 import {
   FiArrowRight,
@@ -10,6 +15,10 @@ import {
   FiTruck,
   FiZap,
 } from "react-icons/fi";
+
+import {
+  Link,
+} from "react-router-dom";
 
 import "./ServicesSection.css";
 
@@ -151,7 +160,10 @@ const ServicesSection = () => {
                 className="services-section__title"
               >
                 Tante esigenze.
-                <span> Un solo punto di riferimento.</span>
+                <span>
+                  {" "}
+                  Un solo punto di riferimento.
+                </span>
               </h2>
 
               <p className="services-section__description">
@@ -161,80 +173,127 @@ const ServicesSection = () => {
               </p>
             </div>
 
-            <a
-              href="/servizi"
+            <Link
+              to="/servizi"
               className="services-section__all-link"
             >
               Vedi tutti i servizi
-              <FiArrowRight aria-hidden="true" />
-            </a>
+
+              <FiArrowRight
+                aria-hidden="true"
+              />
+            </Link>
           </div>
         </div>
 
         <div className="services-section__grid">
-          {MACROAREE.map((macroarea, indice) => {
-            const Icona = macroarea.icona;
+          {MACROAREE.map(
+            (
+              macroarea,
+              indice,
+            ) => {
+              const Icona =
+                macroarea.icona;
 
-            return (
-              <article
-                key={macroarea.id}
-                className={`services-card services-card--${macroarea.variante}`}
-                style={
-                  {
-                    "--services-card-delay": `${indice * 70}ms`,
-                  } as React.CSSProperties
-                }
-              >
-                <div className="services-card__top">
-                  <span className="services-card__icon">
-                    <Icona aria-hidden="true" />
-                  </span>
-
-                  {macroarea.badge && (
-                    <span className="services-card__badge">
-                      {macroarea.badge}
-                    </span>
-                  )}
-                </div>
-
-                <div className="services-card__content">
-                  <h3>{macroarea.titolo}</h3>
-
-                  <p className="services-card__description">
-                    {macroarea.descrizione}
-                  </p>
-
-                  <ul className="services-card__list">
-                    {macroarea.servizi.map((servizio) => (
-                      <li key={servizio}>
-                        <span aria-hidden="true" />
-                        {servizio}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="services-card__footer">
-                  <span>{macroarea.conteggio}</span>
-
-                  <a
-                    href={`/servizi#${macroarea.id}`}
-                    aria-label={`Scopri di più su ${macroarea.titolo}`}
+              return (
+                <Link
+                  key={
+                    macroarea.id
+                  }
+                  to={`/servizi#${macroarea.id}`}
+                  className="services-card__link"
+                  aria-label={`Scopri i servizi dell'area ${macroarea.titolo}`}
+                >
+                  <article
+                    className={`services-card services-card--${macroarea.variante}`}
+                    style={
+                      {
+                        "--services-card-delay": `${indice * 70}ms`,
+                      } as CSSProperties
+                    }
                   >
-                    Scopri di più
-                    <FiArrowRight aria-hidden="true" />
-                  </a>
-                </div>
-              </article>
-            );
-          })}
+                    <div className="services-card__top">
+                      <span className="services-card__icon">
+                        <Icona
+                          aria-hidden="true"
+                        />
+                      </span>
+
+                      {macroarea.badge && (
+                        <span className="services-card__badge">
+                          {
+                            macroarea.badge
+                          }
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="services-card__content">
+                      <h3>
+                        {
+                          macroarea.titolo
+                        }
+                      </h3>
+
+                      <p className="services-card__description">
+                        {
+                          macroarea.descrizione
+                        }
+                      </p>
+
+                      <ul className="services-card__list">
+                        {macroarea.servizi.map(
+                          (
+                            servizio,
+                          ) => (
+                            <li
+                              key={
+                                servizio
+                              }
+                            >
+                              <span
+                                aria-hidden="true"
+                              />
+
+                              {
+                                servizio
+                              }
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    </div>
+
+                    <div className="services-card__footer">
+                      <span>
+                        {
+                          macroarea.conteggio
+                        }
+                      </span>
+
+                      <span className="services-card__cta">
+                        Scopri di più
+
+                        <FiArrowRight
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </div>
+                  </article>
+                </Link>
+              );
+            },
+          )}
         </div>
 
         <div className="services-section__mobile-link">
-          <a href="/servizi">
+          <Link to="/servizi">
             Vedi tutti i servizi
-            <FiArrowRight aria-hidden="true" />
-          </a>
+
+            <FiArrowRight
+              aria-hidden="true"
+            />
+          </Link>
         </div>
       </div>
     </section>

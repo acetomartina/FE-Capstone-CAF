@@ -1,9 +1,13 @@
-import { Route, Routes } from "react-router-dom";
+import {
+  Route,
+  Routes,
+} from "react-router-dom";
 
 import PublicLayout from "./layouts/PublicLayout";
 import PrivateLayout from "./layouts/PrivateLayout";
 
 import HomePage from "./pages/public/HomePage";
+import ServiziPage from "./pages/public/ServiziPage";
 import LoginPage from "./pages/public/LoginPage";
 import NotFoundPage from "./pages/public/NotFoundPage";
 import RecuperoPasswordPage from "./pages/public/RecuperoPasswordPage";
@@ -21,7 +25,10 @@ import AreaRiservataPage from "./pages/private/AreaRiservataPage";
 import ConfigurazioneServiziPage from "./pages/private/ConfigurazioneServiziPage";
 
 import RottaProtetta from "./features/auth/components/RottaProtetta";
-import { useRipristinoSessione } from "./features/auth/useRipristinoSessione";
+
+import {
+  useRipristinoSessione,
+} from "./features/auth/useRipristinoSessione";
 
 import {
   RUOLI_AMMINISTRAZIONE,
@@ -45,23 +52,34 @@ const App = () => {
         />
 
         <Route
+          path="/servizi"
+          element={<ServiziPage />}
+        />
+
+        <Route
           path="/login"
           element={<LoginPage />}
         />
 
         <Route
           path="/recupera-password"
-          element={<RecuperoPasswordPage />}
+          element={
+            <RecuperoPasswordPage />
+          }
         />
 
         <Route
           path="/reset-password/:token"
-          element={<ResetPasswordPage />}
+          element={
+            <ResetPasswordPage />
+          }
         />
 
         <Route
           path="/reset-password"
-          element={<ResetPasswordPage />}
+          element={
+            <ResetPasswordPage />
+          }
         />
       </Route>
 
@@ -69,10 +87,16 @@ const App = () => {
           AREA RISERVATA GENERICA
           ===================================================== */}
 
-      <Route element={<RottaProtetta />}>
+      <Route
+        element={
+          <RottaProtetta />
+        }
+      >
         <Route
           path="/area-riservata"
-          element={<AreaRiservataPage />}
+          element={
+            <AreaRiservataPage />
+          }
         />
       </Route>
 
@@ -89,10 +113,16 @@ const App = () => {
           />
         }
       >
-        <Route element={<PrivateLayout />}>
+        <Route
+          element={
+            <PrivateLayout />
+          }
+        >
           <Route
             path="/cliente"
-            element={<AreaClientePage />}
+            element={
+              <AreaClientePage />
+            }
           />
         </Route>
       </Route>
@@ -110,10 +140,16 @@ const App = () => {
           />
         }
       >
-        <Route element={<PrivateLayout />}>
+        <Route
+          element={
+            <PrivateLayout />
+          }
+        >
           <Route
             path="/dipendente"
-            element={<AreaDipendentePage />}
+            element={
+              <AreaDipendentePage />
+            }
           />
         </Route>
       </Route>
@@ -133,20 +169,30 @@ const App = () => {
           />
         }
       >
-        <Route element={<PrivateLayout />}>
+        <Route
+          element={
+            <PrivateLayout />
+          }
+        >
           <Route
             path="/clienti"
-            element={<ClientiPage />}
+            element={
+              <ClientiPage />
+            }
           />
 
           <Route
             path="/pratiche"
-            element={<PratichePage />}
+            element={
+              <PratichePage />
+            }
           />
 
           <Route
             path="/pratiche/:id"
-            element={<DettaglioPraticaPage />}
+            element={
+              <DettaglioPraticaPage />
+            }
           />
         </Route>
       </Route>
@@ -156,42 +202,48 @@ const App = () => {
           ===================================================== */}
 
       <Route
-  element={
-    <RottaProtetta
-      ruoliAmmessi={
-        RUOLI_AMMINISTRAZIONE
-      }
-    />
-  }
->
-  <Route element={<PrivateLayout />}>
-    <Route
-      path="/dashboard"
-      element={<DashboardPage />}
-    />
+        element={
+          <RottaProtetta
+            ruoliAmmessi={
+              RUOLI_AMMINISTRAZIONE
+            }
+          />
+        }
+      >
+        <Route
+          element={
+            <PrivateLayout />
+          }
+        >
+          <Route
+            path="/dashboard"
+            element={
+              <DashboardPage />
+            }
+          />
 
-    <Route
-      path="/amministrazione"
-      element={
-        <AreaAmministrazionePage />
-      }
-    />
+          <Route
+            path="/amministrazione"
+            element={
+              <AreaAmministrazionePage />
+            }
+          />
 
-    <Route
-      path="/amministrazione/servizi"
-      element={
-        <ConfigurazioneServiziPage />
-      }
-    />
+          <Route
+            path="/amministrazione/servizi"
+            element={
+              <ConfigurazioneServiziPage />
+            }
+          />
 
-    <Route
-      path="/amministrazione/servizi/:id"
-      element={
-        <DettaglioServizioPage />
-      }
-    />
-  </Route>
-</Route>
+          <Route
+            path="/amministrazione/servizi/:id"
+            element={
+              <DettaglioServizioPage />
+            }
+          />
+        </Route>
+      </Route>
 
       {/* =====================================================
           404
@@ -199,7 +251,9 @@ const App = () => {
 
       <Route
         path="*"
-        element={<NotFoundPage />}
+        element={
+          <NotFoundPage />
+        }
       />
     </Routes>
   );
