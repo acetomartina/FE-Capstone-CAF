@@ -30,6 +30,16 @@ import {
 } from "react-router-dom";
 
 import {
+  allegatiService,
+} from "../../features/allegati/api/allegatiService";
+
+import AllegatiDocumento from "../../features/allegati/components/AllegatiDocumento";
+
+import type {
+  AllegatoDocumento,
+} from "../../features/allegati/types/allegatiTypes";
+
+import {
   documentiPraticaService,
 } from "../../features/documenti/api/documentiPraticaService";
 
@@ -141,6 +151,13 @@ export default function DettaglioPraticaPage() {
   );
 
   const [
+    allegati,
+    setAllegati,
+  ] = useState<AllegatoDocumento[]>(
+    [],
+  );
+
+  const [
     riepilogo,
     setRiepilogo,
   ] = useState<RiepilogoDocumenti>(
@@ -193,7 +210,9 @@ export default function DettaglioPraticaPage() {
         setErrore(
           "Identificativo pratica non valido.",
         );
+
         setCaricamento(false);
+
         return;
       }
 
@@ -206,20 +225,29 @@ export default function DettaglioPraticaPage() {
           elencoDocumenti,
           riepilogoDocumenti,
           elencoSottopratiche,
+          elencoAllegati,
         ] = await Promise.all([
           praticheService
             .trovaPerId(
               praticaId,
             ),
+
           documentiPraticaService
             .trovaPerPratica(
               praticaId,
             ),
+
           documentiPraticaService
             .riepilogo(
               praticaId,
             ),
+
           sottopraticheService
+            .trovaPerPratica(
+              praticaId,
+            ),
+
+          allegatiService
             .trovaPerPratica(
               praticaId,
             ),
@@ -238,8 +266,11 @@ export default function DettaglioPraticaPage() {
         );
 
         setSottopratiche(
-          elencoSottopratiche
-            .content,
+          elencoSottopratiche.content,
+        );
+
+        setAllegati(
+          elencoAllegati,
         );
       } catch {
         setErrore(
@@ -254,6 +285,7 @@ export default function DettaglioPraticaPage() {
 
   useEffect(() => {
     void caricaDettaglio();
+
     // praticaId identifica l'intera pagina.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [praticaId]);
@@ -267,6 +299,7 @@ export default function DettaglioPraticaPage() {
         setAggiornamentoDocumentoId(
           documentoId,
         );
+
         setErrore(null);
 
         const aggiornato =
@@ -303,6 +336,48 @@ export default function DettaglioPraticaPage() {
       } finally {
         setAggiornamentoDocumentoId(
           null,
+        );
+      }
+    };
+
+  const aggiornaDocumenti =
+    async () => {
+      try {
+        const [
+          elencoDocumenti,
+          riepilogoDocumenti,
+          elencoAllegati,
+        ] = await Promise.all([
+          documentiPraticaService
+            .trovaPerPratica(
+              praticaId,
+            ),
+
+          documentiPraticaService
+            .riepilogo(
+              praticaId,
+            ),
+
+          allegatiService
+            .trovaPerPratica(
+              praticaId,
+            ),
+        ]);
+
+        setDocumenti(
+          elencoDocumenti,
+        );
+
+        setRiepilogo(
+          riepilogoDocumenti,
+        );
+
+        setAllegati(
+          elencoAllegati,
+        );
+      } catch {
+        setErrore(
+          "Non è stato possibile aggiornare i documenti della pratica.",
         );
       }
     };
@@ -680,6 +755,24 @@ export default function DettaglioPraticaPage() {
                               ? "Obbligatorio"
                               : "Facoltativo"}
                           </small>
+
+                          <AllegatiDocumento
+                            documentoId={
+                              documento.id
+                            }
+                            allegati={
+                              allegati.filter(
+                                (
+                                  allegato,
+                                ) =>
+                                  allegato.documentoPraticaId ===
+                                  documento.id,
+                              )
+                            }
+                            onModifica={
+                              aggiornaDocumenti
+                            }
+                          />
                         </div>
                       </div>
 
