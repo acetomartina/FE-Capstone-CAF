@@ -7,7 +7,13 @@ export type StatoDocumentoPratica =
   | "RICEVUTO"
   | "DA_VERIFICARE"
   | "VALIDATO"
-  | "RIFIUTATO";
+  | "RIFIUTATO"
+  | "NON_APPLICABILE";
+
+export type TipoObbligatorietaDocumento =
+  | "OBBLIGATORIO"
+  | "CONDIZIONALE"
+  | "FACOLTATIVO";
 
 export type DocumentoPratica = {
   id: number;
@@ -15,7 +21,7 @@ export type DocumentoPratica = {
   numeroPratica: string;
   etichetta: string;
   suggerimento: string | null;
-  obbligatorio: boolean;
+  tipoObbligatorieta: TipoObbligatorietaDocumento;
   stato: StatoDocumentoPratica;
   richiestoDa: UtentePratica | null;
   creatoIl: string;
@@ -29,6 +35,7 @@ export type RiepilogoDocumenti = {
   daVerificare: number;
   validati: number;
   rifiutati: number;
+  nonApplicabili: number;
   completati: number;
   percentualeCompletamento: number;
 };

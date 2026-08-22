@@ -81,6 +81,7 @@ const ETICHETTE_DOCUMENTO: Record<
   DA_VERIFICARE: "Da verificare",
   VALIDATO: "Validato",
   RIFIUTATO: "Rifiutato",
+  NON_APPLICABILE: "Non applicabile",
 };
 
 const STATI_DOCUMENTO: StatoDocumentoPratica[] = [
@@ -98,6 +99,7 @@ const riepilogoVuoto: RiepilogoDocumenti = {
   daVerificare: 0,
   validati: 0,
   rifiutati: 0,
+  nonApplicabili: 0,
   completati: 0,
   percentualeCompletamento: 0,
 };
@@ -750,11 +752,13 @@ export default function DettaglioPraticaPage() {
                               "Nessuna indicazione aggiuntiva"}
                           </span>
 
-                          <small>
-                            {documento.obbligatorio
-                              ? "Obbligatorio"
-                              : "Facoltativo"}
-                          </small>
+                         <small>
+    {documento.tipoObbligatorieta === "OBBLIGATORIO"
+    ? "Obbligatorio"
+    : documento.tipoObbligatorieta === "CONDIZIONALE"
+      ? "Condizionale"
+      : "Facoltativo"}
+</small>
 
                           <AllegatiDocumento
                             documentoId={
@@ -785,42 +789,37 @@ export default function DettaglioPraticaPage() {
                           />
                         ) : (
                           <Form.Select
-                            value={
-                              documento.stato
-                            }
-                            aria-label={`Stato ${documento.etichetta}`}
-                            onChange={(
-                              event,
-                            ) =>
-                              void cambiaStatoDocumento(
-                                documento.id,
-                                event
-                                  .target
-                                  .value as StatoDocumentoPratica,
-                              )
-                            }
-                          >
-                            {STATI_DOCUMENTO.map(
-                              (
-                                stato,
-                              ) => (
-                                <option
-                                  key={
-                                    stato
-                                  }
-                                  value={
-                                    stato
-                                  }
-                                >
-                                  {
-                                    ETICHETTE_DOCUMENTO[
-                                      stato
-                                    ]
-                                  }
-                                </option>
-                              ),
-                            )}
-                          </Form.Select>
+  value={documento.stato}
+  aria-label={`Stato ${documento.etichetta}`}
+  onChange={(event) =>
+    void cambiaStatoDocumento(
+      documento.id,
+      event.target.value as StatoDocumentoPratica,
+    )
+  }
+>
+  {STATI_DOCUMENTO.map(
+    (stato) => (
+      <option
+        key={stato}
+        value={stato}
+      >
+        {
+          ETICHETTE_DOCUMENTO[
+            stato
+          ]
+        }
+      </option>
+    ),
+  )}
+
+  {documento.tipoObbligatorieta ===
+    "CONDIZIONALE" && (
+    <option value="NON_APPLICABILE">
+      Non applicabile
+    </option>
+  )}
+</Form.Select>
                         )}
                       </div>
                     </article>
