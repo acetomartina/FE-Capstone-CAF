@@ -8,10 +8,12 @@ import PrivateLayout from "./layouts/PrivateLayout";
 
 import HomePage from "./pages/public/HomePage";
 import ServiziPage from "./pages/public/ServiziPage";
+import ChiSiamoPage from "./pages/public/ChiSiamoPage";
 import LoginPage from "./pages/public/LoginPage";
 import NotFoundPage from "./pages/public/NotFoundPage";
 import RecuperoPasswordPage from "./pages/public/RecuperoPasswordPage";
 import ResetPasswordPage from "./pages/public/ResetPasswordPage";
+import DettaglioServizioPublicPage from "./pages/public/DettaglioServizioPublicPage";
 
 import DashboardPage from "./pages/private/DashboardPage";
 import ClientiPage from "./pages/private/ClientiPage";
@@ -23,7 +25,6 @@ import AreaClientePage from "./pages/private/AreaClientePage";
 import AreaDipendentePage from "./pages/private/AreaDipendentePage";
 import AreaRiservataPage from "./pages/private/AreaRiservataPage";
 import ConfigurazioneServiziPage from "./pages/private/ConfigurazioneServiziPage";
-import DettaglioServizioPublicPage from "./pages/public/DettaglioServizioPublicPage";
 
 import RottaProtetta from "./features/auth/components/RottaProtetta";
 
@@ -58,9 +59,14 @@ const App = () => {
         />
 
         <Route
-  path="/servizi/:slug"
-  element={<DettaglioServizioPublicPage />}
-/>
+          path="/servizi/:slug"
+          element={<DettaglioServizioPublicPage />}
+        />
+
+        <Route
+          path="/chi-siamo"
+          element={<ChiSiamoPage />}
+        />
 
         <Route
           path="/login"
