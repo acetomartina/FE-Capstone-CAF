@@ -787,30 +787,165 @@
    ACCESSIBILITÀ
    ========================================================= */
 
-/* =========================================================
-   TABLET — RESPIRO LATERALE HERO NOTE
-   ========================================================= */
-
-@media (min-width: 681px) and (max-width: 1100px) {
-  .chi-siamo-hero {
-    padding-inline: 1.5rem;
-  }
-
-  .chi-siamo-hero__grid {
-    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.72fr);
-    gap: clamp(2rem, 5vw, 4rem);
-  }
-
-  .chi-siamo-note {
-    width: min(100%, 380px);
-    margin-right: 1.5rem;
-    transform: rotate(1deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .chi-siamo-button,
   .chi-siamo-closing__card > a {
     transition: none;
+  }
+}
+
+/* =========================================================
+   POST-IT INTERATTIVO
+   ========================================================= */
+
+.chi-siamo-note {
+  width: min(100%, 410px);
+  min-height: 330px;
+  padding: 0;
+
+  position: relative;
+  justify-self: center;
+
+  display: block;
+
+  border: 0;
+  border-radius: 0;
+
+  background: transparent;
+  box-shadow: none;
+
+  color: inherit;
+  font: inherit;
+  text-align: center;
+
+  cursor: pointer;
+  perspective: 1100px;
+  isolation: isolate;
+}
+
+.chi-siamo-note::before {
+  display: none;
+}
+
+.chi-siamo-note__sheet {
+  width: 100%;
+  min-height: 330px;
+  padding: 2.25rem 2.35rem;
+
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 24px 24px 34px 24px;
+
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms ease,
+    box-shadow 320ms ease;
+}
+
+.chi-siamo-note__sheet--front {
+  z-index: 2;
+
+  border: 1px solid rgba(36, 122, 58, 0.12);
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 42px,
+      rgba(36, 122, 58, 0.045) 43px
+    ),
+    #eff7f1;
+
+  transform: rotate(-1.2deg) translate3d(0, 0, 30px);
+
+  box-shadow: 0 24px 58px rgba(16, 44, 101, 0.09);
+}
+
+.chi-siamo-note__sheet--back {
+  z-index: 1;
+
+  border: 1px solid rgba(217, 28, 118, 0.12);
+
+  background: #ffe8f2;
+
+  transform: translate3d(24px, -14px, 0) rotate(4.5deg) scale(0.94);
+
+  opacity: 0.78;
+}
+
+.chi-siamo-note--switched .chi-siamo-note__sheet--front {
+  z-index: 1;
+
+  transform: translate3d(-24px, 18px, 0) rotate(-5deg) scale(0.93);
+
+  opacity: 0.42;
+}
+
+.chi-siamo-note--switched .chi-siamo-note__sheet--back {
+  z-index: 3;
+
+  transform: translate3d(0, 0, 40px) rotate(0.8deg) scale(1);
+
+  opacity: 1;
+
+  box-shadow: 0 28px 64px rgba(16, 44, 101, 0.12);
+}
+
+.chi-siamo-note__hint {
+  margin-top: 1.1rem;
+
+  color: #8a95a5;
+
+  font-size: 0.58rem;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.chi-siamo-note__sheet small,
+.chi-siamo-note__sheet h2,
+.chi-siamo-note__sheet p {
+  text-align: center;
+}
+
+@media (max-width: 680px) {
+  .chi-siamo-note {
+    width: calc(100% - 1.25rem);
+    min-height: 305px;
+    margin-inline: auto;
+  }
+
+  .chi-siamo-note__sheet {
+    min-height: 295px;
+    padding: 1.65rem 1.3rem;
+  }
+
+  .chi-siamo-note__sheet--back {
+    transform: translate3d(10px, -7px, 0) rotate(2.5deg) scale(0.96);
+  }
+
+  .chi-siamo-note--switched .chi-siamo-note__sheet--front {
+    transform: translate3d(-10px, 10px, 0) rotate(-3deg) scale(0.95);
+  }
+
+  .chi-siamo-note--switched .chi-siamo-note__sheet--back {
+    transform: translate3d(0, 0, 30px) rotate(0.4deg) scale(0.98);
+  }
+}
+
+/* Il post-it usa lo stile condiviso InteractivePostIt.css */
+.chi-siamo-note {
+  justify-self: center;
+}
+
+@media (max-width: 680px) {
+  .chi-siamo-note {
+    margin-inline: auto;
   }
 }

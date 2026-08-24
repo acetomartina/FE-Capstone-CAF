@@ -110,7 +110,7 @@ const ContactSection = () => {
                 <div>
                   <small>Orari</small>
                   <strong>Lunedì – Venerdì</strong>
-                  <span>09:00 – 13:00 / 15:00 – 18:00</span>
+                  <span>09:00 – 12:30 / 15:30 – 18:30</span>
                 </div>
               </div>
             </div>

@@ -232,7 +232,7 @@
   gap: 0.55rem;
 
   border: 1px solid #249239;
-  border-radius: 999px;
+  border-radius: 8px;
 
   background: linear-gradient(135deg, #228b36, #3aaa35);
 
@@ -723,7 +723,7 @@ a.public-mobile-menu__contact:hover strong {
   gap: 0.6rem;
 
   border: 0;
-  border-radius: 999px;
+  border-radius: 8px;
 
   background: linear-gradient(135deg, #228b36, #3aaa35);
 

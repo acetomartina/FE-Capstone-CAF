@@ -43,7 +43,7 @@ interface MacroareaServizio {
 
 const MACROAREE: MacroareaServizio[] = [
   {
-    id: "caf-fiscale",
+    id: "caf-e-fiscale",
     titolo: "CAF e fiscale",
     descrizione:
       "Assistenza fiscale, previdenziale e sociale per cittadini e famiglie.",
@@ -55,12 +55,13 @@ const MACROAREE: MacroareaServizio[] = [
       "Pensioni",
       "Invalidità",
     ],
-    conteggio: "18 servizi disponibili",
+    conteggio:
+      "18 servizi disponibili",
     variante: "green",
     icona: FiFileText,
   },
   {
-    id: "energia-gas",
+    id: "energia-e-gas",
     titolo: "Energia e gas",
     descrizione:
       "Supporto nella gestione delle utenze domestiche e aziendali.",
@@ -70,12 +71,13 @@ const MACROAREE: MacroareaServizio[] = [
       "Nuove attivazioni",
       "Cambio gestore",
     ],
-    conteggio: "8 servizi disponibili",
+    conteggio:
+      "8 servizi disponibili",
     variante: "orange",
     icona: FiZap,
   },
   {
-    id: "telefonia",
+    id: "telefonia-e-internet",
     titolo: "Telefonia e internet",
     descrizione:
       "Soluzioni mobile, fibra e connettività per casa e attività.",
@@ -85,7 +87,8 @@ const MACROAREE: MacroareaServizio[] = [
       "Offerte casa",
       "Business",
     ],
-    conteggio: "7 servizi disponibili",
+    conteggio:
+      "7 servizi disponibili",
     variante: "blue",
     icona: FiPhone,
   },
@@ -100,12 +103,13 @@ const MACROAREE: MacroareaServizio[] = [
       "Cessione del quinto",
       "Delegazione di pagamento",
     ],
-    conteggio: "6 servizi disponibili",
+    conteggio:
+      "6 servizi disponibili",
     variante: "fuchsia",
     icona: FiCreditCard,
   },
   {
-    id: "mobilita",
+    id: "mobilita-e-logistica",
     titolo: "Mobilità e logistica",
     descrizione:
       "Servizi per auto, noleggio, spedizioni e punti di ritiro.",
@@ -116,7 +120,8 @@ const MACROAREE: MacroareaServizio[] = [
       "Amazon Hub",
       "Spedizioni",
     ],
-    conteggio: "9 servizi disponibili",
+    conteggio:
+      "9 servizi disponibili",
     variante: "purple",
     icona: FiTruck,
   },
@@ -133,7 +138,8 @@ const MACROAREE: MacroareaServizio[] = [
       "Gestionali",
       "Assistenza da remoto",
     ],
-    conteggio: "10 servizi disponibili",
+    conteggio:
+      "10 servizi disponibili",
     variante: "petrol",
     icona: FiMonitor,
     badge: "martina.dstudio",
@@ -160,21 +166,25 @@ const ServicesSection = () => {
                 className="services-section__title"
               >
                 Tante esigenze.
+
                 <span>
                   {" "}
-                  Un solo punto di riferimento.
+                  Un solo punto di
+                  riferimento.
                 </span>
               </h2>
 
               <p className="services-section__description">
-                Scegli l’area che ti interessa e scopri tutti i
-                servizi disponibili presso la sede CAF FAPI di
+                Scegli l’area che ti
+                interessa e scopri tutti i
+                servizi disponibili presso
+                la sede CAF FAPI di
                 Pianopoli.
               </p>
             </div>
 
             <Link
-              to="/servizi"
+              to="/servizi#aree-servizi"
               className="services-section__all-link"
             >
               Vedi tutti i servizi
@@ -197,9 +207,7 @@ const ServicesSection = () => {
 
               return (
                 <Link
-                  key={
-                    macroarea.id
-                  }
+                  key={macroarea.id}
                   to={`/servizi#${macroarea.id}`}
                   className="services-card__link"
                   aria-label={`Scopri i servizi dell'area ${macroarea.titolo}`}
@@ -287,7 +295,7 @@ const ServicesSection = () => {
         </div>
 
         <div className="services-section__mobile-link">
-          <Link to="/servizi">
+          <Link to="/servizi#aree-servizi">
             Vedi tutti i servizi
 
             <FiArrowRight

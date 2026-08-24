@@ -111,7 +111,7 @@
   gap: 0.65rem;
 
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: 8px;
 
   font-size: 0.94rem;
   font-weight: 700;
@@ -589,17 +589,22 @@
     gap: 0.8rem;
   }
 
+  /* Più respiro ai volantini sui bordi del telefono */
   .home-flyers {
-    min-height: 535px;
+    width: calc(100% - 1rem);
+    min-height: 515px;
+    margin: 0 auto;
   }
 
   .home-flyers__glow {
-    width: 350px;
-    height: 350px;
+    width: min(320px, 88vw);
+    height: min(320px, 88vw);
   }
 
   .home-flyers__stage {
-    min-height: 480px;
+    width: calc(100% - 0.5rem);
+    min-height: 465px;
+    margin-inline: auto;
   }
 
   .home-flyers__card {
@@ -608,23 +613,23 @@
   }
 
   .home-flyers__card--main {
-    width: min(270px, 67%);
+    width: min(245px, 64%);
   }
 
   .home-flyers__card--left {
-    left: -4%;
+    left: 0;
 
-    width: min(175px, 44%);
+    width: min(148px, 39%);
 
-    transform: translateY(24px) rotate(-5deg) scale(0.95);
+    transform: translateY(24px) rotate(-5deg) scale(0.94);
   }
 
   .home-flyers__card--right {
-    right: -4%;
+    right: 0;
 
-    width: min(180px, 45%);
+    width: min(152px, 40%);
 
-    transform: translateY(36px) rotate(5deg) scale(0.96);
+    transform: translateY(36px) rotate(5deg) scale(0.95);
   }
 
   .home-flyers__card-overlay {
@@ -640,20 +645,22 @@
 
 @media (max-width: 390px) {
   .home-flyers {
+    width: calc(100% - 0.75rem);
     min-height: 485px;
   }
 
   .home-flyers__stage {
+    width: calc(100% - 0.75rem);
     min-height: 435px;
   }
 
   .home-flyers__card--main {
-    width: 68%;
+    width: min(230px, 64%);
   }
 
   .home-flyers__card--left,
   .home-flyers__card--right {
-    width: 42%;
+    width: min(138px, 39%);
   }
 }
 

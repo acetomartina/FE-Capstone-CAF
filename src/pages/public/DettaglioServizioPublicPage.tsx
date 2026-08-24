@@ -35,6 +35,8 @@ import type {
   TipoObbligatorietaDocumento,
 } from "../../features/servizi/types/serviziTypes";
 
+import ServicePostIt from "../../components/common/ServicePostIt/ServicePostIt";
+
 import "./DettaglioServizioPublicPage.css";
 
 const ottieniTema = (macroArea: string) => {
@@ -76,9 +78,6 @@ const DettaglioServizioPublicPage = () => {
 
   const [errore, setErrore] =
     useState<string | null>(null);
-
-  const [postItAperto, setPostItAperto] =
-    useState<"cose" | "serve">("cose");
 
   useEffect(() => {
     window.scrollTo({
@@ -252,7 +251,7 @@ const DettaglioServizioPublicPage = () => {
 
               <div className="servizio-dettaglio-hero__actions">
                 <Link
-                  to="/#contatti"
+                  to="/contatti"
                   className="servizio-dettaglio-button servizio-dettaglio-button--primary"
                 >
                   {servizio.richiedibileOnline
@@ -271,76 +270,69 @@ const DettaglioServizioPublicPage = () => {
             </div>
 
             <div className="servizio-dettaglio-hero__visual">
-              <button
-                type="button"
-                className={`servizio-dettaglio-paper-stack ${
-                  postItAperto === "serve"
-                    ? "servizio-dettaglio-paper-stack--switched"
-                    : ""
-                }`}
-                aria-label={
-                  postItAperto === "cose"
-                    ? `Mostra a cosa serve ${servizio.nome}`
-                    : `Mostra cos'è ${servizio.nome}`
+              <ServicePostIt
+                accent={
+                  tema === "orange"
+                    ? "#e67a14"
+                    : tema === "blue"
+                      ? "#3974d7"
+                      : tema === "fuchsia"
+                        ? "#d91c76"
+                        : tema === "purple"
+                          ? "#7652b5"
+                          : tema === "petrol"
+                            ? "#167f84"
+                            : "#249239"
                 }
-                aria-pressed={postItAperto === "serve"}
-                onClick={() =>
-                  setPostItAperto((stato) =>
-                    stato === "cose" ? "serve" : "cose",
-                  )
+                accentDark={
+                  tema === "orange"
+                    ? "#ae5207"
+                    : tema === "blue"
+                      ? "#2455aa"
+                      : tema === "fuchsia"
+                        ? "#a71056"
+                        : tema === "purple"
+                          ? "#573890"
+                          : tema === "petrol"
+                            ? "#0e5d61"
+                            : "#176d2b"
                 }
-                onMouseEnter={() => setPostItAperto("serve")}
-                onMouseLeave={() => setPostItAperto("cose")}
-              >
-                <article className="servizio-dettaglio-paper servizio-dettaglio-paper--back">
-                  <span className="servizio-dettaglio-paper__pin" />
-
-                  <small>A cosa serve</small>
-
-                  <h2>Perché può esserti utile</h2>
-
-                  <p>
-                    {servizio.aCosaServe ??
-                      "Ti aiuta a gestire questa esigenza con il supporto della sede CAF."}
-                  </p>
-
-                  <span className="servizio-dettaglio-paper__hint">
-                    Clicca per tornare
-                  </span>
-                </article>
-
-                <article className="servizio-dettaglio-paper servizio-dettaglio-paper--main">
-                  <span className="servizio-dettaglio-paper__pin" />
-
-                  <span className="servizio-dettaglio-paper__icon">
-                    <FiInfo />
-                  </span>
-
-                  <small>Cos&apos;è</small>
-
-                  <h2>{servizio.nome}</h2>
-
-                  <p>
-                    {servizio.cosE ??
-                      servizio.descrizioneBreve ??
-                      "Scopri in modo semplice cos'è questo servizio e quando può esserti utile."}
-                  </p>
-
-                  <div className="servizio-dettaglio-paper__checks">
-                    <span>
-                      <FiCheck /> Spiegato senza tecnicismi
-                    </span>
-
-                    <span>
-                      <FiCheck /> Assistenza della sede
-                    </span>
-                  </div>
-
-                  <span className="servizio-dettaglio-paper__hint servizio-dettaglio-paper__hint--main">
-                    Passa sopra o clicca
-                  </span>
-                </article>
-              </button>
+                accentSoft={
+                  tema === "orange"
+                    ? "#fff0df"
+                    : tema === "blue"
+                      ? "#e9f0ff"
+                      : tema === "fuchsia"
+                        ? "#ffe8f2"
+                        : tema === "purple"
+                          ? "#f0eafa"
+                          : tema === "petrol"
+                            ? "#e3f4f4"
+                            : "#eaf7ed"
+                }
+                ariaLabelFront={`Mostra a cosa serve ${servizio.nome}`}
+                ariaLabelBack={`Mostra cos'è ${servizio.nome}`}
+                front={{
+                  eyebrow: "Cos'è",
+                  title: servizio.nome,
+                  description:
+                    servizio.cosE ??
+                    servizio.descrizioneBreve ??
+                    "Scopri in modo semplice cos'è questo servizio e quando può esserti utile.",
+                  icon: FiInfo,
+                  checks: [
+                    "Spiegato senza tecnicismi",
+                    "Assistenza della sede",
+                  ],
+                }}
+                back={{
+                  eyebrow: "A cosa serve",
+                  title: "Perché può esserti utile",
+                  description:
+                    servizio.aCosaServe ??
+                    "Ti aiuta a gestire questa esigenza con il supporto della sede CAF.",
+                }}
+              />
 
               <span className="servizio-dettaglio-hero__scribble" />
             </div>
@@ -665,7 +657,7 @@ const DettaglioServizioPublicPage = () => {
               </p>
             </div>
 
-            <Link to="/#contatti">
+            <Link to="/contatti">
               {servizio.prenotabile
                 ? "Prenota un appuntamento"
                 : "Contatta la sede"}

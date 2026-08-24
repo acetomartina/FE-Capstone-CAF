@@ -1,0 +1,557 @@
+.servizio-dettaglio-paper-stack {
+  width: min(100%, 430px);
+  min-height: 390px;
+
+  position: relative;
+
+  display: block;
+
+  margin-inline: auto;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  perspective: 1200px;
+  appearance: none;
+}
+
+.servizio-dettaglio-paper-stack:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--service-accent) 32%, transparent);
+
+  outline-offset: 8px;
+  border-radius: 26px;
+}
+
+/* =========================================================
+   FOGLI
+   ========================================================= */
+
+.servizio-dettaglio-paper {
+  box-sizing: border-box;
+
+  position: absolute;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(36, 122, 58, 0.14);
+  border-radius: 24px 24px 34px 24px;
+
+  backface-visibility: hidden;
+  transform-origin: center;
+
+  transition:
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 340ms ease,
+    filter 340ms ease,
+    box-shadow 520ms ease;
+
+  will-change: transform, opacity;
+}
+
+/* =========================================================
+   FRONTE
+   ========================================================= */
+
+.servizio-dettaglio-paper--main {
+  width: 84%;
+  min-height: 350px;
+
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+
+  padding: 2rem;
+
+  transform: translate3d(0, 0, 40px) rotate(-2.5deg) scale(1);
+
+  opacity: 1;
+
+  color: var(--service-ink);
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 42px,
+      rgba(36, 122, 58, 0.07) 43px
+    ),
+    #ffffff;
+
+  box-shadow: 0 24px 60px rgba(16, 44, 101, 0.13);
+}
+
+/* =========================================================
+   RETRO
+   ========================================================= */
+
+.servizio-dettaglio-paper--back {
+  width: 82%;
+  min-height: 340px;
+
+  top: 12px;
+  right: 0;
+  z-index: 1;
+
+  padding: 2rem;
+
+  transform: translate3d(34px, -4px, 0) rotate(6deg) scale(0.95);
+
+  opacity: 0.82;
+
+  color: var(--service-ink);
+
+  background: #ffe8f2;
+
+  box-shadow: 0 16px 42px rgba(16, 44, 101, 0.06);
+}
+
+/* =========================================================
+   SWITCH
+   ========================================================= */
+
+.servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--main {
+  z-index: 1;
+
+  transform: translate3d(-82px, 24px, 0) rotate(-8deg) scale(0.9);
+
+  opacity: 0.42;
+
+  filter: saturate(0.8);
+
+  box-shadow: 0 12px 34px rgba(16, 44, 101, 0.06);
+}
+
+.servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--back {
+  z-index: 4;
+
+  transform: translate3d(-10px, 10px, 50px) rotate(-1.5deg) scale(1);
+
+  opacity: 1;
+
+  filter: none;
+
+  box-shadow: 0 30px 72px rgba(217, 28, 118, 0.16);
+}
+
+/* =========================================================
+   PIN
+   ========================================================= */
+
+.servizio-dettaglio-paper__pin {
+  width: 14px;
+  height: 14px;
+
+  position: absolute;
+
+  top: 15px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+
+  background: #d91c76;
+
+  box-shadow: 0 4px 10px rgba(217, 28, 118, 0.26);
+}
+
+.servizio-dettaglio-paper--back .servizio-dettaglio-paper__pin {
+  background: var(--service-accent);
+
+  box-shadow: 0 4px 10px rgba(36, 122, 58, 0.22);
+}
+
+/* =========================================================
+   ICONA
+   ========================================================= */
+
+.servizio-dettaglio-paper__icon {
+  width: 54px;
+  height: 54px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 17px;
+
+  color: var(--service-accent);
+
+  background: var(--service-accent-soft);
+
+  font-size: 1.35rem;
+}
+
+/* =========================================================
+   EYEBROW
+   ========================================================= */
+
+.servizio-dettaglio-paper--back small,
+.servizio-dettaglio-paper--main small {
+  display: block;
+
+  margin-top: 1.45rem;
+
+  font-size: 0.66rem;
+  font-weight: 850;
+  line-height: 1.2;
+
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.servizio-dettaglio-paper--back small {
+  color: #b91862;
+}
+
+.servizio-dettaglio-paper--main small {
+  color: var(--service-accent-dark);
+}
+
+/* =========================================================
+   TITOLO
+   ========================================================= */
+
+.servizio-dettaglio-paper--back h2,
+.servizio-dettaglio-paper--main h2 {
+  margin: 0.4rem 0 0;
+
+  color: var(--service-ink);
+
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+
+  line-height: 1.05;
+
+  letter-spacing: -0.045em;
+}
+
+/* =========================================================
+   DESCRIZIONE
+   ========================================================= */
+
+.servizio-dettaglio-paper--back p,
+.servizio-dettaglio-paper--main p {
+  margin: 1rem 0 0;
+
+  color: #657187;
+
+  font-size: 0.84rem;
+  line-height: 1.72;
+}
+
+/* =========================================================
+   CHECKLIST
+   ========================================================= */
+
+.servizio-dettaglio-paper .servizio-dettaglio-paper__checks {
+  width: 100%;
+
+  position: static;
+  inset: auto;
+
+  margin: 1.25rem 0 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+
+  gap: 0.6rem;
+
+  transform: none;
+
+  text-align: left;
+}
+
+.servizio-dettaglio-paper .servizio-dettaglio-paper__checks > span {
+  width: 100%;
+  min-width: 0;
+  min-height: 18px;
+
+  position: static;
+  inset: auto;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  gap: 0.55rem;
+
+  transform: none;
+
+  color: #43516a;
+
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.45;
+
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: left;
+
+  white-space: normal;
+
+  opacity: 1;
+}
+
+.servizio-dettaglio-paper .servizio-dettaglio-paper__checks > span > svg {
+  width: 16px;
+  height: 16px;
+
+  position: static;
+
+  margin: 0.08rem 0 0;
+  padding: 0;
+
+  flex: 0 0 16px;
+
+  transform: none;
+
+  color: var(--service-accent);
+}
+/* =========================================================
+   HINT
+   ========================================================= */
+
+.servizio-dettaglio-paper__hint {
+  position: absolute;
+
+  right: 1.4rem;
+  bottom: 0.8rem;
+  z-index: 5;
+
+  max-width: calc(100% - 2.8rem);
+
+  color: #b91862;
+
+  font-size: 0.58rem;
+  font-weight: 850;
+  line-height: 1.2;
+
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-align: right;
+
+  opacity: 0.72;
+  visibility: visible;
+
+  transition:
+    opacity 220ms ease,
+    visibility 220ms ease;
+
+  pointer-events: none;
+}
+
+.servizio-dettaglio-paper__hint--main {
+  color: var(--service-accent-dark);
+}
+
+/* =========================================================
+   TRANSIZIONE CONTENUTI
+   ========================================================= */
+
+.servizio-dettaglio-paper--back > * {
+  transition: opacity 260ms ease;
+}
+
+.servizio-dettaglio-paper-stack:not(.servizio-dettaglio-paper-stack--switched)
+  .servizio-dettaglio-paper--back
+  > * {
+  opacity: 0;
+}
+
+.servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--back > * {
+  opacity: 1;
+}
+
+.servizio-dettaglio-paper--main > * {
+  transition: opacity 260ms ease;
+}
+
+.servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--main > * {
+  opacity: 0;
+}
+
+/* =========================================================
+   HINT — UNO SOLO PER VOLTA
+   ========================================================= */
+
+.servizio-dettaglio-paper--back .servizio-dettaglio-paper__hint {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.servizio-dettaglio-paper--main .servizio-dettaglio-paper__hint {
+  opacity: 0.72;
+  visibility: visible;
+}
+
+.servizio-dettaglio-paper-stack--switched
+  .servizio-dettaglio-paper--main
+  .servizio-dettaglio-paper__hint {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.servizio-dettaglio-paper-stack--switched
+  .servizio-dettaglio-paper--back
+  .servizio-dettaglio-paper__hint {
+  opacity: 0.72;
+  visibility: visible;
+}
+
+/* =========================================================
+   DESKTOP / MOBILE HINT
+   ========================================================= */
+
+.servizio-dettaglio-paper__hint--mobile {
+  display: none;
+}
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 680px) {
+  .servizio-dettaglio-paper-stack {
+    width: calc(100% - 2rem);
+    max-width: 350px;
+    min-height: 390px;
+
+    margin-inline: auto;
+  }
+
+  .servizio-dettaglio-paper--main {
+    width: 88%;
+    min-height: 350px;
+
+    padding: 1.5rem 1.5rem 3.8rem;
+  }
+
+  .servizio-dettaglio-paper--back {
+    width: 86%;
+    min-height: 340px;
+
+    padding: 1.5rem 1.5rem 3.8rem;
+
+    transform: translate3d(8px, -4px, 0) rotate(6deg) scale(0.95);
+  }
+
+  .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--main {
+    transform: translate3d(-18px, 18px, 0) rotate(-6deg) scale(0.92);
+
+    opacity: 0.36;
+  }
+
+  .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--back {
+    transform: translate3d(0, 8px, 40px) rotate(-1deg) scale(1);
+  }
+
+  .servizio-dettaglio-paper--main small,
+  .servizio-dettaglio-paper--back small {
+    margin-top: 1.25rem;
+  }
+
+  .servizio-dettaglio-paper--main h2,
+  .servizio-dettaglio-paper--back h2 {
+    margin-top: 0.42rem;
+  }
+
+  .servizio-dettaglio-paper--main p,
+  .servizio-dettaglio-paper--back p {
+    margin-top: 1rem;
+
+    line-height: 1.68;
+  }
+
+  .servizio-dettaglio-paper__checks {
+    margin-top: 1.45rem;
+
+    gap: 0.75rem;
+  }
+
+  .servizio-dettaglio-paper__checks li {
+    gap: 0.6rem;
+
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+
+  .servizio-dettaglio-paper__hint {
+    right: 1.2rem;
+    bottom: 0.75rem;
+
+    max-width: calc(100% - 2.4rem);
+
+    font-size: 0.55rem;
+  }
+
+  .servizio-dettaglio-paper__hint--desktop {
+    display: none;
+  }
+
+  .servizio-dettaglio-paper__hint--mobile {
+    display: block;
+  }
+}
+
+/* =========================================================
+   MOBILE PICCOLO
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .servizio-dettaglio-paper-stack {
+    width: calc(100% - 2.5rem);
+    max-width: 330px;
+  }
+
+  .servizio-dettaglio-paper--main,
+  .servizio-dettaglio-paper--back {
+    padding-left: 1.35rem;
+    padding-right: 1.35rem;
+  }
+
+  .servizio-dettaglio-paper--main h2,
+  .servizio-dettaglio-paper--back h2 {
+    font-size: clamp(1.5rem, 7vw, 1.9rem);
+  }
+
+  .servizio-dettaglio-paper--main p,
+  .servizio-dettaglio-paper--back p {
+    font-size: 0.8rem;
+  }
+
+  .servizio-dettaglio-paper__checks {
+    margin-top: 1.35rem;
+
+    gap: 0.72rem;
+  }
+
+  .servizio-dettaglio-paper__checks li {
+    font-size: 0.72rem;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITÀ
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .servizio-dettaglio-paper,
+  .servizio-dettaglio-paper > *,
+  .servizio-dettaglio-paper__hint {
+    transition: none;
+  }
+}

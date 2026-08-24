@@ -4,6 +4,7 @@ import {
   useState,
   type TouchEvent,
 } from "react";
+
 import {
   FiArrowRight,
   FiCheck,
@@ -13,6 +14,10 @@ import {
   FiShield,
   FiUsers,
 } from "react-icons/fi";
+
+import {
+  Link,
+} from "react-router-dom";
 
 import volantinoPuntoSemplice from "../../assets/home/volantini/punto-semplice.jpeg";
 import volantinoDipendenti from "../../assets/home/volantini/credipass-dipendenti.jpeg";
@@ -24,7 +29,6 @@ import ServicesSection from "../../components/home/ServicesSection/ServicesSecti
 import HowItWorksSection from "../../components/home/HowItWorksSection/HowItWorksSection";
 import CtaSection from "../../components/home/CtaSection/CtaSection";
 import ContactSection from "../../components/home/ContactSection/ContactSection";
-
 
 import "./HomePage.css";
 
@@ -69,23 +73,33 @@ const VOLANTINI: Volantino[] = [
 ];
 
 const HomePage = () => {
-  const [indiceAttivo, setIndiceAttivo] = useState(1);
-  const [caroselloInPausa, setCaroselloInPausa] =
-    useState(false);
+  const [indiceAttivo, setIndiceAttivo] =
+    useState(1);
 
-  const touchStartX = useRef<number | null>(null);
+  const [
+    caroselloInPausa,
+    setCaroselloInPausa,
+  ] = useState(false);
+
+  const touchStartX =
+    useRef<number | null>(null);
 
   const mostraSuccessivo = () => {
     setIndiceAttivo(
       (indiceCorrente) =>
-        (indiceCorrente + 1) % VOLANTINI.length,
+        (indiceCorrente + 1) %
+        VOLANTINI.length,
     );
   };
 
   const mostraPrecedente = () => {
     setIndiceAttivo(
       (indiceCorrente) =>
-        (indiceCorrente - 1 + VOLANTINI.length) %
+        (
+          indiceCorrente -
+          1 +
+          VOLANTINI.length
+        ) %
         VOLANTINI.length,
     );
   };
@@ -94,11 +108,16 @@ const HomePage = () => {
     indice: number,
   ): PosizioneVolantino => {
     const precedente =
-      (indiceAttivo - 1 + VOLANTINI.length) %
+      (
+        indiceAttivo -
+        1 +
+        VOLANTINI.length
+      ) %
       VOLANTINI.length;
 
     const successivo =
-      (indiceAttivo + 1) % VOLANTINI.length;
+      (indiceAttivo + 1) %
+      VOLANTINI.length;
 
     if (indice === indiceAttivo) {
       return "main";
@@ -119,7 +138,8 @@ const HomePage = () => {
     evento: TouchEvent<HTMLDivElement>,
   ) => {
     touchStartX.current =
-      evento.touches[0]?.clientX ?? null;
+      evento.touches[0]?.clientX ??
+      null;
   };
 
   const gestisciTouchEnd = (
@@ -130,13 +150,16 @@ const HomePage = () => {
     }
 
     const touchEndX =
-      evento.changedTouches[0]?.clientX;
+      evento.changedTouches[0]
+        ?.clientX;
 
     if (touchEndX === undefined) {
       return;
     }
 
-    const distanza = touchEndX - touchStartX.current;
+    const distanza =
+      touchEndX -
+      touchStartX.current;
 
     if (Math.abs(distanza) >= 50) {
       if (distanza < 0) {
@@ -154,18 +177,20 @@ const HomePage = () => {
       return;
     }
 
-    const intervallo = window.setInterval(
-      mostraSuccessivo,
-      5000,
-    );
+    const intervallo =
+      window.setInterval(
+        mostraSuccessivo,
+        5000,
+      );
 
     return () => {
-      window.clearInterval(intervallo);
+      window.clearInterval(
+        intervallo,
+      );
     };
   }, [caroselloInPausa]);
 
   return (
-    
     <main className="home-page">
       <section className="home-hero">
         <div className="home-hero__content">
@@ -175,65 +200,87 @@ const HomePage = () => {
 
           <h1 className="home-hero__title">
             Tutti i servizi
+
             <span className="home-hero__title-highlight">
               che ti servono,
             </span>
+
             in un{" "}
+
             <span className="home-hero__title-accent">
               unico punto.
             </span>
           </h1>
 
           <p className="home-hero__description">
-            Assistenza fiscale e sociale, servizi
-            digitali, pagamenti, mobilità e soluzioni
-            finanziarie. A Pianopoli, con un supporto
-            semplice, chiaro e vicino alle persone.
+            Assistenza fiscale e sociale,
+            servizi digitali, pagamenti,
+            mobilità e soluzioni finanziarie.
+            A Pianopoli, con un supporto
+            semplice, chiaro e vicino alle
+            persone.
           </p>
 
           <div className="home-hero__actions">
-            <a
-              href="#servizi"
+            <Link
+              to="/servizi#aree-servizi"
               className="home-hero__button home-hero__button--primary"
             >
               Scopri i servizi
-              <FiArrowRight aria-hidden="true" />
-            </a>
 
-            <a
-              href="#richiesta"
+              <FiArrowRight
+                aria-hidden="true"
+              />
+            </Link>
+
+            <Link
+              to="/contatti"
               className="home-hero__button home-hero__button--secondary"
             >
               Invia una richiesta
-              <FiSend aria-hidden="true" />
-            </a>
+
+              <FiSend
+                aria-hidden="true"
+              />
+            </Link>
           </div>
 
           <div className="home-hero__benefits">
             <div className="home-hero__benefit">
               <span className="home-hero__benefit-icon home-hero__benefit-icon--green">
-                <FiUsers aria-hidden="true" />
+                <FiUsers
+                  aria-hidden="true"
+                />
               </span>
 
               <span>
-                Persone vere, supporto costante
+                Persone vere, supporto
+                costante
               </span>
             </div>
 
             <div className="home-hero__benefit">
               <span className="home-hero__benefit-icon home-hero__benefit-icon--blue">
-                <FiShield aria-hidden="true" />
+                <FiShield
+                  aria-hidden="true"
+                />
               </span>
 
-              <span>Pratiche rapide e sicure</span>
+              <span>
+                Pratiche rapide e sicure
+              </span>
             </div>
 
             <div className="home-hero__benefit">
               <span className="home-hero__benefit-icon home-hero__benefit-icon--fuchsia">
-                <FiCheck aria-hidden="true" />
+                <FiCheck
+                  aria-hidden="true"
+                />
               </span>
 
-              <span>Assistenza anche da remoto</span>
+              <span>
+                Assistenza anche da remoto
+              </span>
             </div>
           </div>
         </div>
@@ -247,7 +294,9 @@ const HomePage = () => {
           onMouseLeave={() =>
             setCaroselloInPausa(false)
           }
-          onTouchStart={gestisciTouchStart}
+          onTouchStart={
+            gestisciTouchStart
+          }
           onTouchEnd={gestisciTouchEnd}
         >
           <div
@@ -256,72 +305,104 @@ const HomePage = () => {
           />
 
           <div className="home-flyers__stage">
-            {VOLANTINI.map((volantino, indice) => {
-              const posizione =
-                ottieniPosizione(indice);
+            {VOLANTINI.map(
+              (
+                volantino,
+                indice,
+              ) => {
+                const posizione =
+                  ottieniPosizione(
+                    indice,
+                  );
 
-              return (
-                <button
-                  key={volantino.id}
-                  type="button"
-                  className={`home-flyers__card home-flyers__card--${posizione}`}
-                  onClick={() => {
-                    if (posizione === "left") {
-                      mostraPrecedente();
+                return (
+                  <button
+                    key={volantino.id}
+                    type="button"
+                    className={`home-flyers__card home-flyers__card--${posizione}`}
+                    onClick={() => {
+                      if (
+                        posizione ===
+                        "left"
+                      ) {
+                        mostraPrecedente();
+                      }
+
+                      if (
+                        posizione ===
+                        "right"
+                      ) {
+                        mostraSuccessivo();
+                      }
+                    }}
+                    aria-label={
+                      posizione ===
+                      "main"
+                        ? `${volantino.titolo}, volantino attivo`
+                        : `Mostra ${volantino.titolo}`
                     }
-
-                    if (posizione === "right") {
-                      mostraSuccessivo();
+                    aria-hidden={
+                      posizione ===
+                      "hidden"
                     }
-                  }}
-                  aria-label={
-                    posizione === "main"
-                      ? `${volantino.titolo}, volantino attivo`
-                      : `Mostra ${volantino.titolo}`
-                  }
-                  aria-hidden={
-                    posizione === "hidden"
-                  }
-                  tabIndex={
-                    posizione === "hidden" ? -1 : 0
-                  }
-                >
-                  <img
-                    src={volantino.src}
-                    alt={volantino.alt}
-                    draggable="false"
-                  />
-
-                  <span className="home-flyers__card-overlay">
-                    <span>
-                      {volantino.titolo}
-                    </span>
-
-                    <FiArrowRight
-                      aria-hidden="true"
+                    tabIndex={
+                      posizione ===
+                      "hidden"
+                        ? -1
+                        : 0
+                    }
+                  >
+                    <img
+                      src={
+                        volantino.src
+                      }
+                      alt={
+                        volantino.alt
+                      }
+                      draggable="false"
                     />
-                  </span>
-                </button>
-              );
-            })}
+
+                    <span className="home-flyers__card-overlay">
+                      <span>
+                        {
+                          volantino.titolo
+                        }
+                      </span>
+
+                      <FiArrowRight
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </button>
+                );
+              },
+            )}
           </div>
 
           <button
             type="button"
             className="home-flyers__arrow home-flyers__arrow--left"
-            onClick={mostraPrecedente}
+            onClick={
+              mostraPrecedente
+            }
             aria-label="Mostra il volantino precedente"
           >
-            <FiChevronLeft aria-hidden="true" />
+            <FiChevronLeft
+              aria-hidden="true"
+            />
           </button>
 
           <button
             type="button"
             className="home-flyers__arrow home-flyers__arrow--right"
-            onClick={mostraSuccessivo}
+            onClick={
+              mostraSuccessivo
+            }
             aria-label="Mostra il volantino successivo"
           >
-            <FiChevronRight aria-hidden="true" />
+            <FiChevronRight
+              aria-hidden="true"
+            />
           </button>
         </div>
       </section>
@@ -331,7 +412,6 @@ const HomePage = () => {
       <HowItWorksSection />
       <CtaSection />
       <ContactSection />
-
     </main>
   );
 };

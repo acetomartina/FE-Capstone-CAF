@@ -96,7 +96,7 @@
   justify-content: center;
   gap: 0.5rem;
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: 8px;
   font-size: 0.76rem;
   font-weight: 800;
   text-decoration: none;
@@ -709,7 +709,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 999px;
+  border-radius: 8px;
   color: #ffffff;
   background: var(--servizi-green);
   font-size: 0.74rem;
@@ -801,15 +801,34 @@
 
 @media (max-width: 680px) {
   .servizi-page__container {
-    width: min(100% - 1.25rem, 1180px);
+    width: min(100% - 1.5rem, 1180px);
   }
 
   .servizi-page__hero {
-    padding-top: 4rem;
+    padding: 3.25rem 0 3.75rem;
+    overflow: hidden;
+  }
+
+  .servizi-page__hero-grid {
+    display: block;
+  }
+
+  .servizi-page__hero-content {
+    width: 100%;
+    max-width: none;
   }
 
   .servizi-page__hero h1 {
-    font-size: clamp(3.3rem, 17vw, 5rem);
+    max-width: 100%;
+    font-size: clamp(3rem, 14vw, 4.1rem);
+    line-height: 0.96;
+    letter-spacing: -0.052em;
+  }
+
+  .servizi-page__hero-content > p {
+    max-width: 100%;
+    font-size: 0.96rem;
+    line-height: 1.68;
   }
 
   .servizi-page__hero-actions {
@@ -821,8 +840,36 @@
   }
 
   .servizi-page__hero-note {
-    min-height: 330px;
-    padding: 1.5rem;
+    width: calc(100% - 0.75rem);
+    min-height: 300px;
+    margin: 2.5rem auto 0;
+    padding: 1.75rem 1.35rem;
+
+    transform: rotate(0.7deg);
+  }
+
+  .servizi-page__hero-note::before {
+    width: 100%;
+    height: 94%;
+    top: 3%;
+    left: 0;
+
+    transform: rotate(-3deg);
+  }
+
+  .servizi-page__hero-note h2 {
+    max-width: 280px;
+    font-size: 1.8rem;
+  }
+
+  .servizi-page__hero-note p {
+    max-width: 285px;
+    font-size: 0.78rem;
+    line-height: 1.62;
+  }
+
+  .servizi-page__hero-note-checks {
+    margin-top: 1.2rem;
   }
 
   .servizi-page__featured {
@@ -887,5 +934,20 @@
 
   .servizi-page__loader {
     animation-duration: 1.5s;
+  }
+}
+
+.servizi-page__areas-intro {
+  scroll-margin-top: 140px;
+}
+
+/* Il post-it usa lo stile condiviso InteractivePostIt.css */
+.servizi-page__hero-note {
+  justify-self: center;
+}
+
+@media (max-width: 680px) {
+  .servizi-page__hero-note {
+    margin-inline: auto;
   }
 }

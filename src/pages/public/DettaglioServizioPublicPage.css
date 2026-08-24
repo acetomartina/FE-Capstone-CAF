@@ -1946,3 +1946,87 @@
     padding: 0 1rem 1rem;
   }
 }
+
+/* =========================================================
+   MOBILE FIX — POST-IT DETTAGLIO
+   Mantiene lo stile desktop ma evita i bordi su telefono.
+   ========================================================= */
+
+@media (max-width: 680px) {
+  .servizio-dettaglio-paper-stack {
+    width: calc(100% - 1.5rem);
+    min-height: 365px;
+
+    margin-inline: auto;
+  }
+
+  .servizio-dettaglio-paper--main {
+    width: 82%;
+    min-height: 305px;
+
+    left: 2%;
+    bottom: 18px;
+
+    padding: 1.35rem;
+  }
+
+  .servizio-dettaglio-paper--back {
+    width: 80%;
+    min-height: 300px;
+
+    top: 18px;
+    right: 2%;
+
+    padding: 1.35rem;
+
+    transform: translate3d(8px, 0, 0) rotate(4deg) scale(0.95);
+  }
+
+  .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--main {
+    transform: translate3d(-12px, 12px, 0) rotate(-4deg) scale(0.93);
+
+    opacity: 0.4;
+  }
+
+  .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--back {
+    transform: translate3d(0, 8px, 40px) rotate(-1deg) scale(0.98);
+  }
+
+  .servizio-dettaglio-paper--back small,
+  .servizio-dettaglio-paper--main small {
+    margin-top: 1.15rem;
+    font-size: 0.6rem;
+  }
+
+  .servizio-dettaglio-paper--back h2,
+  .servizio-dettaglio-paper--main h2 {
+    font-size: clamp(1.55rem, 7vw, 1.95rem);
+  }
+
+  .servizio-dettaglio-paper--back p,
+  .servizio-dettaglio-paper--main p {
+    font-size: 0.78rem;
+  }
+
+  .servizio-dettaglio-paper__hint {
+    right: 1rem;
+    bottom: 0.9rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .servizio-dettaglio-paper-stack {
+    width: calc(100% - 2rem);
+    min-height: 350px;
+  }
+
+  .servizio-dettaglio-paper--main {
+    width: 80%;
+    left: 3%;
+  }
+
+  .servizio-dettaglio-paper--back {
+    width: 78%;
+    right: 3%;
+  }
+}

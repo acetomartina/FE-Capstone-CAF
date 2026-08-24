@@ -10,6 +10,10 @@ import {
   FiUser,
 } from "react-icons/fi";
 
+import {
+  Link,
+} from "react-router-dom";
+
 import "./CtaSection.css";
 
 const ATTIVITA = [
@@ -52,46 +56,64 @@ const CtaSection = () => {
               className="cta-section__title"
             >
               Hai bisogno di una pratica?
-              <span> Al resto pensiamo noi.</span>
+
+              <span>
+                {" "}
+                Al resto pensiamo noi.
+              </span>
             </h2>
 
             <p className="cta-section__description">
-              Raccontaci ciò di cui hai bisogno. Ti aiutiamo a
-              individuare il servizio più adatto e ti seguiamo
-              durante ogni passaggio.
+              Raccontaci ciò di cui hai
+              bisogno. Ti aiutiamo a
+              individuare il servizio più
+              adatto e ti seguiamo durante
+              ogni passaggio.
             </p>
 
             <div className="cta-section__actions">
-              <a
-                href="#contatti"
+              <Link
+                to="/contatti"
                 className="cta-section__button cta-section__button--primary"
               >
-                <FiCalendar aria-hidden="true" />
-                Prenota un appuntamento
-              </a>
+                <FiCalendar
+                  aria-hidden="true"
+                />
 
-              <a
-                href="/contatti"
+                Prenota un appuntamento
+              </Link>
+
+              <Link
+                to="/contatti"
                 className="cta-section__button cta-section__button--secondary"
               >
                 Invia una richiesta
-                <FiSend aria-hidden="true" />
-              </a>
+
+                <FiSend
+                  aria-hidden="true"
+                />
+              </Link>
             </div>
 
             <div className="cta-section__benefits">
               <span>
-                <FiCheck aria-hidden="true" />
+                <FiCheck
+                  aria-hidden="true"
+                />
                 Assistenza dedicata
               </span>
 
               <span>
-                <FiCheck aria-hidden="true" />
+                <FiCheck
+                  aria-hidden="true"
+                />
                 Anche da remoto
               </span>
 
               <span>
-                <FiCheck aria-hidden="true" />
+                <FiCheck
+                  aria-hidden="true"
+                />
                 Tempi chiari
               </span>
             </div>
@@ -110,24 +132,34 @@ const CtaSection = () => {
               <div className="cta-dashboard__topbar">
                 <div className="cta-dashboard__brand">
                   <span className="cta-dashboard__brand-icon">
-                    <FiShield aria-hidden="true" />
+                    <FiShield
+                      aria-hidden="true"
+                    />
                   </span>
 
                   <div>
-                    <strong>CAF FAPI</strong>
-                    <span>Area riservata</span>
+                    <strong>
+                      CAF FAPI
+                    </strong>
+                    <span>
+                      Area riservata
+                    </span>
                   </div>
                 </div>
 
                 <span className="cta-dashboard__profile">
-                  <FiUser aria-hidden="true" />
+                  <FiUser
+                    aria-hidden="true"
+                  />
                 </span>
               </div>
 
               <div className="cta-dashboard__welcome">
                 <div>
                   <span>Bentornata</span>
-                  <strong>La tua situazione</strong>
+                  <strong>
+                    La tua situazione
+                  </strong>
                 </div>
 
                 <span className="cta-dashboard__status">
@@ -138,42 +170,58 @@ const CtaSection = () => {
               <div className="cta-dashboard__summary">
                 <article>
                   <span className="cta-dashboard__summary-icon cta-dashboard__summary-icon--green">
-                    <FiFolder aria-hidden="true" />
+                    <FiFolder
+                      aria-hidden="true"
+                    />
                   </span>
 
                   <div>
                     <strong>3</strong>
-                    <span>Pratiche attive</span>
+                    <span>
+                      Pratiche attive
+                    </span>
                   </div>
                 </article>
 
                 <article>
                   <span className="cta-dashboard__summary-icon cta-dashboard__summary-icon--blue">
-                    <FiFileText aria-hidden="true" />
+                    <FiFileText
+                      aria-hidden="true"
+                    />
                   </span>
 
                   <div>
                     <strong>5</strong>
-                    <span>Documenti</span>
+                    <span>
+                      Documenti
+                    </span>
                   </div>
                 </article>
 
                 <article>
                   <span className="cta-dashboard__summary-icon cta-dashboard__summary-icon--fuchsia">
-                    <FiCalendar aria-hidden="true" />
+                    <FiCalendar
+                      aria-hidden="true"
+                    />
                   </span>
 
                   <div>
                     <strong>2</strong>
-                    <span>Appuntamenti</span>
+                    <span>
+                      Appuntamenti
+                    </span>
                   </div>
                 </article>
               </div>
 
               <div className="cta-dashboard__section-heading">
                 <div>
-                  <span>Attività recenti</span>
-                  <strong>Le tue pratiche</strong>
+                  <span>
+                    Attività recenti
+                  </span>
+                  <strong>
+                    Le tue pratiche
+                  </strong>
                 </div>
 
                 <button type="button">
@@ -182,42 +230,68 @@ const CtaSection = () => {
               </div>
 
               <div className="cta-dashboard__activities">
-                {ATTIVITA.map((attivita) => {
-                  const Icona = attivita.icona;
+                {ATTIVITA.map(
+                  (attivita) => {
+                    const Icona =
+                      attivita.icona;
 
-                  return (
-                    <article
-                      key={attivita.titolo}
-                      className="cta-dashboard__activity"
-                    >
-                      <span
-                        className={`cta-dashboard__activity-icon cta-dashboard__activity-icon--${attivita.variante}`}
+                    return (
+                      <article
+                        key={
+                          attivita.titolo
+                        }
+                        className="cta-dashboard__activity"
                       >
-                        <Icona aria-hidden="true" />
-                      </span>
+                        <span
+                          className={`cta-dashboard__activity-icon cta-dashboard__activity-icon--${attivita.variante}`}
+                        >
+                          <Icona
+                            aria-hidden="true"
+                          />
+                        </span>
 
-                      <div>
-                        <strong>{attivita.titolo}</strong>
-                        <span>{attivita.stato}</span>
-                      </div>
+                        <div>
+                          <strong>
+                            {
+                              attivita.titolo
+                            }
+                          </strong>
+                          <span>
+                            {
+                              attivita.stato
+                            }
+                          </span>
+                        </div>
 
-                      <FiArrowRight aria-hidden="true" />
-                    </article>
-                  );
-                })}
+                        <FiArrowRight
+                          aria-hidden="true"
+                        />
+                      </article>
+                    );
+                  },
+                )}
               </div>
 
               <div className="cta-dashboard__appointment">
                 <span className="cta-dashboard__appointment-icon">
-                  <FiClock aria-hidden="true" />
+                  <FiClock
+                    aria-hidden="true"
+                  />
                 </span>
 
                 <div>
-                  <span>Prossimo appuntamento</span>
-                  <strong>Venerdì, ore 10:30</strong>
+                  <span>
+                    Prossimo appuntamento
+                  </span>
+
+                  <strong>
+                    Venerdì, ore 10:30
+                  </strong>
                 </div>
 
-                <FiArrowRight aria-hidden="true" />
+                <FiArrowRight
+                  aria-hidden="true"
+                />
               </div>
             </div>
           </div>

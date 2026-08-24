@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import type {
   IconType,
@@ -11,10 +7,10 @@ import type {
 import {
   FiArrowRight,
   FiBriefcase,
-  FiCheck,
   FiCreditCard,
   FiFileText,
   FiGrid,
+  FiInfo,
   FiMonitor,
   FiPhone,
   FiTruck,
@@ -34,6 +30,8 @@ import type {
   MacroArea,
   ServizioCatalogo,
 } from "../../features/servizi/types/serviziTypes";
+
+import ServicePostIt from "../../components/common/ServicePostIt/ServicePostIt";
 
 import "./ServiziPage.css";
 
@@ -220,42 +218,38 @@ const ServiziPage = () => {
               </a>
 
               <Link
-                to="/#contatti"
+                to="/contatti"
                 className="servizi-page__hero-button servizi-page__hero-button--ghost"
               >
                 Chiedi alla sede
               </Link>
             </div>
           </div>
-
-          <div
-            className="servizi-page__hero-note"
-            aria-label="Come usare questa pagina"
-          >
-            <span className="servizi-page__hero-note-pin" />
-
-            <small>Non sai quale scegliere?</small>
-
-            <h2>Parti dall’esigenza.</h2>
-
-            <p>
-              Scegli l’area che assomiglia di più a quello
-              che devi fare. Dentro ogni servizio trovi una
-              spiegazione semplice e i documenti da preparare.
-            </p>
-
-            <div className="servizi-page__hero-note-checks">
-              <span>
-                <FiCheck />
-                Spiegazioni senza tecnicismi
-              </span>
-
-              <span>
-                <FiCheck />
-                Checklist dei documenti
-              </span>
-            </div>
-          </div>
+          <ServicePostIt
+            ariaLabelFront="Mostra come orientarti tra i servizi"
+            ariaLabelBack="Torna al primo foglio"
+            front={{
+              eyebrow: "Non sai quale scegliere?",
+              title: "Parti dall’esigenza.",
+              description:
+                "Scegli l’area che assomiglia di più a quello che devi fare.",
+              icon: FiInfo,
+              checks: [
+                "Spiegazioni senza tecnicismi",
+                "Assistenza della sede",
+              ],
+            }}
+            back={{
+              eyebrow: "Dentro ogni servizio",
+              title: "Sai subito cosa serve.",
+              description:
+                "Trovi una spiegazione semplice e i documenti da preparare prima di iniziare.",
+              checks: [
+                "Checklist dei documenti",
+                "Indicazioni chiare",
+              ],
+            }}
+          />
         </div>
       </section>
 
@@ -531,7 +525,7 @@ const ServiziPage = () => {
                   </p>
                 </div>
 
-                <Link to="/#contatti">
+                <Link to="/contatti">
                   Contattaci
                   <FiArrowRight />
                 </Link>

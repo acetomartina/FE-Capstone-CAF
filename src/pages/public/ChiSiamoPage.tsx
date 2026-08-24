@@ -1,6 +1,5 @@
 import {
   FiArrowRight,
-  FiCheck,
   FiHeart,
   FiMapPin,
   FiMessageCircle,
@@ -11,6 +10,8 @@ import {
 import {
   Link,
 } from "react-router-dom";
+
+import ServicePostIt from "../../components/common/ServicePostIt/ServicePostIt";
 
 import "./ChiSiamoPage.css";
 
@@ -45,43 +46,38 @@ const ChiSiamoPage = () => {
               </Link>
 
               <Link
-                to="/#contatti"
+                to="/contatti"
                 className="chi-siamo-button chi-siamo-button--ghost"
               >
                 Contattaci
               </Link>
             </div>
           </div>
-
-          <aside className="chi-siamo-note">
-            <span className="chi-siamo-note__pin" />
-
-            <small>Il nostro modo di lavorare</small>
-
-            <h2>Prima capiamo, poi procediamo.</h2>
-
-            <p>
-              Ogni pratica parte da una cosa semplice:
-              capire davvero di cosa hai bisogno.
-            </p>
-
-            <div className="chi-siamo-note__checks">
-              <span>
-                <FiCheck />
-                Linguaggio semplice
-              </span>
-
-              <span>
-                <FiCheck />
-                Indicazioni chiare
-              </span>
-
-              <span>
-                <FiCheck />
-                Assistenza della sede
-              </span>
-            </div>
-          </aside>
+          <ServicePostIt
+            ariaLabelFront="Mostra il nostro modo di lavorare"
+            ariaLabelBack="Torna al primo foglio"
+            front={{
+              eyebrow: "Il nostro modo di lavorare",
+              title: "Prima capiamo, poi procediamo.",
+              description:
+                "Ogni pratica parte da una cosa semplice: capire davvero di cosa hai bisogno.",
+              icon: FiMessageCircle,
+              checks: [
+                "Linguaggio semplice",
+                "Indicazioni chiare",
+              ],
+            }}
+            back={{
+              eyebrow: "Cosa significa per te",
+              title: "Meno dubbi, più chiarezza.",
+              description:
+                "Ti orientiamo passo dopo passo e restiamo un riferimento durante la pratica.",
+              checks: [
+                "Assistenza della sede",
+                "Supporto concreto",
+              ],
+            }}
+          />
         </div>
       </section>
 
@@ -295,7 +291,7 @@ const ChiSiamoPage = () => {
               </p>
             </div>
 
-            <Link to="/#contatti">
+            <Link to="/contatti">
               Contatta la sede
               <FiArrowRight />
             </Link>

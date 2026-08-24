@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import {
   FiArrowRight,
   FiClock,
@@ -7,9 +9,19 @@ import {
   FiPhone,
 } from "react-icons/fi";
 
+import ServicePostIt from "../../components/common/ServicePostIt/ServicePostIt";
+
 import "./ContattiPage.css";
 
 const ContattiPage = () => {
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, []);
   const mapsQuery =
     "Via Roma 69, Pianopoli CZ";
 
@@ -61,44 +73,32 @@ const ContattiPage = () => {
               </a>
             </div>
           </div>
-
-          <aside className="contatti-quick-card">
-            <span className="contatti-quick-card__pin" />
-
-            <small>Contatto rapido</small>
-
-            <h2>CAF FAPI Pianopoli</h2>
-
-            <div className="contatti-quick-card__items">
-              <a href="tel:+393779609155">
-                <FiPhone />
-                <span>
-                  <small>Telefono</small>
-                  <strong>377 960 9155</strong>
-                </span>
-              </a>
-
-              <a href="mailto:pianopolicaf@gmail.com">
-                <FiMail />
-                <span>
-                  <small>Email</small>
-                  <strong>pianopolicaf@gmail.com</strong>
-                </span>
-              </a>
-
-              <div>
-                <FiMapPin />
-                <span>
-                  <small>Sede</small>
-                  <strong>
-                    Via Roma 69
-                    <br />
-                    Pianopoli (CZ)
-                  </strong>
-                </span>
-              </div>
-            </div>
-          </aside>
+          <ServicePostIt
+            ariaLabelFront="Mostra sede e orari"
+            ariaLabelBack="Torna ai contatti rapidi"
+            front={{
+              eyebrow: "Contatto rapido",
+              title: "CAF FAPI Pianopoli",
+              description:
+                "Chiamaci o scrivici: ti aiutiamo a capire da dove iniziare.",
+              icon: FiPhone,
+              checks: [
+                "377 960 9155",
+                "pianopolicaf@gmail.com",
+              ],
+            }}
+            back={{
+              eyebrow: "Passa in sede",
+              title: "Ci trovi a Pianopoli.",
+              description:
+                "Via Roma 69, Pianopoli (CZ).",
+              icon: FiMapPin,
+              checks: [
+                "09:00 – 12:30",
+                "15:30 – 18:30",
+              ],
+            }}
+          />
         </div>
       </section>
 
@@ -247,9 +247,9 @@ const ContattiPage = () => {
               <h2>Lunedì – Venerdì</h2>
 
               <p className="contatti-hours__time">
-                09:00 – 13:00
+                09:00 – 12:30
                 <span>/</span>
-                15:00 – 18:00
+                15:30 – 18:30
               </p>
 
               <p>

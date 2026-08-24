@@ -147,7 +147,6 @@
 
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 
   transform: rotate(1.5deg);
@@ -165,8 +164,6 @@
     #eff7f1;
 
   box-shadow: 0 24px 58px rgba(16, 44, 101, 0.09);
-
-  text-align: center;
 }
 
 .contatti-quick-card::before {
@@ -207,41 +204,30 @@
 
 .contatti-quick-card > small {
   display: block;
-
-  margin: 0;
-
   color: #b91862;
 
   font-size: 0.58rem;
   font-weight: 850;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-
-  text-align: center;
 }
 
 .contatti-quick-card > h2 {
-  max-width: 290px;
-  margin: 0.45rem auto 0;
+  margin: 0.45rem 0 0;
 
   color: var(--contact-ink);
 
   font-size: clamp(1.65rem, 2.5vw, 2.2rem);
   line-height: 1.02;
   letter-spacing: -0.045em;
-
-  text-align: center;
 }
 
 .contatti-quick-card__items {
-  width: fit-content;
-  margin: 1.35rem auto 0;
+  margin-top: 1.35rem;
 
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-
-  text-align: left;
 }
 
 .contatti-quick-card__items > a,
@@ -700,5 +686,16 @@
 @media (prefers-reduced-motion: reduce) {
   .contatti-button {
     transition: none;
+  }
+}
+
+/* Il post-it usa lo stile condiviso InteractivePostIt.css */
+.contatti-quick-card {
+  justify-self: center;
+}
+
+@media (max-width: 680px) {
+  .contatti-quick-card {
+    margin-inline: auto;
   }
 }
