@@ -1,6 +1,7 @@
 import api from "../../../services/api";
 
 import type {
+  DocumentoServizio,
   MacroArea,
   ServizioCatalogo,
 } from "../types/serviziTypes";
@@ -43,6 +44,17 @@ export const serviziPublicService = {
     const risposta =
       await api.get<ServizioCatalogo>(
         `${BASE_PUBLIC}/servizi/${slug}`,
+      );
+
+    return risposta.data;
+  },
+
+  async trovaDocumentiPubbliciPerSlug(
+    slug: string,
+  ): Promise<DocumentoServizio[]> {
+    const risposta =
+      await api.get<DocumentoServizio[]>(
+        `${BASE_PUBLIC}/servizi/${slug}/documenti`,
       );
 
     return risposta.data;

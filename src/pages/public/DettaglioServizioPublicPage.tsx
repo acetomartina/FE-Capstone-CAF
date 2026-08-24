@@ -9,16 +9,14 @@ import {
   FiArrowRight,
   FiBriefcase,
   FiCalendar,
-  FiCheckCircle,
+  FiCheck,
+  FiChevronDown,
   FiClock,
   FiFileText,
   FiGlobe,
-  FiHelpCircle,
   FiInfo,
-  FiLayers,
+  FiMapPin,
   FiTag,
-  FiUser,
-  FiUsers,
 } from "react-icons/fi";
 
 import {
@@ -32,190 +30,178 @@ import {
 } from "../../features/servizi/api/serviziPublicService";
 
 import type {
+  DocumentoServizio,
   ServizioCatalogo,
+  TipoObbligatorietaDocumento,
 } from "../../features/servizi/types/serviziTypes";
 
 import "./DettaglioServizioPublicPage.css";
 
+const ottieniTema = (macroArea: string) => {
+  const valore = macroArea.toLowerCase();
+
+  if (valore.includes("energia")) return "orange";
+  if (valore.includes("telefon")) return "blue";
+  if (valore.includes("finanzi")) return "fuchsia";
+  if (valore.includes("mobil")) return "purple";
+  if (valore.includes("digital")) return "petrol";
+
+  return "green";
+};
+
 const formattaData = (
   valore: string | null,
-): string => {
-  if (!valore) {
-    return "Nessuna scadenza indicata";
-  }
+): string | null => {
+  if (!valore) return null;
 
-  return new Intl.DateTimeFormat(
-    "it-IT",
-    {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    },
-  ).format(
-    new Date(`${valore}T00:00:00`),
-  );
+  return new Intl.DateTimeFormat("it-IT", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(`${valore}T00:00:00`));
 };
 
 const DettaglioServizioPublicPage = () => {
-  const { slug } =
-    useParams<{ slug: string }>();
+  const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
 
-  const navigate =
-    useNavigate();
+  const [servizio, setServizio] =
+    useState<ServizioCatalogo | null>(null);
 
-  const [
-    servizio,
-    setServizio,
-  ] = useState<ServizioCatalogo | null>(
-    null,
-  );
+  const [documenti, setDocumenti] =
+    useState<DocumentoServizio[]>([]);
 
-  const [
-    caricamento,
-    setCaricamento,
-  ] = useState(true);
+  const [caricamento, setCaricamento] =
+    useState(true);
 
-  const [
-    errore,
-    setErrore,
-  ] = useState<string | null>(
-    null,
-  );
+  const [errore, setErrore] =
+    useState<string | null>(null);
+
+  const [postItAperto, setPostItAperto] =
+    useState<"cose" | "serve">("cose");
 
   useEffect(() => {
-    const caricaServizio =
-      async () => {
-        if (!slug) {
-          setErrore(
-            "Servizio non valido.",
-          );
+    const caricaServizio = async () => {
+      if (!slug) {
+        setErrore("Servizio non valido.");
+        setCaricamento(false);
+        return;
+      }
 
-          setCaricamento(false);
+      try {
+        setCaricamento(true);
+        setErrore(null);
 
-          return;
-        }
+        const [
+          risultatoServizio,
+          risultatoDocumenti,
+        ] = await Promise.all([
+          serviziPublicService
+            .trovaServizioPerSlug(slug),
 
-        try {
-          setCaricamento(true);
-          setErrore(null);
+          serviziPublicService
+            .trovaDocumentiPubbliciPerSlug(slug)
+            .catch(() => []),
+        ]);
 
-          const risultato =
-            await serviziPublicService
-              .trovaServizioPerSlug(
-                slug,
-              );
-
-          setServizio(
-            risultato,
-          );
-        } catch {
-          setErrore(
-            "Non è stato possibile caricare il servizio richiesto.",
-          );
-        } finally {
-          setCaricamento(
-            false,
-          );
-        }
-      };
+        setServizio(risultatoServizio);
+        setDocumenti(risultatoDocumenti);
+      } catch {
+        setErrore(
+          "Non è stato possibile caricare il servizio richiesto.",
+        );
+      } finally {
+        setCaricamento(false);
+      }
+    };
 
     void caricaServizio();
   }, [slug]);
 
-  const metadati =
-    useMemo(() => {
-      if (!servizio) {
-        return [];
-      }
+  const metadati = useMemo(() => {
+    if (!servizio) return [];
 
-      return [
-        servizio.durataMinuti
-          ? {
-              icona: FiClock,
-              etichetta: "Durata indicativa",
-              valore: `${servizio.durataMinuti} min`,
-            }
-          : null,
+    return [
+      servizio.durataMinuti
+        ? {
+            icona: FiClock,
+            etichetta: "Durata indicativa",
+            valore: `${servizio.durataMinuti} min`,
+          }
+        : null,
+      {
+        icona: FiCalendar,
+        etichetta: "Appuntamento",
+        valore: servizio.prenotabile
+          ? "Prenotabile"
+          : "Accesso diretto",
+      },
+      {
+        icona: servizio.richiedibileOnline
+          ? FiGlobe
+          : FiMapPin,
+        etichetta: "Modalità",
+        valore: servizio.richiedibileOnline
+          ? "Anche online"
+          : "Presso la sede",
+      },
+      servizio.prezzoTesto
+        ? {
+            icona: FiTag,
+            etichetta: "Costo",
+            valore: servizio.prezzoTesto,
+          }
+        : null,
+    ].filter(
+      (elemento): elemento is NonNullable<typeof elemento> =>
+        elemento !== null,
+    );
+  }, [servizio]);
 
-        {
-          icona: FiCalendar,
-          etichetta: "Prenotazione",
-          valore:
-            servizio.prenotabile
-              ? "Disponibile"
-              : "Non richiesta",
-        },
+  const documentiPerTipo = useMemo(() => {
+    const gruppi: Record<
+      TipoObbligatorietaDocumento,
+      DocumentoServizio[]
+    > = {
+      OBBLIGATORIO: [],
+      CONDIZIONALE: [],
+      FACOLTATIVO: [],
+    };
 
-        {
-          icona: FiGlobe,
-          etichetta: "Richiesta online",
-          valore:
-            servizio.richiedibileOnline
-              ? "Disponibile"
-              : "Solo in sede",
-        },
+    documenti.forEach((documento) => {
+      gruppi[documento.tipoObbligatorieta].push(documento);
+    });
 
-        servizio.prezzoTesto
-          ? {
-              icona: FiTag,
-              etichetta: "Costo",
-              valore:
-                servizio.prezzoTesto,
-            }
-          : null,
-      ].filter(
-        (
-          elemento,
-        ): elemento is {
-          icona: typeof FiClock;
-          etichetta: string;
-          valore: string;
-        } => elemento !== null,
-      );
-    }, [servizio]);
+    return gruppi;
+  }, [documenti]);
 
   if (caricamento) {
     return (
       <main className="servizio-dettaglio-page">
         <section className="servizio-dettaglio-state">
           <span className="servizio-dettaglio-loader" />
-
-          <p>
-            Caricamento servizio...
-          </p>
+          <p>Caricamento servizio...</p>
         </section>
       </main>
     );
   }
 
-  if (
-    errore ||
-    !servizio
-  ) {
+  if (errore || !servizio) {
     return (
       <main className="servizio-dettaglio-page">
         <section className="servizio-dettaglio-state">
           <FiBriefcase />
-
-          <h1>
-            Servizio non disponibile
-          </h1>
-
+          <span>Catalogo servizi</span>
+          <h1>Servizio non disponibile</h1>
           <p>
             {errore ??
               "Il servizio richiesto non è disponibile."}
           </p>
-
           <button
             type="button"
-            onClick={() =>
-              navigate(
-                "/servizi",
-              )
-            }
+            onClick={() => navigate("/servizi")}
           >
             <FiArrowLeft />
-
             Torna ai servizi
           </button>
         </section>
@@ -223,595 +209,462 @@ const DettaglioServizioPublicPage = () => {
     );
   }
 
+  const tema = ottieniTema(servizio.macroAreaNome);
+  const validita = formattaData(servizio.validoFinoAl);
   return (
-    <main className="servizio-dettaglio-page">
+    <main
+      className={`servizio-dettaglio-page servizio-dettaglio-page--${tema}`}
+    >
       <section className="servizio-dettaglio-hero">
         <div className="servizio-dettaglio-container">
           <nav
             className="servizio-dettaglio-breadcrumb"
             aria-label="Breadcrumb"
           >
-            <Link to="/">
-              Home
-            </Link>
-
+            <Link to="/">Home</Link>
             <span>/</span>
-
-            <Link to="/servizi">
-              Servizi
-            </Link>
-
+            <Link to="/servizi">Servizi</Link>
             <span>/</span>
-
-            <strong>
-              {
-                servizio.nome
-              }
-            </strong>
+            <strong>{servizio.nome}</strong>
           </nav>
 
-          <div className="servizio-dettaglio-hero__grid">
+          <div className="servizio-dettaglio-hero__panel">
             <div className="servizio-dettaglio-hero__content">
               <span className="servizio-dettaglio-eyebrow">
-                {
-                  servizio.macroAreaNome
-                }
+                {servizio.macroAreaNome}
               </span>
 
-              <h1>
-                {
-                  servizio.nome
-                }
-              </h1>
+              <h1>{servizio.nome}</h1>
 
               {servizio.descrizioneBreve && (
                 <p className="servizio-dettaglio-lead">
-                  {
-                    servizio.descrizioneBreve
-                  }
+                  {servizio.descrizioneBreve}
                 </p>
               )}
 
-              <div className="servizio-dettaglio-badges">
-                {servizio.inEvidenza && (
-                  <span className="servizio-dettaglio-badge servizio-dettaglio-badge--evidenza">
-                    <FiCheckCircle />
+              <div className="servizio-dettaglio-hero__actions">
+                <Link
+                  to="/#contatti"
+                  className="servizio-dettaglio-button servizio-dettaglio-button--primary"
+                >
+                  {servizio.richiedibileOnline
+                    ? "Avvia la richiesta"
+                    : "Contatta la sede"}
+                  <FiArrowRight />
+                </Link>
 
-                    In evidenza
-                  </span>
-                )}
-
-                {servizio.prenotabile && (
-                  <span className="servizio-dettaglio-badge">
-                    Prenotabile
-                  </span>
-                )}
-
-                {servizio.richiedibileOnline && (
-                  <span className="servizio-dettaglio-badge">
-                    Richiedibile online
-                  </span>
-                )}
-
-                {servizio.richiedeDocumenti && (
-                  <span className="servizio-dettaglio-badge">
-                    Documenti richiesti
-                  </span>
-                )}
+                <a
+                  href="#come-funziona"
+                  className="servizio-dettaglio-button servizio-dettaglio-button--ghost"
+                >
+                  Come funziona
+                </a>
               </div>
             </div>
 
-            <aside className="servizio-dettaglio-summary">
-              <span className="servizio-dettaglio-summary__icon">
-                <FiFileText />
-              </span>
-
-              <h2>
-                Informazioni rapide
-              </h2>
-
-              <div className="servizio-dettaglio-summary__items">
-                {metadati.map(
-                  ({
-                    icona:
-                      Icona,
-                    etichetta,
-                    valore,
-                  }) => (
-                    <div
-                      key={
-                        etichetta
-                      }
-                    >
-                      <Icona />
-
-                      <span>
-                        {
-                          etichetta
-                        }
-
-                        <strong>
-                          {
-                            valore
-                          }
-                        </strong>
-                      </span>
-                    </div>
-                  ),
-                )}
-              </div>
-
-              <Link
-                to="/#contatti"
-                className="servizio-dettaglio-summary__cta"
+            <div className="servizio-dettaglio-hero__visual">
+              <button
+                type="button"
+                className={`servizio-dettaglio-paper-stack ${
+                  postItAperto === "serve"
+                    ? "servizio-dettaglio-paper-stack--switched"
+                    : ""
+                }`}
+                aria-label={
+                  postItAperto === "cose"
+                    ? `Mostra a cosa serve ${servizio.nome}`
+                    : `Mostra cos'è ${servizio.nome}`
+                }
+                aria-pressed={postItAperto === "serve"}
+                onClick={() =>
+                  setPostItAperto((stato) =>
+                    stato === "cose" ? "serve" : "cose",
+                  )
+                }
+                onMouseEnter={() => setPostItAperto("serve")}
+                onMouseLeave={() => setPostItAperto("cose")}
               >
-                Richiedi informazioni
+                <article className="servizio-dettaglio-paper servizio-dettaglio-paper--back">
+                  <span className="servizio-dettaglio-paper__pin" />
 
-                <FiArrowRight />
-              </Link>
-            </aside>
+                  <small>A cosa serve</small>
+
+                  <h2>Perché può esserti utile</h2>
+
+                  <p>
+                    {servizio.aCosaServe ??
+                      "Ti aiuta a gestire questa esigenza con il supporto della sede CAF."}
+                  </p>
+
+                  <span className="servizio-dettaglio-paper__hint">
+                    Clicca per tornare
+                  </span>
+                </article>
+
+                <article className="servizio-dettaglio-paper servizio-dettaglio-paper--main">
+                  <span className="servizio-dettaglio-paper__pin" />
+
+                  <span className="servizio-dettaglio-paper__icon">
+                    <FiInfo />
+                  </span>
+
+                  <small>Cos&apos;è</small>
+
+                  <h2>{servizio.nome}</h2>
+
+                  <p>
+                    {servizio.cosE ??
+                      servizio.descrizioneBreve ??
+                      "Scopri in modo semplice cos'è questo servizio e quando può esserti utile."}
+                  </p>
+
+                  <div className="servizio-dettaglio-paper__checks">
+                    <span>
+                      <FiCheck /> Spiegato senza tecnicismi
+                    </span>
+
+                    <span>
+                      <FiCheck /> Assistenza della sede
+                    </span>
+                  </div>
+
+                  <span className="servizio-dettaglio-paper__hint servizio-dettaglio-paper__hint--main">
+                    Passa sopra o clicca
+                  </span>
+                </article>
+              </button>
+
+              <span className="servizio-dettaglio-hero__scribble" />
+            </div>
+          </div>
+
+          <div className="servizio-dettaglio-meta">
+            {metadati.map(
+              ({ icona: Icona, etichetta, valore }) => (
+                <div
+                  key={etichetta}
+                  className="servizio-dettaglio-meta__item"
+                >
+                  <Icona />
+                  <span>
+                    <small>{etichetta}</small>
+                    <strong>{valore}</strong>
+                  </span>
+                </div>
+              ),
+            )}
           </div>
         </div>
       </section>
 
       <section className="servizio-dettaglio-content">
-        <div className="servizio-dettaglio-container servizio-dettaglio-content__grid">
-          <div className="servizio-dettaglio-main">
-            {servizio.descrizione && (
-              <article className="servizio-dettaglio-block">
-                <div className="servizio-dettaglio-block__icon">
+        <div className="servizio-dettaglio-container">
+          <section className="servizio-dettaglio-quick-guide">
+            <header className="servizio-dettaglio-quick-guide__header">
+              <div className="servizio-dettaglio-section-heading">
+                <span className="servizio-dettaglio-section-icon">
                   <FiInfo />
-                </div>
-
-                <div>
-                  <span>
-                    Panoramica
-                  </span>
-
-                  <h2>
-                    Il servizio
-                  </h2>
-
-                  <p>
-                    {
-                      servizio.descrizione
-                    }
-                  </p>
-                </div>
-              </article>
-            )}
-
-            {servizio.destinatari && (
-              <article className="servizio-dettaglio-block">
-                <div className="servizio-dettaglio-block__icon servizio-dettaglio-block__icon--blue">
-                  <FiUsers />
-                </div>
-
-                <div>
-                  <span>
-                    Destinatari
-                  </span>
-
-                  <h2>
-                    A chi è rivolto
-                  </h2>
-
-                  <p>
-                    {
-                      servizio.destinatari
-                    }
-                  </p>
-                </div>
-              </article>
-            )}
-
-            {servizio.requisiti && (
-              <article className="servizio-dettaglio-block">
-                <div className="servizio-dettaglio-block__icon servizio-dettaglio-block__icon--orange">
-                  <FiCheckCircle />
-                </div>
-
-                <div>
-                  <span>
-                    Cosa serve
-                  </span>
-
-                  <h2>
-                    Requisiti
-                  </h2>
-
-                  <p>
-                    {
-                      servizio.requisiti
-                    }
-                  </p>
-                </div>
-              </article>
-            )}
-
-            {servizio.comeFunziona && (
-              <article className="servizio-dettaglio-block">
-                <div className="servizio-dettaglio-block__icon servizio-dettaglio-block__icon--purple">
-                  <FiBriefcase />
-                </div>
-
-                <div>
-                  <span>
-                    Procedura
-                  </span>
-
-                  <h2>
-                    Come funziona
-                  </h2>
-
-                  <p>
-                    {
-                      servizio.comeFunziona
-                    }
-                  </p>
-                </div>
-              </article>
-            )}
-
-            <section className="servizio-dettaglio-feature-grid">
-              <article className="servizio-dettaglio-feature-card">
-                <span className="servizio-dettaglio-feature-card__icon">
-                  <FiLayers />
                 </span>
-
-                <small>
-                  Gestione
-                </small>
-
-                <h2>
-                  Come viene gestito
-                </h2>
-
-                <ul>
-                  <li>
-                    <FiCheckCircle />
-
-                    {servizio.generaPratica
-                      ? "Il servizio genera una pratica dedicata."
-                      : "Il servizio non richiede l'apertura di una pratica."}
-                  </li>
-
-                  <li>
-                    <FiCheckCircle />
-
-                    {servizio.richiedeDocumenti
-                      ? "È prevista la raccolta di documentazione."
-                      : "Non è prevista documentazione obbligatoria."}
-                  </li>
-
-                  <li>
-                    <FiCheckCircle />
-
-                    Servizio attualmente attivo.
-                  </li>
-                </ul>
-              </article>
-
-              <article className="servizio-dettaglio-feature-card">
-                <span className="servizio-dettaglio-feature-card__icon servizio-dettaglio-feature-card__icon--blue">
-                  <FiGlobe />
-                </span>
-
-                <small>
-                  Modalità
-                </small>
-
-                <h2>
-                  Dove puoi richiederlo
-                </h2>
-
-                <ul>
-                  <li>
-                    <FiCheckCircle />
-
-                    Assistenza disponibile presso la sede.
-                  </li>
-
-                  <li>
-                    <FiCheckCircle />
-
-                    {servizio.prenotabile
-                      ? "Puoi prenotare un appuntamento."
-                      : "Non è necessaria una prenotazione."}
-                  </li>
-
-                  <li>
-                    <FiCheckCircle />
-
-                    {servizio.richiedibileOnline
-                      ? "Puoi avviare la richiesta anche online."
-                      : "La richiesta viene gestita in sede."}
-                  </li>
-                </ul>
-              </article>
-            </section>
-
-            {servizio.richiedeDocumenti && (
-              <article className="servizio-dettaglio-preparazione">
-                <div className="servizio-dettaglio-preparazione__icon">
-                  <FiFileText />
-                </div>
-
-                <div>
-                  <span>
-                    Prima di iniziare
-                  </span>
-
-                  <h2>
-                    Prepara la documentazione
-                  </h2>
-
-                  <p>
-                    Per questo servizio è prevista
-                    la raccolta di documenti.
-                    Preparare in anticipo la
-                    documentazione necessaria
-                    permette di velocizzare la
-                    lavorazione della pratica.
-                  </p>
-
-                  <p>
-                    La sede ti indicherà quali
-                    documenti servono in base alla
-                    tua situazione specifica.
-                  </p>
-                </div>
-              </article>
-            )}
-
-            {servizio.partnerId !==
-              null && (
-              <article className="servizio-dettaglio-partner">
-                <span className="servizio-dettaglio-partner__icon">
-                  <FiUser />
-                </span>
-
-                <div>
-                  <span>
-                    Partner convenzionato
-                  </span>
-
-                  <h2>
-                    Servizio in collaborazione
-                  </h2>
-
-                  <p>
-                    Questo servizio viene erogato
-                    con il supporto di un partner
-                    convenzionato con la sede CAF
-                    FAPI Pianopoli.
-                  </p>
-
-                  <small>
-                    Nome, logo e informazioni del
-                    partner verranno mostrati qui
-                    quando completeremo
-                    l'anagrafica partner.
-                  </small>
-                </div>
-              </article>
-            )}
-
-            {servizio.notaPrezzo && (
-              <article className="servizio-dettaglio-block">
-                <div className="servizio-dettaglio-block__icon servizio-dettaglio-block__icon--fuchsia">
-                  <FiTag />
-                </div>
-
-                <div>
-                  <span>
-                    Costi
-                  </span>
-
-                  <h2>
-                    Informazioni sul prezzo
-                  </h2>
-
-                  <p>
-                    {
-                      servizio.notaPrezzo
-                    }
-                  </p>
-                </div>
-              </article>
-            )}
-
-            <section className="servizio-dettaglio-faq">
-              <header className="servizio-dettaglio-faq__header">
-                <span className="servizio-dettaglio-faq__icon">
-                  <FiHelpCircle />
-                </span>
-
-                <div>
-                  <small>
-                    Domande frequenti
-                  </small>
-
-                  <h2>
-                    Cosa sapere prima di richiederlo
-                  </h2>
-                </div>
-              </header>
-
-              <div className="servizio-dettaglio-faq__items">
-                <article>
-                  <h3>
-                    Posso richiedere il servizio online?
-                  </h3>
-
-                  <p>
-                    {servizio.richiedibileOnline
-                      ? "Sì. Questo servizio può essere avviato anche online. La sede potrà comunque contattarti se saranno necessari ulteriori dati o documenti."
-                      : "Al momento questo servizio viene gestito direttamente dalla sede. Puoi contattarci per conoscere modalità e disponibilità."}
-                  </p>
-                </article>
-
-                <article>
-                  <h3>
-                    È possibile prenotare?
-                  </h3>
-
-                  <p>
-                    {servizio.prenotabile
-                      ? "Sì. Puoi contattare la sede per concordare un appuntamento ed evitare attese."
-                      : "Per questo servizio non è prevista una prenotazione obbligatoria. Contatta comunque la sede se vuoi verificare la disponibilità."}
-                  </p>
-                </article>
-
-                <article>
-                  <h3>
-                    Devo portare dei documenti?
-                  </h3>
-
-                  <p>
-                    {servizio.richiedeDocumenti
-                      ? "Sì. La documentazione richiesta può variare in base alla tua situazione. La sede ti indicherà l'elenco corretto prima dell'avvio della pratica."
-                      : "Non risultano documenti obbligatori associati al servizio. La sede potrà comunque richiedere informazioni aggiuntive se necessario."}
-                  </p>
-                </article>
+                <span>In breve</span>
               </div>
-            </section>
 
-            <section className="servizio-dettaglio-final-cta">
               <div>
-                <small>
-                  Vuoi procedere?
-                </small>
-
-                <h2>
-                  Siamo qui per aiutarti.
-                </h2>
-
+                <h2>Capirlo in un minuto.</h2>
                 <p>
-                  Contatta CAF FAPI Pianopoli per
-                  verificare disponibilità,
-                  documentazione necessaria e
-                  modalità di richiesta del
-                  servizio.
+                  Le informazioni essenziali, spiegate senza
+                  tecnicismi.
                 </p>
               </div>
+            </header>
 
-              <Link to="/#contatti">
-                Contatta la sede
+            <div className="servizio-dettaglio-quick-guide__items">
+              <article>
+                <span className="servizio-dettaglio-quick-guide__number">
+                  01
+                </span>
+                <small>Cos’è</small>
+                <h3>{servizio.nome}</h3>
+                <p>
+                  {servizio.cosE ??
+                    servizio.descrizioneBreve ??
+                    "Un servizio gestito dalla sede CAF FAPI di Pianopoli con assistenza dedicata."}
+                </p>
+              </article>
 
-                <FiArrowRight />
-              </Link>
-            </section>
-          </div>
+              <article>
+                <span className="servizio-dettaglio-quick-guide__number">
+                  02
+                </span>
+                <small>A cosa serve</small>
+                <h3>Perché può esserti utile</h3>
+                <p>
+                  {servizio.aCosaServe ??
+                    servizio.descrizione ??
+                    "Ti permette di gestire la richiesta con il supporto della sede, evitando dubbi e passaggi poco chiari."}
+                </p>
+              </article>
 
-          <aside className="servizio-dettaglio-sidebar">
-            <section className="servizio-dettaglio-cta">
-              <span>
-                Hai bisogno di questo
-                servizio?
-              </span>
+              <article>
+                <span className="servizio-dettaglio-quick-guide__number">
+                  03
+                </span>
+                <small>A chi è rivolto</small>
+                <h3>È pensato per te se...</h3>
+                <p>
+                  {servizio.destinatari?.trim()
+                    ? servizio.destinatari 
+                    : "Verifica con la sede se questo servizio è adatto alla tua situazione."}
+                </p>
+              </article>
+            </div>
 
-              <h2>
-                Parliamone.
-              </h2>
+            {servizio.requisiti && (
+              <div className="servizio-dettaglio-quick-guide__note">
+                <FiCheck />
+                <span>
+                  <small>Da sapere prima di iniziare</small>
+                  <strong>{servizio.requisiti}</strong>
+                </span>
+              </div>
+            )}
+          </section>
 
-              <p>
-                Contatta CAF FAPI Pianopoli
-                per informazioni,
-                disponibilità e
-                documentazione necessaria.
-              </p>
+          <section
+            id="come-funziona"
+            className="servizio-dettaglio-process"
+          >
+            <header className="servizio-dettaglio-process__header">
+              <div>
+                <span>Un percorso semplice</span>
+                <h2>Come funziona</h2>
+              </div>
 
-              <Link to="/#contatti">
-                Contattaci
+              {servizio.comeFunziona && (
+                <p>{servizio.comeFunziona}</p>
+              )}
+            </header>
 
-                <FiArrowRight />
-              </Link>
-            </section>
+            <div className="servizio-dettaglio-steps">
+              <article>
+                <span>01</span>
+                <h3>Parlaci della tua esigenza</h3>
+                <p>
+                  Contatta la sede o avvia la richiesta online.
+                </p>
+              </article>
 
-            <section className="servizio-dettaglio-side-card">
-              <h3>
-                Riepilogo
-              </h3>
+              <article>
+                <span>02</span>
+                <h3>Prepara ciò che serve</h3>
+                <p>
+                  Ti indicheremo dati e documenti necessari.
+                </p>
+              </article>
 
-              <dl>
-                <div>
-                  <dt>
-                    Categoria
-                  </dt>
+              <article>
+                <span>03</span>
+                <h3>Segui la lavorazione</h3>
+                <p>
+                  {servizio.generaPratica
+                    ? "La richiesta diventa una pratica tracciabile."
+                    : "La sede completa il servizio insieme a te."}
+                </p>
+              </article>
+            </div>
+          </section>
 
-                  <dd>
-                    {
-                      servizio.macroAreaNome
-                    }
-                  </dd>
-                </div>
+          {servizio.richiedeDocumenti && (
+            <section
+              id="documenti"
+              className="servizio-dettaglio-documents"
+            >
+              <header className="servizio-dettaglio-documents__header">
+                <div className="servizio-dettaglio-documents__intro">
+                  <span className="servizio-dettaglio-documents__icon">
+                    <FiFileText />
+                  </span>
 
-                <div>
-                  <dt>
-                    Prenotabile
-                  </dt>
-
-                  <dd>
-                    {servizio.prenotabile
-                      ? "Sì"
-                      : "No"}
-                  </dd>
-                </div>
-
-                <div>
-                  <dt>
-                    Online
-                  </dt>
-
-                  <dd>
-                    {servizio.richiedibileOnline
-                      ? "Sì"
-                      : "No"}
-                  </dd>
-                </div>
-
-                <div>
-                  <dt>
-                    Documenti
-                  </dt>
-
-                  <dd>
-                    {servizio.richiedeDocumenti
-                      ? "Richiesti"
-                      : "Non richiesti"}
-                  </dd>
-                </div>
-
-                {servizio.durataMinuti && (
                   <div>
-                    <dt>
-                      Durata
-                    </dt>
+                    <span className="servizio-dettaglio-documents__eyebrow">
+                      Documentazione
+                    </span>
 
-                    <dd>
-                      {
-                        servizio.durataMinuti
-                      }{" "}
-                      min
-                    </dd>
+                    <h2>Cosa portare con te.</h2>
+
+                    <p>
+                      Qui trovi la checklist iniziale del servizio.
+                      I documenti condizionali servono solo quando
+                      la tua situazione li rende necessari.
+                    </p>
+                  </div>
+                </div>
+
+                {documenti.length > 0 && (
+                  <div className="servizio-dettaglio-documents__total">
+                    <strong>{documenti.length}</strong>
+                    <span>
+                      {documenti.length === 1
+                        ? "documento"
+                        : "documenti"}
+                    </span>
                   </div>
                 )}
+              </header>
 
-                <div>
-                  <dt>
-                    Validità
-                  </dt>
+              {documenti.length > 0 ? (
+                <div className="servizio-dettaglio-document-groups">
+                  {(
+                    [
+                      {
+                        tipo: "OBBLIGATORIO",
+                        titolo: "Da portare",
+                        descrizione:
+                          "Sono i documenti normalmente necessari per avviare la pratica.",
+                      },
+                      {
+                        tipo: "CONDIZIONALE",
+                        titolo: "Solo se riguarda il tuo caso",
+                        descrizione:
+                          "Servono soltanto in presenza della situazione indicata.",
+                      },
+                      {
+                        tipo: "FACOLTATIVO",
+                        titolo: "Utili, ma non sempre necessari",
+                        descrizione:
+                          "Possono aiutare la lavorazione, ma non sono richiesti in ogni caso.",
+                      },
+                    ] as const
+                  ).map(({ tipo, titolo, descrizione }) => {
+                    const elenco = documentiPerTipo[tipo];
 
-                  <dd>
-                    {formattaData(
-                      servizio.validoFinoAl,
-                    )}
-                  </dd>
+                    if (elenco.length === 0) {
+                      return null;
+                    }
+
+                    return (
+                      <details
+                        key={tipo}
+                        className={`servizio-dettaglio-document-group servizio-dettaglio-document-group--${tipo.toLowerCase()}`}
+                        open={tipo === "OBBLIGATORIO"}
+                      >
+                        <summary>
+                          <div className="servizio-dettaglio-document-group__summary-copy">
+                            <span
+                              className={`servizio-dettaglio-document-badge servizio-dettaglio-document-badge--${tipo.toLowerCase()}`}
+                            >
+                              {tipo === "OBBLIGATORIO"
+                                ? "Obbligatori"
+                                : tipo === "CONDIZIONALE"
+                                  ? "Condizionali"
+                                  : "Facoltativi"}
+                            </span>
+
+                            <div>
+                              <h3>{titolo}</h3>
+                              <p>{descrizione}</p>
+                            </div>
+                          </div>
+
+                          <div className="servizio-dettaglio-document-group__summary-meta">
+                            <span>{elenco.length}</span>
+                            <FiChevronDown />
+                          </div>
+                        </summary>
+
+                        <div className="servizio-dettaglio-document-list">
+                          {elenco.map((documento) => (
+                            <article
+                              key={documento.id}
+                              className="servizio-dettaglio-document-item"
+                            >
+                              <span className="servizio-dettaglio-document-item__check">
+                                <FiCheck />
+                              </span>
+
+                              <div className="servizio-dettaglio-document-item__content">
+                                <h4>{documento.etichetta}</h4>
+
+                                {documento.suggerimento && (
+                                  <p>{documento.suggerimento}</p>
+                                )}
+                              </div>
+                            </article>
+                          ))}
+                        </div>
+                      </details>
+                    );
+                  })}
                 </div>
-              </dl>
+              ) : (
+                <div className="servizio-dettaglio-documents__empty">
+                  <FiInfo />
+
+                  <div>
+                    <strong>
+                      La checklist verrà definita con la sede.
+                    </strong>
+
+                    <p>
+                      Per questo servizio sono previsti documenti,
+                      ma al momento non ci sono elementi pubblici
+                      configurati.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              <div className="servizio-dettaglio-documents__note">
+                <FiInfo />
+                <p>
+                  L&apos;elenco è indicativo: in base alla tua situazione
+                  la sede può richiedere documentazione aggiuntiva o
+                  confermare che alcune voci non sono necessarie.
+                </p>
+              </div>
             </section>
-          </aside>
+          )}
+
+          {(servizio.notaPrezzo || validita) && (
+            <section className="servizio-dettaglio-notes">
+              {servizio.notaPrezzo && (
+                <div>
+                  <FiTag />
+                  <span>
+                    <small>Informazioni sul costo</small>
+                    <strong>{servizio.notaPrezzo}</strong>
+                  </span>
+                </div>
+              )}
+
+              {validita && (
+                <div>
+                  <FiCalendar />
+                  <span>
+                    <small>Valido fino al</small>
+                    <strong>{validita}</strong>
+                  </span>
+                </div>
+              )}
+            </section>
+          )}
+
+          <section className="servizio-dettaglio-final-cta">
+            <div>
+              <span>Vuoi procedere?</span>
+              <h2>Iniziamo da qui.</h2>
+              <p>
+                Raccontaci di cosa hai bisogno: ti guideremo
+                nella richiesta, senza passaggi complicati.
+              </p>
+            </div>
+
+            <Link to="/#contatti">
+              {servizio.prenotabile
+                ? "Prenota un appuntamento"
+                : "Contatta la sede"}
+              <FiArrowRight />
+            </Link>
+          </section>
         </div>
       </section>
     </main>
