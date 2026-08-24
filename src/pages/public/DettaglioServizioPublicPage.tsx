@@ -81,6 +81,14 @@ const DettaglioServizioPublicPage = () => {
     useState<"cose" | "serve">("cose");
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, [slug]);
+
+  useEffect(() => {
     const caricaServizio = async () => {
       if (!slug) {
         setErrore("Servizio non valido.");
@@ -411,9 +419,8 @@ const DettaglioServizioPublicPage = () => {
                 <small>A chi è rivolto</small>
                 <h3>È pensato per te se...</h3>
                 <p>
-                  {servizio.destinatari?.trim()
-                    ? servizio.destinatari 
-                    : "Verifica con la sede se questo servizio è adatto alla tua situazione."}
+                  {servizio.destinatari ??
+                    "Hai bisogno di assistenza per capire requisiti, documenti e modalità della richiesta."}
                 </p>
               </article>
             </div>

@@ -37,30 +37,23 @@ import type {
 
 import "./ServiziPage.css";
 
-const ICONE_MACROAREA: Record<
-  string,
-  IconType
-> = {
-  "caf-fiscale": FiFileText,
-  "energia-gas": FiZap,
-  telefonia: FiPhone,
+const ICONE_MACROAREA: Record<string, IconType> = {
+  "caf-e-fiscale": FiFileText,
+  "energia-e-gas": FiZap,
+  "telefonia-e-internet": FiPhone,
   finanziamenti: FiCreditCard,
-  mobilita: FiTruck,
+  "mobilita-e-logistica": FiTruck,
   "servizi-digitali": FiMonitor,
 };
 
 const trovaIcona = (
   slug: string,
 ): IconType => {
-  return (
-    ICONE_MACROAREA[slug] ??
-    FiGrid
-  );
+  return ICONE_MACROAREA[slug] ?? FiGrid;
 };
 
 const ServiziPage = () => {
-  const location =
-    useLocation();
+  const location = useLocation();
 
   const [
     macroAree,
@@ -80,63 +73,49 @@ const ServiziPage = () => {
   const [
     errore,
     setErrore,
-  ] = useState<string | null>(
-    null,
-  );
+  ] = useState<string | null>(null);
 
   useEffect(() => {
-    const caricaCatalogo =
-      async () => {
-        try {
-          setCaricamento(true);
-          setErrore(null);
+    const caricaCatalogo = async () => {
+      try {
+        setCaricamento(true);
+        setErrore(null);
 
-          const [
-            elencoMacroAree,
-            elencoServizi,
-          ] = await Promise.all([
-            serviziPublicService
-              .trovaMacroAree(),
+        const [
+          elencoMacroAree,
+          elencoServizi,
+        ] = await Promise.all([
+          serviziPublicService.trovaMacroAree(),
+          serviziPublicService.trovaServizi(),
+        ]);
 
-            serviziPublicService
-              .trovaServizi(),
-          ]);
+        setMacroAree(
+          [...elencoMacroAree].sort(
+            (a, b) =>
+              a.ordineVisualizzazione -
+              b.ordineVisualizzazione,
+          ),
+        );
 
-          setMacroAree(
-            [...elencoMacroAree].sort(
-              (a, b) =>
-                a.ordineVisualizzazione -
-                b.ordineVisualizzazione,
-            ),
-          );
-
-          setServizi(
-            [...elencoServizi].sort(
-              (a, b) =>
-                a.ordineVisualizzazione -
-                b.ordineVisualizzazione,
-            ),
-          );
-        } catch {
-          setErrore(
-            "Non è stato possibile caricare i servizi disponibili.",
-          );
-        } finally {
-          setCaricamento(
-            false,
-          );
-        }
-      };
+        setServizi(
+          [...elencoServizi].sort(
+            (a, b) =>
+              a.ordineVisualizzazione -
+              b.ordineVisualizzazione,
+          ),
+        );
+      } catch {
+        setErrore(
+          "Non è stato possibile caricare i servizi disponibili.",
+        );
+      } finally {
+        setCaricamento(false);
+      }
+    };
 
     void caricaCatalogo();
   }, []);
 
-  /*
-   * Gli elementi con gli id delle macroaree
-   * vengono creati soltanto dopo il caricamento
-   * API. Per questo gestiamo lo scroll all'hash
-   * dopo che i dati sono disponibili.
-   */
   useEffect(() => {
     if (
       caricamento ||
@@ -146,31 +125,25 @@ const ServiziPage = () => {
       return;
     }
 
-    const id =
-      decodeURIComponent(
-        location.hash.substring(1),
-      );
+    const id = decodeURIComponent(
+      location.hash.substring(1),
+    );
 
-    const timer =
-      window.setTimeout(
-        () => {
-          const elemento =
-            document.getElementById(
-              id,
-            );
+    const timer = window.setTimeout(
+      () => {
+        const elemento =
+          document.getElementById(id);
 
-          elemento?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        },
-        100,
-      );
+        elemento?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      },
+      100,
+    );
 
     return () =>
-      window.clearTimeout(
-        timer,
-      );
+      window.clearTimeout(timer);
   }, [
     caricamento,
     location.hash,
@@ -204,54 +177,176 @@ const ServiziPage = () => {
       servizi,
     ]);
 
+  const serviziInEvidenza =
+    useMemo(
+      () =>
+        servizi
+          .filter(
+            (servizio) =>
+              servizio.inEvidenza,
+          )
+          .slice(0, 3),
+      [servizi],
+    );
+
   return (
     <main className="servizi-page">
       <section className="servizi-page__hero">
-        <div className="servizi-page__hero-content">
-          <span className="servizi-page__eyebrow">
-            I nostri servizi
-          </span>
-
-          <h1>
-            Tutto ciò che ti serve,
-            <span>
-              {" "}
-              in un unico posto.
+        <div className="servizi-page__container servizi-page__hero-grid">
+          <div className="servizi-page__hero-content">
+            <span className="servizi-page__eyebrow">
+              CAF FAPI Pianopoli
             </span>
-          </h1>
 
-          <p>
-            Scopri i servizi disponibili
-            presso CAF FAPI Pianopoli.
-            Dall'assistenza fiscale alle
-            utenze, dai finanziamenti ai
-            servizi digitali.
-          </p>
+            <h1>
+              Non devi sapere
+              <span> da dove iniziare.</span>
+            </h1>
+
+            <p>
+              Raccontaci cosa devi fare. Qui puoi orientarti
+              tra pratiche fiscali, previdenza, utenze,
+              finanziamenti e servizi digitali senza perderti
+              tra sigle e procedure.
+            </p>
+
+            <div className="servizi-page__hero-actions">
+              <a
+                href="#aree-servizi"
+                className="servizi-page__hero-button servizi-page__hero-button--primary"
+              >
+                Trova il servizio
+                <FiArrowRight aria-hidden="true" />
+              </a>
+
+              <Link
+                to="/#contatti"
+                className="servizi-page__hero-button servizi-page__hero-button--ghost"
+              >
+                Chiedi alla sede
+              </Link>
+            </div>
+          </div>
+
+          <div
+            className="servizi-page__hero-note"
+            aria-label="Come usare questa pagina"
+          >
+            <span className="servizi-page__hero-note-pin" />
+
+            <small>Non sai quale scegliere?</small>
+
+            <h2>Parti dall’esigenza.</h2>
+
+            <p>
+              Scegli l’area che assomiglia di più a quello
+              che devi fare. Dentro ogni servizio trovi una
+              spiegazione semplice e i documenti da preparare.
+            </p>
+
+            <div className="servizi-page__hero-note-checks">
+              <span>
+                <FiCheck />
+                Spiegazioni senza tecnicismi
+              </span>
+
+              <span>
+                <FiCheck />
+                Checklist dei documenti
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
       {caricamento ? (
         <section className="servizi-page__state">
           <span className="servizi-page__loader" />
-
-          <p>
-            Caricamento servizi...
-          </p>
+          <p>Caricamento servizi...</p>
         </section>
       ) : errore ? (
         <section className="servizi-page__state">
           <FiBriefcase />
-
-          <h2>
-            Qualcosa non ha funzionato
-          </h2>
-
-          <p>
-            {errore}
-          </p>
+          <h2>Qualcosa non ha funzionato</h2>
+          <p>{errore}</p>
         </section>
       ) : (
         <>
+          {serviziInEvidenza.length > 0 && (
+            <section className="servizi-page__featured">
+              <div className="servizi-page__container">
+                <div className="servizi-page__featured-heading">
+                  <span>Più richiesti</span>
+                  <p>
+                    Alcuni dei servizi che gestiamo più spesso
+                    in sede.
+                  </p>
+                </div>
+
+                <div className="servizi-page__featured-grid">
+                  {serviziInEvidenza.map(
+                    (
+                      servizio,
+                      indice,
+                    ) => (
+                      <Link
+                        key={servizio.id}
+                        to={`/servizi/${servizio.slug}`}
+                        className={`servizi-page__featured-card servizi-page__featured-card--${indice + 1}`}
+                      >
+                        <span className="servizi-page__featured-number">
+                          {String(
+                            indice + 1,
+                          ).padStart(
+                            2,
+                            "0",
+                          )}
+                        </span>
+
+                        <small>
+                          {servizio.macroAreaNome}
+                        </small>
+
+                        <h2>{servizio.nome}</h2>
+
+                        <p>
+                          {servizio.descrizioneBreve ??
+                            "Scopri come funziona il servizio e cosa preparare."}
+                        </p>
+
+                        <span className="servizi-page__featured-link">
+                          Scopri il servizio
+                          <FiArrowRight />
+                        </span>
+                      </Link>
+                    ),
+                  )}
+                </div>
+              </div>
+            </section>
+          )}
+
+          <section
+            id="aree-servizi"
+            className="servizi-page__areas-intro"
+          >
+            <div className="servizi-page__container">
+              <div className="servizi-page__areas-copy">
+                <span>Orientati per area</span>
+
+                <h2>
+                  Che cosa devi fare?
+                </h2>
+
+                <p>
+                  Abbiamo raggruppato i servizi per esigenza,
+                  così puoi arrivare più velocemente alla
+                  pratica giusta.
+                </p>
+              </div>
+            </div>
+          </section>
+
           <nav
             className="servizi-page__navigation"
             aria-label="Categorie servizi"
@@ -266,18 +361,11 @@ const ServiziPage = () => {
 
                   return (
                     <a
-                      key={
-                        macroArea.id
-                      }
+                      key={macroArea.id}
                       href={`#${macroArea.slug}`}
                     >
-                      <Icona
-                        aria-hidden="true"
-                      />
-
-                      {
-                        macroArea.nome
-                      }
+                      <Icona aria-hidden="true" />
+                      {macroArea.nome}
                     </a>
                   );
                 },
@@ -303,142 +391,153 @@ const ServiziPage = () => {
 
                 return (
                   <section
-                    key={
-                      macroArea.id
-                    }
-                    id={
-                      macroArea.slug
-                    }
-                    className="servizi-macroarea"
+                    key={macroArea.id}
+                    id={macroArea.slug}
+                    className={`servizi-macroarea servizi-macroarea--${(indice % 6) + 1}`}
                   >
-                    <header className="servizi-macroarea__header">
-                      <div
-                        className={`servizi-macroarea__icon servizi-macroarea__icon--${(indice % 6) + 1}`}
-                      >
-                        <Icona
-                          aria-hidden="true"
-                        />
+                    <div className="servizi-macroarea__side">
+                      <span className="servizi-macroarea__index">
+                        {String(
+                          indice + 1,
+                        ).padStart(
+                          2,
+                          "0",
+                        )}
+                      </span>
+
+                      <div className="servizi-macroarea__icon">
+                        <Icona aria-hidden="true" />
                       </div>
 
-                      <div>
-                        <span>
-                          Area{" "}
-                          {String(
-                            indice + 1,
-                          ).padStart(
-                            2,
-                            "0",
+                      <span className="servizi-macroarea__label">
+                        Area servizi
+                      </span>
+
+                      <h2>
+                        {macroArea.nome}
+                      </h2>
+
+                      {macroArea.descrizioneBreve && (
+                        <p>
+                          {macroArea.descrizioneBreve}
+                        </p>
+                      )}
+
+                      <span className="servizi-macroarea__count">
+                        {elenco.length}{" "}
+                        {elenco.length === 1
+                          ? "servizio"
+                          : "servizi"}
+                      </span>
+                    </div>
+
+                    <div className="servizi-macroarea__content">
+                      {elenco.length === 0 ? (
+                        <div className="servizi-macroarea__empty">
+                          Nessun servizio disponibile al momento.
+                        </div>
+                      ) : (
+                        <div className="servizi-macroarea__list">
+                          {elenco.map(
+                            (
+                              servizio,
+                              servizioIndex,
+                            ) => (
+                              <Link
+                                key={servizio.id}
+                                to={`/servizi/${servizio.slug}`}
+                                className="servizio-public-row"
+                                aria-label={`Scopri il servizio ${servizio.nome}`}
+                              >
+                                <span className="servizio-public-row__number">
+                                  {String(
+                                    servizioIndex + 1,
+                                  ).padStart(
+                                    2,
+                                    "0",
+                                  )}
+                                </span>
+
+                                <div className="servizio-public-row__copy">
+                                  <div className="servizio-public-row__title-line">
+                                    <h3>
+                                      {servizio.nome}
+                                    </h3>
+
+                                    {servizio.inEvidenza && (
+                                      <small>
+                                        In evidenza
+                                      </small>
+                                    )}
+                                  </div>
+
+                                  <p>
+                                    {servizio.descrizioneBreve ??
+                                      "Contattaci per maggiori informazioni su questo servizio."}
+                                  </p>
+
+                                  <div className="servizio-public-row__meta">
+                                    {servizio.prenotabile && (
+                                      <span>
+                                        Prenotabile
+                                      </span>
+                                    )}
+
+                                    {servizio.richiedibileOnline && (
+                                      <span>
+                                        Anche online
+                                      </span>
+                                    )}
+
+                                    {servizio.richiedeDocumenti && (
+                                      <span>
+                                        Checklist documenti
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+
+                                <span className="servizio-public-row__arrow">
+                                  <FiArrowRight />
+                                </span>
+                              </Link>
+                            ),
                           )}
-                        </span>
-
-                        <h2>
-                          {
-                            macroArea.nome
-                          }
-                        </h2>
-
-                        {macroArea.descrizioneBreve && (
-                          <p>
-                            {
-                              macroArea.descrizioneBreve
-                            }
-                          </p>
-                        )}
-                      </div>
-                    </header>
-
-                    {elenco.length ===
-                    0 ? (
-                      <div className="servizi-macroarea__empty">
-                        Nessun servizio
-                        disponibile al
-                        momento.
-                      </div>
-                    ) : (
-                      <div className="servizi-macroarea__grid">
-                        {elenco.map(
-                          (
-                            servizio,
-                          ) => (
-                            <Link
-                              key={
-                                servizio.id
-                              }
-                              to={`/servizi/${servizio.slug}`}
-                              className="servizio-public-card__link"
-                              aria-label={`Scopri il servizio ${servizio.nome}`}
-                            >
-                              <article className="servizio-public-card">
-                                <div className="servizio-public-card__top">
-                                  <span>
-                                    <FiCheck />
-                                  </span>
-
-                                  {servizio.inEvidenza && (
-                                    <small>
-                                      In evidenza
-                                    </small>
-                                  )}
-                                </div>
-
-                                <h3>
-                                  {
-                                    servizio.nome
-                                  }
-                                </h3>
-
-                                <p>
-                                  {servizio.descrizioneBreve ??
-                                    "Contattaci per maggiori informazioni su questo servizio."}
-                                </p>
-
-                                <div className="servizio-public-card__tags">
-                                  {servizio.prenotabile && (
-                                    <span>
-                                      Prenotabile
-                                    </span>
-                                  )}
-
-                                  {servizio.richiedibileOnline && (
-                                    <span>
-                                      Online
-                                    </span>
-                                  )}
-                                </div>
-
-                                <div className="servizio-public-card__footer">
-                                  {servizio.prezzoTesto ? (
-                                    <strong>
-                                      {
-                                        servizio.prezzoTesto
-                                      }
-                                    </strong>
-                                  ) : (
-                                    <span>
-                                      Informazioni
-                                      in sede
-                                    </span>
-                                  )}
-
-                                  <span className="servizio-public-card__cta">
-                                    Scopri di più
-
-                                    <FiArrowRight
-                                      aria-hidden="true"
-                                    />
-                                  </span>
-                                </div>
-                              </article>
-                            </Link>
-                          ),
-                        )}
-                      </div>
-                    )}
+                        </div>
+                      )}
+                    </div>
                   </section>
                 );
               },
             )}
           </div>
+
+          <section className="servizi-page__closing">
+            <div className="servizi-page__container">
+              <div className="servizi-page__closing-card">
+                <div>
+                  <span>
+                    Non trovi quello che cerchi?
+                  </span>
+
+                  <h2>
+                    Chiedilo direttamente alla sede.
+                  </h2>
+
+                  <p>
+                    Ti aiutiamo a capire quale servizio è
+                    adatto alla tua situazione prima ancora
+                    di iniziare la pratica.
+                  </p>
+                </div>
+
+                <Link to="/#contatti">
+                  Contattaci
+                  <FiArrowRight />
+                </Link>
+              </div>
+            </div>
+          </section>
         </>
       )}
     </main>
