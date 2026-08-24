@@ -1,0 +1,704 @@
+.contatti-page {
+  --contact-ink: #102c65;
+  --contact-green: #247a3a;
+  --contact-green-soft: #e6f4e9;
+  --contact-pink: #d91c76;
+  --contact-paper: #fffefb;
+
+  min-height: 100vh;
+  color: var(--contact-ink);
+  background: #ffffff;
+}
+
+.contatti-container {
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.contatti-hero {
+  padding: clamp(4.5rem, 8vw, 7rem) 0 5rem;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 88% 10%,
+      rgba(36, 122, 58, 0.1),
+      transparent 26rem
+    ),
+    radial-gradient(
+      circle at 8% 86%,
+      rgba(217, 28, 118, 0.055),
+      transparent 23rem
+    ),
+    var(--contact-paper);
+}
+
+.contatti-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(330px, 0.68fr);
+  align-items: center;
+  gap: clamp(3rem, 8vw, 7rem);
+}
+
+.contatti-hero__content {
+  max-width: 760px;
+}
+
+.contatti-eyebrow {
+  display: inline-flex;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+
+  color: var(--contact-green);
+  background: var(--contact-green-soft);
+
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.contatti-hero h1 {
+  margin: 1.1rem 0 0;
+
+  color: var(--contact-ink);
+
+  font-size: clamp(3.8rem, 7vw, 6.9rem);
+  font-weight: 850;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+}
+
+.contatti-hero h1 span {
+  color: var(--contact-green);
+}
+
+.contatti-hero__content > p {
+  max-width: 640px;
+  margin: 1.45rem 0 0;
+
+  color: #5f6c81;
+
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.72;
+}
+
+.contatti-hero__actions {
+  margin-top: 1.8rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.contatti-button {
+  min-height: 50px;
+  padding: 0 1.2rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-decoration: none;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.contatti-button:hover {
+  transform: translateY(-2px);
+}
+
+.contatti-button--primary {
+  color: #ffffff;
+  background: var(--contact-green);
+  box-shadow: 0 12px 28px rgba(36, 122, 58, 0.18);
+}
+
+.contatti-button--ghost {
+  color: var(--contact-ink);
+  border-color: #dce4de;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+/* =========================================================
+   QUICK CARD
+   ========================================================= */
+
+.contatti-quick-card {
+  width: min(100%, 410px);
+  min-height: 330px;
+  padding: 2.3rem 2.2rem;
+
+  position: relative;
+  justify-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  transform: rotate(1.5deg);
+
+  border: 1px solid rgba(36, 122, 58, 0.12);
+  border-radius: 24px 24px 34px 24px;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 42px,
+      rgba(36, 122, 58, 0.045) 43px
+    ),
+    #eff7f1;
+
+  box-shadow: 0 24px 58px rgba(16, 44, 101, 0.09);
+
+  text-align: center;
+}
+
+.contatti-quick-card::before {
+  content: "";
+
+  width: 96%;
+  height: 94%;
+
+  position: absolute;
+  z-index: -1;
+  top: -3%;
+  left: 5%;
+
+  transform: rotate(5deg);
+
+  border: 1px solid rgba(217, 28, 118, 0.12);
+  border-radius: 24px 24px 34px 24px;
+
+  background: #ffe8f2;
+}
+
+.contatti-quick-card__pin {
+  width: 14px;
+  height: 14px;
+
+  position: absolute;
+  top: 15px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+
+  background: var(--contact-pink);
+  box-shadow: 0 4px 10px rgba(217, 28, 118, 0.24);
+}
+
+.contatti-quick-card > small {
+  display: block;
+
+  margin: 0;
+
+  color: #b91862;
+
+  font-size: 0.58rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  text-align: center;
+}
+
+.contatti-quick-card > h2 {
+  max-width: 290px;
+  margin: 0.45rem auto 0;
+
+  color: var(--contact-ink);
+
+  font-size: clamp(1.65rem, 2.5vw, 2.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+
+  text-align: center;
+}
+
+.contatti-quick-card__items {
+  width: fit-content;
+  margin: 1.35rem auto 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  text-align: left;
+}
+
+.contatti-quick-card__items > a,
+.contatti-quick-card__items > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.contatti-quick-card__items > a > svg,
+.contatti-quick-card__items > div > svg {
+  flex: 0 0 auto;
+  margin-top: 0.15rem;
+
+  color: var(--contact-green);
+}
+
+.contatti-quick-card__items span {
+  display: flex;
+  flex-direction: column;
+}
+
+.contatti-quick-card__items small {
+  color: #8a95a5;
+  font-size: 0.6rem;
+}
+
+.contatti-quick-card__items strong {
+  margin-top: 0.1rem;
+
+  color: #405069;
+
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+/* =========================================================
+   INFO
+   ========================================================= */
+
+.contatti-info {
+  padding: 6rem 0;
+}
+
+.contatti-section-heading {
+  max-width: 800px;
+}
+
+.contatti-section-heading > span,
+.contatti-map-section__copy > span,
+.contatti-hours__card > div > span {
+  color: var(--contact-green);
+
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.contatti-section-heading h2 {
+  margin: 0.45rem 0 0;
+
+  color: var(--contact-ink);
+
+  font-size: clamp(2.8rem, 5.5vw, 5.1rem);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+
+.contatti-section-heading p {
+  max-width: 630px;
+  margin: 1rem 0 0;
+
+  color: #69758a;
+
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.contatti-info__grid {
+  margin-top: 3rem;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.contatti-info-card {
+  min-height: 290px;
+  padding: 1.7rem;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #e6ebe7;
+  border-radius: 22px;
+
+  background: #fffefb;
+}
+
+.contatti-info-card__icon {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 14px;
+
+  color: var(--contact-green);
+  background: var(--contact-green-soft);
+}
+
+.contatti-info-card > small {
+  margin-top: 1.7rem;
+
+  color: #99a3b1;
+
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contatti-info-card h3 {
+  margin: 0.35rem 0 0;
+
+  color: var(--contact-ink);
+
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+
+.contatti-info-card p {
+  margin: 0.75rem 0 0;
+
+  color: #6f7a8d;
+
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+
+.contatti-info-card > a {
+  margin-top: auto;
+  padding-top: 1.2rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  color: var(--contact-green);
+
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* =========================================================
+   MAP
+   ========================================================= */
+
+.contatti-map-section {
+  padding: 5.5rem 0;
+
+  background: #fbfaf6;
+
+  border-top: 1px solid #eeece5;
+  border-bottom: 1px solid #eeece5;
+}
+
+.contatti-map-section__grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(2.5rem, 7vw, 6rem);
+  align-items: center;
+}
+
+.contatti-map-section__copy h2 {
+  margin: 0.45rem 0 0;
+
+  color: var(--contact-ink);
+
+  font-size: clamp(2.6rem, 4.8vw, 4.6rem);
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+}
+
+.contatti-map-section__copy > p {
+  max-width: 500px;
+  margin: 1rem 0 0;
+
+  color: #69758a;
+
+  font-size: 0.87rem;
+  line-height: 1.72;
+}
+
+.contatti-map-section__address {
+  margin-top: 1.5rem;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.contatti-map-section__address > svg {
+  margin-top: 0.1rem;
+  color: var(--contact-green);
+}
+
+.contatti-map-section__address > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.contatti-map-section__address strong {
+  color: var(--contact-ink);
+  font-size: 0.86rem;
+}
+
+.contatti-map-section__address span {
+  margin-top: 0.2rem;
+
+  color: #788497;
+
+  font-size: 0.76rem;
+}
+
+.contatti-map-section__directions {
+  min-height: 46px;
+  margin-top: 1.4rem;
+  padding: 0 1rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  border-radius: 8px;
+
+  color: #ffffff;
+  background: var(--contact-green);
+
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.contatti-map {
+  min-height: 430px;
+  overflow: hidden;
+
+  border: 1px solid #dfe5df;
+  border-radius: 26px;
+
+  background: #ffffff;
+
+  box-shadow: 0 20px 50px rgba(16, 44, 101, 0.08);
+}
+
+.contatti-map iframe {
+  width: 100%;
+  height: 430px;
+
+  display: block;
+
+  border: 0;
+}
+
+/* =========================================================
+   HOURS
+   ========================================================= */
+
+.contatti-hours {
+  padding: 5.5rem 0 6rem;
+}
+
+.contatti-hours__card {
+  padding: clamp(2rem, 5vw, 3.5rem);
+
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem;
+
+  border: 1px solid rgba(36, 122, 58, 0.14);
+  border-radius: 28px;
+
+  background:
+    radial-gradient(
+      circle at 90% 8%,
+      rgba(217, 28, 118, 0.1),
+      transparent 17rem
+    ),
+    linear-gradient(135deg, #e8f5ea, #f9fcf9);
+}
+
+.contatti-hours__icon {
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 17px;
+
+  color: #ffffff;
+  background: var(--contact-green);
+
+  font-size: 1.25rem;
+}
+
+.contatti-hours__card h2 {
+  margin: 0.35rem 0 0;
+
+  color: var(--contact-ink);
+
+  font-size: clamp(1.8rem, 3.5vw, 2.9rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.contatti-hours__card p {
+  max-width: 650px;
+  margin: 0.7rem 0 0;
+
+  color: #637087;
+
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.contatti-hours__card > a {
+  min-height: 48px;
+  padding: 0 1rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+
+  border-radius: 8px;
+
+  color: #ffffff;
+  background: var(--contact-green);
+
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 980px) {
+  .contatti-hero__grid,
+  .contatti-map-section__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contatti-quick-card {
+    justify-self: start;
+  }
+
+  .contatti-info__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contatti-map {
+    min-height: 380px;
+  }
+
+  .contatti-map iframe {
+    height: 380px;
+  }
+}
+
+@media (max-width: 680px) {
+  .contatti-container {
+    width: min(100% - 1.25rem, 1180px);
+  }
+
+  .contatti-hero {
+    padding-top: 4rem;
+  }
+
+  .contatti-hero h1 {
+    font-size: clamp(3.2rem, 16vw, 5rem);
+  }
+
+  .contatti-hero__actions {
+    flex-direction: column;
+  }
+
+  .contatti-button {
+    width: 100%;
+  }
+
+  .contatti-quick-card {
+    width: min(100%, 380px);
+    min-height: 310px;
+    padding: 2rem 1.6rem;
+    transform: rotate(0.8deg);
+  }
+
+  .contatti-info {
+    padding-block: 4.5rem;
+  }
+
+  .contatti-map-section {
+    padding-block: 4.5rem;
+  }
+
+  .contatti-map {
+    min-height: 320px;
+    border-radius: 20px;
+  }
+
+  .contatti-map iframe {
+    height: 320px;
+  }
+
+  .contatti-hours__card {
+    grid-template-columns: 1fr;
+  }
+
+  .contatti-hours__card > a {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   TABLET — RESPIRO LATERALE HERO CARD
+   ========================================================= */
+
+@media (min-width: 681px) and (max-width: 1100px) {
+  .contatti-hero {
+    padding-inline: 1.5rem;
+  }
+
+  .contatti-hero__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.72fr);
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+
+  .contatti-quick-card {
+    width: min(100%, 380px);
+    margin-right: 1.5rem;
+    transform: rotate(1deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contatti-button {
+    transition: none;
+  }
+}

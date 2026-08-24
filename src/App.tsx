@@ -9,6 +9,7 @@ import PrivateLayout from "./layouts/PrivateLayout";
 import HomePage from "./pages/public/HomePage";
 import ServiziPage from "./pages/public/ServiziPage";
 import ChiSiamoPage from "./pages/public/ChiSiamoPage";
+import ContattiPage from "./pages/public/ContattiPage";
 import LoginPage from "./pages/public/LoginPage";
 import NotFoundPage from "./pages/public/NotFoundPage";
 import RecuperoPasswordPage from "./pages/public/RecuperoPasswordPage";
@@ -66,6 +67,11 @@ const App = () => {
         <Route
           path="/chi-siamo"
           element={<ChiSiamoPage />}
+        />
+
+        <Route
+          path="/contatti"
+          element={<ContattiPage />}
         />
 
         <Route
