@@ -1,21 +1,40 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
+
+import {
+  BrowserRouter,
+} from "react-router-dom";
+
+import {
+  Provider,
+} from "react-redux";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/tokens.css";
 import "./styles/global.css";
 
 import App from "./App";
-import { store } from "./app/store";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+import {
+  store,
+} from "./app/store";
+
+import {
+  CookieConsentProvider,
+} from "./components/common/CookieConsent/CookieConsentContext";
+
+ReactDOM.createRoot(
+  document.getElementById(
+    "root",
+  )!,
+).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <CookieConsentProvider>
+          <App />
+        </CookieConsentProvider>
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

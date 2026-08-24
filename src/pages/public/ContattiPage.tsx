@@ -11,9 +11,20 @@ import {
 
 import ServicePostIt from "../../components/common/ServicePostIt/ServicePostIt";
 
+import {
+  useCookieConsent,
+} from "../../components/common/CookieConsent/CookieConsentContext";
+
 import "./ContattiPage.css";
 
 const ContattiPage = () => {
+  const {
+    consent,
+    resetConsent,
+  } = useCookieConsent();
+
+  const mapsConsent =
+    consent === "accepted";
 
   useEffect(() => {
     window.scrollTo({
@@ -22,6 +33,7 @@ const ContattiPage = () => {
       behavior: "auto",
     });
   }, []);
+
   const mapsQuery =
     "Via Roma 69, Pianopoli CZ";
 
@@ -46,7 +58,10 @@ const ContattiPage = () => {
 
             <h1>
               Parliamone.
-              <span> Ti aiutiamo a capire da dove iniziare.</span>
+              <span>
+                {" "}
+                Ti aiutiamo a capire da dove iniziare.
+              </span>
             </h1>
 
             <p>
@@ -60,7 +75,7 @@ const ContattiPage = () => {
                 href="tel:+393779609155"
                 className="contatti-button contatti-button--primary"
               >
-                <FiPhone />
+                <FiPhone aria-hidden="true" />
                 Chiama la sede
               </a>
 
@@ -68,11 +83,12 @@ const ContattiPage = () => {
                 href="mailto:pianopolicaf@gmail.com"
                 className="contatti-button contatti-button--ghost"
               >
-                <FiMail />
+                <FiMail aria-hidden="true" />
                 Scrivici
               </a>
             </div>
           </div>
+
           <ServicePostIt
             ariaLabelFront="Mostra sede e orari"
             ariaLabelBack="Torna ai contatti rapidi"
@@ -105,7 +121,9 @@ const ContattiPage = () => {
       <section className="contatti-info">
         <div className="contatti-container">
           <header className="contatti-section-heading">
-            <span>Come raggiungerci</span>
+            <span>
+              Come raggiungerci
+            </span>
 
             <h2>
               Siamo a Pianopoli,
@@ -122,12 +140,16 @@ const ContattiPage = () => {
           <div className="contatti-info__grid">
             <article className="contatti-info-card">
               <span className="contatti-info-card__icon">
-                <FiPhone />
+                <FiPhone aria-hidden="true" />
               </span>
 
-              <small>Telefono</small>
+              <small>
+                Telefono
+              </small>
 
-              <h3>377 960 9155</h3>
+              <h3>
+                377 960 9155
+              </h3>
 
               <p>
                 Per informazioni, appuntamenti e richieste rapide.
@@ -135,18 +157,22 @@ const ContattiPage = () => {
 
               <a href="tel:+393779609155">
                 Chiama ora
-                <FiArrowRight />
+                <FiArrowRight aria-hidden="true" />
               </a>
             </article>
 
             <article className="contatti-info-card">
               <span className="contatti-info-card__icon">
-                <FiMail />
+                <FiMail aria-hidden="true" />
               </span>
 
-              <small>Email</small>
+              <small>
+                Email
+              </small>
 
-              <h3>pianopolicaf@gmail.com</h3>
+              <h3>
+                pianopolicaf@gmail.com
+              </h3>
 
               <p>
                 Scrivici se preferisci descrivere la tua richiesta
@@ -155,18 +181,22 @@ const ContattiPage = () => {
 
               <a href="mailto:pianopolicaf@gmail.com">
                 Invia una mail
-                <FiArrowRight />
+                <FiArrowRight aria-hidden="true" />
               </a>
             </article>
 
             <article className="contatti-info-card">
               <span className="contatti-info-card__icon">
-                <FiMapPin />
+                <FiMapPin aria-hidden="true" />
               </span>
 
-              <small>Indirizzo</small>
+              <small>
+                Indirizzo
+              </small>
 
-              <h3>Via Roma 69</h3>
+              <h3>
+                Via Roma 69
+              </h3>
 
               <p>
                 Pianopoli (CZ). Apri Maps per ottenere le
@@ -179,7 +209,7 @@ const ContattiPage = () => {
                 rel="noreferrer"
               >
                 Indicazioni
-                <FiNavigation />
+                <FiNavigation aria-hidden="true" />
               </a>
             </article>
           </div>
@@ -190,23 +220,31 @@ const ContattiPage = () => {
         <div className="contatti-container">
           <div className="contatti-map-section__grid">
             <div className="contatti-map-section__copy">
-              <span>La sede</span>
+              <span>
+                La sede
+              </span>
 
               <h2>
                 Trovarci è semplice.
               </h2>
 
               <p>
-                La mappa qui accanto mostra la sede di
-                Via Roma 69, Pianopoli.
+                {mapsConsent
+                  ? "La mappa qui accanto mostra la sede di Via Roma 69, Pianopoli."
+                  : "La mappa Google è disponibile dopo aver accettato i servizi esterni."}
               </p>
 
               <div className="contatti-map-section__address">
-                <FiMapPin />
+                <FiMapPin aria-hidden="true" />
 
                 <div>
-                  <strong>CAF FAPI Pianopoli</strong>
-                  <span>Via Roma 69 · Pianopoli (CZ)</span>
+                  <strong>
+                    CAF FAPI Pianopoli
+                  </strong>
+
+                  <span>
+                    Via Roma 69 · Pianopoli (CZ)
+                  </span>
                 </div>
               </div>
 
@@ -216,19 +254,43 @@ const ContattiPage = () => {
                 rel="noreferrer"
                 className="contatti-map-section__directions"
               >
-                <FiNavigation />
+                <FiNavigation aria-hidden="true" />
                 Apri in Google Maps
               </a>
             </div>
 
             <div className="contatti-map">
-              <iframe
-                title="Mappa CAF FAPI Pianopoli"
-                src={mapsEmbedUrl}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+              {mapsConsent ? (
+                <iframe
+                  title="Mappa CAF FAPI Pianopoli"
+                  src={mapsEmbedUrl}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              ) : (
+                <div className="contatti-map__placeholder">
+                  <span className="contatti-map__placeholder-icon">
+                    <FiMapPin aria-hidden="true" />
+                  </span>
+
+                  <strong>
+                    Mappa non caricata
+                  </strong>
+
+                  <p>
+                    Hai scelto di non caricare i servizi esterni.
+                    Puoi modificare la tua scelta in qualsiasi momento.
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={resetConsent}
+                  >
+                    Modifica preferenze cookie
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -238,13 +300,17 @@ const ContattiPage = () => {
         <div className="contatti-container">
           <div className="contatti-hours__card">
             <span className="contatti-hours__icon">
-              <FiClock />
+              <FiClock aria-hidden="true" />
             </span>
 
             <div>
-              <span>Orari</span>
+              <span>
+                Orari
+              </span>
 
-              <h2>Lunedì – Venerdì</h2>
+              <h2>
+                Lunedì – Venerdì
+              </h2>
 
               <p className="contatti-hours__time">
                 09:00 – 12:30
@@ -260,7 +326,7 @@ const ContattiPage = () => {
 
             <a href="tel:+393779609155">
               Chiama la sede
-              <FiArrowRight />
+              <FiArrowRight aria-hidden="true" />
             </a>
           </div>
         </div>

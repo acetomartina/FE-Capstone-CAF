@@ -1,7 +1,11 @@
-import { Outlet } from "react-router-dom";
+import {
+  Outlet,
+} from "react-router-dom";
 
 import PublicFooter from "../components/layout/PublicFooter/PublicFooter";
 import PublicNavbar from "../components/layout/PublicNavbar/PublicNavbar";
+
+import CookieBanner from "../components/common/CookieConsent/CookieBanner";
 
 import "./PublicLayout.css";
 
@@ -15,6 +19,8 @@ const PublicLayout = () => {
       </main>
 
       <PublicFooter />
+
+      <CookieBanner />
     </div>
   );
 };

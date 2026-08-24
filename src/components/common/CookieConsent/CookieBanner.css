@@ -1,0 +1,195 @@
+.cookie-banner {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  padding: 1.5rem;
+
+  background: rgba(16, 44, 101, 0.18);
+
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.cookie-banner__panel {
+  width: min(100%, 1080px);
+
+  padding: 1.6rem 1.8rem;
+
+  display: grid;
+  grid-template-columns:
+    auto
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 1.5rem;
+
+  border: 1px solid rgba(16, 44, 101, 0.1);
+
+  border-radius: 18px;
+
+  background: #fffefb;
+
+  box-shadow: 0 28px 80px rgba(16, 44, 101, 0.18);
+}
+
+.cookie-banner__icon {
+  width: 52px;
+  height: 52px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 14px;
+
+  color: #249239;
+  background: #eaf7ed;
+
+  font-size: 1.35rem;
+}
+
+.cookie-banner__eyebrow {
+  display: block;
+
+  margin-bottom: 0.25rem;
+
+  color: #249239;
+
+  font-size: 0.63rem;
+  font-weight: 850;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cookie-banner__content h2 {
+  margin: 0;
+
+  color: #102c65;
+
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.cookie-banner__content p {
+  max-width: 650px;
+
+  margin: 0.65rem 0 0;
+
+  color: #657187;
+
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.cookie-banner__legal-copy {
+  font-size: 0.72rem !important;
+}
+
+.cookie-banner__legal-copy a {
+  color: #102c65;
+
+  font-weight: 750;
+
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  align-items: center;
+
+  gap: 0.6rem;
+}
+
+.cookie-banner__button {
+  min-height: 44px;
+
+  padding: 0 1rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.45rem;
+
+  border-radius: 8px;
+
+  font: inherit;
+
+  font-size: 0.74rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.cookie-banner__button:hover {
+  transform: translateY(-1px);
+}
+
+.cookie-banner__button--primary {
+  border: 1px solid #249239;
+
+  color: #ffffff;
+
+  background: #249239;
+}
+
+.cookie-banner__button--ghost {
+  border: 1px solid #dce4de;
+
+  color: #102c65;
+
+  background: #ffffff;
+}
+
+@media (max-width: 760px) {
+  .cookie-banner {
+    padding: 0.75rem;
+  }
+
+  .cookie-banner__panel {
+    padding: 1.35rem;
+
+    grid-template-columns: 1fr;
+
+    gap: 1rem;
+
+    border-radius: 16px;
+  }
+
+  .cookie-banner__icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .cookie-banner__actions {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cookie-banner__button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-banner__button {
+    transition: none;
+  }
+}

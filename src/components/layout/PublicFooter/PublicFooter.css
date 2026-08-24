@@ -292,3 +292,47 @@
     justify-content: center;
   }
 }
+
+.public-footer__cookie-preferences {
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  color: #7c8799;
+  background: transparent;
+
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition: color 180ms ease;
+}
+
+.public-footer__cookie-preferences:hover {
+  color: #249239;
+}
+
+.public-footer__cookie-preferences {
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+
+  color: #7c8799;
+  background: transparent;
+
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition: color 180ms ease;
+}
+
+.public-footer__cookie-preferences:hover {
+  color: #249239;
+}

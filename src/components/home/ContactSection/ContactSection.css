@@ -421,3 +421,180 @@ a.contact-card:hover {
     transition: none !important;
   }
 }
+
+/* =========================================================
+   MAP PLACEHOLDER — COOKIE CONSENT
+   ========================================================= */
+
+.contact-section__map-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 5vw, 4rem) 8rem;
+
+  background:
+    radial-gradient(
+      circle at 82% 18%,
+      rgba(36, 146, 57, 0.1),
+      transparent 17rem
+    ),
+    radial-gradient(
+      circle at 12% 85%,
+      rgba(217, 28, 118, 0.045),
+      transparent 15rem
+    ),
+    #f8fbf8;
+
+  color: #102c65;
+}
+
+/* =========================================================
+   ICONA
+   ========================================================= */
+
+.contact-section__map-placeholder-icon {
+  width: 56px;
+  height: 56px;
+
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  margin-bottom: 1.15rem;
+
+  border-radius: 16px;
+
+  color: #249239;
+  background: #e6f4e9;
+
+  font-size: 1.4rem;
+
+  box-shadow: 0 10px 26px rgba(36, 146, 57, 0.1);
+}
+
+/* =========================================================
+   TESTO
+   ========================================================= */
+
+.contact-section__map-placeholder strong {
+  display: block;
+
+  margin: 0;
+
+  color: #102c65;
+
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+
+  font-weight: 800;
+  line-height: 1.08;
+
+  letter-spacing: -0.035em;
+}
+
+.contact-section__map-placeholder p {
+  max-width: 440px;
+
+  margin: 0.8rem 0 0;
+
+  color: #657187;
+
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   BOTTONE
+   ========================================================= */
+
+.contact-section__map-placeholder button {
+  min-height: 46px;
+
+  margin-top: 1.35rem;
+  padding: 0 1.1rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #249239;
+  border-radius: 8px;
+
+  color: #ffffff;
+  background: #249239;
+
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 24px rgba(36, 146, 57, 0.14);
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.contact-section__map-placeholder button:hover {
+  transform: translateY(-2px);
+
+  background: #1f7f34;
+
+  box-shadow: 0 14px 30px rgba(36, 146, 57, 0.2);
+}
+
+/* =========================================================
+   IL BADGE DEVE RESTARE DAVANTI
+   ========================================================= */
+
+.contact-section__map-badge {
+  z-index: 3;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 680px) {
+  .contact-section__map-placeholder {
+    justify-content: center;
+
+    padding: 2rem 1.4rem 7.5rem;
+  }
+
+  .contact-section__map-placeholder-icon {
+    width: 50px;
+    height: 50px;
+
+    margin-bottom: 1rem;
+
+    font-size: 1.25rem;
+  }
+
+  .contact-section__map-placeholder strong {
+    font-size: 1.4rem;
+  }
+
+  .contact-section__map-placeholder p {
+    max-width: 300px;
+
+    font-size: 0.82rem;
+    line-height: 1.65;
+  }
+
+  .contact-section__map-placeholder button {
+    min-height: 44px;
+
+    margin-top: 1.15rem;
+
+    font-size: 0.72rem;
+  }
+}

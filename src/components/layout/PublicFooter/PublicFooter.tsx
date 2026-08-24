@@ -6,12 +6,20 @@ import {
 } from "react-icons/fi";
 
 import {
+  useCookieConsent,
+} from "../../common/CookieConsent/CookieConsentContext";
+
+import {
   Link,
 } from "react-router-dom";
 
 import "./PublicFooter.css";
 
 const PublicFooter = () => {
+  const {
+  resetConsent,
+} = useCookieConsent();
+
   return (
     <footer className="public-footer">
       <div className="public-footer__container">
@@ -116,21 +124,33 @@ const PublicFooter = () => {
             </span>
 
             <nav
-              className="public-footer__legal"
-              aria-label="Informazioni legali"
-            >
-              <Link to="/privacy">
-                Privacy Policy
-              </Link>
+  className="public-footer__legal"
+  aria-label="Informazioni legali"
+>
+  <Link to="/privacy">
+    Privacy Policy
+  </Link>
 
-              <span aria-hidden="true">
-                ·
-              </span>
+  <span aria-hidden="true">
+    ·
+  </span>
 
-              <Link to="/cookie">
-                Cookie Policy
-              </Link>
-            </nav>
+  <Link to="/cookie">
+    Cookie Policy
+  </Link>
+
+  <span aria-hidden="true">
+    ·
+  </span>
+
+  <button
+    type="button"
+    className="public-footer__cookie-preferences"
+    onClick={resetConsent}
+  >
+    Preferenze cookie
+  </button>
+</nav>
           </div>
 
           <div className="public-footer__credits">

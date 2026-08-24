@@ -7,9 +7,21 @@ import {
   FiPhone,
 } from "react-icons/fi";
 
+import {
+  useCookieConsent,
+} from "../../common/CookieConsent/CookieConsentContext";
+
 import "./ContactSection.css";
 
 const ContactSection = () => {
+  const {
+    consent,
+    resetConsent,
+  } = useCookieConsent();
+
+  const mapsConsent =
+    consent === "accepted";
+
   return (
     <section
       id="contatti"
@@ -27,24 +39,53 @@ const ContactSection = () => {
             className="contact-section__title"
           >
             Siamo sempre
-            <span> a tua disposizione.</span>
+            <span>
+              {" "}
+              a tua disposizione.
+            </span>
           </h2>
 
           <p className="contact-section__description">
-            Puoi venirci a trovare in sede, chiamarci oppure scriverci.
-            Ti aiuteremo a capire quale servizio è più adatto alla tua esigenza.
+            Puoi venirci a trovare in sede, chiamarci oppure
+            scriverci. Ti aiuteremo a capire quale servizio è
+            più adatto alla tua esigenza.
           </p>
         </div>
 
         <div className="contact-section__panel">
           <div className="contact-section__map">
-            <iframe
-              title="Mappa CAF FAPI Pianopoli"
-              src="https://www.google.com/maps?q=Via%20Roma%2069%20Pianopoli&output=embed"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
+            {mapsConsent ? (
+              <iframe
+                title="Mappa CAF FAPI Pianopoli"
+                src="https://www.google.com/maps?q=Via%20Roma%2069%20Pianopoli&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            ) : (
+              <div className="contact-section__map-placeholder">
+                <span className="contact-section__map-placeholder-icon">
+                  <FiMapPin aria-hidden="true" />
+                </span>
+
+                <strong>
+                  Mappa non caricata
+                </strong>
+
+                <p>
+                  Hai scelto di non caricare i servizi esterni.
+                  Accetta Google Maps dalle preferenze cookie
+                  per visualizzare la mappa.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={resetConsent}
+                >
+                  Modifica preferenze
+                </button>
+              </div>
+            )}
 
             <div className="contact-section__map-badge">
               <span>
@@ -52,8 +93,13 @@ const ContactSection = () => {
               </span>
 
               <div>
-                <strong>CAF FAPI Pianopoli</strong>
-                <small>Via Roma 69, Pianopoli</small>
+                <strong>
+                  CAF FAPI Pianopoli
+                </strong>
+
+                <small>
+                  Via Roma 69, Pianopoli
+                </small>
               </div>
             </div>
           </div>
@@ -69,9 +115,17 @@ const ContactSection = () => {
                 </span>
 
                 <div>
-                  <small>Telefono</small>
-                  <strong>377 960 9155</strong>
-                  <span>Chiamaci durante gli orari di apertura</span>
+                  <small>
+                    Telefono
+                  </small>
+
+                  <strong>
+                    377 960 9155
+                  </strong>
+
+                  <span>
+                    Chiamaci durante gli orari di apertura
+                  </span>
                 </div>
               </a>
 
@@ -84,9 +138,17 @@ const ContactSection = () => {
                 </span>
 
                 <div>
-                  <small>Email</small>
-                  <strong>pianopolicaf@gmail.com</strong>
-                  <span>Scrivici per informazioni e richieste</span>
+                  <small>
+                    Email
+                  </small>
+
+                  <strong>
+                    pianopolicaf@gmail.com
+                  </strong>
+
+                  <span>
+                    Scrivici per informazioni e richieste
+                  </span>
                 </div>
               </a>
 
@@ -96,9 +158,17 @@ const ContactSection = () => {
                 </span>
 
                 <div>
-                  <small>Indirizzo</small>
-                  <strong>Via Roma 69</strong>
-                  <span>88040 Pianopoli (CZ)</span>
+                  <small>
+                    Indirizzo
+                  </small>
+
+                  <strong>
+                    Via Roma 69
+                  </strong>
+
+                  <span>
+                    88040 Pianopoli (CZ)
+                  </span>
                 </div>
               </div>
 
@@ -108,9 +178,17 @@ const ContactSection = () => {
                 </span>
 
                 <div>
-                  <small>Orari</small>
-                  <strong>Lunedì – Venerdì</strong>
-                  <span>09:00 – 12:30 / 15:30 – 18:30</span>
+                  <small>
+                    Orari
+                  </small>
+
+                  <strong>
+                    Lunedì – Venerdì
+                  </strong>
+
+                  <span>
+                    09:00 – 12:30 / 15:30 – 18:30
+                  </span>
                 </div>
               </div>
             </div>

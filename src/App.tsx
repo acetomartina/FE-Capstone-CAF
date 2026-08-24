@@ -26,6 +26,8 @@ import AreaClientePage from "./pages/private/AreaClientePage";
 import AreaDipendentePage from "./pages/private/AreaDipendentePage";
 import AreaRiservataPage from "./pages/private/AreaRiservataPage";
 import ConfigurazioneServiziPage from "./pages/private/ConfigurazioneServiziPage";
+import PrivacyPolicyPage from "./pages/public/PrivacyPolicyPage";
+import CookiePolicyPage from "./pages/public/CookiePolicyPage";
 
 import RottaProtetta from "./features/auth/components/RottaProtetta";
 
@@ -99,6 +101,16 @@ const App = () => {
             <ResetPasswordPage />
           }
         />
+
+        <Route
+  path="/privacy"
+  element={<PrivacyPolicyPage />}
+/>
+
+<Route
+  path="/cookie"
+  element={<CookiePolicyPage />}
+/>
       </Route>
 
       {/* =====================================================
