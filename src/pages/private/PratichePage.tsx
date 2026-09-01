@@ -1,5 +1,7 @@
 import {
+  useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -21,6 +23,7 @@ import {
   FiPlus,
   FiSearch,
   FiUser,
+  FiX,
 } from "react-icons/fi";
 
 import {
@@ -32,6 +35,14 @@ import PrivatePageHeader from "../../components/private/PrivatePageHeader";
 import NuovaPraticaModal from "../../features/pratiche/components/NuovaPraticaModal";
 
 import {
+  clientiService,
+} from "../../features/clienti/api/clientiService";
+
+import {
+  praticheService,
+} from "../../features/pratiche/api/praticheService";
+
+import {
   caricaPratiche,
 } from "../../features/pratiche";
 
@@ -41,6 +52,7 @@ import {
 } from "../../features/pratiche/constants/praticheConstants";
 
 import type {
+  Pratica,
   StatoPratica,
 } from "../../features/pratiche/types/praticheTypes";
 
@@ -61,8 +73,31 @@ const PratichePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [searchParams] =
-  useSearchParams();
+  const [
+    searchParams,
+    setSearchParams,
+  ] = useSearchParams();
+
+  const clienteIdDaUrl =
+    useMemo(() => {
+      const valore =
+        searchParams.get(
+          "clienteId",
+        );
+
+      if (!valore) {
+        return null;
+      }
+
+      const clienteId =
+        Number(valore);
+
+      return Number.isInteger(
+        clienteId,
+      ) && clienteId > 0
+        ? clienteId
+        : null;
+    }, [searchParams]);
 
 const statoDaUrl =
   searchParams.get(
@@ -118,7 +153,100 @@ useEffect(() => {
     setMostraNuovaPratica,
   ] = useState(false);
 
+  const [
+    praticheCliente,
+    setPraticheCliente,
+  ] = useState<Pratica[]>([]);
+
+  const [
+    nomeClienteFiltro,
+    setNomeClienteFiltro,
+  ] = useState("");
+
+  const [
+    caricamentoCliente,
+    setCaricamentoCliente,
+  ] = useState(false);
+
+  const [
+    erroreCliente,
+    setErroreCliente,
+  ] = useState<string | null>(null);
+
+  const caricaPraticheCliente =
+    useCallback(
+      async (
+        clienteId: number,
+      ) => {
+        try {
+          setCaricamentoCliente(
+            true,
+          );
+          setErroreCliente(null);
+
+          const [
+            rispostaPratiche,
+            cliente,
+          ] = await Promise.all([
+            praticheService
+              .trovaPerCliente(
+                clienteId,
+                {
+                  page: 0,
+                  size: 100,
+                  sort:
+                    "creatoIl,desc",
+                },
+              ),
+            clientiService
+              .trovaPerId(
+                clienteId,
+              ),
+          ]);
+
+          setPraticheCliente(
+            rispostaPratiche.content,
+          );
+          setNomeClienteFiltro(
+            `${cliente.nome} ${cliente.cognome}`,
+          );
+        } catch {
+          setPraticheCliente([]);
+          setNomeClienteFiltro("");
+          setErroreCliente(
+            "Non è stato possibile caricare le pratiche del cliente.",
+          );
+        } finally {
+          setCaricamentoCliente(
+            false,
+          );
+        }
+      },
+      [],
+    );
+
   useEffect(() => {
+    if (!clienteIdDaUrl) {
+      setPraticheCliente([]);
+      setNomeClienteFiltro("");
+      setErroreCliente(null);
+
+      return;
+    }
+
+    void caricaPraticheCliente(
+      clienteIdDaUrl,
+    );
+  }, [
+    caricaPraticheCliente,
+    clienteIdDaUrl,
+  ]);
+
+  useEffect(() => {
+    if (clienteIdDaUrl) {
+      return;
+    }
+
     const timeout = window.setTimeout(
       () => {
         void dispatch(
@@ -147,7 +275,92 @@ useEffect(() => {
     dispatch,
     ricerca,
     stato,
+    clienteIdDaUrl,
   ]);
+
+  const elencoVisualizzato =
+    useMemo(() => {
+      if (!clienteIdDaUrl) {
+        return elenco;
+      }
+
+      const testoRicerca =
+        ricerca
+          .trim()
+          .toLocaleLowerCase(
+            "it-IT",
+          );
+
+      return praticheCliente.filter(
+        (pratica) => {
+          const corrispondeStato =
+            !stato ||
+            pratica.stato === stato;
+
+          if (!corrispondeStato) {
+            return false;
+          }
+
+          if (!testoRicerca) {
+            return true;
+          }
+
+          const testoPratica = [
+            pratica.numeroPratica,
+            pratica.oggetto,
+            pratica.servizio.nome,
+            pratica.servizio
+              .macroAreaNome,
+            pratica.cliente.nome,
+            pratica.cliente.cognome,
+          ]
+            .join(" ")
+            .toLocaleLowerCase(
+              "it-IT",
+            );
+
+          return testoPratica.includes(
+            testoRicerca,
+          );
+        },
+      );
+    }, [
+      clienteIdDaUrl,
+      elenco,
+      praticheCliente,
+      ricerca,
+      stato,
+    ]);
+
+  const caricamentoAttivo =
+    clienteIdDaUrl
+      ? caricamentoCliente
+      : caricamento;
+
+  const erroreAttivo =
+    clienteIdDaUrl
+      ? erroreCliente
+      : errore;
+
+  const totaleVisualizzato =
+    clienteIdDaUrl
+      ? elencoVisualizzato.length
+      : totaleElementi;
+
+  const rimuoviFiltroCliente = () => {
+    const nuoviParametri =
+      new URLSearchParams(
+        searchParams,
+      );
+
+    nuoviParametri.delete(
+      "clienteId",
+    );
+
+    setSearchParams(
+      nuoviParametri,
+    );
+  };
 
   const formattaData = (
     data: string | null,
@@ -174,8 +387,16 @@ useEffect(() => {
     <section className="pratiche-page">
       <PrivatePageHeader
         eyebrow="Gestione pratiche"
-        title="Pratiche"
-        description="Gestisci le pratiche del CAF, monitora lo stato delle lavorazioni e tieni sotto controllo clienti, responsabili e scadenze."
+        title={
+          nomeClienteFiltro
+            ? `Pratiche di ${nomeClienteFiltro}`
+            : "Pratiche"
+        }
+        description={
+          nomeClienteFiltro
+            ? "Consulta e monitora tutte le pratiche collegate a questo cliente."
+            : "Gestisci le pratiche del CAF, monitora lo stato delle lavorazioni e tieni sotto controllo clienti, responsabili e scadenze."
+        }
         action={
           <Button
             type="button"
@@ -194,6 +415,40 @@ useEffect(() => {
           </Button>
         }
       />
+
+      {clienteIdDaUrl && (
+        <section className="pratiche-client-filter">
+          <span className="pratiche-client-filter__icon">
+            <FiUser />
+          </span>
+
+          <div className="pratiche-client-filter__content">
+            <span>
+              Pratiche filtrate per cliente
+            </span>
+
+            <strong>
+              {nomeClienteFiltro ||
+                "Caricamento cliente..."}
+            </strong>
+          </div>
+
+          <Button
+            type="button"
+            variant="link"
+            className="pratiche-client-filter__clear"
+            onClick={
+              rimuoviFiltroCliente
+            }
+          >
+            <FiX />
+
+            <span>
+              Mostra tutte
+            </span>
+          </Button>
+        </section>
+      )}
 
       <section className="pratiche-panel">
         <header className="pratiche-panel__header">
@@ -252,27 +507,27 @@ useEffect(() => {
             <FiBriefcase />
 
             <span>
-              {totaleElementi}
+              {totaleVisualizzato}
             </span>
 
             <small>
-              {totaleElementi === 1
+              {totaleVisualizzato === 1
                 ? "pratica"
                 : "pratiche"}
             </small>
           </div>
         </header>
 
-        {errore && (
+        {erroreAttivo && (
           <Alert
             variant="danger"
             className="pratiche-panel__alert"
           >
-            {errore}
+            {erroreAttivo}
           </Alert>
         )}
 
-        {caricamento && elenco.length === 0 ? (
+        {caricamentoAttivo && elencoVisualizzato.length === 0 ? (
           <div className="pratiche-loading">
             <Spinner
               animation="border"
@@ -322,7 +577,7 @@ useEffect(() => {
               </thead>
 
               <tbody>
-                {elenco.length ===
+                {elencoVisualizzato.length ===
                 0 ? (
                   <tr>
                     <td
@@ -334,7 +589,7 @@ useEffect(() => {
                     </td>
                   </tr>
                 ) : (
-                  elenco.map(
+                  elencoVisualizzato.map(
                     (pratica) => (
                       <tr
                         key={
@@ -519,6 +774,14 @@ useEffect(() => {
           )
         }
         onPraticaCreata={() => {
+          if (clienteIdDaUrl) {
+            void caricaPraticheCliente(
+              clienteIdDaUrl,
+            );
+
+            return;
+          }
+
           void dispatch(
             caricaPratiche({
               q:

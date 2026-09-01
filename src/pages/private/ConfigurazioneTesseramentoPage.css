@@ -1,0 +1,336 @@
+.config-tesseramento-page {
+  width: 100%;
+  max-width: 1540px;
+
+  margin: 0 auto;
+  padding: 0.4rem clamp(1.25rem, 2.5vw, 3rem) 2.5rem;
+}
+
+.config-tesseramento-page__back.btn {
+  min-height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 0.45rem;
+
+  border-color: #d7e0ea;
+
+  color: var(--caf-navy);
+
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.config-tesseramento-page__back.btn:hover,
+.config-tesseramento-page__back.btn:focus {
+  border-color: var(--caf-petrol);
+
+  background: #eef7f6;
+
+  color: var(--caf-petrol);
+}
+
+.config-tesseramento-loading {
+  min-height: 330px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.75rem;
+}
+
+.config-tesseramento-loading .spinner-border {
+  color: var(--caf-petrol);
+}
+
+.config-tesseramento-loading p {
+  margin: 0;
+
+  color: var(--caf-text-muted);
+
+  font-size: 0.8rem;
+}
+
+.config-tesseramento-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+
+  gap: 1.15rem;
+
+  align-items: stretch;
+}
+
+.config-tesseramento-card,
+.config-tesseramento-summary {
+  border: 1px solid rgba(16, 44, 101, 0.08);
+  border-radius: 17px;
+
+  background: #ffffff;
+
+  box-shadow: 0 6px 20px rgba(16, 44, 101, 0.035);
+}
+
+.config-tesseramento-card {
+  padding: 1.3rem;
+}
+
+.config-tesseramento-card__header {
+  margin-bottom: 1.4rem;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 0.8rem;
+}
+
+.config-tesseramento-card__icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  background: #ede7fb;
+
+  color: #7653b5;
+
+  font-size: 1.1rem;
+}
+
+.config-tesseramento-card h2 {
+  margin: 0;
+
+  color: var(--caf-navy);
+
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+.config-tesseramento-card__header p {
+  margin: 0.22rem 0 0;
+
+  color: var(--caf-text-muted);
+
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.config-tesseramento-card .form-label {
+  margin-bottom: 0.5rem;
+
+  color: var(--caf-navy);
+
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.config-tesseramento-card .form-text {
+  margin-top: 0.55rem;
+
+  color: var(--caf-text-muted);
+
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.config-tesseramento-input {
+  min-height: 53px;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  border: 1px solid #d8e0eb;
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.config-tesseramento-input:focus-within {
+  border-color: var(--caf-petrol);
+
+  box-shadow: 0 0 0 3px rgba(31, 111, 114, 0.08);
+}
+
+.config-tesseramento-input > span {
+  width: 48px;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--caf-petrol);
+
+  font-size: 1.15rem;
+  font-weight: 850;
+}
+
+.config-tesseramento-input .form-control {
+  height: 51px;
+
+  border: 0;
+  border-radius: 0;
+
+  color: var(--caf-navy);
+
+  font-size: 1.15rem;
+  font-weight: 800;
+
+  box-shadow: none;
+}
+
+.config-tesseramento-card__save.btn {
+  min-height: 44px;
+
+  margin-top: 1.35rem;
+  padding-inline: 1rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  border: 0;
+
+  background: #078842;
+
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.config-tesseramento-card__save.btn:hover,
+.config-tesseramento-card__save.btn:focus,
+.config-tesseramento-card__save.btn:active {
+  background: #066f36;
+}
+
+.config-tesseramento-card__updated {
+  margin: 1rem 0 0;
+
+  color: #8995a6;
+
+  font-size: 0.72rem;
+}
+
+.config-tesseramento-card__alert {
+  margin-bottom: 1rem;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.45rem;
+
+  border-radius: 10px;
+
+  font-size: 0.77rem;
+}
+
+.config-tesseramento-summary {
+  padding: 1.3rem;
+
+  display: flex;
+  flex-direction: column;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(118, 83, 181, 0.11),
+      transparent 38%
+    ),
+    #ffffff;
+}
+
+.config-tesseramento-summary__eyebrow {
+  color: #7b6c9a;
+
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+
+  text-transform: uppercase;
+}
+
+.config-tesseramento-summary > strong {
+  margin-top: 0.7rem;
+
+  color: var(--caf-navy);
+
+  font-size: clamp(1.45rem, 2.3vw, 2rem);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.config-tesseramento-summary > p {
+  margin: 0.45rem 0 0;
+
+  color: var(--caf-text-muted);
+
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.config-tesseramento-summary__info {
+  margin-top: auto;
+  padding-top: 1rem;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 0.55rem;
+
+  border-top: 1px solid #edf0f5;
+
+  color: #5a6679;
+
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.config-tesseramento-summary__info svg {
+  margin-top: 0.1rem;
+
+  flex: 0 0 auto;
+
+  color: #7653b5;
+
+  font-size: 1rem;
+}
+
+@media (max-width: 767.98px) {
+  .config-tesseramento-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .config-tesseramento-summary {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .config-tesseramento-card,
+  .config-tesseramento-summary {
+    padding: 1rem;
+  }
+
+  .config-tesseramento-page__back.btn span {
+    display: none;
+  }
+
+  .config-tesseramento-page__back.btn {
+    width: 42px;
+
+    padding: 0;
+  }
+}

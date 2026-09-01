@@ -43,27 +43,51 @@ const costruisciParametri = (
     );
   }
 
+  if (parametri.termine?.trim()) {
+  query.set(
+    "termine",
+    parametri.termine.trim(),
+  );
+}
+
   return query;
 };
 
 export const clientiService = {
   async trovaTutti(
-    parametri: ParametriRicercaClienti = {},
-  ): Promise<RispostaPaginata<Cliente>> {
-    const query =
-      costruisciParametri(
-        parametri,
-      );
+  parametri: ParametriRicercaClienti = {},
+): Promise<RispostaPaginata<Cliente>> {
+  const query = costruisciParametri(
+    parametri,
+  );
+
+  const termine = parametri.termine?.trim();
+
+  if (termine) {
+    query.set(
+      "termine",
+      termine,
+    );
 
     const risposta =
       await api.get<
         RispostaPaginata<Cliente>
       >(
-        `${BASE_CLIENTI}?${query.toString()}`,
+        `${BASE_CLIENTI}/ricerca?${query.toString()}`,
       );
 
     return risposta.data;
-  },
+  }
+
+  const risposta =
+    await api.get<
+      RispostaPaginata<Cliente>
+    >(
+      `${BASE_CLIENTI}?${query.toString()}`,
+    );
+
+  return risposta.data;
+},
 
   async trovaPerId(
     id: number,
@@ -148,6 +172,14 @@ export const clientiService = {
 
     return risposta.data;
   },
+
+  async reinviaAttivazione(
+  id: number,
+): Promise<void> {
+  await api.post(
+    `${BASE_CLIENTI}/${id}/reinvia-attivazione`,
+  );
+},
 
   async eliminaCliente(
     id: number,

@@ -15,8 +15,13 @@ import {
   FiLock,
   FiMail,
   FiMapPin,
+  FiSave,
   FiUser,
+  FiExternalLink,
 } from "react-icons/fi";
+import {
+  useNavigate,
+} from "react-router-dom";
 
 import { clientiService } from "../api/clientiService";
 import type {
@@ -41,14 +46,27 @@ const creaFormDaCliente = (
 ): AggiornaClienteRequest => ({
   nome: cliente.nome,
   cognome: cliente.cognome,
+  codiceFiscale: cliente.codiceFiscale,
   dataNascita: cliente.dataNascita,
   luogoNascita: cliente.luogoNascita,
   email: cliente.email,
   telefono: cliente.telefono,
+  telefonoSecondario:
+    cliente.telefonoSecondario,
   indirizzo: cliente.indirizzo,
   comune: cliente.comune,
   provincia: cliente.provincia,
   cap: cliente.cap,
+  domicilioDiversoDallaResidenza:
+    cliente.domicilioDiversoDallaResidenza,
+  domicilioIndirizzo:
+    cliente.domicilioIndirizzo,
+  domicilioComune:
+    cliente.domicilioComune,
+  domicilioProvincia:
+    cliente.domicilioProvincia,
+  domicilioCap:
+    cliente.domicilioCap,
 });
 
 const ClienteDettaglioModal = ({
@@ -78,6 +96,8 @@ const ClienteDettaglioModal = ({
 
   const [errore, setErrore] =
     useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!show || clienteId === null) {
@@ -250,6 +270,18 @@ const ClienteDettaglioModal = ({
     dato && dato.trim() !== ""
       ? dato
       : "Non indicato";
+
+  const apriSchedaCompleta = () => {
+  if (!cliente) {
+    return;
+  }
+
+  chiudi();
+
+  navigate(
+    `/clienti/${cliente.id}`,
+  );
+};
 
   return (
     <Modal
@@ -799,6 +831,20 @@ const ClienteDettaglioModal = ({
         <Modal.Footer className="cliente-dettaglio-modal__footer">
           {!modificaAttiva && (
             <>
+            {cliente && (
+  <Button
+    type="button"
+    variant="outline-primary"
+    className="cliente-dettaglio-modal__open-page"
+    onClick={apriSchedaCompleta}
+  >
+    <FiExternalLink />
+
+    <span>
+      Apri scheda completa
+    </span>
+  </Button>
+)}
               <Button
                 type="button"
                 variant="outline-secondary"
@@ -855,7 +901,13 @@ const ClienteDettaglioModal = ({
                     </span>
                   </>
                 ) : (
-                  "Salva modifiche"
+                  <>
+                    <FiSave />
+
+                    <span>
+                      Salva modifiche
+                    </span>
+                  </>
                 )}
               </Button>
             </>

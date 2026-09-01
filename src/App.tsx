@@ -15,19 +15,23 @@ import NotFoundPage from "./pages/public/NotFoundPage";
 import RecuperoPasswordPage from "./pages/public/RecuperoPasswordPage";
 import ResetPasswordPage from "./pages/public/ResetPasswordPage";
 import DettaglioServizioPublicPage from "./pages/public/DettaglioServizioPublicPage";
+import PrivacyPolicyPage from "./pages/public/PrivacyPolicyPage";
+import CookiePolicyPage from "./pages/public/CookiePolicyPage";
 
 import DashboardPage from "./pages/private/DashboardPage";
 import ClientiPage from "./pages/private/ClientiPage";
+import DettaglioClientePage from "./pages/private/DettaglioClientePage";
 import PratichePage from "./pages/private/PratichePage";
 import DettaglioPraticaPage from "./pages/private/DettaglioPraticaPage";
+import DocumentiPage from "./pages/private/DocumentiPage";
+import AgendaPage from "./pages/private/AgendaPage";
 import AreaAmministrazionePage from "./pages/private/AreaAmministrazionePage";
+import ConfigurazioneServiziPage from "./pages/private/ConfigurazioneServiziPage";
 import DettaglioServizioPage from "./pages/private/DettaglioServizioPage";
+import ConfigurazioneTesseramentoPage from "./pages/private/ConfigurazioneTesseramentoPage";
 import AreaClientePage from "./pages/private/AreaClientePage";
 import AreaDipendentePage from "./pages/private/AreaDipendentePage";
 import AreaRiservataPage from "./pages/private/AreaRiservataPage";
-import ConfigurazioneServiziPage from "./pages/private/ConfigurazioneServiziPage";
-import PrivacyPolicyPage from "./pages/public/PrivacyPolicyPage";
-import CookiePolicyPage from "./pages/public/CookiePolicyPage";
 
 import RottaProtetta from "./features/auth/components/RottaProtetta";
 
@@ -46,9 +50,7 @@ const App = () => {
 
   return (
     <Routes>
-      {/* =====================================================
-          AREA PUBBLICA
-          ===================================================== */}
+      {/* AREA PUBBLICA */}
 
       <Route element={<PublicLayout />}>
         <Route
@@ -63,7 +65,9 @@ const App = () => {
 
         <Route
           path="/servizi/:slug"
-          element={<DettaglioServizioPublicPage />}
+          element={
+            <DettaglioServizioPublicPage />
+          }
         />
 
         <Route
@@ -103,91 +107,60 @@ const App = () => {
         />
 
         <Route
-  path="/privacy"
-  element={<PrivacyPolicyPage />}
-/>
+          path="/privacy"
+          element={<PrivacyPolicyPage />}
+        />
 
-<Route
-  path="/cookie"
-  element={<CookiePolicyPage />}
-/>
-      </Route>
-
-      {/* =====================================================
-          AREA RISERVATA GENERICA
-          ===================================================== */}
-
-      <Route
-        element={
-          <RottaProtetta />
-        }
-      >
         <Route
-          path="/area-riservata"
-          element={
-            <AreaRiservataPage />
-          }
+          path="/cookie"
+          element={<CookiePolicyPage />}
         />
       </Route>
 
-      {/* =====================================================
-          AREA CLIENTE
-          ===================================================== */}
+      {/* AREA RISERVATA GENERICA */}
+
+      <Route element={<RottaProtetta />}>
+        <Route
+          path="/area-riservata"
+          element={<AreaRiservataPage />}
+        />
+      </Route>
+
+      {/* AREA CLIENTE */}
 
       <Route
         element={
           <RottaProtetta
-            ruoliAmmessi={
-              RUOLI_CLIENTE
-            }
+            ruoliAmmessi={RUOLI_CLIENTE}
           />
         }
       >
-        <Route
-          element={
-            <PrivateLayout />
-          }
-        >
+        <Route element={<PrivateLayout />}>
           <Route
             path="/cliente"
-            element={
-              <AreaClientePage />
-            }
+            element={<AreaClientePage />}
           />
         </Route>
       </Route>
 
-      {/* =====================================================
-          AREA DIPENDENTE
-          ===================================================== */}
+      {/* AREA DIPENDENTE */}
 
       <Route
         element={
           <RottaProtetta
-            ruoliAmmessi={
-              RUOLI_DIPENDENTE
-            }
+            ruoliAmmessi={RUOLI_DIPENDENTE}
           />
         }
       >
-        <Route
-          element={
-            <PrivateLayout />
-          }
-        >
+        <Route element={<PrivateLayout />}>
           <Route
             path="/dipendente"
-            element={
-              <AreaDipendentePage />
-            }
+            element={<AreaDipendentePage />}
           />
         </Route>
       </Route>
 
-      {/* =====================================================
-          AREA OPERATIVA
-          ADMIN + DIPENDENTI
-          ===================================================== */}
+      {/* AREA OPERATIVA */}
 
       <Route
         element={
@@ -199,23 +172,22 @@ const App = () => {
           />
         }
       >
-        <Route
-          element={
-            <PrivateLayout />
-          }
-        >
+        <Route element={<PrivateLayout />}>
           <Route
             path="/clienti"
+            element={<ClientiPage />}
+          />
+
+          <Route
+            path="/clienti/:id"
             element={
-              <ClientiPage />
+              <DettaglioClientePage />
             }
           />
 
           <Route
             path="/pratiche"
-            element={
-              <PratichePage />
-            }
+            element={<PratichePage />}
           />
 
           <Route
@@ -224,12 +196,20 @@ const App = () => {
               <DettaglioPraticaPage />
             }
           />
+
+          <Route
+            path="/documenti"
+            element={<DocumentiPage />}
+          />
+
+          <Route
+            path="/agenda"
+            element={<AgendaPage />}
+          />
         </Route>
       </Route>
 
-      {/* =====================================================
-          AMMINISTRAZIONE
-          ===================================================== */}
+      {/* AMMINISTRAZIONE */}
 
       <Route
         element={
@@ -240,16 +220,10 @@ const App = () => {
           />
         }
       >
-        <Route
-          element={
-            <PrivateLayout />
-          }
-        >
+        <Route element={<PrivateLayout />}>
           <Route
             path="/dashboard"
-            element={
-              <DashboardPage />
-            }
+            element={<DashboardPage />}
           />
 
           <Route
@@ -272,18 +246,21 @@ const App = () => {
               <DettaglioServizioPage />
             }
           />
+
+          <Route
+            path="/amministrazione/tesseramento"
+            element={
+              <ConfigurazioneTesseramentoPage />
+            }
+          />
         </Route>
       </Route>
 
-      {/* =====================================================
-          404
-          ===================================================== */}
+      {/* 404 */}
 
       <Route
         path="*"
-        element={
-          <NotFoundPage />
-        }
+        element={<NotFoundPage />}
       />
     </Routes>
   );

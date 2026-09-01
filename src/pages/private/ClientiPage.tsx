@@ -10,7 +10,7 @@ import {
 import {
   Alert,
   Button,
-  Form,
+  Pagination,
   Spinner,
   Table,
 } from "react-bootstrap";
@@ -19,6 +19,7 @@ import {
   FiPlus,
   FiSearch,
   FiUsers,
+  FiX,
 } from "react-icons/fi";
 
 import {
@@ -42,6 +43,8 @@ type FiltroAttivazione =
   | "true"
   | "false";
 
+const DIMENSIONE_PAGINA = 10;
+
 const normalizzaFiltroAttivo = (
   valore: string | null,
 ): FiltroAttivazione => {
@@ -53,6 +56,21 @@ const normalizzaFiltroAttivo = (
   }
 
   return "";
+};
+
+const normalizzaPagina = (
+  valore: string | null,
+): number => {
+  const pagina = Number(valore);
+
+  if (
+    Number.isInteger(pagina) &&
+    pagina >= 0
+  ) {
+    return pagina;
+  }
+
+  return 0;
 };
 
 const ClientiPage = () => {
@@ -68,20 +86,28 @@ const ClientiPage = () => {
     caricamento,
     errore,
     totaleElementi,
+    totalePagine,
+    paginaCorrente,
   } = useAppSelector(
     (state) => state.clienti,
   );
 
-  const [
-    filtroAttivo,
-    setFiltroAttivo,
-  ] = useState<FiltroAttivazione>(
+  const filtroAttivo =
     normalizzaFiltroAttivo(
-      searchParams.get(
-        "attivo",
-      ),
-    ),
+      searchParams.get("attivo"),
+    );
+
+  const termineUrl =
+    searchParams.get("q") ?? "";
+
+  const paginaUrl = normalizzaPagina(
+    searchParams.get("page"),
   );
+
+  const [
+    termineRicerca,
+    setTermineRicerca,
+  ] = useState(termineUrl);
 
   const [
     mostraNuovoCliente,
@@ -96,21 +122,64 @@ const ClientiPage = () => {
   );
 
   useEffect(() => {
-    setFiltroAttivo(
-      normalizzaFiltroAttivo(
-        searchParams.get(
-          "attivo",
-        ),
-      ),
-    );
-  }, [searchParams]);
+    setTermineRicerca(termineUrl);
+  }, [termineUrl]);
+
+  useEffect(() => {
+    const timeoutRicerca =
+      window.setTimeout(() => {
+        const termineNormalizzato =
+          termineRicerca.trim();
+
+        if (
+          termineNormalizzato === termineUrl
+        ) {
+          return;
+        }
+
+        const nuoviParametri =
+          new URLSearchParams(
+            searchParams,
+          );
+
+        if (termineNormalizzato) {
+          nuoviParametri.set(
+            "q",
+            termineNormalizzato,
+          );
+        } else {
+          nuoviParametri.delete("q");
+        }
+
+        nuoviParametri.set("page", "0");
+
+        setSearchParams(
+          nuoviParametri,
+          {
+            replace: true,
+          },
+        );
+      }, 350);
+
+    return () => {
+      window.clearTimeout(
+        timeoutRicerca,
+      );
+    };
+  }, [
+    searchParams,
+    setSearchParams,
+    termineRicerca,
+    termineUrl,
+  ]);
 
   useEffect(() => {
     void dispatch(
       caricaClienti({
-        page: 0,
-        size: 10,
+        page: paginaUrl,
+        size: DIMENSIONE_PAGINA,
         sort: "cognome,asc",
+        termine: termineUrl || undefined,
         attivo:
           filtroAttivo === ""
             ? undefined
@@ -121,14 +190,48 @@ const ClientiPage = () => {
   }, [
     dispatch,
     filtroAttivo,
+    paginaUrl,
+    termineUrl,
   ]);
+
+  const aggiornaParametri = (
+    aggiornamenti: Record<
+      string,
+      string | null
+    >,
+  ) => {
+    const nuoviParametri =
+      new URLSearchParams(searchParams);
+
+    Object.entries(
+      aggiornamenti,
+    ).forEach(([chiave, valore]) => {
+      if (valore === null) {
+        nuoviParametri.delete(chiave);
+        return;
+      }
+
+      nuoviParametri.set(
+        chiave,
+        valore,
+      );
+    });
+
+    setSearchParams(
+      nuoviParametri,
+      {
+        replace: true,
+      },
+    );
+  };
 
   const ricaricaClienti = () => {
     void dispatch(
       caricaClienti({
-        page: 0,
-        size: 10,
+        page: paginaUrl,
+        size: DIMENSIONE_PAGINA,
         sort: "cognome,asc",
+        termine: termineUrl || undefined,
         attivo:
           filtroAttivo === ""
             ? undefined
@@ -141,31 +244,29 @@ const ClientiPage = () => {
   const cambiaFiltroAttivo = (
     valore: FiltroAttivazione,
   ) => {
-    setFiltroAttivo(valore);
-
-    const nuoviParametri =
-      new URLSearchParams(
-        searchParams,
-      );
-
-    if (valore === "") {
-      nuoviParametri.delete(
-        "attivo",
-      );
-    } else {
-      nuoviParametri.set(
-        "attivo",
-        valore,
-      );
-    }
-
-    setSearchParams(
-      nuoviParametri,
-      {
-        replace: true,
-      },
-    );
+    aggiornaParametri({
+      attivo:
+        valore === ""
+          ? null
+          : valore,
+      page: "0",
+    });
   };
+
+  const cambiaPagina = (
+    nuovaPagina: number,
+  ) => {
+    aggiornaParametri({
+      page: String(nuovaPagina),
+    });
+  };
+
+  const primaPagina =
+    paginaCorrente === 0;
+
+  const ultimaPagina =
+    totalePagine === 0 ||
+    paginaCorrente >= totalePagine - 1;
 
   return (
     <section className="clienti-page">
@@ -178,9 +279,7 @@ const ClientiPage = () => {
             type="button"
             className="clienti-page__new-button"
             onClick={() =>
-              setMostraNuovoCliente(
-                true,
-              )
+              setMostraNuovoCliente(true)
             }
           >
             <FiPlus />
@@ -194,38 +293,71 @@ const ClientiPage = () => {
 
       <section className="clienti-panel">
         <header className="clienti-panel__header">
-          <div className="clienti-search">
-            <FiSearch />
+          <div className="clienti-toolbar">
+            <div className="clienti-search">
+              <FiSearch />
 
-            <input
-              type="search"
-              placeholder="Cerca per nome, cognome o codice fiscale..."
-              aria-label="Cerca cliente"
-            />
+              <input
+                type="search"
+                value={termineRicerca}
+                onChange={(event) =>
+                  setTermineRicerca(
+                    event.target.value,
+                  )
+                }
+                placeholder="Cerca per nome, codice fiscale, email o telefono..."
+                aria-label="Cerca cliente"
+              />
+
+              {termineRicerca && (
+                <button
+                  type="button"
+                  className="clienti-search__clear"
+                  aria-label="Cancella ricerca"
+                  onClick={() =>
+                    setTermineRicerca("")
+                  }
+                >
+                  <FiX />
+                </button>
+              )}
+            </div>
+
+            <div
+              className="clienti-status-filters"
+              role="group"
+              aria-label="Filtra clienti per stato"
+            >
+              {(
+                [
+                  ["", "Tutti"],
+                  ["true", "Attivi"],
+                  ["false", "Da attivare"],
+                ] as Array<[
+                  FiltroAttivazione,
+                  string,
+                ]>
+              ).map(([valore, etichetta]) => (
+                <button
+                  key={valore || "tutti"}
+                  type="button"
+                  className={
+                    filtroAttivo === valore
+                      ? "clienti-status-filters__button clienti-status-filters__button--active"
+                      : "clienti-status-filters__button"
+                  }
+                  aria-pressed={
+                    filtroAttivo === valore
+                  }
+                  onClick={() =>
+                    cambiaFiltroAttivo(valore)
+                  }
+                >
+                  {etichetta}
+                </button>
+              ))}
+            </div>
           </div>
-
-          <Form.Select
-            value={filtroAttivo}
-            onChange={(event) =>
-              cambiaFiltroAttivo(
-                event.target
-                  .value as FiltroAttivazione,
-              )
-            }
-            aria-label="Filtra clienti per stato"
-          >
-            <option value="">
-              Tutti i clienti
-            </option>
-
-            <option value="true">
-              Clienti attivi
-            </option>
-
-            <option value="false">
-              Clienti non attivi
-            </option>
-          </Form.Select>
 
           <div className="clienti-count">
             <FiUsers />
@@ -264,53 +396,50 @@ const ClientiPage = () => {
             </p>
           </div>
         ) : (
-          <div className="clienti-table-wrapper">
-            <Table
-              responsive
-              className="clienti-table"
-            >
-              <thead>
-                <tr>
-                  <th>
-                    Cliente
-                  </th>
-
-                  <th>
-                    Codice fiscale
-                  </th>
-
-                  <th>
-                    Telefono
-                  </th>
-
-                  <th>
-                    Email
-                  </th>
-
-                  <th>
-                    Stato
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {elenco.length === 0 ? (
+          <>
+            <div className="clienti-table-wrapper">
+              <Table
+                responsive
+                className="clienti-table"
+              >
+                <thead>
                   <tr>
-                    <td
-                      colSpan={5}
-                      className="clienti-table__empty"
-                    >
-                      Nessun cliente
-                      trovato.
-                    </td>
+                    <th>
+                      Cliente
+                    </th>
+
+                    <th>
+                      Codice fiscale
+                    </th>
+
+                    <th>
+                      Telefono
+                    </th>
+
+                    <th>
+                      Email
+                    </th>
+
+                    <th>
+                      Stato
+                    </th>
                   </tr>
-                ) : (
-                  elenco.map(
-                    (cliente) => (
+                </thead>
+
+                <tbody>
+                  {elenco.length === 0 ? (
+                    <tr>
+                      <td
+                        colSpan={5}
+                        className="clienti-table__empty"
+                      >
+                        Nessun cliente trovato.
+                      </td>
+                    </tr>
+                  ) : (
+                    elenco.map((cliente) => (
                       <tr
-                        key={
-                          cliente.id
-                        }
+                        key={cliente.id}
                         className="clienti-table__row"
                         onClick={() =>
                           setClienteSelezionatoId(
@@ -331,21 +460,15 @@ const ClientiPage = () => {
                             </span>
 
                             <strong>
-                              {
-                                cliente.nome
-                              }{" "}
-                              {
-                                cliente.cognome
-                              }
+                              {cliente.nome}{" "}
+                              {cliente.cognome}
                             </strong>
                           </div>
                         </td>
 
                         <td>
                           <span className="clienti-table__secondary">
-                            {
-                              cliente.codiceFiscale
-                            }
+                            {cliente.codiceFiscale}
                           </span>
                         </td>
 
@@ -358,9 +481,7 @@ const ClientiPage = () => {
 
                         <td>
                           <span className="clienti-table__email">
-                            {
-                              cliente.email
-                            }
+                            {cliente.email}
                           </span>
                         </td>
 
@@ -378,41 +499,59 @@ const ClientiPage = () => {
                           </span>
                         </td>
                       </tr>
-                    ),
-                  )
-                )}
-              </tbody>
-            </Table>
-          </div>
+                    ))
+                  )}
+                </tbody>
+              </Table>
+            </div>
+
+            {totalePagine > 1 && (
+              <footer className="clienti-panel__footer">
+                <p>
+                  Pagina {paginaCorrente + 1} di{" "}
+                  {totalePagine}
+                </p>
+
+                <Pagination className="clienti-pagination">
+                  <Pagination.Prev
+                    disabled={primaPagina}
+                    onClick={() =>
+                      cambiaPagina(
+                        paginaCorrente - 1,
+                      )
+                    }
+                  />
+
+                  <Pagination.Next
+                    disabled={ultimaPagina}
+                    onClick={() =>
+                      cambiaPagina(
+                        paginaCorrente + 1,
+                      )
+                    }
+                  />
+                </Pagination>
+              </footer>
+            )}
+          </>
         )}
       </section>
 
       <NuovoClienteModal
-        show={
-          mostraNuovoCliente
-        }
+        show={mostraNuovoCliente}
         onHide={() =>
-          setMostraNuovoCliente(
-            false,
-          )
+          setMostraNuovoCliente(false)
         }
-        onClienteCreato={
-          ricaricaClienti
-        }
+        onClienteCreato={ricaricaClienti}
       />
 
       <ClienteDettaglioModal
         show={
-          clienteSelezionatoId !==
-          null
+          clienteSelezionatoId !== null
         }
-        clienteId={
-          clienteSelezionatoId
-        }
+        clienteId={clienteSelezionatoId}
         onHide={() =>
-          setClienteSelezionatoId(
-            null,
-          )
+          setClienteSelezionatoId(null)
         }
         onClienteAggiornato={
           ricaricaClienti

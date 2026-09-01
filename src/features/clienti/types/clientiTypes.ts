@@ -1,21 +1,31 @@
-// rispecchia il ClienteResponse del BE
-
 export interface Cliente {
   id: number;
   nome: string;
   cognome: string;
   codiceFiscale: string;
+
   dataNascita: string | null;
   luogoNascita: string | null;
+
   email: string;
   telefono: string | null;
+  telefonoSecondario: string | null;
+
   indirizzo: string | null;
   comune: string | null;
   provincia: string | null;
   cap: string | null;
+
+  domicilioDiversoDallaResidenza: boolean;
+  domicilioIndirizzo: string | null;
+  domicilioComune: string | null;
+  domicilioProvincia: string | null;
+  domicilioCap: string | null;
+
   attivo: boolean;
   emailVerificata: boolean;
   urlImmagineProfilo: string | null;
+
   creatoIl: string;
   aggiornatoIl: string;
 }
@@ -37,14 +47,25 @@ export interface CreaClienteRequest {
 export interface AggiornaClienteRequest {
   nome: string;
   cognome: string;
+  codiceFiscale: string;
+
   dataNascita: string | null;
   luogoNascita: string | null;
+
   email: string;
   telefono: string | null;
+  telefonoSecondario: string | null;
+
   indirizzo: string | null;
   comune: string | null;
   provincia: string | null;
   cap: string | null;
+
+  domicilioDiversoDallaResidenza: boolean;
+  domicilioIndirizzo: string | null;
+  domicilioComune: string | null;
+  domicilioProvincia: string | null;
+  domicilioCap: string | null;
 }
 
 export interface RispostaPaginata<T> {
@@ -65,4 +86,5 @@ export interface ParametriRicercaClienti {
   cognome?: string;
   codiceFiscale?: string;
   attivo?: boolean;
+  termine?: string;
 }

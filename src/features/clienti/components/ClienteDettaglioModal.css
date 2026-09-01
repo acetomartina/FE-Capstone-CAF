@@ -433,35 +433,84 @@
    ========================================================= */
 
 .cliente-dettaglio-modal__footer {
+  min-height: 70px;
   padding: 0.85rem 1.5rem;
 
-  gap: 0.45rem;
+  gap: 0.55rem;
 
   border-top: 1px solid #edf1f6;
 
   background: #ffffff;
 }
 
-.cliente-dettaglio-modal__close.btn,
-.cliente-dettaglio-modal__cancel.btn {
-  min-height: 40px;
+.cliente-dettaglio-modal__footer .btn {
+  min-height: 42px;
+  padding: 0.58rem 0.9rem;
 
-  padding-inline: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  border-color: #cdd6e2;
+  gap: 0.42rem;
+
   border-radius: 10px;
 
-  color: #667085;
-
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 800;
+
+  line-height: 1;
+
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.cliente-dettaglio-modal__footer .btn:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.cliente-dettaglio-modal__open-page.btn {
+  margin-right: auto;
+
+  border-color: transparent;
+
+  background: #f0f7f6;
+  color: var(--caf-petrol);
+
+  box-shadow: none;
+}
+
+.cliente-dettaglio-modal__open-page.btn:hover,
+.cliente-dettaglio-modal__open-page.btn:focus,
+.cliente-dettaglio-modal__open-page.btn:active {
+  border-color: #cfe3df;
+
+  background: #e6f2f0;
+  color: var(--caf-petrol);
+
+  box-shadow: none;
+}
+
+.cliente-dettaglio-modal__close.btn,
+.cliente-dettaglio-modal__cancel.btn {
+  min-width: 88px;
+
+  border-color: #d7dfe9;
+
+  background: #ffffff;
+  color: #5f6d80;
+
+  box-shadow: none;
 }
 
 .cliente-dettaglio-modal__close.btn:hover,
 .cliente-dettaglio-modal__cancel.btn:hover {
-  border-color: #aebaca;
+  border-color: #bec9d6;
 
-  background: #f6f8fb;
+  background: #f7f9fb;
 
   color: var(--caf-navy);
 }
@@ -471,33 +520,21 @@
    ========================================================= */
 
 .cliente-dettaglio-modal__edit.btn {
-  min-height: 40px;
-
-  padding-inline: 1rem;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 0.4rem;
+  min-width: 112px;
 
   border: 0;
-  border-radius: 10px;
 
-  background: var(--caf-blue);
+  background: #078842;
 
   color: #ffffff;
 
-  font-size: 0.7rem;
-  font-weight: 800;
-
-  box-shadow: 0 7px 16px rgba(63, 98, 165, 0.16);
+  box-shadow: 0 7px 16px rgba(7, 136, 66, 0.16);
 }
 
 .cliente-dettaglio-modal__edit.btn:hover,
 .cliente-dettaglio-modal__edit.btn:focus,
 .cliente-dettaglio-modal__edit.btn:active {
-  background: #34558f;
+  background: #066f36;
 
   color: #ffffff;
 }
@@ -507,25 +544,13 @@
    ========================================================= */
 
 .cliente-dettaglio-modal__save.btn {
-  min-height: 40px;
-
-  padding-inline: 1.05rem;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 0.45rem;
+  min-width: 145px;
 
   border: 0;
-  border-radius: 10px;
 
   background: #078842;
 
   color: #ffffff;
-
-  font-size: 0.7rem;
-  font-weight: 800;
 
   box-shadow: 0 7px 16px rgba(7, 136, 66, 0.16);
 }
@@ -595,6 +620,13 @@
     display: grid;
 
     grid-template-columns: 1fr 1fr;
+  }
+
+  .cliente-dettaglio-modal__open-page.btn {
+    width: 100%;
+    margin-right: 0;
+
+    grid-column: 1 / -1;
   }
 
   .cliente-dettaglio-modal__close.btn,

@@ -1,12 +1,89 @@
 import api from "../../../services/api";
 
 import type {
+  DocumentoAdmin,
   DocumentoPratica,
+  PaginaDocumentiAdmin,
+  ParametriDocumentiAdmin,
   RiepilogoDocumenti,
+  RiepilogoDocumentiAdmin,
   StatoDocumentoPratica,
 } from "../types/documentiTypes";
 
+const BASE_DOCUMENTI =
+  "/api/documenti-pratica";
+
+const costruisciParametriAdmin = (
+  parametri: ParametriDocumentiAdmin,
+): URLSearchParams => {
+  const query = new URLSearchParams();
+
+  if (parametri.termine?.trim()) {
+    query.set(
+      "termine",
+      parametri.termine.trim(),
+    );
+  }
+
+  if (parametri.stato) {
+    query.set(
+      "stato",
+      parametri.stato,
+    );
+  }
+
+  if (parametri.tipoObbligatorieta) {
+    query.set(
+      "tipoObbligatorieta",
+      parametri.tipoObbligatorieta,
+    );
+  }
+
+  query.set(
+    "page",
+    String(parametri.page ?? 0),
+  );
+
+  query.set(
+    "size",
+    String(parametri.size ?? 20),
+  );
+
+  query.set(
+    "sort",
+    parametri.sort ?? "aggiornatoIl,desc",
+  );
+
+  return query;
+};
+
 export const documentiPraticaService = {
+  async trovaTutti(
+    parametri: ParametriDocumentiAdmin = {},
+  ): Promise<PaginaDocumentiAdmin> {
+    const query =
+      costruisciParametriAdmin(
+        parametri,
+      );
+
+    const risposta =
+      await api.get<PaginaDocumentiAdmin>(
+        `${BASE_DOCUMENTI}?${query.toString()}`,
+      );
+
+    return risposta.data;
+  },
+
+  async riepilogoAdmin():
+    Promise<RiepilogoDocumentiAdmin> {
+    const risposta =
+      await api.get<RiepilogoDocumentiAdmin>(
+        `${BASE_DOCUMENTI}/riepilogo`,
+      );
+
+    return risposta.data;
+  },
+
   async trovaPerPratica(
     praticaId: number,
   ): Promise<DocumentoPratica[]> {
@@ -35,7 +112,7 @@ export const documentiPraticaService = {
   ): Promise<DocumentoPratica> {
     const risposta =
       await api.patch<DocumentoPratica>(
-        `/api/documenti-pratica/${documentoId}/stato`,
+        `${BASE_DOCUMENTI}/${documentoId}/stato`,
         {
           stato,
         },
@@ -43,4 +120,8 @@ export const documentiPraticaService = {
 
     return risposta.data;
   },
+};
+
+export type {
+  DocumentoAdmin,
 };

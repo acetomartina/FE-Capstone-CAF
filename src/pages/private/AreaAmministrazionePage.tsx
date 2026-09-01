@@ -4,6 +4,7 @@ import {
   FiMapPin,
   FiSettings,
   FiUsers,
+  FiCreditCard,
 } from "react-icons/fi";
 
 import {
@@ -40,6 +41,17 @@ const AreaAmministrazionePage = () => {
       variante: "green",
       disponibile: true,
     },
+    {
+  titolo:
+    "Tesseramento annuale",
+  descrizione:
+    "Imposta la quota annuale della tessera e monitora le regole di rinnovo applicate ai clienti.",
+  path:
+    "/amministrazione/tesseramento",
+  icona: <FiCreditCard />,
+  variante: "purple",
+  disponibile: true,
+},
     {
       titolo:
         "Contenuti Home",

@@ -98,8 +98,8 @@ const PrivateLayout = () => {
       icon: <FiFolder />,
     },
     {
-      label: "Scadenze",
-      path: "/scadenze",
+      label: "Agenda",
+      path: "/agenda",
       icon: <FiCalendar />,
     },
   ];
