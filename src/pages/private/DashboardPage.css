@@ -33,7 +33,7 @@
       rgba(199, 20, 104, 0.025),
       transparent 15rem
     ),
-    #ffffff;
+    var(--caf-white);
 
   box-shadow: 0 7px 22px rgba(16, 44, 101, 0.04);
 }
@@ -96,7 +96,7 @@
   border: 1px solid #d8e0eb;
   border-radius: 12px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 4px 14px rgba(16, 44, 101, 0.025);
 
@@ -183,7 +183,7 @@
   border: 1px solid #e6ebf2;
   border-radius: 12px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 8px 24px rgba(16, 44, 101, 0.055);
 }
@@ -199,9 +199,9 @@
 }
 
 .dashboard-search-results__state--error {
-  background: #fdf4f2;
+  background: var(--caf-danger-soft);
 
-  color: #c0392f;
+  color: var(--caf-danger);
 }
 
 /* =========================================================
@@ -213,7 +213,7 @@
 
   border-bottom: 1px solid #edf1f6;
 
-  background: #fafbfd;
+  background: var(--caf-bg);
 }
 
 .dashboard-search-group__header > div {
@@ -281,7 +281,7 @@
   border: 0;
   border-bottom: 1px solid #f0f2f5;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   text-align: left;
 
@@ -297,7 +297,7 @@
 }
 
 .dashboard-search-client:hover {
-  background: #f8fafc;
+  background: var(--caf-bg);
 
   box-shadow: inset 3px 0 0 rgba(31, 111, 114, 0.35);
 }
@@ -369,9 +369,9 @@
 }
 
 .dashboard-search-client__status--active {
-  background: #e6f4e9;
+  background: var(--caf-green-soft);
 
-  color: #247a3a;
+  color: var(--caf-green);
 }
 
 .dashboard-search-client__status--inactive {
@@ -414,8 +414,8 @@
    ========================================================= */
 
 .dashboard-stat-card {
-  --card-accent: #247a3a;
-  --card-soft: #e6f4e9;
+  --card-accent: var(--caf-green);
+  --card-soft: var(--caf-green-soft);
 
   position: relative;
 
@@ -433,7 +433,7 @@
 
   border-radius: 15px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 6px 18px rgba(16, 44, 101, 0.04);
 
@@ -571,33 +571,33 @@
    ========================================================= */
 
 .dashboard-stat-card--green {
-  --card-accent: #247a3a;
-  --card-soft: #e6f4e9;
+  --card-accent: var(--caf-green);
+  --card-soft: var(--caf-green-soft);
 }
 
 .dashboard-stat-card--orange {
-  --card-accent: #c76a08;
-  --card-soft: #fff0d8;
+  --card-accent: var(--caf-orange);
+  --card-soft: var(--caf-orange-soft);
 }
 
 .dashboard-stat-card--blue {
-  --card-accent: #3f62a5;
-  --card-soft: #e2eaf7;
+  --card-accent: var(--caf-blue);
+  --card-soft: var(--caf-blue-soft);
 }
 
 .dashboard-stat-card--fuchsia {
-  --card-accent: #c71468;
-  --card-soft: #ffe3ef;
+  --card-accent: var(--caf-fuchsia);
+  --card-soft: var(--caf-fuchsia-soft);
 }
 
 .dashboard-stat-card--purple {
-  --card-accent: #7452a8;
-  --card-soft: #eee8f7;
+  --card-accent: var(--caf-purple);
+  --card-soft: var(--caf-purple-soft);
 }
 
 .dashboard-stat-card--petrol {
-  --card-accent: #1f6f72;
-  --card-soft: #e1f1f1;
+  --card-accent: var(--caf-petrol);
+  --card-soft: var(--caf-petrol-soft);
 }
 
 /* =========================================================
@@ -629,7 +629,7 @@
 
   border-radius: 17px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 7px 22px rgba(16, 44, 101, 0.045);
 }
@@ -762,9 +762,9 @@
 
   border-radius: 11px;
 
-  background: #e6f4e9;
+  background: var(--caf-green-soft);
 
-  color: #247a3a;
+  color: var(--caf-green);
 
   font-size: 0.95rem;
 }
@@ -823,33 +823,33 @@
 }
 
 .dashboard-practice__status--blue {
-  background: #e2eaf7;
-  color: #3f62a5;
+  background: var(--caf-blue-soft);
+  color: var(--caf-blue);
 }
 
 .dashboard-practice__status--fuchsia {
-  background: #ffe3ef;
-  color: #c71468;
+  background: var(--caf-fuchsia-soft);
+  color: var(--caf-fuchsia);
 }
 
 .dashboard-practice__status--orange {
-  background: #fff0d8;
-  color: #c76a08;
+  background: var(--caf-orange-soft);
+  color: var(--caf-orange);
 }
 
 .dashboard-practice__status--green {
-  background: #e6f4e9;
-  color: #247a3a;
+  background: var(--caf-green-soft);
+  color: var(--caf-green);
 }
 
 .dashboard-practice__status--purple {
-  background: #eee8f7;
-  color: #7452a8;
+  background: var(--caf-purple-soft);
+  color: var(--caf-purple);
 }
 
 .dashboard-practice__status--petrol {
-  background: #e1f1f1;
-  color: #1f6f72;
+  background: var(--caf-petrol-soft);
+  color: var(--caf-petrol);
 }
 
 /* =========================================================
@@ -937,9 +937,9 @@
 
   border-radius: 11px;
 
-  background: #fff0d8;
+  background: var(--caf-orange-soft);
 
-  color: #c76a08;
+  color: var(--caf-orange);
 }
 
 .dashboard-deadline__date strong {
@@ -1200,7 +1200,7 @@
   padding-left: 0.45rem;
   padding-right: 0.45rem;
 
-  background: #fafbfd;
+  background: var(--caf-bg);
 }
 
 .dashboard-deadline:focus-visible {

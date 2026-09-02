@@ -22,7 +22,7 @@
 
   background: #078842;
 
-  color: #ffffff;
+  color: var(--caf-white);
 
   font-size: 0.78rem;
   font-weight: 800;
@@ -35,7 +35,7 @@
 .clienti-page__new-button.btn:active {
   background: #066f36;
 
-  color: #ffffff;
+  color: var(--caf-white);
 }
 
 /* =========================================================
@@ -48,7 +48,7 @@
   border: 1px solid rgba(16, 44, 101, 0.08);
   border-radius: 16px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 6px 20px rgba(16, 44, 101, 0.035);
 }
@@ -88,7 +88,7 @@
   border: 1px solid #d8e0eb;
   border-radius: 11px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   transition:
     border-color 180ms ease,
@@ -170,9 +170,9 @@
   border-color: #f2cdc6;
   border-radius: 11px;
 
-  background: #fdf4f2;
+  background: var(--caf-danger-soft);
 
-  color: #c0392f;
+  color: var(--caf-danger);
 
   font-size: 0.76rem;
 }
@@ -225,7 +225,7 @@
 
   border-bottom: 1px solid #e7ecf3;
 
-  background: #fafbfd;
+  background: var(--caf-bg);
 
   color: #727f92;
 
@@ -267,7 +267,7 @@
 }
 
 .clienti-table__row:hover {
-  background: #f8fafc;
+  background: var(--caf-bg);
 
   box-shadow: inset 3px 0 0 rgba(31, 111, 114, 0.35);
 }
@@ -353,9 +353,9 @@
 }
 
 .clienti-status--active {
-  background: #e6f4e9;
+  background: var(--caf-green-soft);
 
-  color: #237a3b;
+  color: var(--caf-green);
 }
 
 .clienti-status--inactive {
@@ -405,7 +405,7 @@
 .clienti-pagination .page-link {
   min-width: 36px;
 
-  border-color: #dce4ee;
+  border-color: var(--caf-border);
 
   color: var(--caf-navy);
 
@@ -421,7 +421,7 @@
 
   background: var(--caf-petrol);
 
-  color: #ffffff;
+  color: var(--caf-white);
 }
 
 @media (max-width: 480px) {
@@ -491,7 +491,7 @@
   gap: 0.9rem;
 
   background:
-    linear-gradient(110deg, rgba(31, 111, 114, 0.025), transparent 45%), #ffffff;
+    linear-gradient(110deg, rgba(31, 111, 114, 0.025), transparent 45%), var(--caf-white);
 }
 
 .clienti-toolbar {
@@ -530,7 +530,7 @@
 .clienti-search:focus-within {
   border-color: var(--caf-petrol);
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 0 0 3px rgba(31, 111, 114, 0.08);
 }
@@ -630,7 +630,7 @@
 }
 
 .clienti-status-filters__button--active {
-  background: #ffffff;
+  background: var(--caf-white);
   color: var(--caf-petrol);
 
   box-shadow:

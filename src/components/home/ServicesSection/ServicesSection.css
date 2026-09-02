@@ -14,7 +14,7 @@
       rgba(230, 35, 128, 0.06),
       transparent 24rem
     ),
-    #ffffff;
+    var(--caf-white);
 }
 
 .services-section__container {
@@ -51,7 +51,7 @@
   max-width: 790px;
   margin: 0;
 
-  color: #102c65;
+  color: var(--caf-navy);
 
   font-size: clamp(2.35rem, 4.2vw, 4.2rem);
   font-weight: 800;
@@ -86,8 +86,8 @@
   border: 1px solid rgba(16, 44, 101, 0.14);
   border-radius: 8px;
 
-  background: #ffffff;
-  color: #102c65;
+  background: var(--caf-white);
+  color: var(--caf-navy);
 
   font-size: 0.86rem;
   font-weight: 700;
@@ -113,7 +113,7 @@
 .services-section__mobile-link a:hover {
   border-color: rgba(36, 122, 58, 0.28);
   background: #f5fbf6;
-  color: #247a3a;
+  color: var(--caf-green);
 
   transform: translateY(-2px);
 
@@ -314,8 +314,8 @@
   border: 1px solid rgba(31, 111, 114, 0.16);
   border-radius: 999px;
 
-  background: #e1f1f1;
-  color: #1f6f72;
+  background: var(--caf-petrol-soft);
+  color: var(--caf-petrol);
 
   font-size: 0.67rem;
   font-weight: 750;
@@ -341,7 +341,7 @@
 .services-card h3 {
   margin: 0;
 
-  color: #102c65;
+  color: var(--caf-navy);
 
   font-size: 1.3rem;
   font-weight: 780;
@@ -353,7 +353,7 @@
   min-height: 76px;
   margin: 0.8rem 0 0;
 
-  color: #667085;
+  color: var(--caf-text-muted);
 
   font-size: 0.88rem;
   line-height: 1.65;
@@ -444,33 +444,33 @@
    ========================================================= */
 
 .services-card--green {
-  --services-card-accent: #247a3a;
-  --services-card-soft: #e6f4e9;
+  --services-card-accent: var(--caf-green);
+  --services-card-soft: var(--caf-green-soft);
 }
 
 .services-card--orange {
-  --services-card-accent: #c76a08;
-  --services-card-soft: #fff0d8;
+  --services-card-accent: var(--caf-orange);
+  --services-card-soft: var(--caf-orange-soft);
 }
 
 .services-card--blue {
-  --services-card-accent: #3f62a5;
-  --services-card-soft: #e2eaf7;
+  --services-card-accent: var(--caf-blue);
+  --services-card-soft: var(--caf-blue-soft);
 }
 
 .services-card--fuchsia {
-  --services-card-accent: #c71468;
-  --services-card-soft: #ffe3ef;
+  --services-card-accent: var(--caf-fuchsia);
+  --services-card-soft: var(--caf-fuchsia-soft);
 }
 
 .services-card--purple {
-  --services-card-accent: #7452a8;
-  --services-card-soft: #eee8f7;
+  --services-card-accent: var(--caf-purple);
+  --services-card-soft: var(--caf-purple-soft);
 }
 
 .services-card--petrol {
-  --services-card-accent: #1f6f72;
-  --services-card-soft: #e1f1f1;
+  --services-card-accent: var(--caf-petrol);
+  --services-card-soft: var(--caf-petrol-soft);
 }
 
 /* =========================================================

@@ -11,10 +11,12 @@ vi.mock("../authService", () => ({
   authService: {
     richiediRecuperoPassword: vi.fn(),
     resetPassword: vi.fn(),
+    attivaAccount: vi.fn(),
   },
 }));
 
 const resetPassword = vi.mocked(authService.resetPassword);
+const attivaAccount = vi.mocked(authService.attivaAccount);
 
 const TOKEN = "token-valido-123";
 const PASSWORD_BUONA = "Password1!";
@@ -27,6 +29,13 @@ const renderForm = (token?: string) =>
   render(
     <MemoryRouter>
       <ResetPasswordForm token={token} />
+    </MemoryRouter>,
+  );
+
+const renderFormAttivazione = (token?: string) =>
+  render(
+    <MemoryRouter>
+      <ResetPasswordForm token={token} modalita="attivazione" />
     </MemoryRouter>,
   );
 
@@ -58,9 +67,12 @@ const erroreAxios = (status?: number, data?: unknown) => {
   return errore;
 };
 
+/* Il testo del pulsante cambia con la modalità: il default resta quello
+   del reset, così i test già scritti non si accorgono della differenza. */
 const compila = async (
   password: string,
   conferma: string,
+  etichettaInvio: RegExp = /reimposta la password/i,
 ) => {
   const utente = userEvent.setup();
 
@@ -76,10 +88,12 @@ const compila = async (
 
   await utente.click(
     screen.getByRole("button", {
-      name: /reimposta la password/i,
+      name: etichettaInvio,
     }),
   );
 };
+
+const ATTIVA = /attiva il tuo account/i;
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -391,6 +405,80 @@ describe("ResetPasswordForm", () => {
           "Password aggiornata",
         ),
       ).toBeVisible();
+    });
+  });
+
+  /*
+   * L'attivazione è la stessa schermata del reset con un altro endpoint
+   * dietro: i test qui verificano che il bivio sia quello giusto, perché
+   * sbagliarlo significa mandare il token di invito all'API sbagliata.
+   */
+  describe("modalità attivazione", () => {
+    it("chiama attivaAccount e non resetPassword", async () => {
+      attivaAccount.mockResolvedValue({});
+
+      renderFormAttivazione(TOKEN);
+
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+        ATTIVA,
+      );
+
+      expect(attivaAccount).toHaveBeenCalledWith(
+        TOKEN,
+        PASSWORD_BUONA,
+      );
+
+      expect(resetPassword).not.toHaveBeenCalled();
+    });
+
+    it("a token mancante spiega di contattare la sede", () => {
+      renderFormAttivazione();
+
+      expect(
+        screen.getByRole("alert"),
+      ).toHaveTextContent(/contatta la sede/i);
+    });
+
+    it("conferma l'attivazione, non l'aggiornamento password", async () => {
+      attivaAccount.mockResolvedValue({});
+
+      renderFormAttivazione(TOKEN);
+
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+        ATTIVA,
+      );
+
+      expect(
+        await screen.findByRole("status"),
+      ).toHaveTextContent(/account attivato/i);
+    });
+
+    it("su token bruciato non rimanda a «Password dimenticata»", async () => {
+      attivaAccount.mockRejectedValue(
+        erroreAxios(400, { message: "ko" }),
+      );
+
+      renderFormAttivazione(TOKEN);
+
+      await compila(
+        PASSWORD_BUONA,
+        PASSWORD_BUONA,
+        ATTIVA,
+      );
+
+      const avviso = await screen.findByRole("alert");
+
+      expect(avviso).toHaveTextContent(
+        /link di attivazione non è valido/i,
+      );
+
+      expect(avviso).not.toHaveTextContent(
+        /password dimenticata/i,
+      );
     });
   });
 });

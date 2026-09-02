@@ -18,14 +18,49 @@ import {
   validaNuovaPassword,
 } from "../passwordRules";
 
-const MESSAGGIO_TOKEN =
-  "Il link di recupero non è valido, è scaduto oppure è già stato usato. Richiedine uno nuovo dalla pagina «Password dimenticata».";
+/*
+ * Reset e attivazione sono lo stesso gesto — scegliere una password
+ * presentando un token monouso — verso due endpoint diversi. Cambia
+ * solo cosa raccontiamo all'utente: chi resetta ha già un account,
+ * chi attiva sta entrando per la prima volta.
+ */
+type ModalitaPassword = "reset" | "attivazione";
 
 const MESSAGGIO_TECNICO =
   "Non è stato possibile reimpostare la password per un problema tecnico. Riprova tra qualche minuto.";
 
 const MESSAGGIO_PASSWORD_RIFIUTATA =
   "La password non rispetta i requisiti richiesti. Scegline un'altra.";
+
+interface TestiModalita {
+  tokenNonValido: string;
+  etichettaInvio: string;
+  etichettaInvioInCorso: string;
+  titoloConferma: string;
+  testoConferma: string;
+}
+
+const TESTI: Record<ModalitaPassword, TestiModalita> = {
+  reset: {
+    tokenNonValido:
+      "Il link di recupero non è valido, è scaduto oppure è già stato usato. Richiedine uno nuovo dalla pagina «Password dimenticata».",
+    etichettaInvio: "Reimposta la password",
+    etichettaInvioInCorso: "Salvataggio…",
+    titoloConferma: "Password aggiornata",
+    testoConferma:
+      "Da adesso puoi accedere alla tua area personale con la nuova password.",
+  },
+
+  attivazione: {
+    tokenNonValido:
+      "Il link di attivazione non è valido, è scaduto oppure è già stato usato. Contatta la sede per riceverne uno nuovo.",
+    etichettaInvio: "Attiva il tuo account",
+    etichettaInvioInCorso: "Attivazione…",
+    titoloConferma: "Account attivato",
+    testoConferma:
+      "La tua Area Cliente è pronta: accedi con la tua email e la password appena scelta.",
+  },
+};
 
 const REQUISITI =
   `Almeno ${LUNGHEZZA_MINIMA_PASSWORD} caratteri, ` +
@@ -51,6 +86,7 @@ const haErroriDiValidazione = (
 
 const messaggioPerErrore = (
   errore: unknown,
+  testi: TestiModalita,
 ): string => {
   if (!axios.isAxiosError(errore)) {
     return MESSAGGIO_TECNICO;
@@ -70,16 +106,22 @@ const messaggioPerErrore = (
     return MESSAGGIO_PASSWORD_RIFIUTATA;
   }
 
-  return MESSAGGIO_TOKEN;
+  return testi.tokenNonValido;
 };
 
 interface ResetPasswordFormProps {
   token?: string;
+
+  /** Default "reset": è il caso già esistente, e non deve cambiare. */
+  modalita?: ModalitaPassword;
 }
 
 const ResetPasswordForm = ({
   token,
+  modalita = "reset",
 }: ResetPasswordFormProps) => {
+  const testi = TESTI[modalita];
+
   const [password, setPassword] =
     useState("");
 
@@ -132,17 +174,27 @@ const ResetPasswordForm = ({
     setErrore(null);
 
     try {
-      await authService.resetPassword(
-        token,
-        password,
-      );
+      if (modalita === "attivazione") {
+        await authService.attivaAccount(
+          token,
+          password,
+        );
+      } else {
+        await authService.resetPassword(
+          token,
+          password,
+        );
+      }
 
       setStato("completato");
     } catch (erroreChiamata) {
       setStato("errore");
 
       setErrore(
-        messaggioPerErrore(erroreChiamata),
+        messaggioPerErrore(
+          erroreChiamata,
+          testi,
+        ),
       );
     }
   };
@@ -158,7 +210,7 @@ const ResetPasswordForm = ({
         </span>
 
         <p className="password-alert__text">
-          {MESSAGGIO_TOKEN}
+          {testi.tokenNonValido}
         </p>
       </div>
     );
@@ -175,12 +227,9 @@ const ResetPasswordForm = ({
         </span>
 
         <div className="password-note__text">
-          <strong>Password aggiornata</strong>
+          <strong>{testi.titoloConferma}</strong>
 
-          <p>
-            Da adesso puoi accedere alla tua area
-            personale con la nuova password.
-          </p>
+          <p>{testi.testoConferma}</p>
 
           <Link
             to="/login"
@@ -307,8 +356,8 @@ const ResetPasswordForm = ({
       >
         <span>
           {stato === "invio"
-            ? "Salvataggio…"
-            : "Reimposta la password"}
+            ? testi.etichettaInvioInCorso
+            : testi.etichettaInvio}
         </span>
 
         <FiCheckCircle aria-hidden="true" />

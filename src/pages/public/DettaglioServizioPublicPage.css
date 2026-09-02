@@ -2,48 +2,41 @@
   --service-accent: #249239;
   --service-accent-dark: #176d2b;
   --service-accent-soft: #eaf7ed;
-  --service-ink: #102c65;
+  --service-ink: var(--caf-navy);
 
   min-height: 100vh;
   color: var(--service-ink);
-  background: #ffffff;
+  background: var(--caf-white);
 }
-
 .servizio-dettaglio-page--orange {
   --service-accent: #e67a14;
   --service-accent-dark: #ae5207;
-  --service-accent-soft: #fff0df;
+  --service-accent-soft: var(--caf-white)0df;
 }
-
 .servizio-dettaglio-page--blue {
   --service-accent: #3974d7;
   --service-accent-dark: #2455aa;
   --service-accent-soft: #e9f0ff;
 }
-
 .servizio-dettaglio-page--fuchsia {
   --service-accent: #d91c76;
   --service-accent-dark: #a71056;
   --service-accent-soft: #ffe8f2;
 }
-
 .servizio-dettaglio-page--purple {
   --service-accent: #7652b5;
   --service-accent-dark: #573890;
-  --service-accent-soft: #f0eafa;
+  --service-accent-soft: var(--caf-purple-soft);
 }
-
 .servizio-dettaglio-page--petrol {
   --service-accent: #167f84;
   --service-accent-dark: #0e5d61;
-  --service-accent-soft: #e3f4f4;
+  --service-accent-soft: var(--caf-petrol-soft);
 }
-
 .servizio-dettaglio-container {
   width: min(1180px, calc(100% - 2rem));
   margin-inline: auto;
 }
-
 /* HERO */
 
 .servizio-dettaglio-hero {
@@ -55,9 +48,8 @@
       color-mix(in srgb, var(--service-accent) 14%, transparent),
       transparent 25rem
     ),
-    #f8fafc;
+    var(--caf-bg);
 }
-
 .servizio-dettaglio-breadcrumb {
   min-height: 38px;
   display: flex;
@@ -67,17 +59,14 @@
   color: #9aa4b3;
   font-size: 0.72rem;
 }
-
 .servizio-dettaglio-breadcrumb a {
   color: #6f7b8f;
   text-decoration: none;
 }
-
 .servizio-dettaglio-breadcrumb a:hover,
 .servizio-dettaglio-breadcrumb strong {
   color: var(--service-accent-dark);
 }
-
 .servizio-dettaglio-hero__panel {
   min-height: 380px;
   margin-top: 1rem;
@@ -89,7 +78,7 @@
   gap: 3rem;
   overflow: hidden;
   border-radius: 34px;
-  color: #ffffff;
+  color: var(--caf-white);
   background:
     radial-gradient(
       circle at 78% 12%,
@@ -99,7 +88,6 @@
     linear-gradient(135deg, #0d285e 0%, #153c7c 72%, #164479 100%);
   box-shadow: 0 28px 70px rgba(16, 44, 101, 0.18);
 }
-
 .servizio-dettaglio-hero__panel::after {
   content: "";
   width: 310px;
@@ -110,33 +98,29 @@
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 50%;
 }
-
 .servizio-dettaglio-hero__content {
   max-width: 700px;
   position: relative;
   z-index: 1;
 }
-
 .servizio-dettaglio-eyebrow {
   display: inline-flex;
   margin-bottom: 1rem;
-  color: color-mix(in srgb, var(--service-accent-soft) 85%, #ffffff);
+  color: color-mix(in srgb, var(--service-accent-soft) 85%, var(--caf-white));
   font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-hero h1 {
   max-width: 760px;
   margin: 0;
-  color: #ffffff;
+  color: var(--caf-white);
   font-size: clamp(3.2rem, 6.2vw, 6rem);
   font-weight: 850;
   line-height: 0.92;
   letter-spacing: -0.06em;
 }
-
 .servizio-dettaglio-lead {
   max-width: 650px;
   margin: 1.35rem 0 0;
@@ -144,14 +128,12 @@
   font-size: clamp(1rem, 1.5vw, 1.18rem);
   line-height: 1.7;
 }
-
 .servizio-dettaglio-hero__actions {
   margin-top: 1.8rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
 }
-
 .servizio-dettaglio-button {
   min-height: 48px;
   padding: 0 1.2rem;
@@ -168,22 +150,18 @@
     transform 180ms ease,
     background 180ms ease;
 }
-
 .servizio-dettaglio-button:hover {
   transform: translateY(-2px);
 }
-
 .servizio-dettaglio-button--primary {
   color: var(--service-ink);
-  background: #ffffff;
+  background: var(--caf-white);
 }
-
 .servizio-dettaglio-button--ghost {
-  color: #ffffff;
+  color: var(--caf-white);
   border-color: rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.08);
 }
-
 .servizio-dettaglio-hero__visual {
   aspect-ratio: 1;
   max-width: 280px;
@@ -197,7 +175,6 @@
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
 }
-
 .servizio-dettaglio-hero__visual::before {
   content: "";
   position: absolute;
@@ -205,46 +182,6 @@
   border: 1px dashed rgba(255, 255, 255, 0.26);
   border-radius: 50%;
 }
-
-.servizio-dettaglio-hero__number {
-  position: absolute;
-  top: 16%;
-  left: 10%;
-  color: rgba(255, 255, 255, 0.34);
-  font-size: clamp(3rem, 6vw, 5.4rem);
-  font-weight: 850;
-  letter-spacing: -0.08em;
-}
-
-.servizio-dettaglio-hero__icon {
-  width: 74px;
-  height: 74px;
-  display: grid;
-  place-items: center;
-  position: relative;
-  z-index: 1;
-  border-radius: 22px;
-  color: var(--service-accent-dark);
-  background: #ffffff;
-  box-shadow: 0 18px 35px rgba(5, 19, 48, 0.22);
-}
-
-.servizio-dettaglio-hero__icon svg {
-  font-size: 1.8rem;
-}
-
-.servizio-dettaglio-hero__visual-label {
-  position: absolute;
-  right: 7%;
-  bottom: 12%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 999px;
-  color: #ffffff;
-  background: var(--service-accent);
-  font-size: 0.68rem;
-  font-weight: 800;
-}
-
 .servizio-dettaglio-meta {
   margin: -1.3rem auto 0;
   width: min(1020px, calc(100% - 2rem));
@@ -255,10 +192,9 @@
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   border: 1px solid #e6eaf0;
   border-radius: 22px;
-  background: #ffffff;
+  background: var(--caf-white);
   box-shadow: 0 16px 38px rgba(16, 44, 101, 0.1);
 }
-
 .servizio-dettaglio-meta__item {
   min-width: 0;
   padding: 0.6rem 1rem;
@@ -267,29 +203,24 @@
   gap: 0.75rem;
   border-right: 1px solid #edf0f4;
 }
-
 .servizio-dettaglio-meta__item:last-child {
   border-right: 0;
 }
-
 .servizio-dettaglio-meta__item > svg {
   flex: 0 0 auto;
   color: var(--service-accent);
   font-size: 1.15rem;
 }
-
 .servizio-dettaglio-meta__item span {
   min-width: 0;
   display: flex;
   flex-direction: column;
 }
-
 .servizio-dettaglio-meta__item small {
   color: #929cad;
   font-size: 0.64rem;
   font-weight: 700;
 }
-
 .servizio-dettaglio-meta__item strong {
   margin-top: 0.1rem;
   overflow: hidden;
@@ -298,14 +229,12 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 /* CONTENT */
 
 .servizio-dettaglio-content {
   padding: 5.5rem 0 7rem;
-  background: #ffffff;
+  background: var(--caf-white);
 }
-
 .servizio-dettaglio-intro {
   max-width: 1040px;
   display: grid;
@@ -313,7 +242,6 @@
   gap: clamp(2rem, 6vw, 6rem);
   align-items: start;
 }
-
 .servizio-dettaglio-section-heading {
   display: flex;
   align-items: center;
@@ -324,7 +252,6 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-section-icon {
   width: 42px;
   height: 42px;
@@ -335,7 +262,6 @@
   color: var(--service-accent-dark);
   background: var(--service-accent-soft);
 }
-
 .servizio-dettaglio-intro h2 {
   max-width: 720px;
   margin: 0;
@@ -344,103 +270,33 @@
   line-height: 1.02;
   letter-spacing: -0.045em;
 }
-
 .servizio-dettaglio-intro p {
   max-width: 760px;
   margin: 1.3rem 0 0;
-  color: #637086;
+  color: var(--caf-text-muted);
   font-size: 1rem;
   line-height: 1.85;
   white-space: pre-line;
 }
-
 .servizio-dettaglio-info-grid {
   margin-top: 4.5rem;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
-
-.servizio-dettaglio-info-card {
-  min-height: 310px;
-  padding: clamp(1.8rem, 4vw, 3rem);
-  position: relative;
-  overflow: hidden;
-  border-radius: 28px;
-  color: #ffffff;
-  background: var(--service-ink);
-}
-
-.servizio-dettaglio-info-card--accent {
-  color: var(--service-ink);
-  background: var(--service-accent-soft);
-}
-
-.servizio-dettaglio-info-card__icon {
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  border-radius: 16px;
-  color: var(--service-ink);
-  background: #ffffff;
-}
-
-.servizio-dettaglio-info-card--accent .servizio-dettaglio-info-card__icon {
-  color: #ffffff;
-  background: var(--service-accent);
-}
-
-.servizio-dettaglio-info-card small {
-  display: block;
-  margin-top: 2.2rem;
-  color: rgba(255, 255, 255, 0.58);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.servizio-dettaglio-info-card--accent small {
-  color: var(--service-accent-dark);
-}
-
-.servizio-dettaglio-info-card h2 {
-  margin: 0.35rem 0 0;
-  color: inherit;
-  font-size: clamp(1.6rem, 3vw, 2.35rem);
-  letter-spacing: -0.035em;
-}
-
-.servizio-dettaglio-info-card p {
-  max-width: 520px;
-  margin: 1rem 0 0;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 0.9rem;
-  line-height: 1.75;
-  white-space: pre-line;
-}
-
-.servizio-dettaglio-info-card--accent p {
-  color: #53627a;
-}
-
 .servizio-dettaglio-process {
   margin-top: 5rem;
   padding: clamp(2rem, 5vw, 4rem);
   border-radius: 32px;
-  background: #f6f8fb;
+  background: var(--caf-bg);
   scroll-margin-top: 110px;
 }
-
 .servizio-dettaglio-process__header {
   display: grid;
   grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
   gap: 3rem;
 }
-
 .servizio-dettaglio-process__header span,
-.servizio-dettaglio-documents__content > span,
 .servizio-dettaglio-final-cta span {
   color: var(--service-accent-dark);
   font-size: 0.68rem;
@@ -448,7 +304,6 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-process__header h2,
 .servizio-dettaglio-documents h2 {
   margin: 0.25rem 0 0;
@@ -456,50 +311,43 @@
   font-size: clamp(2rem, 4vw, 3.1rem);
   letter-spacing: -0.045em;
 }
-
 .servizio-dettaglio-process__header p {
   margin: 0;
-  color: #637086;
+  color: var(--caf-text-muted);
   font-size: 0.94rem;
   line-height: 1.8;
   white-space: pre-line;
 }
-
 .servizio-dettaglio-steps {
   margin-top: 3rem;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
-
 .servizio-dettaglio-steps article {
   min-height: 215px;
   padding: 1.5rem;
   border: 1px solid #e4e9f0;
   border-radius: 22px;
-  background: #ffffff;
+  background: var(--caf-white);
 }
-
 .servizio-dettaglio-steps article > span {
   color: var(--service-accent);
   font-size: 1.8rem;
   font-weight: 850;
   letter-spacing: -0.05em;
 }
-
 .servizio-dettaglio-steps h3 {
   margin: 2.2rem 0 0;
   color: var(--service-ink);
   font-size: 1.05rem;
 }
-
 .servizio-dettaglio-steps p {
   margin: 0.65rem 0 0;
   color: #6d798d;
   font-size: 0.8rem;
   line-height: 1.65;
 }
-
 .servizio-dettaglio-documents {
   margin-top: 1rem;
   padding: clamp(2rem, 5vw, 3.5rem);
@@ -507,22 +355,20 @@
   grid-template-columns: 72px minmax(0, 1fr) auto;
   gap: 1.5rem;
   align-items: center;
-  border: 1px solid color-mix(in srgb, var(--service-accent) 22%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--service-accent) 22%, var(--caf-white));
   border-radius: 28px;
-  background: color-mix(in srgb, var(--service-accent-soft) 62%, #ffffff);
+  background: color-mix(in srgb, var(--service-accent-soft) 62%, var(--caf-white));
 }
-
 .servizio-dettaglio-documents__icon {
   width: 64px;
   height: 64px;
   display: grid;
   place-items: center;
   border-radius: 19px;
-  color: #ffffff;
+  color: var(--caf-white);
   background: var(--service-accent);
   font-size: 1.35rem;
 }
-
 .servizio-dettaglio-documents p {
   max-width: 670px;
   margin: 0.8rem 0 0;
@@ -530,20 +376,6 @@
   font-size: 0.86rem;
   line-height: 1.7;
 }
-
-.servizio-dettaglio-documents__status {
-  padding: 0.65rem 0.85rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  border-radius: 999px;
-  color: var(--service-accent-dark);
-  background: #ffffff;
-  font-size: 0.7rem;
-  font-weight: 800;
-  white-space: nowrap;
-}
-
 .servizio-dettaglio-notes {
   margin-top: 1rem;
   padding: 1.2rem 1.4rem;
@@ -553,35 +385,29 @@
   border: 1px solid #e7ebf0;
   border-radius: 22px;
 }
-
 .servizio-dettaglio-notes > div {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
 }
-
 .servizio-dettaglio-notes svg {
   margin-top: 0.15rem;
   color: var(--service-accent);
 }
-
 .servizio-dettaglio-notes span {
   display: flex;
   flex-direction: column;
 }
-
 .servizio-dettaglio-notes small {
   color: #929cad;
   font-size: 0.66rem;
 }
-
 .servizio-dettaglio-notes strong {
   margin-top: 0.15rem;
   color: #3e4d66;
   font-size: 0.78rem;
   line-height: 1.5;
 }
-
 .servizio-dettaglio-final-cta {
   margin-top: 5rem;
   padding: clamp(2.2rem, 5vw, 4rem);
@@ -591,7 +417,7 @@
   gap: 2rem;
   overflow: hidden;
   border-radius: 32px;
-  color: #ffffff;
+  color: var(--caf-white);
   background:
     radial-gradient(
       circle at 85% 20%,
@@ -600,25 +426,21 @@
     ),
     var(--service-ink);
 }
-
 .servizio-dettaglio-final-cta span {
-  color: color-mix(in srgb, var(--service-accent-soft) 80%, #ffffff);
+  color: color-mix(in srgb, var(--service-accent-soft) 80%, var(--caf-white));
 }
-
 .servizio-dettaglio-final-cta h2 {
   margin: 0.25rem 0 0;
-  color: #ffffff;
+  color: var(--caf-white);
   font-size: clamp(2rem, 4vw, 3.3rem);
   letter-spacing: -0.045em;
 }
-
 .servizio-dettaglio-final-cta p {
   max-width: 620px;
   margin: 0.8rem 0 0;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.7;
 }
-
 .servizio-dettaglio-final-cta a {
   min-height: 50px;
   padding: 0 1.2rem;
@@ -629,12 +451,11 @@
   gap: 0.55rem;
   border-radius: 999px;
   color: var(--service-ink);
-  background: #ffffff;
+  background: var(--caf-white);
   font-size: 0.78rem;
   font-weight: 850;
   text-decoration: none;
 }
-
 /* STATES */
 
 .servizio-dettaglio-state {
@@ -646,11 +467,9 @@
   color: #788396;
   text-align: center;
 }
-
 .servizio-dettaglio-state > svg {
   font-size: 2rem;
 }
-
 .servizio-dettaglio-state > span:not(.servizio-dettaglio-loader) {
   margin-top: 1rem;
   color: #249239;
@@ -659,17 +478,14 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-state h1 {
   margin: 0.35rem 0 0;
-  color: #102c65;
+  color: var(--caf-navy);
 }
-
 .servizio-dettaglio-state p {
   max-width: 500px;
   margin: 0.6rem 0 0;
 }
-
 .servizio-dettaglio-state button {
   min-height: 44px;
   margin-top: 1.2rem;
@@ -679,26 +495,24 @@
   gap: 0.45rem;
   border: 0;
   border-radius: 999px;
-  color: #ffffff;
+  color: var(--caf-white);
   background: #249239;
   font-weight: 750;
 }
-
 .servizio-dettaglio-loader {
   width: 34px;
   height: 34px;
-  border: 3px solid #e2e7ed;
+  border: 3px solid var(--caf-border);
   border-top-color: #249239;
   border-radius: 50%;
   animation: servizioDettaglioLoader 700ms linear infinite;
 }
 
 @keyframes servizioDettaglioLoader {
-  to {
+to {
     transform: rotate(360deg);
   }
 }
-
 /* RESPONSIVE */
 
 @media (max-width: 900px) {
@@ -744,107 +558,81 @@
 }
 
 @media (max-width: 680px) {
-  .servizio-dettaglio-container {
+.servizio-dettaglio-container {
     width: min(100% - 1.25rem, 1180px);
   }
-
-  .servizio-dettaglio-hero {
+.servizio-dettaglio-hero {
     padding-top: 0.75rem;
   }
-
-  .servizio-dettaglio-hero__panel {
+.servizio-dettaglio-hero__panel {
     min-height: auto;
     padding: 2rem 1.35rem;
     border-radius: 25px;
   }
-
-  .servizio-dettaglio-hero h1 {
+.servizio-dettaglio-hero h1 {
     font-size: clamp(2.8rem, 16vw, 4.5rem);
   }
-
-  .servizio-dettaglio-hero__visual {
+.servizio-dettaglio-hero__visual {
     display: none;
   }
-
-  .servizio-dettaglio-button {
+.servizio-dettaglio-button {
     width: 100%;
   }
-
-  .servizio-dettaglio-meta {
+.servizio-dettaglio-meta {
     width: calc(100% - 1rem);
     grid-template-columns: 1fr;
   }
-
-  .servizio-dettaglio-meta__item {
+.servizio-dettaglio-meta__item {
     border-bottom: 1px solid #edf0f4;
   }
-
-  .servizio-dettaglio-meta__item:last-child {
+.servizio-dettaglio-meta__item:last-child {
     border-bottom: 0;
   }
-
-  .servizio-dettaglio-content {
+.servizio-dettaglio-content {
     padding: 4rem 0 5rem;
   }
-
-  .servizio-dettaglio-info-grid {
+.servizio-dettaglio-info-grid {
     margin-top: 3rem;
     grid-template-columns: 1fr;
   }
-
-  .servizio-dettaglio-info-card {
-    min-height: 0;
-    border-radius: 24px;
-  }
-
-  .servizio-dettaglio-process {
+.servizio-dettaglio-process {
     margin-top: 3rem;
     padding: 2rem 1.25rem;
     border-radius: 25px;
   }
-
-  .servizio-dettaglio-documents {
+.servizio-dettaglio-documents {
     padding: 1.5rem;
     grid-template-columns: 1fr;
   }
-
-  .servizio-dettaglio-documents__status {
-    grid-column: auto;
-  }
-
-  .servizio-dettaglio-final-cta {
+.servizio-dettaglio-final-cta {
     margin-top: 3rem;
     padding: 2rem 1.35rem;
     align-items: flex-start;
     flex-direction: column;
     border-radius: 25px;
   }
-
-  .servizio-dettaglio-final-cta a {
+.servizio-dettaglio-final-cta a {
     width: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .servizio-dettaglio-loader {
+.servizio-dettaglio-loader {
     animation-duration: 1.5s;
   }
-
-  .servizio-dettaglio-button {
+.servizio-dettaglio-button {
     transition: none;
   }
 }
-
 /* =========================================================
    DIREZIONE EDITORIALE â€” PIÃ™ UMANA
    ========================================================= */
 
 .servizio-dettaglio-page--green {
-  --service-accent: #247a3a;
+  --service-accent: var(--caf-green);
   --service-accent-dark: #1c6630;
-  --service-accent-soft: #e6f4e9;
+  --service-accent-soft: var(--caf-green-soft);
 }
-
 .servizio-dettaglio-hero {
   padding: 1.35rem 0 3.5rem;
   background:
@@ -858,9 +646,8 @@
       rgba(217, 28, 118, 0.055),
       transparent 22rem
     ),
-    #fffefb;
+    var(--caf-white)efb;
 }
-
 .servizio-dettaglio-hero__panel {
   min-height: 470px;
   margin-top: 0.75rem;
@@ -873,11 +660,9 @@
   background: transparent;
   box-shadow: none;
 }
-
 .servizio-dettaglio-hero__panel::after {
   display: none;
 }
-
 .servizio-dettaglio-eyebrow {
   margin-bottom: 1.15rem;
   padding: 0.48rem 0.72rem;
@@ -886,32 +671,27 @@
   background: var(--service-accent-soft);
   letter-spacing: 0.09em;
 }
-
 .servizio-dettaglio-hero h1 {
   color: var(--service-ink);
   font-size: clamp(3.7rem, 7vw, 7.2rem);
   line-height: 0.9;
 }
-
 .servizio-dettaglio-lead {
   max-width: 610px;
   color: #5d6980;
   font-size: clamp(1.08rem, 1.7vw, 1.35rem);
   line-height: 1.65;
 }
-
 .servizio-dettaglio-button--primary {
-  color: #ffffff;
+  color: var(--caf-white);
   background: var(--service-accent);
   box-shadow: 0 12px 28px rgba(36, 122, 58, 0.18);
 }
-
 .servizio-dettaglio-button--ghost {
   color: var(--service-ink);
   border-color: #dce3df;
   background: rgba(255, 255, 255, 0.78);
 }
-
 .servizio-dettaglio-hero__visual {
   aspect-ratio: auto;
   max-width: 440px;
@@ -923,7 +703,6 @@
   background: transparent;
   backdrop-filter: none;
 }
-
 .servizio-dettaglio-hero__visual::before {
   content: "";
   width: 250px;
@@ -936,13 +715,11 @@
   border-radius: 50%;
   background: var(--service-accent-soft);
 }
-
 .servizio-dettaglio-paper {
   position: absolute;
   border: 1px solid rgba(36, 122, 58, 0.14);
   border-radius: 24px 24px 34px 24px;
 }
-
 .servizio-dettaglio-paper--back {
   width: 78%;
   height: 82%;
@@ -952,17 +729,15 @@
   background: #ffe8f2;
   box-shadow: 0 22px 50px rgba(16, 44, 101, 0.07);
 }
-
 .servizio-dettaglio-paper--back span {
   position: absolute;
   right: 1.6rem;
   bottom: 1.2rem;
-  color: #c71468;
+  color: var(--caf-fuchsia);
   font-size: 0.66rem;
   font-weight: 850;
   letter-spacing: 0.13em;
 }
-
 .servizio-dettaglio-paper--main {
   width: 82%;
   min-height: 350px;
@@ -978,22 +753,20 @@
       transparent 42px,
       rgba(36, 122, 58, 0.07) 43px
     ),
-    #ffffff;
+    var(--caf-white);
   box-shadow: 0 24px 60px rgba(16, 44, 101, 0.13);
 }
-
 .servizio-dettaglio-paper__pin {
   width: 14px;
   height: 14px;
   position: absolute;
   top: 15px;
   left: 50%;
-  border: 3px solid #ffffff;
+  border: 3px solid var(--caf-white);
   border-radius: 50%;
   background: #d91c76;
   box-shadow: 0 4px 10px rgba(217, 28, 118, 0.26);
 }
-
 .servizio-dettaglio-paper__icon {
   width: 54px;
   height: 54px;
@@ -1004,7 +777,6 @@
   background: var(--service-accent-soft);
   font-size: 1.35rem;
 }
-
 .servizio-dettaglio-paper--main small {
   display: block;
   margin-top: 1.45rem;
@@ -1014,28 +786,24 @@
   letter-spacing: 0.11em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-paper--main h2 {
   margin: 0.25rem 0 0;
   color: var(--service-ink);
   font-size: clamp(1.8rem, 3vw, 2.5rem);
   letter-spacing: -0.045em;
 }
-
 .servizio-dettaglio-paper--main p {
   margin: 0.75rem 0 0;
-  color: #657187;
+  color: var(--caf-text-muted);
   font-size: 0.84rem;
   line-height: 1.68;
 }
-
 .servizio-dettaglio-paper__checks {
   margin-top: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
 }
-
 .servizio-dettaglio-paper__checks span {
   display: flex;
   align-items: center;
@@ -1044,11 +812,9 @@
   font-size: 0.76rem;
   font-weight: 700;
 }
-
 .servizio-dettaglio-paper__checks svg {
   color: var(--service-accent);
 }
-
 .servizio-dettaglio-hero__scribble {
   width: 74px;
   height: 32px;
@@ -1060,7 +826,6 @@
   transform: rotate(-10deg);
   opacity: 0.7;
 }
-
 .servizio-dettaglio-meta {
   margin: 0;
   width: 100%;
@@ -1072,34 +837,29 @@
   background: transparent;
   box-shadow: none;
 }
-
 .servizio-dettaglio-meta__item {
   min-height: 86px;
   padding-inline: 1.35rem;
 }
-
 .servizio-dettaglio-content {
   padding-top: 4.8rem;
   background:
-    linear-gradient(#ffffff, #ffffff) padding-box,
-    #ffffff;
+    linear-gradient(var(--caf-white), var(--caf-white)) padding-box,
+    var(--caf-white);
 }
-
 .servizio-dettaglio-quick-guide {
   padding: clamp(2rem, 5vw, 4rem);
   border: 1px solid #e8ece8;
   border-radius: 30px;
-  background: #fffefb;
+  background: var(--caf-white)efb;
   box-shadow: 0 18px 50px rgba(16, 44, 101, 0.055);
 }
-
 .servizio-dettaglio-quick-guide__header {
   display: grid;
   grid-template-columns: 210px minmax(0, 1fr);
   gap: clamp(2rem, 6vw, 6rem);
   align-items: start;
 }
-
 .servizio-dettaglio-quick-guide__header h2 {
   margin: 0;
   color: var(--service-ink);
@@ -1107,13 +867,11 @@
   line-height: 1;
   letter-spacing: -0.05em;
 }
-
 .servizio-dettaglio-quick-guide__header p {
   margin: 0.75rem 0 0;
   color: #6a7588;
   font-size: 0.9rem;
 }
-
 .servizio-dettaglio-quick-guide__items {
   margin-top: 3rem;
   display: grid;
@@ -1121,23 +879,19 @@
   border-top: 1px solid #e6eae6;
   border-bottom: 1px solid #e6eae6;
 }
-
 .servizio-dettaglio-quick-guide__items article {
   min-width: 0;
   padding: 2rem clamp(1rem, 2.5vw, 2rem) 2.2rem;
   position: relative;
   border-right: 1px solid #e6eae6;
 }
-
 .servizio-dettaglio-quick-guide__items article:first-child {
   padding-left: 0;
 }
-
 .servizio-dettaglio-quick-guide__items article:last-child {
   padding-right: 0;
   border-right: 0;
 }
-
 .servizio-dettaglio-quick-guide__number {
   position: absolute;
   top: 1rem;
@@ -1148,7 +902,6 @@
   line-height: 1;
   letter-spacing: -0.08em;
 }
-
 .servizio-dettaglio-quick-guide__items small {
   position: relative;
   z-index: 1;
@@ -1158,7 +911,6 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-quick-guide__items h3 {
   position: relative;
   z-index: 1;
@@ -1167,17 +919,15 @@
   font-size: 1.12rem;
   line-height: 1.35;
 }
-
 .servizio-dettaglio-quick-guide__items p {
   position: relative;
   z-index: 1;
   margin: 0.75rem 0 0;
-  color: #647086;
+  color: var(--caf-text-muted);
   font-size: 0.82rem;
   line-height: 1.72;
   white-space: pre-line;
 }
-
 .servizio-dettaglio-quick-guide__note {
   margin-top: 1.25rem;
   padding: 1rem 1.15rem;
@@ -1188,24 +938,20 @@
   color: var(--service-accent-dark);
   background: var(--service-accent-soft);
 }
-
 .servizio-dettaglio-quick-guide__note > svg {
   flex: 0 0 auto;
   margin-top: 0.15rem;
 }
-
 .servizio-dettaglio-quick-guide__note span {
   display: flex;
   flex-direction: column;
 }
-
 .servizio-dettaglio-quick-guide__note small {
   font-size: 0.62rem;
   font-weight: 850;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-quick-guide__note strong {
   margin-top: 0.2rem;
   color: #405069;
@@ -1214,17 +960,14 @@
   line-height: 1.55;
   white-space: pre-line;
 }
-
 .servizio-dettaglio-process {
   background: #fbfaf6;
   border: 1px solid #eeece5;
 }
-
 .servizio-dettaglio-steps {
   position: relative;
   gap: 0;
 }
-
 .servizio-dettaglio-steps::before {
   content: "";
   height: 2px;
@@ -1234,7 +977,6 @@
   left: 12%;
   background: #dce8df;
 }
-
 .servizio-dettaglio-steps article {
   min-height: 0;
   padding: 0 1.25rem;
@@ -1245,7 +987,6 @@
   background: transparent;
   text-align: center;
 }
-
 .servizio-dettaglio-steps article > span {
   width: 56px;
   height: 56px;
@@ -1254,18 +995,16 @@
   place-items: center;
   border: 8px solid #fbfaf6;
   border-radius: 50%;
-  color: #ffffff;
+  color: var(--caf-white);
   background: var(--service-accent);
   font-size: 0.8rem;
   letter-spacing: 0;
   box-sizing: border-box;
   box-shadow: 0 0 0 1px #dce8df;
 }
-
 .servizio-dettaglio-steps h3 {
   margin-top: 1.3rem;
 }
-
 .servizio-dettaglio-documents {
   background:
     radial-gradient(
@@ -1275,7 +1014,6 @@
     ),
     var(--service-accent-soft);
 }
-
 .servizio-dettaglio-final-cta {
   color: var(--service-ink);
   background:
@@ -1284,117 +1022,97 @@
       rgba(217, 28, 118, 0.13),
       transparent 17rem
     ),
-    linear-gradient(135deg, #e6f4e9, #f7fbf7);
+    linear-gradient(135deg, var(--caf-green-soft), #f7fbf7);
   border: 1px solid rgba(36, 122, 58, 0.14);
 }
-
 .servizio-dettaglio-final-cta span {
   color: var(--service-accent-dark);
 }
-
 .servizio-dettaglio-final-cta h2 {
   color: var(--service-ink);
 }
-
 .servizio-dettaglio-final-cta p {
   color: #5d6980;
 }
-
 .servizio-dettaglio-final-cta a {
-  color: #ffffff;
+  color: var(--caf-white);
   background: var(--service-accent);
   box-shadow: 0 12px 28px rgba(36, 122, 58, 0.18);
 }
 
 @media (max-width: 900px) {
-  .servizio-dettaglio-hero__panel {
+.servizio-dettaglio-hero__panel {
     grid-template-columns: 1fr;
     padding-inline: 0;
   }
-
-  .servizio-dettaglio-hero__visual {
+.servizio-dettaglio-hero__visual {
     width: min(100%, 430px);
     min-height: 390px;
     justify-self: center;
   }
-
-  .servizio-dettaglio-steps::before {
+.servizio-dettaglio-steps::before {
     display: none;
   }
-
-  .servizio-dettaglio-quick-guide__header {
+.servizio-dettaglio-quick-guide__header {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-
-  .servizio-dettaglio-quick-guide__items {
+.servizio-dettaglio-quick-guide__items {
     grid-template-columns: 1fr;
   }
-
-  .servizio-dettaglio-quick-guide__items article,
-  .servizio-dettaglio-quick-guide__items article:first-child,
-  .servizio-dettaglio-quick-guide__items article:last-child {
+.servizio-dettaglio-quick-guide__items article,
+.servizio-dettaglio-quick-guide__items article:first-child,
+.servizio-dettaglio-quick-guide__items article:last-child {
     padding: 1.6rem 0;
     border-right: 0;
     border-bottom: 1px solid #e6eae6;
   }
-
-  .servizio-dettaglio-quick-guide__items article:last-child {
+.servizio-dettaglio-quick-guide__items article:last-child {
     border-bottom: 0;
   }
-
-  .servizio-dettaglio-steps article {
+.servizio-dettaglio-steps article {
     padding: 1rem 0;
     display: grid;
     grid-template-columns: 56px minmax(0, 1fr);
     column-gap: 1rem;
     text-align: left;
   }
-
-  .servizio-dettaglio-steps article > span {
+.servizio-dettaglio-steps article > span {
     grid-row: 1 / 3;
   }
-
-  .servizio-dettaglio-steps h3 {
+.servizio-dettaglio-steps h3 {
     margin-top: 0.4rem;
   }
 }
 
 @media (max-width: 680px) {
-  .servizio-dettaglio-hero h1 {
+.servizio-dettaglio-hero h1 {
     font-size: clamp(3.1rem, 18vw, 5rem);
   }
-
-  .servizio-dettaglio-hero__visual {
+.servizio-dettaglio-hero__visual {
     display: block;
     min-height: 350px;
   }
-
-  .servizio-dettaglio-paper--main {
+.servizio-dettaglio-paper--main {
     width: 88%;
     min-height: 320px;
     padding: 1.5rem;
   }
-
-  .servizio-dettaglio-paper--back {
+.servizio-dettaglio-paper--back {
     width: 82%;
   }
-
-  .servizio-dettaglio-quick-guide {
+.servizio-dettaglio-quick-guide {
     padding: 1.5rem;
     border-radius: 24px;
   }
-
-  .servizio-dettaglio-steps article {
+.servizio-dettaglio-steps article {
     grid-template-columns: 48px minmax(0, 1fr);
   }
-
-  .servizio-dettaglio-steps article > span {
+.servizio-dettaglio-steps article > span {
     width: 48px;
     height: 48px;
   }
 }
-
 /* =========================================================
    POST-IT — SWITCH REALE CON STATO REACT
    ========================================================= */
@@ -1414,13 +1132,11 @@
   perspective: 1200px;
   appearance: none;
 }
-
 .servizio-dettaglio-paper-stack:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--service-accent) 32%, transparent);
   outline-offset: 8px;
   border-radius: 26px;
 }
-
 .servizio-dettaglio-paper {
   box-sizing: border-box;
   position: absolute;
@@ -1436,7 +1152,6 @@
     box-shadow 520ms ease;
   will-change: transform, opacity;
 }
-
 /* =========================================================
    STATO INIZIALE — BIANCO DAVANTI
    ========================================================= */
@@ -1458,10 +1173,9 @@
       transparent 42px,
       rgba(36, 122, 58, 0.07) 43px
     ),
-    #ffffff;
+    var(--caf-white);
   box-shadow: 0 24px 60px rgba(16, 44, 101, 0.13);
 }
-
 .servizio-dettaglio-paper--back {
   width: 82%;
   min-height: 340px;
@@ -1475,7 +1189,6 @@
   background: #ffe8f2;
   box-shadow: 0 16px 42px rgba(16, 44, 101, 0.06);
 }
-
 /* =========================================================
    STATO SWITCH — ROSA DAVANTI
    Il cambio NON dipende più dal :hover:
@@ -1489,7 +1202,6 @@
   filter: saturate(0.8);
   box-shadow: 0 12px 34px rgba(16, 44, 101, 0.06);
 }
-
 .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--back {
   z-index: 4;
   transform: translate3d(-10px, 10px, 50px) rotate(-1.5deg) scale(1);
@@ -1497,7 +1209,6 @@
   filter: none;
   box-shadow: 0 30px 72px rgba(217, 28, 118, 0.16);
 }
-
 /* =========================================================
    CONTENUTO
    ========================================================= */
@@ -1511,15 +1222,12 @@
   letter-spacing: 0.11em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-paper--back small {
   color: #b91862;
 }
-
 .servizio-dettaglio-paper--main small {
   color: var(--service-accent-dark);
 }
-
 .servizio-dettaglio-paper--back h2,
 .servizio-dettaglio-paper--main h2 {
   margin: 0.25rem 0 0;
@@ -1528,20 +1236,17 @@
   line-height: 1.05;
   letter-spacing: -0.045em;
 }
-
 .servizio-dettaglio-paper--back p,
 .servizio-dettaglio-paper--main p {
   margin: 0.8rem 0 0;
-  color: #657187;
+  color: var(--caf-text-muted);
   font-size: 0.84rem;
   line-height: 1.68;
 }
-
 .servizio-dettaglio-paper--back .servizio-dettaglio-paper__pin {
   background: var(--service-accent);
   box-shadow: 0 4px 10px rgba(36, 122, 58, 0.22);
 }
-
 /* =========================================================
    MICRO COPY
    ========================================================= */
@@ -1558,16 +1263,13 @@
   opacity: 0.72;
   transition: opacity 220ms ease;
 }
-
 .servizio-dettaglio-paper__hint--main {
   color: var(--service-accent-dark);
 }
-
 .servizio-dettaglio-paper-stack--switched
   .servizio-dettaglio-paper__hint--main {
   opacity: 0;
 }
-
 /* =========================================================
    RESPONSIVE
    ========================================================= */
@@ -1580,39 +1282,34 @@
 }
 
 @media (max-width: 680px) {
-  .servizio-dettaglio-paper-stack {
+.servizio-dettaglio-paper-stack {
     min-height: 390px;
   }
-
-  .servizio-dettaglio-paper--main {
+.servizio-dettaglio-paper--main {
     width: 88%;
     min-height: 320px;
     padding: 1.5rem;
   }
-
-  .servizio-dettaglio-paper--back {
+.servizio-dettaglio-paper--back {
     width: 86%;
     min-height: 315px;
     padding: 1.5rem;
   }
-
-  .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--main {
+.servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--main {
     transform: translate3d(-34px, 18px, 0) rotate(-6deg) scale(0.92);
     opacity: 0.36;
   }
-
-  .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--back {
+.servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--back {
     transform: translate3d(0, 8px, 40px) rotate(-1deg) scale(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .servizio-dettaglio-paper,
-  .servizio-dettaglio-paper__hint {
+.servizio-dettaglio-paper,
+.servizio-dettaglio-paper__hint {
     transition: none;
   }
 }
-
 /* =========================================================
    CHECKLIST DOCUMENTALE PUBBLICA
    ========================================================= */
@@ -1629,22 +1326,19 @@
       rgba(217, 28, 118, 0.07),
       transparent 17rem
     ),
-    linear-gradient(145deg, #f8fcf8, #fffefb);
+    linear-gradient(145deg, #f8fcf8, var(--caf-white)efb);
 }
-
 .servizio-dettaglio-documents__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 2rem;
 }
-
 .servizio-dettaglio-documents__intro {
   display: flex;
   align-items: flex-start;
   gap: 1.1rem;
 }
-
 .servizio-dettaglio-documents__icon {
   width: 58px;
   height: 58px;
@@ -1652,12 +1346,11 @@
   display: grid;
   place-items: center;
   border-radius: 18px;
-  color: #ffffff;
+  color: var(--caf-white);
   background: var(--service-accent);
   font-size: 1.25rem;
   box-shadow: 0 12px 26px rgba(36, 122, 58, 0.16);
 }
-
 .servizio-dettaglio-documents__eyebrow {
   display: block;
   color: var(--service-accent-dark);
@@ -1666,7 +1359,6 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-documents__intro h2 {
   margin: 0.28rem 0 0;
   color: var(--service-ink);
@@ -1674,7 +1366,6 @@
   line-height: 1;
   letter-spacing: -0.045em;
 }
-
 .servizio-dettaglio-documents__intro p {
   max-width: 690px;
   margin: 0.8rem 0 0;
@@ -1682,7 +1373,6 @@
   font-size: 0.88rem;
   line-height: 1.72;
 }
-
 .servizio-dettaglio-documents__total {
   min-width: 92px;
   padding: 0.85rem 1rem;
@@ -1693,34 +1383,29 @@
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.84);
 }
-
 .servizio-dettaglio-documents__total strong {
   color: var(--service-ink);
   font-size: 1.65rem;
   line-height: 1;
 }
-
 .servizio-dettaglio-documents__total span {
   margin-top: 0.28rem;
   color: #7a8797;
   font-size: 0.64rem;
   font-weight: 750;
 }
-
 .servizio-dettaglio-document-groups {
   margin-top: 2.2rem;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 }
-
 .servizio-dettaglio-document-group {
   overflow: hidden;
   border: 1px solid #e6ebe7;
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.88);
 }
-
 .servizio-dettaglio-document-group summary {
   padding: 1.15rem 1.25rem;
   display: flex;
@@ -1731,18 +1416,15 @@
   list-style: none;
   user-select: none;
 }
-
 .servizio-dettaglio-document-group summary::-webkit-details-marker {
   display: none;
 }
-
 .servizio-dettaglio-document-group__summary-copy {
   min-width: 0;
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-
 .servizio-dettaglio-document-badge {
   flex: 0 0 auto;
   padding: 0.42rem 0.62rem;
@@ -1752,35 +1434,29 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-
 .servizio-dettaglio-document-badge--obbligatorio {
   color: #9e174f;
   background: #ffe8f2;
 }
-
 .servizio-dettaglio-document-badge--condizionale {
   color: #8a5a06;
-  background: #fff3cf;
+  background: var(--caf-white)3cf;
 }
-
 .servizio-dettaglio-document-badge--facoltativo {
   color: #1c6630;
-  background: #e6f4e9;
+  background: var(--caf-green-soft);
 }
-
 .servizio-dettaglio-document-group h3 {
   margin: 0;
   color: var(--service-ink);
   font-size: 0.94rem;
 }
-
 .servizio-dettaglio-document-group summary p {
   margin: 0.22rem 0 0;
   color: #7a8596;
   font-size: 0.72rem;
   line-height: 1.5;
 }
-
 .servizio-dettaglio-document-group__summary-meta {
   flex: 0 0 auto;
   display: flex;
@@ -1788,7 +1464,6 @@
   gap: 0.7rem;
   color: #829086;
 }
-
 .servizio-dettaglio-document-group__summary-meta > span {
   min-width: 28px;
   height: 28px;
@@ -1801,24 +1476,20 @@
   font-size: 0.66rem;
   font-weight: 850;
 }
-
 .servizio-dettaglio-document-group__summary-meta svg {
   transition: transform 220ms ease;
 }
-
 .servizio-dettaglio-document-group[open]
   .servizio-dettaglio-document-group__summary-meta
   svg {
   transform: rotate(180deg);
 }
-
 .servizio-dettaglio-document-list {
   padding: 0 1.25rem 1.25rem;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.65rem;
 }
-
 .servizio-dettaglio-document-item {
   min-width: 0;
   padding: 1rem;
@@ -1827,9 +1498,8 @@
   gap: 0.8rem;
   border: 1px solid #edf0ed;
   border-radius: 17px;
-  background: #fffefc;
+  background: var(--caf-white)efc;
 }
-
 .servizio-dettaglio-document-item__check {
   width: 30px;
   height: 30px;
@@ -1841,25 +1511,21 @@
   background: var(--service-accent-soft);
   font-size: 0.8rem;
 }
-
 .servizio-dettaglio-document-item__content {
   min-width: 0;
 }
-
 .servizio-dettaglio-document-item h4 {
   margin: 0;
   color: #334765;
   font-size: 0.8rem;
   line-height: 1.4;
 }
-
 .servizio-dettaglio-document-item p {
   margin: 0.4rem 0 0;
   color: #778397;
   font-size: 0.7rem;
   line-height: 1.55;
 }
-
 .servizio-dettaglio-documents__note,
 .servizio-dettaglio-documents__empty {
   margin-top: 1rem;
@@ -1869,84 +1535,71 @@
   gap: 0.75rem;
   border-radius: 17px;
 }
-
 .servizio-dettaglio-documents__note {
   color: #53627a;
   background: rgba(255, 255, 255, 0.74);
 }
-
 .servizio-dettaglio-documents__note svg,
 .servizio-dettaglio-documents__empty > svg {
   flex: 0 0 auto;
   margin-top: 0.12rem;
   color: var(--service-accent);
 }
-
 .servizio-dettaglio-documents__note p,
 .servizio-dettaglio-documents__empty p {
   margin: 0;
   font-size: 0.72rem;
   line-height: 1.6;
 }
-
 .servizio-dettaglio-documents__empty {
   border: 1px dashed #d9e2db;
-  color: #667388;
+  color: var(--caf-text-muted);
   background: rgba(255, 255, 255, 0.66);
 }
-
 .servizio-dettaglio-documents__empty strong {
   display: block;
   color: var(--service-ink);
   font-size: 0.84rem;
 }
-
 .servizio-dettaglio-documents__empty p {
   margin-top: 0.25rem;
 }
 
 @media (max-width: 760px) {
-  .servizio-dettaglio-documents__header {
+.servizio-dettaglio-documents__header {
     flex-direction: column;
   }
-
-  .servizio-dettaglio-documents__total {
+.servizio-dettaglio-documents__total {
     min-width: 0;
     width: auto;
     flex-direction: row;
     gap: 0.45rem;
   }
-
-  .servizio-dettaglio-document-group__summary-copy {
+.servizio-dettaglio-document-group__summary-copy {
     align-items: flex-start;
     flex-direction: column;
     gap: 0.6rem;
   }
-
-  .servizio-dettaglio-document-list {
+.servizio-dettaglio-document-list {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 520px) {
-  .servizio-dettaglio-documents {
+.servizio-dettaglio-documents {
     padding: 1.25rem;
     border-radius: 24px;
   }
-
-  .servizio-dettaglio-documents__intro {
+.servizio-dettaglio-documents__intro {
     flex-direction: column;
   }
-
-  .servizio-dettaglio-document-group summary {
+.servizio-dettaglio-document-group summary {
     padding: 1rem;
   }
-
-  .servizio-dettaglio-document-list {
+.servizio-dettaglio-document-list {
     padding: 0 1rem 1rem;
   }
 }
-
 /* =========================================================
    MOBILE FIX — POST-IT DETTAGLIO
    Mantiene lo stile desktop ma evita i bordi su telefono.
@@ -2015,17 +1668,15 @@
 }
 
 @media (max-width: 390px) {
-  .servizio-dettaglio-paper-stack {
+.servizio-dettaglio-paper-stack {
     width: calc(100% - 2rem);
     min-height: 350px;
   }
-
-  .servizio-dettaglio-paper--main {
+.servizio-dettaglio-paper--main {
     width: 80%;
     left: 3%;
   }
-
-  .servizio-dettaglio-paper--back {
+.servizio-dettaglio-paper--back {
     width: 78%;
     right: 3%;
   }

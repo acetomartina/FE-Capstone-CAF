@@ -6,8 +6,8 @@
   display: flex;
   flex-direction: column;
 
-  background: #ffffff;
-  color: #102c65;
+  background: var(--caf-white);
+  color: var(--caf-navy);
 }
 
 .login-main {
@@ -63,7 +63,7 @@
       rgba(230, 35, 128, 0.035),
       transparent 24%
     ),
-    #ffffff;
+    var(--caf-white);
 }
 
 .login-access::before {
@@ -99,7 +99,7 @@
 }
 
 .login-access__heading h1 {
-  color: #102c65;
+  color: var(--caf-navy);
 
   font-size: 2.3rem;
   font-weight: 800;

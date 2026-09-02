@@ -12,7 +12,7 @@
       rgba(230, 35, 128, 0.06),
       transparent 30%
     ),
-    linear-gradient(135deg, #f8fbfd 0%, #f2f8fa 100%);
+    linear-gradient(135deg, var(--caf-bg) 0%, #f2f8fa 100%);
 }
 
 .login-info::before {
@@ -61,7 +61,7 @@
 .login-info__title {
   margin: 0;
 
-  color: #102c65;
+  color: var(--caf-navy);
 
   font-size: clamp(2.25rem, 3.2vw, 3.25rem);
   font-weight: 800;
@@ -102,7 +102,7 @@
 .login-benefit:hover {
   border-color: rgba(7, 136, 66, 0.32) !important;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 12px 28px rgba(16, 44, 101, 0.07) !important;
 
@@ -134,7 +134,7 @@
 .login-benefit__title {
   margin: 0;
 
-  color: #102c65;
+  color: var(--caf-navy);
 
   font-size: 1rem;
   font-weight: 750;

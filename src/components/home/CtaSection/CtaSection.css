@@ -1,7 +1,7 @@
 .cta-section {
   padding: 6rem 0;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--caf-white);
 }
 
 .cta-section__container {
@@ -36,7 +36,7 @@
       rgba(47, 148, 72, 0.15),
       transparent 28rem
     ),
-    linear-gradient(135deg, #f4faf5 0%, #ffffff 48%, #f4f7fd 100%);
+    linear-gradient(135deg, #f4faf5 0%, var(--caf-white) 48%, var(--caf-bg) 100%);
   box-shadow: 0 30px 80px rgba(16, 44, 101, 0.11);
 }
 
@@ -81,7 +81,7 @@
 
 .cta-section__title {
   margin: 0;
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: clamp(2.5rem, 4.4vw, 4.7rem);
   font-weight: 800;
   line-height: 1;
@@ -139,25 +139,25 @@
 .cta-section__button--primary {
   border-color: #2f9448;
   background: #2f9448;
-  color: #ffffff;
+  color: var(--caf-white);
   box-shadow: 0 14px 30px rgba(47, 148, 72, 0.22);
 }
 
 .cta-section__button--primary:hover {
-  background: #247a3a;
-  color: #ffffff;
+  background: var(--caf-green);
+  color: var(--caf-white);
   box-shadow: 0 18px 36px rgba(47, 148, 72, 0.28);
 }
 
 .cta-section__button--secondary {
   border-color: rgba(230, 35, 128, 0.34);
   background: rgba(255, 255, 255, 0.78);
-  color: #c71468;
+  color: var(--caf-fuchsia);
 }
 
 .cta-section__button--secondary:hover {
   border-color: rgba(230, 35, 128, 0.62);
-  background: #fff1f7;
+  background: var(--caf-white)1f7;
   color: #a50f55;
 }
 
@@ -265,7 +265,7 @@
   width: 40px;
   height: 40px;
   background: #dcefe1;
-  color: #247a3a;
+  color: var(--caf-green);
 }
 
 .cta-dashboard__brand div {
@@ -274,7 +274,7 @@
 }
 
 .cta-dashboard__brand strong {
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: 0.88rem;
   font-weight: 800;
 }
@@ -288,7 +288,7 @@
   width: 38px;
   height: 38px;
   background: #f1f5f9;
-  color: #102c65;
+  color: var(--caf-navy);
 }
 
 .cta-dashboard__welcome {
@@ -311,7 +311,7 @@
 
 .cta-dashboard__welcome strong {
   margin-top: 2px;
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: 1.1rem;
   font-weight: 800;
 }
@@ -319,8 +319,8 @@
 .cta-dashboard__status {
   padding: 0.38rem 0.65rem;
   border-radius: 999px;
-  background: #e6f4e9;
-  color: #247a3a;
+  background: var(--caf-green-soft);
+  color: var(--caf-green);
   font-size: 0.62rem;
   font-weight: 750;
 }
@@ -339,7 +339,7 @@
   gap: 0.65rem;
   border: 1px solid #edf2f7;
   border-radius: 16px;
-  background: #ffffff;
+  background: var(--caf-white);
 }
 
 .cta-dashboard__summary-icon {
@@ -353,17 +353,17 @@
 
 .cta-dashboard__summary-icon--green {
   background: #dcefe1;
-  color: #247a3a;
+  color: var(--caf-green);
 }
 
 .cta-dashboard__summary-icon--blue {
-  background: #e2eaf7;
-  color: #3f62a5;
+  background: var(--caf-blue-soft);
+  color: var(--caf-blue);
 }
 
 .cta-dashboard__summary-icon--fuchsia {
-  background: #ffe3ef;
-  color: #c71468;
+  background: var(--caf-fuchsia-soft);
+  color: var(--caf-fuchsia);
 }
 
 .cta-dashboard__summary article div {
@@ -373,7 +373,7 @@
 }
 
 .cta-dashboard__summary strong {
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: 1rem;
   font-weight: 800;
 }
@@ -404,7 +404,7 @@
 }
 
 .cta-dashboard__section-heading strong {
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: 0.86rem;
 }
 
@@ -412,7 +412,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: #247a3a;
+  color: var(--caf-green);
   font-size: 0.65rem;
   font-weight: 700;
 }
@@ -431,7 +431,7 @@
   gap: 0.7rem;
   border: 1px solid #edf2f7;
   border-radius: 14px;
-  background: #ffffff;
+  background: var(--caf-white);
   transition:
     border-color 180ms ease,
     transform 180ms ease;
@@ -452,17 +452,17 @@
 
 .cta-dashboard__activity-icon--green {
   background: #dcefe1;
-  color: #247a3a;
+  color: var(--caf-green);
 }
 
 .cta-dashboard__activity-icon--blue {
-  background: #e2eaf7;
-  color: #3f62a5;
+  background: var(--caf-blue-soft);
+  color: var(--caf-blue);
 }
 
 .cta-dashboard__activity-icon--fuchsia {
-  background: #ffe3ef;
-  color: #c71468;
+  background: var(--caf-fuchsia-soft);
+  color: var(--caf-fuchsia);
 }
 
 .cta-dashboard__activity div {
@@ -471,7 +471,7 @@
 }
 
 .cta-dashboard__activity strong {
-  color: #334155;
+  color: var(--caf-text);
   font-size: 0.7rem;
 }
 
@@ -493,8 +493,8 @@
   align-items: center;
   gap: 0.7rem;
   border-radius: 14px;
-  background: #102c65;
-  color: #ffffff;
+  background: var(--caf-navy);
+  color: var(--caf-white);
 }
 
 .cta-dashboard__appointment-icon {

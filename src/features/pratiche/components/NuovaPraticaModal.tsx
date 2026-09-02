@@ -33,7 +33,7 @@ import type {
 import { serviziService } from "../../servizi/api/serviziService";
 import type {
   MacroArea,
-  ServizioCatalogo,
+  Servizio,
 } from "../../servizi/types/serviziTypes";
 
 import "./NuovaPraticaModal.css";
@@ -113,7 +113,7 @@ export default function NuovaPraticaModal({
   const [
     servizi,
     setServizi,
-  ] = useState<ServizioCatalogo[]>([]);
+  ] = useState<Servizio[]>([]);
 
   const [
     caricamentoDati,

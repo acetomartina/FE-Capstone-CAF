@@ -76,7 +76,7 @@
   border-radius: 15px;
 
   background:
-    linear-gradient(100deg, rgba(35, 135, 127, 0.035), transparent 55%), #ffffff;
+    linear-gradient(100deg, rgba(35, 135, 127, 0.035), transparent 55%), var(--caf-white);
 
   box-shadow: 0 8px 24px rgba(16, 44, 101, 0.025);
 }
@@ -146,7 +146,7 @@
 
   background:
     linear-gradient(145deg, rgba(var(--card-rgb), 0.025), transparent 48%),
-    #ffffff;
+    var(--caf-white);
 
   color: inherit;
 
@@ -195,26 +195,26 @@
    ========================================================= */
 
 .amministrazione-card--green {
-  --card-accent: #247a3a;
-  --card-soft: #e6f4e9;
+  --card-accent: var(--caf-green);
+  --card-soft: var(--caf-green-soft);
   --card-rgb: 36, 122, 58;
 }
 
 .amministrazione-card--blue {
-  --card-accent: #3f62a5;
-  --card-soft: #e2eaf7;
+  --card-accent: var(--caf-blue);
+  --card-soft: var(--caf-blue-soft);
   --card-rgb: 63, 98, 165;
 }
 
 .amministrazione-card--purple {
-  --card-accent: #7452a8;
-  --card-soft: #eee8f7;
+  --card-accent: var(--caf-purple);
+  --card-soft: var(--caf-purple-soft);
   --card-rgb: 116, 82, 168;
 }
 
 .amministrazione-card--orange {
-  --card-accent: #c76a08;
-  --card-soft: #fff0d8;
+  --card-accent: var(--caf-orange);
+  --card-soft: var(--caf-orange-soft);
   --card-rgb: 199, 106, 8;
 }
 

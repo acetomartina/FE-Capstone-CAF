@@ -14,6 +14,7 @@ import LoginPage from "./pages/public/LoginPage";
 import NotFoundPage from "./pages/public/NotFoundPage";
 import RecuperoPasswordPage from "./pages/public/RecuperoPasswordPage";
 import ResetPasswordPage from "./pages/public/ResetPasswordPage";
+import AttivaAccountPage from "./pages/public/AttivaAccountPage";
 import DettaglioServizioPublicPage from "./pages/public/DettaglioServizioPublicPage";
 import PrivacyPolicyPage from "./pages/public/PrivacyPolicyPage";
 import CookiePolicyPage from "./pages/public/CookiePolicyPage";
@@ -23,6 +24,7 @@ import ClientiPage from "./pages/private/ClientiPage";
 import DettaglioClientePage from "./pages/private/DettaglioClientePage";
 import PratichePage from "./pages/private/PratichePage";
 import DettaglioPraticaPage from "./pages/private/DettaglioPraticaPage";
+import DettaglioPraticaClientePage from "./pages/private/DettaglioPraticaClientePage";
 import DocumentiPage from "./pages/private/DocumentiPage";
 import AgendaPage from "./pages/private/AgendaPage";
 import AreaAmministrazionePage from "./pages/private/AreaAmministrazionePage";
@@ -106,6 +108,27 @@ const App = () => {
           }
         />
 
+        {/*
+          Destinazione del link di invito inviato
+          ai nuovi clienti.
+
+          La variante senza token mostra il messaggio
+          di link non valido invece di una pagina 404.
+        */}
+        <Route
+          path="/attiva-account/:token"
+          element={
+            <AttivaAccountPage />
+          }
+        />
+
+        <Route
+          path="/attiva-account"
+          element={
+            <AttivaAccountPage />
+          }
+        />
+
         <Route
           path="/privacy"
           element={<PrivacyPolicyPage />}
@@ -139,6 +162,13 @@ const App = () => {
           <Route
             path="/cliente"
             element={<AreaClientePage />}
+          />
+
+          <Route
+            path="/cliente/pratiche/:id"
+            element={
+              <DettaglioPraticaClientePage />
+            }
           />
         </Route>
       </Route>

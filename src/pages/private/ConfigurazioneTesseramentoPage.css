@@ -68,7 +68,7 @@
   border: 1px solid rgba(16, 44, 101, 0.08);
   border-radius: 17px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 6px 20px rgba(16, 44, 101, 0.035);
 }
@@ -151,7 +151,7 @@
   border: 1px solid #d8e0eb;
   border-radius: 11px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   transition:
     border-color 180ms ease,
@@ -249,7 +249,7 @@
       rgba(118, 83, 181, 0.11),
       transparent 38%
     ),
-    #ffffff;
+    var(--caf-white);
 }
 
 .config-tesseramento-summary__eyebrow {

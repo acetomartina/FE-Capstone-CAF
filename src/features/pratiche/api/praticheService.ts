@@ -140,6 +140,36 @@ export const praticheService = {
     return risposta.data;
   },
 
+  async trovaMie(
+  parametri: Pick<
+    ParametriRicercaPratiche,
+    "page" | "size" | "sort"
+  > = {},
+): Promise<RispostaPaginata<Pratica>> {
+  const query =
+    costruisciParametri(parametri);
+
+  const risposta =
+    await api.get<
+      RispostaPaginata<Pratica>
+    >(
+      `${BASE_PRATICHE}/mie?${query.toString()}`,
+    );
+
+  return risposta.data;
+},
+
+async trovaMiaPerId(
+  id: number,
+): Promise<Pratica> {
+  const risposta =
+    await api.get<Pratica>(
+      `${BASE_PRATICHE}/mie/${id}`,
+    );
+
+  return risposta.data;
+},
+
   async creaPratica(
     dati: CreaPraticaRequest,
   ): Promise<Pratica> {

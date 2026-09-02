@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import {
   FiCalendar,
   FiChevronLeft,
@@ -18,18 +22,14 @@ import {
   Outlet,
   useNavigate,
 } from "react-router-dom";
-
 import {
   useAppDispatch,
   useAppSelector,
 } from "../app/hooks";
-
 import { logout } from "../features/auth/authSlice";
 import type { Ruolo } from "../features/auth/authTypes";
 import { tokenService } from "../services/tokenService";
-
 import logo from "../assets/logo.svg";
-
 import "./PrivateLayout.css";
 
 const CHIAVE_SIDEBAR =
@@ -44,6 +44,80 @@ const ETICHETTE_RUOLO: Record<
   USER: "Dipendente",
   CLIENTE: "Cliente",
 };
+
+type VoceMenu = {
+  label: string;
+  path: string;
+  icon: ReactNode;
+  end?: boolean;
+};
+
+const MENU_AMMINISTRAZIONE: VoceMenu[] = [
+  {
+    label: "Dashboard",
+    path: "/dashboard",
+    icon: <FiGrid />,
+    end: true,
+  },
+  {
+    label: "Clienti",
+    path: "/clienti",
+    icon: <FiUsers />,
+  },
+  {
+    label: "Pratiche",
+    path: "/pratiche",
+    icon: <FiFileText />,
+  },
+  {
+    label: "Documenti",
+    path: "/documenti",
+    icon: <FiFolder />,
+  },
+  {
+    label: "Agenda",
+    path: "/agenda",
+    icon: <FiCalendar />,
+  },
+];
+
+const MENU_DIPENDENTE: VoceMenu[] = [
+  {
+    label: "Area dipendente",
+    path: "/dipendente",
+    icon: <FiGrid />,
+    end: true,
+  },
+  {
+    label: "Clienti",
+    path: "/clienti",
+    icon: <FiUsers />,
+  },
+  {
+    label: "Pratiche",
+    path: "/pratiche",
+    icon: <FiFileText />,
+  },
+  {
+    label: "Documenti",
+    path: "/documenti",
+    icon: <FiFolder />,
+  },
+  {
+    label: "Agenda",
+    path: "/agenda",
+    icon: <FiCalendar />,
+  },
+];
+
+const MENU_CLIENTE: VoceMenu[] = [
+  {
+    label: "La mia area",
+    path: "/cliente",
+    icon: <FiGrid />,
+    end: true,
+  },
+];
 
 const PrivateLayout = () => {
   const utente = useAppSelector(
@@ -76,39 +150,27 @@ const PrivateLayout = () => {
     );
   }, [sidebarCollassata]);
 
-  const menuPrincipale = [
-    {
-      label: "Dashboard",
-      path: "/dashboard",
-      icon: <FiGrid />,
-    },
-    {
-      label: "Clienti",
-      path: "/clienti",
-      icon: <FiUsers />,
-    },
-    {
-      label: "Pratiche",
-      path: "/pratiche",
-      icon: <FiFileText />,
-    },
-    {
-      label: "Documenti",
-      path: "/documenti",
-      icon: <FiFolder />,
-    },
-    {
-      label: "Agenda",
-      path: "/agenda",
-      icon: <FiCalendar />,
-    },
-  ];
+  const ruolo = utente?.ruolo;
+  const cliente = ruolo === "CLIENTE";
+  const amministratore =
+    ruolo === "SUPER_ADMIN" ||
+    ruolo === "ADMIN";
+
+  const destinazioneHome = cliente
+    ? "/cliente"
+    : ruolo === "USER"
+      ? "/dipendente"
+      : "/dashboard";
+
+  const menuPrincipale = cliente
+    ? MENU_CLIENTE
+    : ruolo === "USER"
+      ? MENU_DIPENDENTE
+      : MENU_AMMINISTRAZIONE;
 
   const esci = () => {
     tokenService.rimuoviToken();
-
     dispatch(logout());
-
     navigate("/login");
   };
 
@@ -117,11 +179,7 @@ const PrivateLayout = () => {
   };
 
   const iniziali = utente
-    ? `${utente.nome.charAt(
-        0,
-      )}${utente.cognome.charAt(
-        0,
-      )}`.toUpperCase()
+    ? `${utente.nome.charAt(0)}${utente.cognome.charAt(0)}`.toUpperCase()
     : "—";
 
   return (
@@ -157,7 +215,7 @@ const PrivateLayout = () => {
         <div>
           <div className="private-sidebar__brand-row">
             <NavLink
-              to="/dashboard"
+              to={destinazioneHome}
               className="private-sidebar__brand"
               onClick={chiudiMenuMobile}
             >
@@ -179,48 +237,43 @@ const PrivateLayout = () => {
 
           <nav className="private-sidebar__navigation">
             <span className="private-sidebar__section-label">
-              Menu principale
+              {cliente
+                ? "Area personale"
+                : "Menu principale"}
             </span>
 
-            {menuPrincipale.map(
-              (item) => (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  title={
-                    sidebarCollassata
-                      ? item.label
-                      : undefined
-                  }
-                  onClick={
-                    chiudiMenuMobile
-                  }
-                  className={({
-                    isActive,
-                  }) =>
-                    `private-sidebar__link ${
-                      isActive
-                        ? "private-sidebar__link--active"
-                        : ""
-                    }`
-                  }
-                >
-                  <span className="private-sidebar__link-icon">
-                    {item.icon}
-                  </span>
+            {menuPrincipale.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.end}
+                title={
+                  sidebarCollassata
+                    ? item.label
+                    : undefined
+                }
+                onClick={chiudiMenuMobile}
+                className={({ isActive }) =>
+                  `private-sidebar__link ${
+                    isActive
+                      ? "private-sidebar__link--active"
+                      : ""
+                  }`
+                }
+              >
+                <span className="private-sidebar__link-icon">
+                  {item.icon}
+                </span>
 
-                  <span className="private-sidebar__link-label">
-                    {item.label}
-                  </span>
-                </NavLink>
-              ),
-            )}
+                <span className="private-sidebar__link-label">
+                  {item.label}
+                </span>
+              </NavLink>
+            ))}
           </nav>
         </div>
 
         <div className="private-sidebar__bottom">
-          {/* ACCOUNT */}
-
           <div className="private-sidebar__account">
             <span className="private-sidebar__account-avatar">
               {iniziali}
@@ -243,43 +296,47 @@ const PrivateLayout = () => {
             </div>
           </div>
 
-          <NavLink
-            to="/profilo"
-            title={
-              sidebarCollassata
-                ? "Profilo"
-                : undefined
-            }
-            onClick={chiudiMenuMobile}
-            className="private-sidebar__link"
-          >
-            <span className="private-sidebar__link-icon">
-              <FiUser />
-            </span>
+          {!cliente && (
+            <NavLink
+              to="/profilo"
+              title={
+                sidebarCollassata
+                  ? "Profilo"
+                  : undefined
+              }
+              onClick={chiudiMenuMobile}
+              className="private-sidebar__link"
+            >
+              <span className="private-sidebar__link-icon">
+                <FiUser />
+              </span>
 
-            <span className="private-sidebar__link-label">
-              Profilo
-            </span>
-          </NavLink>
+              <span className="private-sidebar__link-label">
+                Profilo
+              </span>
+            </NavLink>
+          )}
 
-          <NavLink
-            to="/amministrazione"
-            title={
-              sidebarCollassata
-                ? "Impostazioni"
-                : undefined
-            }
-            onClick={chiudiMenuMobile}
-            className="private-sidebar__link"
-          >
-            <span className="private-sidebar__link-icon">
-              <FiSettings />
-            </span>
+          {amministratore && (
+            <NavLink
+              to="/amministrazione"
+              title={
+                sidebarCollassata
+                  ? "Amministrazione"
+                  : undefined
+              }
+              onClick={chiudiMenuMobile}
+              className="private-sidebar__link"
+            >
+              <span className="private-sidebar__link-icon">
+                <FiSettings />
+              </span>
 
-            <span className="private-sidebar__link-label">
-              Amministrazione
-            </span>
-          </NavLink>
+              <span className="private-sidebar__link-label">
+                Amministrazione
+              </span>
+            </NavLink>
+          )}
 
           <button
             type="button"

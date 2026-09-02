@@ -13,7 +13,7 @@
       rgba(230, 35, 128, 0.06),
       transparent 24rem
     ),
-    #ffffff;
+    var(--caf-white);
 }
 
 .contact-section__container {
@@ -38,7 +38,7 @@
 
 .contact-section__title {
   margin: 0;
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: clamp(2.4rem, 4.3vw, 4.2rem);
   font-weight: 800;
   line-height: 1.03;
@@ -68,7 +68,7 @@
 .contact-section__content {
   border: 1px solid rgba(203, 213, 225, 0.74);
   border-radius: 30px;
-  background: #ffffff;
+  background: var(--caf-white);
   box-shadow: 0 22px 58px rgba(16, 44, 101, 0.09);
 }
 
@@ -120,7 +120,7 @@
   place-items: center;
   border-radius: 14px;
   background: #dcefe1;
-  color: #247a3a;
+  color: var(--caf-green);
 }
 
 .contact-section__map-badge div {
@@ -129,14 +129,14 @@
 }
 
 .contact-section__map-badge strong {
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: 0.9rem;
   font-weight: 800;
 }
 
 .contact-section__map-badge small {
   margin-top: 2px;
-  color: #667085;
+  color: var(--caf-text-muted);
   font-size: 0.75rem;
 }
 
@@ -153,7 +153,7 @@
 }
 
 .contact-card {
-  --contact-accent: #247a3a;
+  --contact-accent: var(--caf-green);
   --contact-soft: #dcefe1;
 
   min-height: 112px;
@@ -163,7 +163,7 @@
   gap: 0.9rem;
   border: 1px solid #edf2f7;
   border-radius: 20px;
-  background: #ffffff;
+  background: var(--caf-white);
   color: inherit;
   text-decoration: none;
   transition:
@@ -207,36 +207,36 @@ a.contact-card:hover {
 
 .contact-card strong {
   overflow-wrap: anywhere;
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: 0.92rem;
   font-weight: 780;
 }
 
 .contact-card div span {
   margin-top: 4px;
-  color: #667085;
+  color: var(--caf-text-muted);
   font-size: 0.78rem;
   line-height: 1.45;
 }
 
 .contact-card--green {
-  --contact-accent: #247a3a;
+  --contact-accent: var(--caf-green);
   --contact-soft: #dcefe1;
 }
 
 .contact-card--fuchsia {
-  --contact-accent: #c71468;
-  --contact-soft: #ffe3ef;
+  --contact-accent: var(--caf-fuchsia);
+  --contact-soft: var(--caf-fuchsia-soft);
 }
 
 .contact-card--blue {
-  --contact-accent: #3f62a5;
-  --contact-soft: #e2eaf7;
+  --contact-accent: var(--caf-blue);
+  --contact-soft: var(--caf-blue-soft);
 }
 
 .contact-card--orange {
-  --contact-accent: #c76a08;
-  --contact-soft: #fff0d8;
+  --contact-accent: var(--caf-orange);
+  --contact-soft: var(--caf-orange-soft);
 }
 
 .contact-section__actions {
@@ -278,26 +278,26 @@ a.contact-card:hover {
 .contact-section__button--primary {
   border-color: #2f9448;
   background: #2f9448;
-  color: #ffffff;
+  color: var(--caf-white);
   box-shadow: 0 12px 26px rgba(47, 148, 72, 0.18);
 }
 
 .contact-section__button--primary:hover {
-  background: #247a3a;
-  color: #ffffff;
+  background: var(--caf-green);
+  color: var(--caf-white);
   box-shadow: 0 16px 32px rgba(47, 148, 72, 0.24);
 }
 
 .contact-section__button--secondary {
   border-color: rgba(82, 124, 192, 0.28);
-  background: #ffffff;
-  color: #102c65;
+  background: var(--caf-white);
+  color: var(--caf-navy);
 }
 
 .contact-section__button--secondary:hover {
   border-color: rgba(82, 124, 192, 0.52);
   background: #f2f6fc;
-  color: #102c65;
+  color: var(--caf-navy);
 }
 
 .contact-section__button:hover svg {
@@ -451,7 +451,7 @@ a.contact-card:hover {
     ),
     #f8fbf8;
 
-  color: #102c65;
+  color: var(--caf-navy);
 }
 
 /* =========================================================
@@ -472,7 +472,7 @@ a.contact-card:hover {
   border-radius: 16px;
 
   color: #249239;
-  background: #e6f4e9;
+  background: var(--caf-green-soft);
 
   font-size: 1.4rem;
 
@@ -488,7 +488,7 @@ a.contact-card:hover {
 
   margin: 0;
 
-  color: #102c65;
+  color: var(--caf-navy);
 
   font-size: clamp(1.35rem, 2.5vw, 1.85rem);
 
@@ -503,7 +503,7 @@ a.contact-card:hover {
 
   margin: 0.8rem 0 0;
 
-  color: #657187;
+  color: var(--caf-text-muted);
 
   font-size: 0.88rem;
   line-height: 1.7;
@@ -526,7 +526,7 @@ a.contact-card:hover {
   border: 1px solid #249239;
   border-radius: 8px;
 
-  color: #ffffff;
+  color: var(--caf-white);
   background: #249239;
 
   font: inherit;

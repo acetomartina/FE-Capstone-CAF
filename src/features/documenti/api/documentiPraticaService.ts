@@ -51,7 +51,8 @@ const costruisciParametriAdmin = (
 
   query.set(
     "sort",
-    parametri.sort ?? "aggiornatoIl,desc",
+    parametri.sort ??
+      "aggiornatoIl,desc",
   );
 
   return query;
@@ -101,6 +102,28 @@ export const documentiPraticaService = {
     const risposta =
       await api.get<RiepilogoDocumenti>(
         `/api/pratiche/${praticaId}/documenti/riepilogo`,
+      );
+
+    return risposta.data;
+  },
+
+  async trovaMieiPerPratica(
+    praticaId: number,
+  ): Promise<DocumentoPratica[]> {
+    const risposta =
+      await api.get<DocumentoPratica[]>(
+        `/api/pratiche/mie/${praticaId}/documenti`,
+      );
+
+    return risposta.data;
+  },
+
+  async riepilogoMiei(
+    praticaId: number,
+  ): Promise<RiepilogoDocumenti> {
+    const risposta =
+      await api.get<RiepilogoDocumenti>(
+        `/api/pratiche/mie/${praticaId}/documenti/riepilogo`,
       );
 
     return risposta.data;

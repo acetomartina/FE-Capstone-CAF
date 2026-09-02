@@ -60,6 +60,22 @@ const authSlice = createSlice({
       state.caricamento = false;
     },
 
+    aggiornaUtenteAutenticato: (
+  state,
+  action: PayloadAction<
+    Partial<UtenteAutenticato>
+  >,
+) => {
+  if (!state.utente) {
+    return;
+  }
+
+  state.utente = {
+    ...state.utente,
+    ...action.payload,
+  };
+},
+
     logout: (state) => {
       state.utente = null;
       state.token = null;
@@ -79,6 +95,7 @@ export const {
   impostaCaricamento,
   impostaErrore,
   sessioneAssente,
+  aggiornaUtenteAutenticato,
   logout,
 } = authSlice.actions;
 

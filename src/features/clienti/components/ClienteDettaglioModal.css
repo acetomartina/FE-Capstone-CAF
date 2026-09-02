@@ -1,15 +1,15 @@
 .cliente-dettaglio-modal {
-  --cliente-green: #247a3a;
-  --cliente-green-soft: #e6f4e9;
+  --cliente-green: var(--caf-green);
+  --cliente-green-soft: var(--caf-green-soft);
 
-  --cliente-blue: #3f62a5;
-  --cliente-blue-soft: #e2eaf7;
+  --cliente-blue: var(--caf-blue);
+  --cliente-blue-soft: var(--caf-blue-soft);
 
-  --cliente-orange: #c76a08;
-  --cliente-orange-soft: #fff0d8;
+  --cliente-orange: var(--caf-orange);
+  --cliente-orange-soft: var(--caf-orange-soft);
 
-  --cliente-purple: #7452a8;
-  --cliente-purple-soft: #eee8f7;
+  --cliente-purple: var(--caf-purple);
+  --cliente-purple-soft: var(--caf-purple-soft);
 }
 
 /* =========================================================
@@ -26,7 +26,7 @@
   border: 1px solid rgba(16, 44, 101, 0.09);
   border-radius: 20px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 24px 70px rgba(16, 44, 101, 0.16);
 }
@@ -48,7 +48,7 @@
       rgba(31, 111, 114, 0.055),
       transparent 9rem
     ),
-    #ffffff;
+    var(--caf-white);
 }
 
 .cliente-dettaglio-modal__eyebrow {
@@ -153,9 +153,9 @@
   border-color: #f2cdc6;
   border-radius: 12px;
 
-  background: #fdf4f2;
+  background: var(--caf-danger-soft);
 
-  color: #c0392f;
+  color: var(--caf-danger);
 
   font-size: 0.75rem;
 }
@@ -197,7 +197,7 @@
   border: 1px solid rgba(16, 44, 101, 0.075);
   border-radius: 15px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 5px 16px rgba(16, 44, 101, 0.025);
 }
@@ -353,7 +353,7 @@
   border: 1px solid #d8e0eb;
   border-radius: 10px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   color: var(--caf-navy);
 
@@ -374,7 +374,7 @@
 .cliente-dettaglio-modal .form-control:focus {
   border-color: var(--caf-blue);
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 0 0 3px rgba(63, 98, 165, 0.09);
 }
@@ -406,7 +406,7 @@
       rgba(116, 82, 168, 0.035),
       transparent 9rem
     ),
-    #ffffff;
+    var(--caf-white);
 }
 
 .cliente-dettaglio-accesso {
@@ -440,7 +440,7 @@
 
   border-top: 1px solid #edf1f6;
 
-  background: #ffffff;
+  background: var(--caf-white);
 }
 
 .cliente-dettaglio-modal__footer .btn {
@@ -500,7 +500,7 @@
 
   border-color: #d7dfe9;
 
-  background: #ffffff;
+  background: var(--caf-white);
   color: #5f6d80;
 
   box-shadow: none;
@@ -510,7 +510,7 @@
 .cliente-dettaglio-modal__cancel.btn:hover {
   border-color: #bec9d6;
 
-  background: #f7f9fb;
+  background: var(--caf-bg);
 
   color: var(--caf-navy);
 }
@@ -526,7 +526,7 @@
 
   background: #078842;
 
-  color: #ffffff;
+  color: var(--caf-white);
 
   box-shadow: 0 7px 16px rgba(7, 136, 66, 0.16);
 }
@@ -536,7 +536,7 @@
 .cliente-dettaglio-modal__edit.btn:active {
   background: #066f36;
 
-  color: #ffffff;
+  color: var(--caf-white);
 }
 
 /* =========================================================
@@ -550,7 +550,7 @@
 
   background: #078842;
 
-  color: #ffffff;
+  color: var(--caf-white);
 
   box-shadow: 0 7px 16px rgba(7, 136, 66, 0.16);
 }
@@ -560,13 +560,13 @@
 .cliente-dettaglio-modal__save.btn:active {
   background: #066f36;
 
-  color: #ffffff;
+  color: var(--caf-white);
 }
 
 .cliente-dettaglio-modal__save.btn:disabled {
   background: #5f826d;
 
-  color: #ffffff;
+  color: var(--caf-white);
 
   opacity: 1;
 

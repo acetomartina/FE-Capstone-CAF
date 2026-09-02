@@ -162,7 +162,7 @@
 
   border-radius: var(--caf-radius-md);
 
-  color: #667085;
+  color: var(--caf-text-muted);
 
   text-decoration: none;
 
@@ -202,7 +202,7 @@
 }
 
 .private-sidebar__link:hover {
-  background: #f6f8fc;
+  background: var(--caf-bg);
 
   color: var(--caf-navy);
 
@@ -319,7 +319,7 @@
 
   background: linear-gradient(145deg, var(--caf-petrol), #2b7f82);
 
-  color: #ffffff;
+  color: var(--caf-white);
 
   font-size: 0.7rem;
   font-weight: 850;
@@ -433,7 +433,7 @@
 
   border-radius: 12px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   color: var(--caf-blue);
 
@@ -657,7 +657,7 @@
 
     border-radius: 10px;
 
-    background: #f7f9fc;
+    background: var(--caf-bg);
 
     color: var(--caf-navy);
 

@@ -3,11 +3,13 @@ import api from "../../services/api";
 import type {
   RichiestaLogin,
   RichiestaRecuperoPassword,
+  RichiestaAttivazioneAccount,
   RichiestaResetPassword,
   RispostaLogin,
   RispostaRecuperoPassword,
   RispostaUtenteCorrente,
   RispostaResetPassword,
+  RispostaAttivazioneAccount,
 } from "./authTypes";
 
 export const authService = {
@@ -54,6 +56,22 @@ export const authService = {
 
     const risposta = await api.post<RispostaResetPassword>(
       "/api/auth/reset-password",
+      corpo,
+    );
+
+    return risposta.data;
+  },
+
+  /* Primo accesso di un cliente creato dalla sede: il token arriva dal
+     link nella mail di invito e vale una volta sola. */
+  async attivaAccount(
+    token: string,
+    nuovaPassword: string,
+  ): Promise<RispostaAttivazioneAccount> {
+    const corpo: RichiestaAttivazioneAccount = { token, nuovaPassword };
+
+    const risposta = await api.post<RispostaAttivazioneAccount>(
+      "/api/auth/attiva-account",
       corpo,
     );
 

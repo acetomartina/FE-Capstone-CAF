@@ -36,7 +36,7 @@
 .partners-section__title {
   margin: 0;
 
-  color: #102c65;
+  color: var(--caf-navy);
 
   font-size: clamp(2.25rem, 4vw, 4rem);
   font-weight: 800;
@@ -162,7 +162,7 @@
 
   border-color: rgba(47, 148, 72, 0.32);
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow:
     0 26px 54px rgba(16, 44, 101, 0.15),
@@ -192,7 +192,7 @@
 .partners-card h3 {
   margin: 0;
 
-  color: #102c65;
+  color: var(--caf-navy);
 
   font-size: 0.96rem;
   font-weight: 750;
@@ -202,7 +202,7 @@
 .partners-card p {
   margin: 0.45rem 0 0;
 
-  color: #667085;
+  color: var(--caf-text-muted);
 
   font-size: 0.82rem;
   line-height: 1.55;
@@ -210,21 +210,21 @@
 
 .partners-card--green .partners-card__icon {
   background: #dcefe1;
-  color: #247a3a;
+  color: var(--caf-green);
 }
 
 .partners-card--blue .partners-card__icon {
-  background: #e2eaf7;
-  color: #3f62a5;
+  background: var(--caf-blue-soft);
+  color: var(--caf-blue);
 }
 
 .partners-card--fuchsia .partners-card__icon {
-  background: #ffe3ef;
-  color: #c71468;
+  background: var(--caf-fuchsia-soft);
+  color: var(--caf-fuchsia);
 }
 
 .partners-card--orange .partners-card__icon {
-  background: #fff0d8;
+  background: var(--caf-orange-soft);
   color: #d97706;
 }
 
@@ -233,8 +233,8 @@
 }
 
 .partners-card--petrol .partners-card__icon {
-  background: #e1f1f1;
-  color: #1f6f72;
+  background: var(--caf-petrol-soft);
+  color: var(--caf-petrol);
 }
 
 @keyframes partnersScroll {

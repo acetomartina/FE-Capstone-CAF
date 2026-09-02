@@ -83,7 +83,7 @@
       transparent 42px,
       rgba(36, 122, 58, 0.07) 43px
     ),
-    #ffffff;
+    var(--caf-white);
 
   box-shadow: 0 24px 60px rgba(16, 44, 101, 0.13);
 }
@@ -156,7 +156,7 @@
 
   transform: translateX(-50%);
 
-  border: 3px solid #ffffff;
+  border: 3px solid var(--caf-white);
   border-radius: 50%;
 
   background: #d91c76;
@@ -241,7 +241,7 @@
 .servizio-dettaglio-paper--main p {
   margin: 1rem 0 0;
 
-  color: #657187;
+  color: var(--caf-text-muted);
 
   font-size: 0.84rem;
   line-height: 1.72;

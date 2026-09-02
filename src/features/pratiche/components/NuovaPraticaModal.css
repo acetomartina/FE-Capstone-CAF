@@ -30,7 +30,7 @@
       rgba(21, 154, 115, 0.08),
       transparent 30%
     ),
-    #fff;
+    var(--caf-white);
 }
 
 .nuova-pratica-modal__header > div:first-child {
@@ -71,7 +71,7 @@
 .nuova-pratica-modal__body {
   padding: 1.45rem 1.7rem 1.2rem;
 
-  background: #f8f9fb;
+  background: var(--caf-bg);
 }
 
 .nuova-pratica-modal__alert {
@@ -97,7 +97,7 @@
   border: 1px solid #edf0f4;
   border-radius: 16px;
 
-  background: #fff;
+  background: var(--caf-white);
 }
 
 .nuova-pratica-section + .nuova-pratica-section {
@@ -296,7 +296,7 @@
 
   border-top: 1px solid #edf0f4;
 
-  background: #fff;
+  background: var(--caf-white);
 }
 
 .nuova-pratica-modal__cancel,

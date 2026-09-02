@@ -88,3 +88,15 @@ export interface RichiestaResetPassword {
 export interface RispostaResetPassword {
   messaggio?: string;
 }
+
+/* L'attivazione account condivide il contratto del reset: token piu'
+   nuova password. Restano due tipi distinti perche' sono due endpoint
+   diversi, e nulla garantisce che restino identici per sempre. */
+export interface RichiestaAttivazioneAccount {
+  token: string;
+  nuovaPassword: string;
+}
+
+export interface RispostaAttivazioneAccount {
+  messaggio?: string;
+}

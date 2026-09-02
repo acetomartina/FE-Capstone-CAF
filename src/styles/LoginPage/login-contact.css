@@ -61,7 +61,7 @@
   border: 1px solid rgba(7, 136, 66, 0.45);
   border-radius: 10px;
 
-  background: #ffffff;
+  background: var(--caf-white);
   color: #078842;
 
   font-size: 0.86rem;

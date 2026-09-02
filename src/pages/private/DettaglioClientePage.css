@@ -77,7 +77,7 @@
       rgba(31, 111, 114, 0.1),
       transparent 28%
     ),
-    #ffffff;
+    var(--caf-white);
 
   box-shadow: 0 6px 20px rgba(16, 44, 101, 0.035);
 }
@@ -100,7 +100,7 @@
 
   border-radius: 17px;
 
-  background: #dff0ee;
+  background: var(--caf-petrol-soft);
 
   color: var(--caf-petrol);
 
@@ -203,7 +203,7 @@
   border: 1px solid rgba(16, 44, 101, 0.08);
   border-radius: 17px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 6px 20px rgba(16, 44, 101, 0.03);
 }
@@ -230,7 +230,7 @@
 }
 
 .dettaglio-cliente-card__icon--green {
-  background: #e7f4eb;
+  background: var(--caf-green-soft);
   color: #23834a;
 }
 
@@ -315,7 +315,7 @@
       rgba(118, 83, 181, 0.15),
       transparent 42%
     ),
-    linear-gradient(135deg, #ffffff, #faf8ff);
+    linear-gradient(135deg, var(--caf-white), var(--caf-bg));
 
   box-shadow: 0 6px 20px rgba(16, 44, 101, 0.03);
 }
@@ -394,7 +394,7 @@
 
   margin: 0;
 
-  color: #667388;
+  color: var(--caf-text-muted);
 
   font-size: 0.79rem;
   line-height: 1.55;
@@ -414,12 +414,12 @@
 }
 
 .dettaglio-cliente-tessera__status--valida {
-  background: #e5f4e9;
-  color: #237a3b;
+  background: var(--caf-green-soft);
+  color: var(--caf-green);
 }
 
 .dettaglio-cliente-tessera__status--in_scadenza {
-  background: #fff3df;
+  background: var(--caf-white)3df;
   color: #b36c16;
 }
 
@@ -466,7 +466,7 @@
   border: 1px solid rgba(16, 44, 101, 0.08);
   border-radius: 17px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 6px 20px rgba(16, 44, 101, 0.03);
 }
@@ -532,7 +532,7 @@
 
   border-radius: 11px;
 
-  background: #f8faff;
+  background: var(--caf-bg);
 }
 
 .dettaglio-cliente-pratiche__empty > svg {
@@ -675,13 +675,13 @@
 .dettaglio-cliente-pratica__status--in_attesa_documenti,
 .dettaglio-cliente-pratica__status--in_attesa_cliente,
 .dettaglio-cliente-pratica__status--in_attesa_ente {
-  background: #fff2df;
+  background: var(--caf-white)2df;
   color: #ae6817;
 }
 
 .dettaglio-cliente-pratica__status--completata {
-  background: #e6f4e9;
-  color: #237a3b;
+  background: var(--caf-green-soft);
+  color: var(--caf-green);
 }
 
 .dettaglio-cliente-pratica__status--annullata {
@@ -710,7 +710,7 @@
   border: 1px solid rgba(16, 44, 101, 0.08);
   border-radius: 17px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 6px 20px rgba(16, 44, 101, 0.03);
 }
@@ -731,7 +731,7 @@
 
   border-radius: 11px;
 
-  background: #fafbfc;
+  background: var(--caf-bg);
 
   color: var(--caf-text-muted);
 
@@ -861,7 +861,7 @@
   border-color: #d4e1df;
   border-radius: 9px;
 
-  background: #f7fbfa;
+  background: var(--caf-bg);
   color: var(--caf-petrol);
 
   font-size: 0.7rem;
@@ -956,7 +956,7 @@
   border: 1px solid #e5eaf0;
   border-radius: 14px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 }
 
 .dettaglio-cliente-form-section + .dettaglio-cliente-form-section {
@@ -1055,7 +1055,7 @@
 
 .dettaglio-cliente-form-section--domicilio {
   background:
-    linear-gradient(135deg, rgba(31, 111, 114, 0.035), transparent 55%), #ffffff;
+    linear-gradient(135deg, rgba(31, 111, 114, 0.035), transparent 55%), var(--caf-white);
 }
 
 .dettaglio-cliente-domicilio-switch {
@@ -1090,7 +1090,7 @@
   border-radius: 9px;
 
   background: #078842;
-  color: #ffffff;
+  color: var(--caf-white);
 
   font-size: 0.74rem;
   font-weight: 850;
@@ -1099,7 +1099,7 @@
 .dettaglio-cliente-save.btn:hover,
 .dettaglio-cliente-save.btn:focus {
   background: #066f36;
-  color: #ffffff;
+  color: var(--caf-white);
 }
 
 /* AZIONI MODAL */
@@ -1112,7 +1112,7 @@
 
   border-top-color: #edf1f5;
 
-  background: #ffffff;
+  background: var(--caf-white);
 }
 
 .dettaglio-cliente-modal__footer .btn {
@@ -1149,7 +1149,7 @@
 
   border-color: #d7dfe9;
 
-  background: #ffffff;
+  background: var(--caf-white);
   color: #5f6d80;
 
   box-shadow: none;
@@ -1160,7 +1160,7 @@
 .dettaglio-cliente-modal__secondary.btn:active {
   border-color: #bec9d6;
 
-  background: #f7f9fb;
+  background: var(--caf-bg);
   color: var(--caf-navy);
 
   box-shadow: none;
@@ -1172,7 +1172,7 @@
   border: 0;
 
   background: #078842;
-  color: #ffffff;
+  color: var(--caf-white);
 
   box-shadow: 0 7px 16px rgba(7, 136, 66, 0.16);
 }
@@ -1181,12 +1181,12 @@
 .dettaglio-cliente-modal__primary.btn:focus,
 .dettaglio-cliente-modal__primary.btn:active {
   background: #066f36;
-  color: #ffffff;
+  color: var(--caf-white);
 }
 
 .dettaglio-cliente-modal__primary.btn:disabled {
   background: #5f826d;
-  color: #ffffff;
+  color: var(--caf-white);
 
   opacity: 1;
 
@@ -1203,7 +1203,7 @@
   border-radius: 17px;
 
   background:
-    linear-gradient(135deg, rgba(31, 111, 114, 0.025), transparent 45%), #ffffff;
+    linear-gradient(135deg, rgba(31, 111, 114, 0.025), transparent 45%), var(--caf-white);
 
   box-shadow: 0 6px 20px rgba(16, 44, 101, 0.03);
 }
@@ -1273,7 +1273,7 @@
 
   border-radius: 11px;
 
-  background: #f4faf9;
+  background: var(--caf-bg);
 }
 
 .dettaglio-cliente-appuntamenti__empty > svg {
@@ -1407,8 +1407,8 @@
 }
 
 .dettaglio-cliente-appuntamento__status--confermato {
-  background: #e5f4e9;
-  color: #237a3b;
+  background: var(--caf-green-soft);
+  color: var(--caf-green);
 }
 
 .dettaglio-cliente-appuntamento__status--completato {

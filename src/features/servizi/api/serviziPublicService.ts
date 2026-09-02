@@ -3,7 +3,7 @@ import api from "../../../services/api";
 import type {
   DocumentoServizio,
   MacroArea,
-  ServizioCatalogo,
+  Servizio,
 } from "../types/serviziTypes";
 
 const BASE_PUBLIC = "/api/public";
@@ -18,9 +18,9 @@ export const serviziPublicService = {
     return risposta.data;
   },
 
-  async trovaServizi(): Promise<ServizioCatalogo[]> {
+  async trovaServizi(): Promise<Servizio[]> {
     const risposta =
-      await api.get<ServizioCatalogo[]>(
+      await api.get<Servizio[]>(
         `${BASE_PUBLIC}/servizi`,
       );
 
@@ -29,9 +29,9 @@ export const serviziPublicService = {
 
   async trovaServiziPerMacroArea(
     macroAreaId: number,
-  ): Promise<ServizioCatalogo[]> {
+  ): Promise<Servizio[]> {
     const risposta =
-      await api.get<ServizioCatalogo[]>(
+      await api.get<Servizio[]>(
         `${BASE_PUBLIC}/macro-aree/${macroAreaId}/servizi`,
       );
 
@@ -40,9 +40,9 @@ export const serviziPublicService = {
 
   async trovaServizioPerSlug(
     slug: string,
-  ): Promise<ServizioCatalogo> {
+  ): Promise<Servizio> {
     const risposta =
-      await api.get<ServizioCatalogo>(
+      await api.get<Servizio>(
         `${BASE_PUBLIC}/servizi/${slug}`,
       );
 

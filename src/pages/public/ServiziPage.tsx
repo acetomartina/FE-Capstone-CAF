@@ -28,7 +28,7 @@ import {
 
 import type {
   MacroArea,
-  ServizioCatalogo,
+  Servizio,
 } from "../../features/servizi/types/serviziTypes";
 
 import ServicePostIt from "../../components/common/ServicePostIt/ServicePostIt";
@@ -61,7 +61,7 @@ const ServiziPage = () => {
   const [
     servizi,
     setServizi,
-  ] = useState<ServizioCatalogo[]>([]);
+  ] = useState<Servizio[]>([]);
 
   const [
     caricamento,
@@ -153,7 +153,7 @@ const ServiziPage = () => {
       const mappa =
         new Map<
           number,
-          ServizioCatalogo[]
+          Servizio[]
         >();
 
       macroAree.forEach(

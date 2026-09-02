@@ -31,7 +31,7 @@ import {
 
 import type {
   DocumentoServizio,
-  ServizioCatalogo,
+  Servizio,
   TipoObbligatorietaDocumento,
 } from "../../features/servizi/types/serviziTypes";
 
@@ -68,7 +68,7 @@ const DettaglioServizioPublicPage = () => {
   const navigate = useNavigate();
 
   const [servizio, setServizio] =
-    useState<ServizioCatalogo | null>(null);
+    useState<Servizio | null>(null);
 
   const [documenti, setDocumenti] =
     useState<DocumentoServizio[]>([]);

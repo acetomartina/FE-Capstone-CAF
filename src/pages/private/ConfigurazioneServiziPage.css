@@ -3,8 +3,8 @@
    ========================================================= */
 
 .configurazione-servizi {
-  --area-accent: #247a3a;
-  --area-soft: #e6f4e9;
+  --area-accent: var(--caf-green);
+  --area-soft: var(--caf-green-soft);
   --area-accent-rgb: 36, 122, 58;
 
   width: 100%;
@@ -22,48 +22,48 @@
 .configurazione-servizi--green,
 .configurazione-servizi__macroarea--green,
 .configurazione-servizi__mobile-dropdown-option--green {
-  --area-accent: #247a3a;
-  --area-soft: #e6f4e9;
+  --area-accent: var(--caf-green);
+  --area-soft: var(--caf-green-soft);
   --area-accent-rgb: 36, 122, 58;
 }
 
 .configurazione-servizi--orange,
 .configurazione-servizi__macroarea--orange,
 .configurazione-servizi__mobile-dropdown-option--orange {
-  --area-accent: #c76a08;
-  --area-soft: #fff0d8;
+  --area-accent: var(--caf-orange);
+  --area-soft: var(--caf-orange-soft);
   --area-accent-rgb: 199, 106, 8;
 }
 
 .configurazione-servizi--blue,
 .configurazione-servizi__macroarea--blue,
 .configurazione-servizi__mobile-dropdown-option--blue {
-  --area-accent: #3f62a5;
-  --area-soft: #e2eaf7;
+  --area-accent: var(--caf-blue);
+  --area-soft: var(--caf-blue-soft);
   --area-accent-rgb: 63, 98, 165;
 }
 
 .configurazione-servizi--fuchsia,
 .configurazione-servizi__macroarea--fuchsia,
 .configurazione-servizi__mobile-dropdown-option--fuchsia {
-  --area-accent: #c71468;
-  --area-soft: #ffe3ef;
+  --area-accent: var(--caf-fuchsia);
+  --area-soft: var(--caf-fuchsia-soft);
   --area-accent-rgb: 199, 20, 104;
 }
 
 .configurazione-servizi--purple,
 .configurazione-servizi__macroarea--purple,
 .configurazione-servizi__mobile-dropdown-option--purple {
-  --area-accent: #7452a8;
-  --area-soft: #eee8f7;
+  --area-accent: var(--caf-purple);
+  --area-soft: var(--caf-purple-soft);
   --area-accent-rgb: 116, 82, 168;
 }
 
 .configurazione-servizi--petrol,
 .configurazione-servizi__macroarea--petrol,
 .configurazione-servizi__mobile-dropdown-option--petrol {
-  --area-accent: #1f6f72;
-  --area-soft: #e1f1f1;
+  --area-accent: var(--caf-petrol);
+  --area-soft: var(--caf-petrol-soft);
   --area-accent-rgb: 31, 111, 114;
 }
 
@@ -120,7 +120,7 @@
   margin-bottom: 24px;
   padding: 16px 20px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   border: 1px solid #e6ebf2;
   border-radius: 14px;
@@ -160,7 +160,7 @@
 .configurazione-servizi__sidebar {
   padding: 18px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   border: 1px solid #e6ebf2;
   border-radius: 16px;
@@ -402,7 +402,7 @@
   border: 1px solid #e3e8ef;
   border-radius: 14px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   box-shadow: 0 18px 40px rgba(16, 44, 101, 0.14);
 }
@@ -531,7 +531,7 @@
 
   overflow: hidden;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   border: 1px solid #e5eaf1;
   border-radius: 14px;
@@ -627,7 +627,7 @@
 }
 
 .configurazione-servizi__badge--featured {
-  background: #fff6dc;
+  background: var(--caf-white)6dc;
   color: #9a7418;
 }
 
@@ -684,7 +684,7 @@
   border: 1px solid #e6ebf2;
   border-radius: 16px;
 
-  background: #ffffff;
+  background: var(--caf-white);
 
   color: #7a8798;
 
@@ -740,7 +740,7 @@
 
     border-radius: 10px;
 
-    background: #f8fafc;
+    background: var(--caf-bg);
 
     text-align: center;
   }

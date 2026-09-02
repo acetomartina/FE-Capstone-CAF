@@ -89,7 +89,7 @@
   border-color: #dfe4eb;
 
   color: #5f6b7e;
-  background: #fff;
+  background: var(--caf-white);
 }
 
 .dettaglio-pratica-edit:hover,
@@ -97,13 +97,13 @@
   border-color: #cfd6df;
 
   color: #263249;
-  background: #f8fafc;
+  background: var(--caf-bg);
 }
 
 .dettaglio-pratica-save {
   border-color: #159a73;
 
-  color: #fff;
+  color: var(--caf-white);
   background: #159a73;
 }
 
@@ -111,7 +111,7 @@
 .dettaglio-pratica-save:focus {
   border-color: #118460;
 
-  color: #fff;
+  color: var(--caf-white);
   background: #118460;
 }
 
@@ -161,7 +161,7 @@
       rgba(21, 154, 115, 0.09),
       transparent 32%
     ),
-    #fff;
+    var(--caf-white);
 
   box-shadow: 0 14px 36px rgba(31, 46, 75, 0.055);
 }
@@ -214,7 +214,7 @@
   border-radius: 10px;
 
   color: #253149;
-  background: #fff;
+  background: var(--caf-white);
 
   box-shadow: none;
 }
@@ -287,7 +287,7 @@
 .dettaglio-pratica-badge--da-avviare,
 .dettaglio-pratica-badge--in-attesa-cliente,
 .dettaglio-pratica-badge--in-attesa-ente {
-  background: #fff3df;
+  background: var(--caf-white)3df;
   color: #c77917;
 }
 
@@ -322,7 +322,7 @@
 }
 
 .dettaglio-pratica-badge--alta {
-  background: #fff0df;
+  background: var(--caf-white)0df;
   color: #bd6e11;
 }
 
@@ -444,7 +444,7 @@
   border: 1px solid #e9edf2;
   border-radius: 15px;
 
-  background: #fff;
+  background: var(--caf-white);
 }
 
 .dettaglio-pratica-info-card__icon {
@@ -483,7 +483,7 @@
 }
 
 .dettaglio-pratica-info-card__icon--orange {
-  background: #fff2e5;
+  background: var(--caf-white)2e5;
   color: #c97818;
 }
 
@@ -558,7 +558,7 @@
   border: 1px solid #e9edf2;
   border-radius: 17px;
 
-  background: #fff;
+  background: var(--caf-white);
 }
 
 .dettaglio-pratica-panel__header {
@@ -660,7 +660,7 @@
 
   border-bottom: 1px solid #eef1f4;
 
-  background: #fafbfc;
+  background: var(--caf-bg);
 }
 
 .dettaglio-pratica-doc-summary span {
@@ -676,7 +676,7 @@
   border-radius: 10px;
 
   color: #8a94a5;
-  background: #fff;
+  background: var(--caf-white);
 
   font-size: 0.65rem;
 }
@@ -729,7 +729,7 @@
   border: 1px solid #e8edf2;
   border-radius: 14px;
 
-  background: #fff;
+  background: var(--caf-white);
 
   box-shadow: 0 5px 16px rgba(31, 46, 75, 0.03);
 }
@@ -842,11 +842,11 @@
   min-width: 0;
   min-height: 38px;
 
-  border-color: #e0e5ec;
+  border-color: var(--caf-border);
   border-radius: 9px;
 
   color: #59667b;
-  background-color: #fff;
+  background-color: var(--caf-white);
 
   font-size: 0.72rem;
 
@@ -884,7 +884,7 @@
 .dettaglio-pratica-documento__validate {
   border-color: #159a73;
 
-  color: #fff;
+  color: var(--caf-white);
   background: #159a73;
 }
 
@@ -892,7 +892,7 @@
 .dettaglio-pratica-documento__validate:focus {
   border-color: #118460;
 
-  color: #fff;
+  color: var(--caf-white);
   background: #118460;
 }
 
@@ -900,13 +900,13 @@
   border-color: #e8bcbc;
 
   color: #bb4b4b;
-  background: #fff;
+  background: var(--caf-white);
 }
 
 .dettaglio-pratica-documento__reject:hover {
   border-color: #c75252;
 
-  color: #fff;
+  color: var(--caf-white);
   background: #c75252;
 }
 
@@ -958,7 +958,7 @@
   border: 1px solid #edf0f4;
   border-radius: 10px;
 
-  background: #fafbfd;
+  background: var(--caf-bg);
 }
 
 .allegati-documento__file {
@@ -1003,7 +1003,7 @@
 .allegati-documento__file-content strong {
   overflow: hidden;
 
-  color: #344056;
+  color: var(--caf-text);
 
   font-size: 0.72rem;
   font-weight: 750;
@@ -1075,7 +1075,7 @@
   align-items: center;
   gap: 0.45rem;
 
-  border: 1px dashed #dfe5ec;
+  border: 1px dashed var(--caf-border);
   border-radius: 10px;
 
   color: #909aaa;
@@ -1104,7 +1104,7 @@
   border-radius: 9px;
 
   color: #677487;
-  background: #fff;
+  background: var(--caf-white);
 
   font-size: 0.68rem;
   font-weight: 700;
@@ -1114,7 +1114,7 @@
   border-color: #cdd5df;
 
   color: #2f3c52;
-  background: #f8fafc;
+  background: var(--caf-bg);
 }
 
 /* =========================================================

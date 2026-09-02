@@ -11,12 +11,12 @@ import {
   FiCheck,
 } from "react-icons/fi";
 
-import { servizioService } from "../../services/servizioService";
+import { serviziService } from "../../features/servizi/api/serviziService";
 
 import type {
-  MacroAreaResponse,
-  ServizioResponse,
-} from "../../types/servizio";
+  MacroArea,
+  Servizio,
+} from "../../features/servizi/types/serviziTypes";
 
 import "./ConfigurazioneServiziPage.css";
 
@@ -25,11 +25,11 @@ const ConfigurazioneServiziPage = () => {
     const navigate = useNavigate();
    
   const [macroAree, setMacroAree] = useState<
-    MacroAreaResponse[]
+    MacroArea[]
   >([]);
 
   const [servizi, setServizi] = useState<
-    ServizioResponse[]
+    Servizio[]
   >([]);
 
   const [
@@ -62,8 +62,8 @@ const ConfigurazioneServiziPage = () => {
           macroAreeResponse,
           serviziResponse,
         ] = await Promise.all([
-          servizioService.trovaMacroAreeAttive(),
-          servizioService.trovaServiziAttivi(),
+          serviziService.trovaMacroAree(),
+          serviziService.trovaServiziAttivi(),
         ]);
 
         setMacroAree(macroAreeResponse);
@@ -150,7 +150,7 @@ const ConfigurazioneServiziPage = () => {
     ).length;
 
   const formattaPrezzo = (
-    servizio: ServizioResponse,
+    servizio: Servizio,
   ) => {
     if (servizio.prezzoTesto) {
       return servizio.prezzoTesto;
@@ -167,7 +167,7 @@ const ConfigurazioneServiziPage = () => {
   };
 
   const ottieniVarianteMacroArea = (
-    macroArea: MacroAreaResponse | null,
+    macroArea: MacroArea | null,
   ) => {
     if (!macroArea) {
       return "green";

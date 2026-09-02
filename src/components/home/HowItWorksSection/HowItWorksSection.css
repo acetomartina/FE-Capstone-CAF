@@ -39,7 +39,7 @@
 
 .how-it-works__title {
   margin: 0;
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: clamp(2.4rem, 4.3vw, 4.3rem);
   font-weight: 800;
   line-height: 1.03;
@@ -118,10 +118,10 @@
   background: linear-gradient(
     145deg,
     var(--step-accent),
-    color-mix(in srgb, var(--step-accent) 78%, #ffffff)
+    color-mix(in srgb, var(--step-accent) 78%, var(--caf-white))
   );
 
-  color: #ffffff;
+  color: var(--caf-white);
   font-size: 1.25rem;
   font-weight: 800;
 
@@ -167,7 +167,7 @@
 
 .how-it-works__step h3 {
   margin: 0;
-  color: #102c65;
+  color: var(--caf-navy);
   font-size: 1.25rem;
   font-weight: 780;
   letter-spacing: -0.025em;
@@ -175,24 +175,24 @@
 
 .how-it-works__step p {
   margin: 0.85rem 0 0;
-  color: #667085;
+  color: var(--caf-text-muted);
   font-size: 0.9rem;
   line-height: 1.7;
 }
 
 .how-it-works__step--green {
-  --step-accent: #247a3a;
+  --step-accent: var(--caf-green);
   --step-soft: #dcefe1;
 }
 
 .how-it-works__step--blue {
-  --step-accent: #3f62a5;
-  --step-soft: #e2eaf7;
+  --step-accent: var(--caf-blue);
+  --step-soft: var(--caf-blue-soft);
 }
 
 .how-it-works__step--fuchsia {
-  --step-accent: #c71468;
-  --step-soft: #ffe3ef;
+  --step-accent: var(--caf-fuchsia);
+  --step-soft: var(--caf-fuchsia-soft);
 }
 
 /* ANIMAZIONI */
