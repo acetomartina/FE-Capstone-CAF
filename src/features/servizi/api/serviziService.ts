@@ -10,22 +10,7 @@ import type {
   Servizio,
 } from "../types/serviziTypes";
 
-/*
- * Catalogo servizi lato area riservata.
- *
- * Le stesse risorse hanno anche una versione pubblica, in
- * serviziPublicService: la differenza non e' cosmetica, li' sotto
- * /api/public passa solo cio' che puo' vedere chi non ha fatto accesso.
- *
- * Questo modulo raccoglie anche la gestione della checklist documentale
- * di ogni servizio, che prima viveva in un service separato pur
- * insistendo sugli stessi endpoint.
- */
 export const serviziService = {
-
-  // ---------------------------------------------------------------
-  // Catalogo
-  // ---------------------------------------------------------------
 
   async trovaMacroAree(): Promise<MacroArea[]> {
     const risposta =
@@ -73,10 +58,6 @@ export const serviziService = {
     return risposta.data;
   },
 
-  // ---------------------------------------------------------------
-  // Checklist documentale del servizio
-  // ---------------------------------------------------------------
-
   async trovaDocumentiPerServizio(
     servizioId: number,
   ): Promise<DocumentoServizio[]> {
@@ -111,8 +92,6 @@ export const serviziService = {
     return risposta.data;
   },
 
-  /* Il backend disattiva, non cancella: un documento gia' richiesto in
-     una pratica deve restare leggibile nello storico. */
   async disattivaDocumento(
     documentoId: number,
   ): Promise<void> {

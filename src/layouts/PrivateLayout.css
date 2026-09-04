@@ -30,10 +30,6 @@
   --private-sidebar-width: 84px;
 }
 
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
-
 .private-sidebar {
   position: sticky;
   top: 0;
@@ -58,10 +54,6 @@
     padding 220ms ease,
     transform 220ms ease;
 }
-
-/* =========================================================
-   BRAND
-   ========================================================= */
 
 .private-sidebar__brand-row {
   position: relative;
@@ -95,10 +87,6 @@
   transition: width 220ms ease;
 }
 
-/* =========================================================
-   COLLAPSED
-   ========================================================= */
-
 .private-layout--sidebar-collapsed .private-sidebar {
   padding-inline: 12px;
 }
@@ -112,10 +100,6 @@
 .private-layout--sidebar-collapsed .private-sidebar__brand img {
   width: 52px;
 }
-
-/* =========================================================
-   NAV
-   ========================================================= */
 
 .private-sidebar__navigation {
   padding-top: 24px;
@@ -141,10 +125,6 @@
 
   transition: opacity 160ms ease;
 }
-
-/* =========================================================
-   LINKS
-   ========================================================= */
 
 .private-sidebar__link {
   position: relative;
@@ -252,10 +232,6 @@
   transition: opacity 130ms ease;
 }
 
-/* =========================================================
-   COLLAPSED LINKS
-   ========================================================= */
-
 .private-layout--sidebar-collapsed .private-sidebar__section-label,
 .private-layout--sidebar-collapsed .private-sidebar__link-label,
 .private-layout--sidebar-collapsed .private-sidebar__account-info {
@@ -277,19 +253,11 @@
   padding-inline: 0;
 }
 
-/* =========================================================
-   BOTTOM
-   ========================================================= */
-
 .private-sidebar__bottom {
   padding-top: 14px;
 
   border-top: 1px solid #edf1f6;
 }
-
-/* =========================================================
-   ACCOUNT
-   ========================================================= */
 
 .private-sidebar__account {
   margin-bottom: 10px;
@@ -367,10 +335,6 @@
   justify-content: center;
 }
 
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
 .private-sidebar__logout {
   width: 100%;
   min-height: 46px;
@@ -410,10 +374,6 @@
 
   transform: translateX(2px);
 }
-
-/* =========================================================
-   COLLAPSE BUTTON
-   ========================================================= */
 
 .private-sidebar__collapse {
   position: absolute;
@@ -469,10 +429,6 @@
   transform: translateX(50%) translateY(-1px);
 }
 
-/* =========================================================
-   CONTENT
-   ========================================================= */
-
 .private-layout__content {
   position: relative;
 
@@ -485,10 +441,6 @@
   padding: 30px 34px 44px;
 }
 
-/* =========================================================
-   MOBILE MENU
-   ========================================================= */
-
 .private-mobile-menu,
 .private-sidebar__mobile-close {
   display: none;
@@ -497,10 +449,6 @@
 .private-sidebar-overlay {
   display: none;
 }
-
-/* =========================================================
-   TABLET
-   ========================================================= */
 
 @media (max-width: 980px) and (min-width: 641px) {
   .private-layout {
@@ -580,10 +528,6 @@
   }
 }
 
-/* =========================================================
-   MOBILE — DRAWER
-   ========================================================= */
-
 @media (max-width: 640px) {
   .private-layout,
   .private-layout--sidebar-collapsed {
@@ -622,8 +566,6 @@
   .private-sidebar--mobile-open {
     transform: translateX(0);
   }
-
-  /* BRAND */
 
   .private-sidebar__brand-row {
     min-height: 62px;
@@ -665,8 +607,6 @@
 
     cursor: pointer;
   }
-
-  /* NAV */
 
   .private-sidebar__navigation {
     padding-top: 17px;
@@ -718,15 +658,11 @@
     font-size: 1rem;
   }
 
-  /* BOTTOM */
-
   .private-sidebar__bottom {
     margin-top: auto;
 
     padding-top: 12px;
   }
-
-  /* ACCOUNT */
 
   .private-sidebar__account {
     margin-bottom: 8px;
@@ -783,8 +719,6 @@
     line-height: 1.25;
   }
 
-  /* LOGOUT */
-
   .private-sidebar__logout {
     min-height: 43px;
 
@@ -794,8 +728,6 @@
 
     font-size: 0.84rem;
   }
-
-  /* OVERLAY */
 
   .private-sidebar-overlay {
     position: fixed;
@@ -814,8 +746,6 @@
 
     backdrop-filter: blur(3px);
   }
-
-  /* HAMBURGER */
 
   .private-mobile-menu {
     position: fixed;
@@ -854,16 +784,10 @@
     display: none;
   }
 
-  /* CONTENT */
-
   .private-main {
     padding: 64px 16px 32px;
   }
 }
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .private-layout,

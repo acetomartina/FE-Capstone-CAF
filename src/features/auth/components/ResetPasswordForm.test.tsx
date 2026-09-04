@@ -21,10 +21,6 @@ const attivaAccount = vi.mocked(authService.attivaAccount);
 const TOKEN = "token-valido-123";
 const PASSWORD_BUONA = "Password1!";
 
-/*
- * Renderizziamo sempre ResetPasswordForm dentro MemoryRouter,
- * perché il componente contiene elementi <Link> di React Router.
- */
 const renderForm = (token?: string) =>
   render(
     <MemoryRouter>
@@ -39,13 +35,6 @@ const renderFormAttivazione = (token?: string) =>
     </MemoryRouter>,
   );
 
-/*
- * Riproduce solo ciò che il componente legge davvero
- * di un errore Axios:
- * - flag riconosciuto da isAxiosError
- * - status HTTP
- * - corpo della risposta
- */
 const erroreAxios = (status?: number, data?: unknown) => {
   const errore = new Error("errore simulato") as Error & {
     isAxiosError: boolean;
@@ -67,8 +56,6 @@ const erroreAxios = (status?: number, data?: unknown) => {
   return errore;
 };
 
-/* Il testo del pulsante cambia con la modalità: il default resta quello
-   del reset, così i test già scritti non si accorgono della differenza. */
 const compila = async (
   password: string,
   conferma: string,
@@ -408,11 +395,6 @@ describe("ResetPasswordForm", () => {
     });
   });
 
-  /*
-   * L'attivazione è la stessa schermata del reset con un altro endpoint
-   * dietro: i test qui verificano che il bivio sia quello giusto, perché
-   * sbagliarlo significa mandare il token di invito all'API sbagliata.
-   */
   describe("modalità attivazione", () => {
     it("chiama attivaAccount e non resetPassword", async () => {
       attivaAccount.mockResolvedValue({});

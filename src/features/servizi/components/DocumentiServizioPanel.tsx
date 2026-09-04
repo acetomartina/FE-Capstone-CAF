@@ -15,20 +15,10 @@ import { TIPI_OBBLIGATORIETA } from "../form/servizioForm";
 import type { useDocumentiServizio } from "../hooks/useDocumentiServizio";
 
 interface DocumentiServizioPanelProps {
-  /* Riceve l'intero controller restituito dall'hook invece di una
-     ventina di prop sciolte: il pannello e la sua logica sono due
-     facce della stessa cosa, e tenerli allineati a mano sarebbe solo
-     un modo per farli divergere. */
+
   checklist: ReturnType<typeof useDocumentiServizio>;
 }
 
-/**
- * Checklist documentale di un servizio: elenco, riga in modifica e
- * form di inserimento.
- *
- * I documenti configurati qui sono il modello da cui ogni nuova pratica
- * genera la propria lista di documenti da raccogliere.
- */
 const DocumentiServizioPanel = ({
   checklist,
 }: DocumentiServizioPanelProps) => {
@@ -55,7 +45,6 @@ const DocumentiServizioPanel = ({
 
   return (
     <>
-          {/* DOCUMENTI */}
 
           <section className="dettaglio-servizio-panel">
             <header className="dettaglio-servizio-panel__header dettaglio-servizio-panel__header--documenti">
@@ -96,8 +85,6 @@ const DocumentiServizioPanel = ({
                 </button>
               </div>
             </header>
-
-            {/* NUOVO DOCUMENTO */}
 
             {nuovoDocumentoAperto && (
               <div className="dettaglio-servizio-documento-editor dettaglio-servizio-documento-editor--new">
@@ -277,8 +264,6 @@ const DocumentiServizioPanel = ({
                 </div>
               </div>
             )}
-
-            {/* LISTA */}
 
             <div className="dettaglio-servizio-documenti">
               {documentiOrdinati.length ===

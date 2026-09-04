@@ -7,10 +7,7 @@ export const tokenService = {
     token: string,
     ricordami: boolean = true,
   ): void {
-    /*
-     * Evitiamo che lo stesso token possa
-     * rimanere contemporaneamente nei due storage.
-     */
+
     localStorage.removeItem(CHIAVE_TOKEN);
     sessionStorage.removeItem(CHIAVE_TOKEN);
 
@@ -30,11 +27,7 @@ export const tokenService = {
   },
 
   recuperaToken(): string | null {
-    /*
-     * Una sessione persistente ha priorità.
-     * Se non esiste, controlliamo quella
-     * valida soltanto per la sessione corrente.
-     */
+
     return (
       localStorage.getItem(CHIAVE_TOKEN) ??
       sessionStorage.getItem(CHIAVE_TOKEN)

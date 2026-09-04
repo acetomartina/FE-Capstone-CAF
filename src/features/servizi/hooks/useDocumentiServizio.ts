@@ -16,21 +16,10 @@ import type {
 interface OpzioniDocumentiServizio {
   servizioId: number;
 
-  /* La pagina possiede la barra dei messaggi, perché la condivide con la
-     modifica del servizio: l'hook si limita a dire cosa è successo. */
   segnalaErrore: (messaggio: string | null) => void;
   segnalaSuccesso: (messaggio: string | null) => void;
 }
 
-/**
- * Checklist documentale di un servizio: elenco, creazione, modifica e
- * attivazione.
- *
- * Vive separata dalla pagina perché è un pezzo autonomo — ha un proprio
- * stato di form, una propria nozione di "operazione in corso" e non
- * condivide nulla con la modifica dell'anagrafica del servizio, a parte
- * la barra dei messaggi.
- */
 export const useDocumentiServizio = ({
   servizioId,
   segnalaErrore,
@@ -58,8 +47,6 @@ export const useDocumentiServizio = ({
       ordineVisualizzazione: 1,
     });
 
-  /* Quale documento ha un'operazione di rete in corso: serve a disabilitare
-     i soli comandi di quella riga, non l'intero elenco. */
   const [operazioneDocumentoId, setOperazioneDocumentoId] =
     useState<number | null>(null);
 
@@ -213,8 +200,6 @@ export const useDocumentiServizio = ({
     }
   };
 
-  /* Disattivare non è cancellare: un documento già richiesto in una
-     pratica deve restare leggibile nello storico. */
   const cambiaAttivazioneDocumento = async (
     documento: DocumentoServizio,
   ) => {
@@ -261,8 +246,7 @@ export const useDocumentiServizio = ({
 
   return {
     documenti,
-    /* La pagina carica servizio e documenti in un'unica chiamata: da lì
-       arrivano qui. */
+
     impostaDocumenti: setDocumenti,
 
     documentiOrdinati,

@@ -28,7 +28,6 @@ import {
 interface VistaScadenzeProps {
   scadenzeVisualizzate: Pratica[];
 
-  /* Conteggi per le quattro schede in cima, che fanno anche da filtro. */
   riepilogoScadenze: {
     scadute: number;
     oggi: number;
@@ -48,12 +47,6 @@ interface VistaScadenzeProps {
   navigate: NavigateFunction;
 }
 
-/**
- * Scadenze delle pratiche: riepilogo per urgenza e tabella filtrabile.
- *
- * È una delle due metà dell'agenda. Le due viste condividono la casella
- * di ricerca ma nient'altro, per questo vivono in file separati.
- */
 const VistaScadenze = ({
   scadenzeVisualizzate,
   riepilogoScadenze,
@@ -447,7 +440,7 @@ const VistaScadenze = ({
               </div>
             )}
           </section>
-        
+
     </>
   );
 };

@@ -30,10 +30,6 @@
   border-radius: 26px;
 }
 
-/* =========================================================
-   FOGLI
-   ========================================================= */
-
 .servizio-dettaglio-paper {
   box-sizing: border-box;
 
@@ -55,10 +51,6 @@
 
   will-change: transform, opacity;
 }
-
-/* =========================================================
-   FRONTE
-   ========================================================= */
 
 .servizio-dettaglio-paper--main {
   width: 84%;
@@ -88,10 +80,6 @@
   box-shadow: 0 24px 60px rgba(16, 44, 101, 0.13);
 }
 
-/* =========================================================
-   RETRO
-   ========================================================= */
-
 .servizio-dettaglio-paper--back {
   width: 82%;
   min-height: 340px;
@@ -112,10 +100,6 @@
 
   box-shadow: 0 16px 42px rgba(16, 44, 101, 0.06);
 }
-
-/* =========================================================
-   SWITCH
-   ========================================================= */
 
 .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--main {
   z-index: 1;
@@ -140,10 +124,6 @@
 
   box-shadow: 0 30px 72px rgba(217, 28, 118, 0.16);
 }
-
-/* =========================================================
-   PIN
-   ========================================================= */
 
 .servizio-dettaglio-paper__pin {
   width: 14px;
@@ -170,10 +150,6 @@
   box-shadow: 0 4px 10px rgba(36, 122, 58, 0.22);
 }
 
-/* =========================================================
-   ICONA
-   ========================================================= */
-
 .servizio-dettaglio-paper__icon {
   width: 54px;
   height: 54px;
@@ -189,10 +165,6 @@
 
   font-size: 1.35rem;
 }
-
-/* =========================================================
-   EYEBROW
-   ========================================================= */
 
 .servizio-dettaglio-paper--back small,
 .servizio-dettaglio-paper--main small {
@@ -216,10 +188,6 @@
   color: var(--service-accent-dark);
 }
 
-/* =========================================================
-   TITOLO
-   ========================================================= */
-
 .servizio-dettaglio-paper--back h2,
 .servizio-dettaglio-paper--main h2 {
   margin: 0.4rem 0 0;
@@ -233,10 +201,6 @@
   letter-spacing: -0.045em;
 }
 
-/* =========================================================
-   DESCRIZIONE
-   ========================================================= */
-
 .servizio-dettaglio-paper--back p,
 .servizio-dettaglio-paper--main p {
   margin: 1rem 0 0;
@@ -246,10 +210,6 @@
   font-size: 0.84rem;
   line-height: 1.72;
 }
-
-/* =========================================================
-   CHECKLIST
-   ========================================================= */
 
 .servizio-dettaglio-paper .servizio-dettaglio-paper__checks {
   width: 100%;
@@ -321,9 +281,6 @@
 
   color: var(--service-accent);
 }
-/* =========================================================
-   HINT
-   ========================================================= */
 
 .servizio-dettaglio-paper__hint {
   position: absolute;
@@ -358,10 +315,6 @@
   color: var(--service-accent-dark);
 }
 
-/* =========================================================
-   TRANSIZIONE CONTENUTI
-   ========================================================= */
-
 .servizio-dettaglio-paper--back > * {
   transition: opacity 260ms ease;
 }
@@ -383,10 +336,6 @@
 .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--main > * {
   opacity: 0;
 }
-
-/* =========================================================
-   HINT — UNO SOLO PER VOLTA
-   ========================================================= */
 
 .servizio-dettaglio-paper--back .servizio-dettaglio-paper__hint {
   opacity: 0;
@@ -412,17 +361,9 @@
   visibility: visible;
 }
 
-/* =========================================================
-   DESKTOP / MOBILE HINT
-   ========================================================= */
-
 .servizio-dettaglio-paper__hint--mobile {
   display: none;
 }
-
-/* =========================================================
-   TABLET / MOBILE
-   ========================================================= */
 
 @media (max-width: 680px) {
   .servizio-dettaglio-paper-stack {
@@ -507,10 +448,6 @@
   }
 }
 
-/* =========================================================
-   MOBILE PICCOLO
-   ========================================================= */
-
 @media (max-width: 390px) {
   .servizio-dettaglio-paper-stack {
     width: calc(100% - 2.5rem);
@@ -543,10 +480,6 @@
     font-size: 0.72rem;
   }
 }
-
-/* =========================================================
-   ACCESSIBILITÀ
-   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .servizio-dettaglio-paper,

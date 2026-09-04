@@ -66,14 +66,7 @@ const messaggioPerErrore = (
 };
 
 const LoginForm = () => {
-  /*
-   * Se in precedenza era stato selezionato
-   * "Ricordami", riproponiamo solamente
-   * l'indirizzo email.
-   *
-   * La password non viene mai salvata
-   * dall'applicazione.
-   */
+
   const emailRicordata =
     tokenService.recuperaEmailRicordata();
 
@@ -120,11 +113,6 @@ const LoginForm = () => {
   const posizione =
     useLocation();
 
-  /*
-   * La guardia salva nello state
-   * la pagina richiesta prima
-   * del redirect verso il login.
-   */
   const destinazione =
     (
       posizione.state as {
@@ -149,23 +137,11 @@ const LoginForm = () => {
           password,
         );
 
-      /*
-       * Ricordami = true:
-       * token persistente in localStorage.
-       *
-       * Ricordami = false:
-       * token valido soltanto nella
-       * sessione corrente.
-       */
       tokenService.salvaToken(
         risposta.accessToken,
         ricordami,
       );
 
-      /*
-       * Ricordiamo esclusivamente l'email.
-       * Mai la password.
-       */
       if (ricordami) {
         tokenService.salvaEmailRicordata(
           email.trim(),
@@ -247,7 +223,6 @@ const LoginForm = () => {
         </div>
       )}
 
-      {/* EMAIL */}
       <Form.Group
         className="login-form__group"
         controlId="email"
@@ -282,7 +257,6 @@ const LoginForm = () => {
         </div>
       </Form.Group>
 
-      {/* PASSWORD */}
       <Form.Group
         className="login-form__group"
         controlId="password"
@@ -350,7 +324,6 @@ const LoginForm = () => {
         </div>
       </Form.Group>
 
-      {/* RICORDAMI + PASSWORD DIMENTICATA */}
       <div
         className="login-form__options"
       >
@@ -390,7 +363,6 @@ const LoginForm = () => {
         </Link>
       </div>
 
-      {/* CTA PRIMARIA */}
       <Button
         type="submit"
         className="login-form__submit"

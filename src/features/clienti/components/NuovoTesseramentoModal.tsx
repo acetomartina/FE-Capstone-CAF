@@ -21,13 +21,6 @@ interface NuovoTesseramentoModalProps {
   messaggioErrore: string | null;
 }
 
-/**
- * Registrazione di un nuovo tesseramento annuale.
- *
- * La quota non si chiede qui: la decide la configurazione di sede, e
- * lasciarla digitare a mano aprirebbe la porta a tessere con importi
- * diversi fra loro senza che nessuno se ne accorga.
- */
 const NuovoTesseramentoModal = ({
   mostraModal,
   suChiusura,

@@ -44,8 +44,6 @@ interface VistaAppuntamentiProps {
   statoAppuntamento: StatoAppuntamento | "";
   setStatoAppuntamento: (stato: StatoAppuntamento | "") => void;
 
-  /* Id dell'appuntamento con un cambio di stato in volo: disabilita la
-     sola tendina di quella riga, non l'intera tabella. */
   appuntamentoInAggiornamento: number | null;
   aggiornaStatoAppuntamento: (
     appuntamento: Appuntamento,
@@ -58,10 +56,6 @@ interface VistaAppuntamentiProps {
   navigate: NavigateFunction;
 }
 
-/**
- * Appuntamenti della sede: riepilogo per periodo e tabella con cambio
- * di stato in linea.
- */
 const VistaAppuntamenti = ({
   appuntamentiVisualizzati,
   riepilogoAppuntamenti,
@@ -452,7 +446,7 @@ const VistaAppuntamenti = ({
               </div>
             )}
           </section>
-        
+
     </>
   );
 };

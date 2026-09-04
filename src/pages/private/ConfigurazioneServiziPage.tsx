@@ -23,7 +23,7 @@ import "./ConfigurazioneServiziPage.css";
 const ConfigurazioneServiziPage = () => {
 
     const navigate = useNavigate();
-   
+
   const [macroAree, setMacroAree] = useState<
     MacroArea[]
   >([]);
@@ -523,7 +523,7 @@ const ConfigurazioneServiziPage = () => {
                       <button
                         type="button"
                         className="configurazione-servizi__edit"
-                        onClick={() => 
+                        onClick={() =>
                             navigate(
                                       `/amministrazione/servizi/${servizio.id}`,
                             )

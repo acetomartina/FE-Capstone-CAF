@@ -1,15 +1,6 @@
 import type { Pratica } from "../pratiche/types/praticheTypes";
 import type { StatoAppuntamento } from "../appuntamenti/types/appuntamentiTypes";
 
-/*
- * Vocabolario e calcoli di data dell'agenda.
- *
- * Stanno fuori dalla pagina perché sono funzioni pure — stessa data in
- * ingresso, stessa etichetta in uscita — e perché le usano sia la vista
- * scadenze sia quella appuntamenti. Tenerle qui evita che le due viste
- * si portino dietro due nozioni diverse di "oggi".
- */
-
 export type VistaAgenda =
   | "SCADENZE"
   | "APPUNTAMENTI";

@@ -38,10 +38,6 @@ import {
 
 import "./DettaglioServizioPage.css";
 
-/* =========================================================
-   COMPONENTE
-   ========================================================= */
-
 const DettaglioServizioPage = () => {
   const { id } = useParams<{
     id: string;
@@ -51,20 +47,12 @@ const DettaglioServizioPage = () => {
 
   const servizioId = Number(id);
 
-  /* =======================================================
-     DATI
-     ======================================================= */
-
   const [
     servizio,
     setServizio,
   ] = useState<Servizio | null>(
     null,
   );
-
-  /* =======================================================
-     FORM SERVIZIO
-     ======================================================= */
 
   const [
     form,
@@ -77,10 +65,6 @@ const DettaglioServizioPage = () => {
     modalitaModifica,
     setModalitaModifica,
   ] = useState(false);
-
-  /* =======================================================
-     STATI UI
-     ======================================================= */
 
   const [
     caricamento,
@@ -106,34 +90,17 @@ const DettaglioServizioPage = () => {
     null,
   );
 
-  /* =======================================================
-     CHECKLIST DOCUMENTALE
-     =======================================================
-     Stato e operazioni vivono nel loro hook: qui restano solo
-     i messaggi, che la barra in cima condivide con la modifica
-     dell'anagrafica. */
-
   const checklist = useDocumentiServizio({
     servizioId,
     segnalaErrore: setErrore,
     segnalaSuccesso: setMessaggioSuccesso,
   });
 
-  /* Solo cio' che serve fuori dal pannello: i conteggi mostrati
-     nell'intestazione e il travaso dal caricamento iniziale. */
   const {
     documenti,
     documentiAttivi,
     impostaDocumenti,
   } = checklist;
-
-  /* =======================================================
-     DERIVATI
-     ======================================================= */
-
-  /* =======================================================
-     CARICAMENTO
-     ======================================================= */
 
   const caricaDettaglio =
     async () => {
@@ -199,10 +166,6 @@ const DettaglioServizioPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [servizioId]);
 
-  /* =======================================================
-     HELPERS SERVIZIO
-     ======================================================= */
-
   const formattaPrezzo =
     () => {
       if (!servizio) {
@@ -262,10 +225,6 @@ const DettaglioServizioPage = () => {
       setErrore(null);
       setMessaggioSuccesso(null);
     };
-
-  /* =======================================================
-     SALVATAGGIO SERVIZIO
-     ======================================================= */
 
   const salvaModifiche =
     async () => {
@@ -390,10 +349,6 @@ const DettaglioServizioPage = () => {
       }
     };
 
-  /* =======================================================
-     LOADING / ERROR
-     ======================================================= */
-
   if (caricamento) {
     return (
       <section className="dettaglio-servizio-page">
@@ -429,13 +384,8 @@ const DettaglioServizioPage = () => {
     );
   }
 
-  /* =======================================================
-     RENDER
-     ======================================================= */
-
   return (
     <section className="dettaglio-servizio-page">
-      {/* TOPBAR */}
 
       <div className="dettaglio-servizio-topbar">
         <button
@@ -536,8 +486,6 @@ const DettaglioServizioPage = () => {
         </div>
       )}
 
-      {/* HERO */}
-
       <header className="dettaglio-servizio-hero">
         <span className="dettaglio-servizio-eyebrow">
           {servizio.macroAreaNome}
@@ -615,8 +563,6 @@ const DettaglioServizioPage = () => {
           )}
         </div>
       </header>
-
-      {/* INFO */}
 
       <section className="dettaglio-servizio-info-grid">
         <article className="dettaglio-servizio-info-card">
@@ -759,11 +705,8 @@ const DettaglioServizioPage = () => {
         </article>
       </section>
 
-      {/* LAYOUT */}
-
       <div className="dettaglio-servizio-layout">
         <main className="dettaglio-servizio-main">
-          {/* INFORMAZIONI */}
 
           <section className="dettaglio-servizio-panel">
             <header className="dettaglio-servizio-panel__header">
@@ -904,8 +847,6 @@ const DettaglioServizioPage = () => {
             checklist={checklist}
           />
         </main>
-
-        {/* SIDEBAR */}
 
         <aside className="dettaglio-servizio-sidebar">
           <section className="dettaglio-servizio-side-card">

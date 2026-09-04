@@ -1,7 +1,3 @@
-/* =========================================================
-   CONFIGURAZIONE SERVIZI
-   ========================================================= */
-
 .configurazione-servizi {
   --area-accent: var(--caf-green);
   --area-soft: var(--caf-green-soft);
@@ -14,10 +10,6 @@
 
   color: #26344d;
 }
-
-/* =========================================================
-   PALETTE
-   ========================================================= */
 
 .configurazione-servizi--green,
 .configurazione-servizi__macroarea--green,
@@ -67,10 +59,6 @@
   --area-accent-rgb: 31, 111, 114;
 }
 
-/* =========================================================
-   HEADER
-   ========================================================= */
-
 .configurazione-servizi__header {
   margin-bottom: 32px;
 }
@@ -108,10 +96,6 @@
   line-height: 1.6;
 }
 
-/* =========================================================
-   SUMMARY
-   ========================================================= */
-
 .configurazione-servizi__summary {
   display: flex;
   align-items: center;
@@ -141,10 +125,6 @@
   font-size: 1.05rem;
 }
 
-/* =========================================================
-   LAYOUT
-   ========================================================= */
-
 .configurazione-servizi__layout {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
@@ -152,10 +132,6 @@
 
   align-items: start;
 }
-
-/* =========================================================
-   SIDEBAR MACROAREE DESKTOP
-   ========================================================= */
 
 .configurazione-servizi__sidebar {
   padding: 18px;
@@ -266,10 +242,6 @@
   font-size: 0.72rem;
   font-weight: 700;
 }
-
-/* =========================================================
-   CUSTOM MOBILE DROPDOWN
-   ========================================================= */
 
 .configurazione-servizi__mobile-dropdown {
   position: relative;
@@ -467,10 +439,6 @@
   font-weight: 700;
 }
 
-/* =========================================================
-   CONTENT
-   ========================================================= */
-
 .configurazione-servizi__content {
   min-width: 0;
 }
@@ -508,10 +476,6 @@
 
   font-size: 0.82rem;
 }
-
-/* =========================================================
-   SERVICE LIST
-   ========================================================= */
 
 .configurazione-servizi__services {
   display: flex;
@@ -673,10 +637,6 @@
   cursor: pointer;
 }
 
-/* =========================================================
-   EMPTY / STATE
-   ========================================================= */
-
 .configurazione-servizi__empty,
 .configurazione-servizi__state {
   padding: 48px 24px;
@@ -690,10 +650,6 @@
 
   text-align: center;
 }
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
 
 @media (max-width: 1180px) {
   .configurazione-servizi__layout {

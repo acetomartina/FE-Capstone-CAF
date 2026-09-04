@@ -58,8 +58,6 @@
   line-height: 1.75;
 }
 
-/* TIMELINE */
-
 .how-it-works__timeline {
   position: relative;
   display: grid;
@@ -195,8 +193,6 @@
   --step-soft: var(--caf-fuchsia-soft);
 }
 
-/* ANIMAZIONI */
-
 @keyframes howLineDraw {
   to {
     transform: scaleX(1);
@@ -215,8 +211,6 @@
   }
 }
 
-/* TABLET */
-
 @media (max-width: 900px) {
   .how-it-works {
     padding: 5rem 0;
@@ -231,8 +225,6 @@
     left: 14%;
   }
 }
-
-/* MOBILE */
 
 @media (max-width: 680px) {
   .how-it-works {
@@ -296,8 +288,6 @@
     transform: scaleY(1);
   }
 }
-
-/* ACCESSIBILITÀ */
 
 @media (prefers-reduced-motion: reduce) {
   .how-it-works__line::after,

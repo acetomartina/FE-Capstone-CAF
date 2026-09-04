@@ -21,13 +21,8 @@
 
   --caf-bg: #f7f9fc;
 
-  /* Ruolo: il piano su cui appoggiano schede e pannelli. */
   --caf-surface: #ffffff;
 
-  /* Valore: il bianco puro, quando serve come colore e non come ruolo
-     (testo su fondo pieno, bordi in negativo). Ha lo stesso valore di
-     --caf-surface ma significato diverso: cambiare il fondo delle schede
-     non deve schiarire il testo dei pulsanti. */
   --caf-white: #ffffff;
 
   --caf-border: #dfe6ef;

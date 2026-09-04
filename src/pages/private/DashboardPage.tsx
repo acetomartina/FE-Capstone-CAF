@@ -576,8 +576,6 @@ const DashboardPage = () => {
         </div>
       )}
 
-      {/* RICERCA GLOBALE */}
-
       <section
         className="dashboard-global-search"
         aria-label="Ricerca globale"
@@ -740,8 +738,6 @@ const DashboardPage = () => {
         </div>
       </section>
 
-      {/* STATISTICHE */}
-
       <section
         className="dashboard-stats"
         aria-label="Riepilogo attività"
@@ -793,8 +789,6 @@ const DashboardPage = () => {
           ),
         )}
       </section>
-
-      {/* ATTIVITÀ */}
 
       <section
         className="dashboard-activity"
@@ -973,8 +967,6 @@ const DashboardPage = () => {
           </div>
         </article>
       </section>
-
-      {/* DETTAGLIO CLIENTE */}
 
       <ClienteDettaglioModal
         show={

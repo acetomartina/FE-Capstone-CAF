@@ -359,7 +359,6 @@ const ClienteDettaglioModal = ({
             </div>
           ) : cliente && form ? (
             <>
-              {/* DATI ANAGRAFICI */}
 
               <section className="cliente-dettaglio-section">
                 <header className="cliente-dettaglio-section__header">
@@ -544,8 +543,6 @@ const ClienteDettaglioModal = ({
                 )}
               </section>
 
-              {/* CONTATTI */}
-
               <section className="cliente-dettaglio-section">
                 <header className="cliente-dettaglio-section__header">
                   <span className="cliente-dettaglio-section__icon cliente-dettaglio-section__icon--blue">
@@ -632,8 +629,6 @@ const ClienteDettaglioModal = ({
                   </div>
                 )}
               </section>
-
-              {/* RESIDENZA */}
 
               <section className="cliente-dettaglio-section">
                 <header className="cliente-dettaglio-section__header">
@@ -794,8 +789,6 @@ const ClienteDettaglioModal = ({
                   </div>
                 )}
               </section>
-
-              {/* AREA CLIENTE */}
 
               <section className="cliente-dettaglio-section cliente-dettaglio-section--accesso">
                 <div className="cliente-dettaglio-accesso">

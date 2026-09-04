@@ -26,7 +26,6 @@
   flex-direction: column;
 }
 
-/* La sigla e' l'elemento dominante: e' il marchio che deve restare in mente. */
 .marchio__nome {
   color: #001e4d;
 
@@ -42,7 +41,6 @@
   letter-spacing: 0.12em;
 }
 
-/* Misure della barra: il simbolo sta dentro i 74px di altezza navbar. */
 .marchio--navbar .marchio__simbolo {
   width: 42px;
   height: 42px;
@@ -62,7 +60,6 @@
   font-size: 0.66rem;
 }
 
-/* Misure dell'hero: identiche a quelle del blocco precedente. */
 .marchio--hero .marchio__simbolo {
   width: 54px;
   height: 54px;

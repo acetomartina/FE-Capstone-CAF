@@ -1,8 +1,3 @@
-/* Ricalca @Size + @Pattern di CreaUtenteRequest lato backend: il reset
-   imposta una password ex novo, quindi vale il vincolo della creazione
-   utente, non quello più largo del login. Se il backend cambia le regole,
-   qui è l'unico punto da aggiornare. */
-
 export const LUNGHEZZA_MINIMA_PASSWORD = 8;
 export const LUNGHEZZA_MASSIMA_PASSWORD = 72;
 
@@ -21,8 +16,6 @@ const nonValida = (errore: string): EsitoValidazione => ({
   errore,
 });
 
-/* Restituisce il primo errore utile: mostrarne uno alla volta evita di
-   sommergere l'utente con quattro righe rosse tutte insieme. */
 export const validaNuovaPassword = (
   password: string,
   conferma: string,

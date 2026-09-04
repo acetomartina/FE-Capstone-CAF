@@ -58,28 +58,14 @@
   line-height: 1.75;
 }
 
-/* =========================================================
-   MARQUEE
-   ========================================================= */
-
 .partners-marquee {
   position: relative;
 
-  /*
-   * Diamo spazio alle card per sollevarsi in hover.
-   * Il margine negativo mantiene invariata la spaziatura
-   * verticale percepita della sezione.
-   */
   margin-block: -1.2rem;
   padding-block: 1.2rem;
 }
 
 .partners-marquee__viewport {
-  /*
-   * Continuiamo a tagliare le card ai lati,
-   * ma il padding verticale del marquee impedisce
-   * che l'hover venga mozzato sopra/sotto.
-   */
   overflow: hidden;
 
   padding-block: 1rem;
@@ -124,10 +110,6 @@
 
   background: linear-gradient(270deg, #f7faf8 0%, rgba(247, 250, 248, 0) 100%);
 }
-
-/* =========================================================
-   CARD
-   ========================================================= */
 
 .partners-card {
   width: 285px;

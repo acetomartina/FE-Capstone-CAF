@@ -6,8 +6,6 @@ import {
   validaNuovaPassword,
 } from "./passwordRules";
 
-/* Password complessa lunga esattamente `lunghezza` caratteri: il prefisso
-   copre le quattro classi richieste, il riempimento porta alla misura. */
 const passwordLunga = (lunghezza: number): string =>
   `Aa1!${"x".repeat(lunghezza - 4)}`;
 

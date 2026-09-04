@@ -18,12 +18,6 @@ import {
   validaNuovaPassword,
 } from "../passwordRules";
 
-/*
- * Reset e attivazione sono lo stesso gesto — scegliere una password
- * presentando un token monouso — verso due endpoint diversi. Cambia
- * solo cosa raccontiamo all'utente: chi resetta ha già un account,
- * chi attiva sta entrando per la prima volta.
- */
 type ModalitaPassword = "reset" | "attivazione";
 
 const MESSAGGIO_TECNICO =
@@ -66,13 +60,6 @@ const REQUISITI =
   `Almeno ${LUNGHEZZA_MINIMA_PASSWORD} caratteri, ` +
   "con una maiuscola, una minuscola, un numero e un carattere speciale.";
 
-/*
- * Il backend valorizza validationErrors quando fallisce
- * la validazione della nuova password.
- *
- * Questo permette di distinguere una password rifiutata
- * da un token non valido, scaduto oppure già utilizzato.
- */
 const haErroriDiValidazione = (
   dati: unknown,
 ): boolean =>
@@ -112,7 +99,6 @@ const messaggioPerErrore = (
 interface ResetPasswordFormProps {
   token?: string;
 
-  /** Default "reset": è il caso già esistente, e non deve cambiare. */
   modalita?: ModalitaPassword;
 }
 
@@ -144,11 +130,6 @@ const ResetPasswordForm = ({
   ) => {
     event.preventDefault();
 
-    /*
-     * Senza token il form non viene renderizzato.
-     * La guardia mantiene comunque il tipo
-     * correttamente ristretto.
-     */
     if (!token) {
       return;
     }
@@ -158,11 +139,6 @@ const ResetPasswordForm = ({
       conferma,
     );
 
-    /*
-     * Validazione prima della chiamata di rete:
-     * una password già non valida lato client
-     * non deve consumare inutilmente il token.
-     */
     if (!esito.valida) {
       setStato("errore");
       setErrore(esito.errore);

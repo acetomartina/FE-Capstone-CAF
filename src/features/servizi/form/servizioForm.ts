@@ -4,14 +4,6 @@ import type {
   TipoObbligatorietaDocumento,
 } from "../types/serviziTypes";
 
-/*
- * Forma dei dati mentre stanno dentro un form, che non coincide con la
- * forma del dominio: un <input> lavora sempre su stringhe, anche quando
- * il campo è un numero o una data. La conversione avviene ai due bordi —
- * creaFormDaServizio entrando, la normalizzazione uscendo — così il resto
- * del codice non deve mai chiedersi se sta guardando "12" o 12.
- */
-
 export type FormServizio = {
   nome: string;
   descrizioneBreve: string;
@@ -66,8 +58,6 @@ export const TIPI_OBBLIGATORIETA: {
   },
 ];
 
-/* I null del backend diventano stringhe vuote: React considera
-   "controllato" solo un input il cui value non sia mai null. */
 export const creaFormDaServizio = (
   servizio: Servizio,
 ): FormServizio => ({

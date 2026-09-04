@@ -220,8 +220,6 @@ const NuovoClienteModal = ({
             </Alert>
           )}
 
-          {/* DATI ANAGRAFICI */}
-
           <section className="nuovo-cliente-section">
             <header className="nuovo-cliente-section__header">
               <span className="nuovo-cliente-section__icon nuovo-cliente-section__icon--green">
@@ -366,8 +364,6 @@ const NuovoClienteModal = ({
             </div>
           </section>
 
-          {/* CONTATTI */}
-
           <section className="nuovo-cliente-section">
             <header className="nuovo-cliente-section__header">
               <span className="nuovo-cliente-section__icon nuovo-cliente-section__icon--blue">
@@ -437,8 +433,6 @@ const NuovoClienteModal = ({
               </div>
             </div>
           </section>
-
-          {/* RESIDENZA */}
 
           <section className="nuovo-cliente-section">
             <header className="nuovo-cliente-section__header">
@@ -557,8 +551,6 @@ const NuovoClienteModal = ({
               </div>
             </div>
           </section>
-
-          {/* ACCESSO AREA CLIENTE */}
 
           <section className="nuovo-cliente-section nuovo-cliente-section--accesso">
             <div className="nuovo-cliente-accesso">

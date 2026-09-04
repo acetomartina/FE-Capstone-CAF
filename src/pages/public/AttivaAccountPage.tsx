@@ -11,11 +11,6 @@ import "../../styles/LoginPage/login-form.css";
 import "../../styles/PasswordPage/password-page.css";
 import "../../styles/LoginPage/login-responsive.css";
 
-/**
- * Destinazione del link contenuto nella mail di invito che la sede manda
- * a ogni cliente appena creato. L'account nasce disattivato: finché il
- * cliente non passa di qui e sceglie la propria password, non può entrare.
- */
 const AttivaAccountPage = () => {
   const { token } = useParams<{ token: string }>();
 

@@ -422,10 +422,6 @@ a.contact-card:hover {
   }
 }
 
-/* =========================================================
-   MAP PLACEHOLDER — COOKIE CONSENT
-   ========================================================= */
-
 .contact-section__map-placeholder {
   position: absolute;
   inset: 0;
@@ -454,10 +450,6 @@ a.contact-card:hover {
   color: var(--caf-navy);
 }
 
-/* =========================================================
-   ICONA
-   ========================================================= */
-
 .contact-section__map-placeholder-icon {
   width: 56px;
   height: 56px;
@@ -478,10 +470,6 @@ a.contact-card:hover {
 
   box-shadow: 0 10px 26px rgba(36, 146, 57, 0.1);
 }
-
-/* =========================================================
-   TESTO
-   ========================================================= */
 
 .contact-section__map-placeholder strong {
   display: block;
@@ -508,10 +496,6 @@ a.contact-card:hover {
   font-size: 0.88rem;
   line-height: 1.7;
 }
-
-/* =========================================================
-   BOTTONE
-   ========================================================= */
 
 .contact-section__map-placeholder button {
   min-height: 46px;
@@ -551,17 +535,9 @@ a.contact-card:hover {
   box-shadow: 0 14px 30px rgba(36, 146, 57, 0.2);
 }
 
-/* =========================================================
-   IL BADGE DEVE RESTARE DAVANTI
-   ========================================================= */
-
 .contact-section__map-badge {
   z-index: 3;
 }
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
 
 @media (max-width: 680px) {
   .contact-section__map-placeholder {

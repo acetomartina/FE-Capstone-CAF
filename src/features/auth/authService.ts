@@ -27,7 +27,6 @@ export const authService = {
     return risposta.data;
   },
 
-  /* Il token viaggia da solo: lo aggiunge l'interceptor in api.ts. */
   async me(): Promise<RispostaUtenteCorrente> {
     const risposta =
       await api.get<RispostaUtenteCorrente>("/api/auth/me");
@@ -62,8 +61,6 @@ export const authService = {
     return risposta.data;
   },
 
-  /* Primo accesso di un cliente creato dalla sede: il token arriva dal
-     link nella mail di invito e vale una volta sola. */
   async attivaAccount(
     token: string,
     nuovaPassword: string,

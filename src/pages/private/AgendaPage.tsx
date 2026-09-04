@@ -50,7 +50,6 @@ import VistaScadenze from "../../features/agenda/components/VistaScadenze";
 
 import "./AgendaPage.css";
 
-
 const AgendaPage = () => {
   const navigate = useNavigate();
 

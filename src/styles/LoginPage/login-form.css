@@ -2,9 +2,6 @@
   display: grid;
   gap: 1.4rem;
 }
-/* =========================================================
-   ALERT
-   ========================================================= */
 
 .password-alert {
   padding: 1.05rem 1.15rem;
@@ -35,9 +32,6 @@
   font-weight: 600;
   line-height: 1.55;
 }
-/* =========================================================
-   FORM GROUP
-   ========================================================= */
 
 .login-form__group {
   display: grid;
@@ -51,9 +45,6 @@
   font-size: 0.93rem;
   font-weight: 700;
 }
-/* =========================================================
-   CAMPI
-   ========================================================= */
 
 .login-form__field {
   min-height: 62px;
@@ -123,9 +114,6 @@
 .login-form__field .form-control::placeholder {
   color: #8a96aa;
 }
-/* =========================================================
-   MOSTRA / NASCONDI PASSWORD
-   ========================================================= */
 
 .login-form__password-toggle {
   flex: 0 0 auto;
@@ -162,9 +150,6 @@
   cursor: default;
   opacity: 0.55;
 }
-/* =========================================================
-   RICORDAMI + PASSWORD DIMENTICATA
-   ========================================================= */
 
 .login-form__options {
   margin-top: -0.25rem;
@@ -280,11 +265,6 @@
 
   border-radius: 3px;
 }
-/* =========================================================
-   CTA PRIMARIA CAF
-   Manteniamo Accedi come riferimento visivo.
-   La stessa classe viene utilizzata dagli altri form auth.
-   ========================================================= */
 
 .login-form__submit.btn {
   min-height: 58px;

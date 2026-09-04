@@ -43,7 +43,7 @@ const ContattiPage = () => {
     )}&output=embed`;
 
   const mapsDirectionsUrl =
-    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    `https:
       mapsQuery,
     )}`;
 

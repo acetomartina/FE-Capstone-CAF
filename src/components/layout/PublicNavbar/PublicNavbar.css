@@ -62,8 +62,6 @@
   font-weight: 800;
 }
 
-/* NAVIGAZIONE */
-
 .public-navbar__nav {
   align-items: center;
   gap: clamp(1.35rem, 2vw, 2.25rem);
@@ -117,8 +115,6 @@
 .public-navbar__link--active::after {
   transform: scaleX(1);
 }
-
-/* AZIONI DESKTOP */
 
 .public-navbar__desktop-actions {
   gap: 1rem;
@@ -175,8 +171,6 @@
   background: rgba(16, 44, 101, 0.1);
 }
 
-/* LINGUE */
-
 .public-navbar__languages {
   display: flex;
   align-items: center;
@@ -218,8 +212,6 @@
 
   font-size: 0.72rem;
 }
-
-/* AREA RISERVATA */
 
 .public-navbar__reserved {
   min-height: 46px;
@@ -269,8 +261,6 @@
 .public-navbar__reserved.active {
   color: var(--caf-white) !important;
 }
-
-/* MOBILE NAVBAR */
 
 .public-navbar__mobile-actions {
   gap: 0.55rem;
@@ -326,13 +316,9 @@
   color: #249239;
 }
 
-/* BLOCCO SCROLL */
-
 .public-navbar-menu-open {
   overflow: hidden;
 }
-
-/* MENU MOBILE */
 
 .public-mobile-menu {
   position: fixed;
@@ -370,8 +356,6 @@
   opacity: 1;
 }
 
-/* PANNELLO */
-
 .public-mobile-menu__panel {
   position: absolute;
 
@@ -408,8 +392,6 @@
 .public-mobile-menu--open .public-mobile-menu__panel {
   transform: translateX(0);
 }
-
-/* HEADER MOBILE */
 
 .public-mobile-menu__header {
   min-height: 82px;
@@ -503,8 +485,6 @@
   transform: rotate(5deg);
 }
 
-/* CONTENUTO MOBILE */
-
 .public-mobile-menu__content {
   min-height: calc(100% - 82px);
 
@@ -518,8 +498,6 @@
   display: grid;
   gap: 0.2rem;
 }
-
-/* LINK MOBILE */
 
 .public-mobile-menu__link {
   position: relative;
@@ -598,8 +576,6 @@
 .public-mobile-menu__link:hover .public-mobile-menu__link-text {
   transform: translateX(3px);
 }
-
-/* CONTATTI MOBILE */
 
 .public-mobile-menu__contacts {
   margin-top: 1.5rem;
@@ -704,8 +680,6 @@ a.public-mobile-menu__contact:hover strong {
   color: var(--caf-blue);
 }
 
-/* FONDO MOBILE */
-
 .public-mobile-menu__bottom {
   margin-top: auto;
 
@@ -748,8 +722,6 @@ a.public-mobile-menu__contact:hover strong {
 
   box-shadow: 0 16px 32px rgba(34, 139, 54, 0.26);
 }
-
-/* LINGUA MOBILE */
 
 .public-mobile-menu__languages {
   margin-top: 1.25rem;
@@ -801,8 +773,6 @@ a.public-mobile-menu__contact:hover strong {
 
   color: #cbd2cf;
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 1199px) {
   .public-navbar__container {
@@ -860,8 +830,6 @@ a.public-mobile-menu__contact:hover strong {
     padding: 1.25rem;
   }
 }
-
-/* ACCESSIBILITÀ */
 
 @media (prefers-reduced-motion: reduce) {
   .public-navbar *,

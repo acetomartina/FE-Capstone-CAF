@@ -1,7 +1,3 @@
-/* =========================================================
-   DETTAGLIO SERVIZIO
-   ========================================================= */
-
 .dettaglio-servizio-page {
   width: 100%;
   max-width: 1440px;
@@ -10,10 +6,6 @@
 
   color: #26344d;
 }
-
-/* =========================================================
-   TOPBAR
-   ========================================================= */
 
 .dettaglio-servizio-topbar {
   margin-bottom: 22px;
@@ -87,8 +79,6 @@
   color: var(--caf-navy);
 }
 
-/* MODIFICA */
-
 .dettaglio-servizio-edit-button {
   padding: 0 14px;
 
@@ -110,8 +100,6 @@
   box-shadow: 0 8px 20px rgba(36, 122, 58, 0.1);
 }
 
-/* SALVA */
-
 .dettaglio-servizio-save-button {
   padding: 0 14px;
 
@@ -130,8 +118,6 @@
 
   box-shadow: 0 10px 24px rgba(36, 122, 58, 0.2);
 }
-
-/* ANNULLA */
 
 .dettaglio-servizio-cancel-button {
   padding: 0 14px;
@@ -155,10 +141,6 @@
 
   cursor: not-allowed;
 }
-
-/* =========================================================
-   HERO
-   ========================================================= */
 
 .dettaglio-servizio-hero {
   position: relative;
@@ -222,10 +204,6 @@
   line-height: 1.65;
 }
 
-/* =========================================================
-   EDIT HERO
-   ========================================================= */
-
 .dettaglio-servizio-title-input,
 .dettaglio-servizio-description-input,
 .dettaglio-servizio-inline-input,
@@ -288,10 +266,6 @@
   line-height: 1.55;
 }
 
-/* =========================================================
-   BADGES
-   ========================================================= */
-
 .dettaglio-servizio-badges {
   margin-top: 18px;
 
@@ -335,10 +309,6 @@
   background: var(--caf-white)6dc;
   color: #9a7418;
 }
-
-/* =========================================================
-   INFO GRID
-   ========================================================= */
 
 .dettaglio-servizio-info-grid {
   margin-bottom: 24px;
@@ -459,10 +429,6 @@
   font-size: 0.72rem;
 }
 
-/* =========================================================
-   MAIN LAYOUT
-   ========================================================= */
-
 .dettaglio-servizio-layout {
   display: grid;
 
@@ -483,10 +449,6 @@
 
   gap: 18px;
 }
-
-/* =========================================================
-   PANEL
-   ========================================================= */
 
 .dettaglio-servizio-panel {
   overflow: hidden;
@@ -574,10 +536,6 @@
   font-weight: 700;
 }
 
-/* =========================================================
-   DETAILS
-   ========================================================= */
-
 .dettaglio-servizio-details {
   padding: 20px;
 
@@ -640,10 +598,6 @@
   line-height: 1.6;
 }
 
-/* =========================================================
-   DOCUMENT HEADER
-   ========================================================= */
-
 .dettaglio-servizio-documenti-header-actions {
   display: flex;
   align-items: center;
@@ -686,10 +640,6 @@
 
   box-shadow: 0 7px 18px rgba(63, 98, 165, 0.1);
 }
-
-/* =========================================================
-   LISTA DOCUMENTI
-   ========================================================= */
 
 .dettaglio-servizio-documenti {
   padding: 12px;
@@ -846,10 +796,6 @@
   color: #a25353 !important;
 }
 
-/* =========================================================
-   ACTION DOCUMENTI
-   ========================================================= */
-
 .dettaglio-servizio-documento__actions {
   flex-shrink: 0;
 
@@ -923,10 +869,6 @@
 
   cursor: not-allowed;
 }
-
-/* =========================================================
-   EDITOR DOCUMENTO
-   ========================================================= */
 
 .dettaglio-servizio-documento-editor {
   margin: 4px 0;
@@ -1074,10 +1016,6 @@
   box-shadow: 0 0 0 3px rgba(63, 98, 165, 0.07);
 }
 
-/* =========================================================
-   OBBLIGATORIETA
-   ========================================================= */
-
 .dettaglio-servizio-documento-editor__bottom {
   margin-top: 14px;
 
@@ -1125,10 +1063,6 @@
   background: var(--caf-green-soft);
   color: var(--caf-green);
 }
-
-/* =========================================================
-   VISIBILITY SWITCH
-   ========================================================= */
 
 .dettaglio-servizio-visibility-toggle {
   min-width: 210px;
@@ -1214,10 +1148,6 @@
   transform: translateX(18px);
 }
 
-/* =========================================================
-   DOCUMENT EDITOR ACTIONS
-   ========================================================= */
-
 .dettaglio-servizio-documento-editor__actions {
   margin-top: 15px;
 
@@ -1271,10 +1201,6 @@
 
   cursor: not-allowed;
 }
-
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
 
 .dettaglio-servizio-sidebar {
   display: flex;
@@ -1361,10 +1287,6 @@
   white-space: nowrap;
 }
 
-/* =========================================================
-   CONFIG SWITCHES
-   ========================================================= */
-
 .dettaglio-servizio-switches {
   display: flex;
   flex-direction: column;
@@ -1413,10 +1335,6 @@
   line-height: 1.3;
 }
 
-/* =========================================================
-   MESSAGGI
-   ========================================================= */
-
 .dettaglio-servizio-state,
 .dettaglio-servizio-error,
 .dettaglio-servizio-empty,
@@ -1460,10 +1378,6 @@
   font-weight: 650;
 }
 
-/* =========================================================
-   TABLET
-   ========================================================= */
-
 @media (max-width: 1100px) {
   .dettaglio-servizio-info-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1479,10 +1393,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
 
 @media (max-width: 640px) {
   .dettaglio-servizio-page {

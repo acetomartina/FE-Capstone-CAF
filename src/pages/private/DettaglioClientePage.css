@@ -54,8 +54,6 @@
   margin-bottom: 1rem;
 }
 
-/* HERO */
-
 .dettaglio-cliente-hero {
   margin-bottom: 1.25rem;
   padding: 1.3rem;
@@ -184,8 +182,6 @@
   font-size: 1rem;
 }
 
-/* OVERVIEW */
-
 .dettaglio-cliente-overview {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(330px, 0.85fr);
@@ -294,8 +290,6 @@
 .dettaglio-cliente-fields__full {
   grid-column: 1 / -1;
 }
-
-/* TESSERA */
 
 .dettaglio-cliente-tessera-card {
   min-height: 265px;
@@ -456,8 +450,6 @@
 .dettaglio-cliente-tessera__create.btn:focus {
   background: #066f36;
 }
-
-/* PRATICHE */
 
 .dettaglio-cliente-pratiche {
   margin-top: 1.15rem;
@@ -701,8 +693,6 @@
   font-size: 1rem;
 }
 
-/* STORICO */
-
 .dettaglio-cliente-storico {
   margin-top: 1.15rem;
   padding: 1.25rem;
@@ -797,8 +787,6 @@
   font-weight: 800;
 }
 
-/* MODAL */
-
 .dettaglio-cliente-modal__eyebrow {
   color: #7b6c9a;
 }
@@ -844,8 +832,6 @@
   font-size: 0.68rem;
   font-weight: 650;
 }
-
-/* MODIFICA CLIENTE */
 
 .dettaglio-cliente-card__edit.btn {
   min-height: 36px;
@@ -1102,8 +1088,6 @@
   color: var(--caf-white);
 }
 
-/* AZIONI MODAL */
-
 .dettaglio-cliente-modal__footer {
   min-height: 70px;
   padding: 0.85rem 1.2rem;
@@ -1192,8 +1176,6 @@
 
   box-shadow: none;
 }
-
-/* APPUNTAMENTI */
 
 .dettaglio-cliente-appuntamenti {
   margin-top: 1.15rem;
@@ -1447,8 +1429,6 @@
     justify-content: center;
   }
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 991.98px) {
   .dettaglio-cliente-hero {

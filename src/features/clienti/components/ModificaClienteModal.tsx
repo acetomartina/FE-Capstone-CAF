@@ -11,7 +11,6 @@ interface ModificaClienteModalProps {
   mostraModal: boolean;
   suChiusura: () => void;
 
-  /* Null finché la scheda non è caricata: il modal non si apre prima. */
   valoriForm: AggiornaClienteRequest | null;
 
   aggiornaCampo: <K extends keyof AggiornaClienteRequest>(
@@ -25,13 +24,6 @@ interface ModificaClienteModalProps {
   messaggioErrore: string | null;
 }
 
-/**
- * Modifica dell'anagrafica cliente.
- *
- * Vive fuori dalla pagina perché è un form autonomo di quattro sezioni —
- * identificazione, contatti, residenza, domicilio — che con il resto
- * della scheda condivide soltanto i dati da cui parte.
- */
 const ModificaClienteModal = ({
   mostraModal,
   suChiusura,

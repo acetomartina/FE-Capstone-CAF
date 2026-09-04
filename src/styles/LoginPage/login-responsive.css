@@ -13,11 +13,6 @@
     display: block;
   }
 
-  /*
-   * Sotto lg le colonne si impilano.
-   * L'accesso viene mostrato prima dell'hero,
-   * perché su tablet/mobile la priorità è entrare.
-   */
   .login-main,
   .login-main > .container-fluid {
     display: block;
@@ -43,10 +38,6 @@
     max-width: 650px;
   }
 
-  /*
-   * Su tablet le card rimangono in colonna,
-   * coerenti con lo Stack usato nel componente.
-   */
   .login-benefit {
     width: 100%;
   }
@@ -144,10 +135,6 @@
     font-size: 1.95rem;
   }
 
-  /*
-   * Su telefoni molto piccoli le due azioni
-   * sotto la password si impilano.
-   */
   .login-form__options {
     align-items: flex-start;
     flex-direction: column;

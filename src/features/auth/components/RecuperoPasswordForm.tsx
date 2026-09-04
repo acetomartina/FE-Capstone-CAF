@@ -16,14 +16,6 @@ const MESSAGGIO_NEUTRO =
 const MESSAGGIO_ERRORE =
   "Non è stato possibile inviare la richiesta per un problema tecnico. Riprova tra qualche minuto.";
 
-/*
- * Solo un guasto vero merita il messaggio di errore:
- * errore di rete oppure risposta 5xx.
- *
- * Qualsiasi altra risposta viene trattata in modo neutro,
- * così il recupero password non può essere utilizzato
- * per verificare l'esistenza di un account.
- */
 const erroreTecnico = (errore: unknown): boolean => {
   if (!axios.isAxiosError(errore)) {
     return true;

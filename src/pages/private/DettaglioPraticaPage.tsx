@@ -545,11 +545,6 @@ export default function DettaglioPraticaPage() {
             ),
         );
 
-        /*
-         * Il cambio stato del documento
-         * può cambiare automaticamente
-         * anche lo stato della pratica.
-         */
         const [
           nuovoRiepilogo,
           praticaAggiornata,

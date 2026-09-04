@@ -1,4 +1,3 @@
-/* Occupa tutto lo spazio disponibile tra navbar e footer. */
 .login-page {
   flex: 1;
   min-height: 0;
@@ -35,10 +34,6 @@
   align-items: stretch;
 }
 
-/*
- * Entrambe le metà devono occupare l'intera altezza
- * della riga, anche quando il loro contenuto è più corto.
- */
 .login-main .row > [class*="col"] {
   min-height: 100%;
 }

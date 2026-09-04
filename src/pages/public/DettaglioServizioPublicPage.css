@@ -37,7 +37,6 @@
   width: min(1180px, calc(100% - 2rem));
   margin-inline: auto;
 }
-/* HERO */
 
 .servizio-dettaglio-hero {
   padding: 1.4rem 0 2.6rem;
@@ -229,7 +228,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-/* CONTENT */
 
 .servizio-dettaglio-content {
   padding: 5.5rem 0 7rem;
@@ -456,7 +454,6 @@
   font-weight: 850;
   text-decoration: none;
 }
-/* STATES */
 
 .servizio-dettaglio-state {
   min-height: 70vh;
@@ -513,7 +510,6 @@ to {
     transform: rotate(360deg);
   }
 }
-/* RESPONSIVE */
 
 @media (max-width: 900px) {
   .servizio-dettaglio-hero__panel {
@@ -624,9 +620,6 @@ to {
     transition: none;
   }
 }
-/* =========================================================
-   DIREZIONE EDITORIALE â€” PIÃ™ UMANA
-   ========================================================= */
 
 .servizio-dettaglio-page--green {
   --service-accent: var(--caf-green);
@@ -1113,9 +1106,6 @@ to {
     height: 48px;
   }
 }
-/* =========================================================
-   POST-IT — SWITCH REALE CON STATO REACT
-   ========================================================= */
 
 .servizio-dettaglio-paper-stack {
   width: 100%;
@@ -1152,9 +1142,6 @@ to {
     box-shadow 520ms ease;
   will-change: transform, opacity;
 }
-/* =========================================================
-   STATO INIZIALE — BIANCO DAVANTI
-   ========================================================= */
 
 .servizio-dettaglio-paper--main {
   width: 84%;
@@ -1189,11 +1176,6 @@ to {
   background: #ffe8f2;
   box-shadow: 0 16px 42px rgba(16, 44, 101, 0.06);
 }
-/* =========================================================
-   STATO SWITCH — ROSA DAVANTI
-   Il cambio NON dipende più dal :hover:
-   React aggiunge questa classe esplicitamente.
-   ========================================================= */
 
 .servizio-dettaglio-paper-stack--switched .servizio-dettaglio-paper--main {
   z-index: 1;
@@ -1209,9 +1191,6 @@ to {
   filter: none;
   box-shadow: 0 30px 72px rgba(217, 28, 118, 0.16);
 }
-/* =========================================================
-   CONTENUTO
-   ========================================================= */
 
 .servizio-dettaglio-paper--back small,
 .servizio-dettaglio-paper--main small {
@@ -1247,9 +1226,6 @@ to {
   background: var(--service-accent);
   box-shadow: 0 4px 10px rgba(36, 122, 58, 0.22);
 }
-/* =========================================================
-   MICRO COPY
-   ========================================================= */
 
 .servizio-dettaglio-paper__hint {
   position: absolute;
@@ -1270,9 +1246,6 @@ to {
   .servizio-dettaglio-paper__hint--main {
   opacity: 0;
 }
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
 
 @media (max-width: 900px) {
   .servizio-dettaglio-paper-stack {
@@ -1310,9 +1283,6 @@ to {
     transition: none;
   }
 }
-/* =========================================================
-   CHECKLIST DOCUMENTALE PUBBLICA
-   ========================================================= */
 
 .servizio-dettaglio-documents {
   margin-top: 1.2rem;
@@ -1600,10 +1570,6 @@ to {
     padding: 0 1rem 1rem;
   }
 }
-/* =========================================================
-   MOBILE FIX — POST-IT DETTAGLIO
-   Mantiene lo stile desktop ma evita i bordi su telefono.
-   ========================================================= */
 
 @media (max-width: 680px) {
   .servizio-dettaglio-paper-stack {
