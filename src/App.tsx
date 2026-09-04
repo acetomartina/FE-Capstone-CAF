@@ -14,7 +14,9 @@ import LoginPage from "./pages/public/LoginPage";
 import NotFoundPage from "./pages/public/NotFoundPage";
 import RecuperoPasswordPage from "./pages/public/RecuperoPasswordPage";
 import ResetPasswordPage from "./pages/public/ResetPasswordPage";
+/* Area cliente sospesa: consegna limitata a sito pubblico e area amministrativa.
 import AttivaAccountPage from "./pages/public/AttivaAccountPage";
+*/
 import DettaglioServizioPublicPage from "./pages/public/DettaglioServizioPublicPage";
 import PrivacyPolicyPage from "./pages/public/PrivacyPolicyPage";
 import CookiePolicyPage from "./pages/public/CookiePolicyPage";
@@ -24,14 +26,18 @@ import ClientiPage from "./pages/private/ClientiPage";
 import DettaglioClientePage from "./pages/private/DettaglioClientePage";
 import PratichePage from "./pages/private/PratichePage";
 import DettaglioPraticaPage from "./pages/private/DettaglioPraticaPage";
+/* Area cliente sospesa.
 import DettaglioPraticaClientePage from "./pages/private/DettaglioPraticaClientePage";
+*/
 import DocumentiPage from "./pages/private/DocumentiPage";
 import AgendaPage from "./pages/private/AgendaPage";
 import AreaAmministrazionePage from "./pages/private/AreaAmministrazionePage";
 import ConfigurazioneServiziPage from "./pages/private/ConfigurazioneServiziPage";
 import DettaglioServizioPage from "./pages/private/DettaglioServizioPage";
 import ConfigurazioneTesseramentoPage from "./pages/private/ConfigurazioneTesseramentoPage";
+/* Area cliente sospesa.
 import AreaClientePage from "./pages/private/AreaClientePage";
+*/
 import AreaDipendentePage from "./pages/private/AreaDipendentePage";
 import AreaRiservataPage from "./pages/private/AreaRiservataPage";
 
@@ -43,7 +49,6 @@ import {
 
 import {
   RUOLI_AMMINISTRAZIONE,
-  RUOLI_CLIENTE,
   RUOLI_DIPENDENTE,
 } from "./features/auth/percorsiRuolo";
 
@@ -52,7 +57,6 @@ const App = () => {
 
   return (
     <Routes>
-      {/* AREA PUBBLICA */}
 
       <Route element={<PublicLayout />}>
         <Route
@@ -108,13 +112,7 @@ const App = () => {
           }
         />
 
-        {/*
-          Destinazione del link di invito inviato
-          ai nuovi clienti.
-
-          La variante senza token mostra il messaggio
-          di link non valido invece di una pagina 404.
-        */}
+{/* ATTIVAZIONE ACCOUNT CLIENTE SOSPESA.
         <Route
           path="/attiva-account/:token"
           element={
@@ -128,6 +126,7 @@ const App = () => {
             <AttivaAccountPage />
           }
         />
+      */}
 
         <Route
           path="/privacy"
@@ -140,8 +139,6 @@ const App = () => {
         />
       </Route>
 
-      {/* AREA RISERVATA GENERICA */}
-
       <Route element={<RottaProtetta />}>
         <Route
           path="/area-riservata"
@@ -149,8 +146,8 @@ const App = () => {
         />
       </Route>
 
-      {/* AREA CLIENTE */}
-
+{/* AREA CLIENTE SOSPESA — consegna limitata a sito pubblico e area amministrativa.
+          Per riattivarla: togliere questo commento e quelli in percorsiRuolo.ts e PrivateLayout.tsx.
       <Route
         element={
           <RottaProtetta
@@ -172,8 +169,7 @@ const App = () => {
           />
         </Route>
       </Route>
-
-      {/* AREA DIPENDENTE */}
+      */}
 
       <Route
         element={
@@ -189,8 +185,6 @@ const App = () => {
           />
         </Route>
       </Route>
-
-      {/* AREA OPERATIVA */}
 
       <Route
         element={
@@ -239,8 +233,6 @@ const App = () => {
         </Route>
       </Route>
 
-      {/* AMMINISTRAZIONE */}
-
       <Route
         element={
           <RottaProtetta
@@ -285,8 +277,6 @@ const App = () => {
           />
         </Route>
       </Route>
-
-      {/* 404 */}
 
       <Route
         path="*"

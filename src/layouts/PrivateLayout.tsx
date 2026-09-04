@@ -110,6 +110,7 @@ const MENU_DIPENDENTE: VoceMenu[] = [
   },
 ];
 
+/* AREA CLIENTE SOSPESA.
 const MENU_CLIENTE: VoceMenu[] = [
   {
     label: "La mia area",
@@ -118,6 +119,8 @@ const MENU_CLIENTE: VoceMenu[] = [
     end: true,
   },
 ];
+*/
+const MENU_CLIENTE: VoceMenu[] = [];
 
 const PrivateLayout = () => {
   const utente = useAppSelector(
@@ -156,8 +159,10 @@ const PrivateLayout = () => {
     ruolo === "SUPER_ADMIN" ||
     ruolo === "ADMIN";
 
+  /* AREA CLIENTE SOSPESA: con l'area disattivata la home di un cliente
+     e' il sito pubblico. Per riattivare: rimettere "/cliente". */
   const destinazioneHome = cliente
-    ? "/cliente"
+    ? "/"
     : ruolo === "USER"
       ? "/dipendente"
       : "/dashboard";
