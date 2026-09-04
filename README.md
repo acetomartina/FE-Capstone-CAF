@@ -6,10 +6,10 @@ clienti, pratiche, documenti, tesseramenti e agenda.
 
 Capstone EPICODE — progetto full-stack diviso in due repository.
 
-| | Repository |
-|---|---|
+|                       | Repository                                      |
+| --------------------- | ----------------------------------------------- |
 | **Frontend** (questo) | https://github.com/acetomartina/FE-Capstone-CAF |
-| **Backend** | https://github.com/acetomartina/BE-Capstone-CAF |
+| **Backend**           | https://github.com/acetomartina/BE-Capstone-CAF |
 
 Per far girare l'applicazione servono entrambi. Le istruzioni complete
 sono qui sotto e comprendono anche il backend.
@@ -18,16 +18,16 @@ sono qui sotto e comprendono anche il backend.
 
 ## Stack
 
-| | |
-|---|---|
-| Libreria | React 19 |
-| Linguaggio | TypeScript 6 |
-| Build | Vite 8 |
-| Stato | Redux Toolkit |
-| Routing | React Router 7 |
-| UI | React Bootstrap 2 + CSS con design token |
-| HTTP | Axios |
-| Test | Vitest + Testing Library — 34 test |
+|            |                                          |
+| ---------- | ---------------------------------------- |
+| Libreria   | React 19                                 |
+| Linguaggio | TypeScript 6                             |
+| Build      | Vite 8                                   |
+| Stato      | Redux Toolkit                            |
+| Routing    | React Router 7                           |
+| UI         | React Bootstrap 2 + CSS con design token |
+| HTTP       | Axios                                    |
+| Test       | Vitest + Testing Library — 34 test       |
 
 ---
 
@@ -147,12 +147,14 @@ ripetere i valori.
 ## Funzionalita'
 
 **Sito pubblico**
+
 - Home, catalogo servizi navigabile per macro-area, scheda del singolo
   servizio con documenti richiesti
 - Chi siamo, contatti con mappa
 - Informativa privacy e cookie, con banner di consenso
 
 **Area amministrativa**
+
 - Dashboard con indicatori di sintesi
 - Clienti: elenco, ricerca, scheda con storico pratiche, tesseramenti
   e appuntamenti
@@ -162,14 +164,3 @@ ripetere i valori.
 - Agenda: scadenze delle pratiche e appuntamenti della sede
 - Configurazione dei servizi e della relativa checklist
 - Configurazione della quota di tesseramento
-
----
-
-## Stato del progetto
-
-Sono attivi il **sito pubblico** e l'**area amministrativa**.
-
-L'area riservata ai clienti e l'attivazione dell'account sono
-sviluppate ma sospese: le rotte sono commentate in `src/App.tsx`,
-`src/features/auth/percorsiRuolo.ts` e `src/layouts/PrivateLayout.tsx`,
-ciascuna con l'indicazione di come riattivarle.
